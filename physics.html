@@ -3,72 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics - JEE Master Hub</title>
-        
-        
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <title>Physics Hub - JEE Master Hub</title>
+    
+    <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        :root {
-            --bg: #0f0f0f;
-            --panel: #1a1a1a;
-            --glow: #00ffcc;
-            --text: #ffffff;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg);
-            color: var(--text);
-
-        }
-
-        /* Table ko mobile par responsive banane ke liye */
-        .table-wrapper {
-            overflow-x: auto;
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 500px; /* Mobile par table ko dabne se rokega */
-            background: #000;
-        }
-
-        th, td {
-            border: 1px solid #333;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--glow);
-            color: #000;
-        }
-
-        .example-box {
-            background: #252525;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid var(--glow);
-            margin-top: 10px;
-            font-size: 0.95rem;
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 600px) {
-            .container { width: 98%; padding: 5px; }
-            .chapter-card { padding: 15px; }
-            summary { font-size: 1.1rem; }
-        }
+        body { background: #0f0f0f; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        .container { width: 95%; max-width: 900px; margin: 20px auto; padding: 10px; box-sizing: border-box; }
+        .back-btn { background: transparent; color: #00ffcc; border: 1px solid #00ffcc; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
+        .back-btn:hover { background: #00ffcc; color: black; }
+        
+        .chapter-card { background: #1a1a1a; border-left: 5px solid #00ffcc; border-radius: 12px; padding: 20px; margin-bottom: 25px; width: 100%; box-sizing: border-box; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .formula-box { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; margin: 15px 0; color: #eee; line-height: 1.8; overflow-x: auto; }
+        details summary { cursor: pointer; font-weight: bold; color: #00ffcc; font-size: 1.3rem; list-style: none; padding: 10px 0; }
+        .example-box { background: #252525; padding: 12px; border-radius: 8px; border-left: 3px solid #ffad33; margin-top: 10px; font-size: 0.95rem; }
+        
+        .table-wrapper { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; background: #000; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: left; }
+        th { background: #00ffcc; color: black; }
+        h1 { color: #00ffcc; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
-    
-<body
+<body>
+
+<div class="container">
+    <button class="back-btn" onclick="location.href='index.html'">← Back to Dashboard</button>
+    <h1>Physics Revision Hub</h1>
+
+    <div class="chapter-card">
+        <details>
+            <summary>🚀 1. Kinematics & Mechanics</summary>
+            <div class="formula-box">
+                • <b>Equations of Motion:</b> $v = u + at$ | $s = ut + \frac{1}{2}at^2$ | $v^2 = u^2 + 2as$ <br>
+                • <b>Work Power Energy:</b> $W = \vec{F} \cdot \vec{d} = Fd \cos \theta$ <br>
+                • <b>Kinetic Energy:</b> $K = \frac{1}{2}mv^2$
+            </div>
+        </details>
+    </div>
+
+    <div class="chapter-card">
+        <details open>
+            <summary>⚛️ 2. Modern Physics (Complete Guide)</summary>
+            
+            <h3 style="color: #ffad33;">Dual Nature of Radiation</h3>
+            <div class="formula-box">
+                • Energy of a Photon: $E = h\nu = \frac{hc}{\lambda}$ <br>
+                • <b>Shortcut:</b> $E (\text{eV}) \approx \frac{12400}{\lambda (\text{Å})}$ <br>
+                • de-Broglie Wavelength: $\lambda = \frac{h}{p} = \frac{12.27}{\sqrt{V}} \text{ Å}$
+            </div>
+
+            <div class="example-box">
+                <b>Example:</b> Agar metal ka Work Function $2.0 \text{ eV}$ hai aur Photon $3.1 \text{ eV}$ ka hai, toh Stopping Potential ($V_0$) kya hoga? <br>
+                <b>Solution:</b> $K_{max} = 3.1 - 2.0 = 1.1 \text{ eV} \Rightarrow V_0 = 1.1 \text{ V}$.
+            </div>
+
+            <h3 style="color: #ffad33; margin-top: 25px;">Atomic Structure & Nuclei</h3>
+            <div class="formula-box">
+                • Radius of $n^{th}$ orbit: $r_n = 0.529 \frac{n^2}{Z} \text{ Å}$ <br>
+                • Energy: $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV}$ <br>
+                • Decay Law: $N = N_0 e^{-\lambda t}$ | $T_{1/2} = \frac{0.693}{\lambda}$
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Topic</th><th>Master Formula</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Photoelectric Effect</td><td>$K_{max} = h\nu - \phi$</td></tr>
+                        <tr><td>Mass-Energy</td><td>$E = \Delta m \cdot c^2$</td></tr>
+                        <tr><td>Moseley's Law</td><td>$\sqrt{\nu} = a(Z - b)$</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </div>
+</div>
+
+</body>
+</html>
 
 <div class="container">
     <button class="back-btn" onclick="location.href='index.html'">← Back to Dashboard</button>
