@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Master - JEE Formulas</title>
+    <style>
+        body { background: #0b0e14; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; }
+        h1 { color: #00ffcc; text-align: center; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,255,204,0.3); }
+        .back-btn { background: transparent; color: #00ffcc; border: 1px solid #00ffcc; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
+        .back-btn:hover { background: #00ffcc; color: black; }
+        .chapter-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 5px solid #ff007f; transition: transform 0.2s; }
+        .chapter-card:hover { transform: translateY(-3px); border-color: #ff007f; }
+        .formula-box { background: #0d1117; padding: 15px; border-radius: 8px; margin-top: 10px; font-family: 'Courier New', Courier, monospace; color: #58a6ff; border: 1px dashed #444; }
+        details summary { cursor: pointer; font-weight: bold; color: #f0883e; font-size: 1.1rem; outline: none; }
+        .example { color: #8b949e; font-size: 0.9rem; margin-top: 10px; padding-left: 10px; border-left: 2px solid #444; }
+        .mind-map-note { background: rgba(255, 165, 0, 0.1); color: #ffa500; padding: 10px; border-radius: 5px; font-size: 0.8rem; margin-top: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="back-btn" onclick="location.href='index.html'">← Home Dashboard</button>
+    
+    <h1>Maths Formula Hub</h1>
+
+    <div class="chapter-card" style="border-left-color: #00ffcc;">
+        <details open>
+            <summary>1. Quadratic Equations</summary>
+            <div class="formula-box">
+                Standard Form: ax² + bx + c = 0 <br>
+                Roots (x) = [-b ± √(b² - 4ac)] / 2a <br>
+                Sum of roots (α+β) = -b/a <br>
+                Product of roots (αβ) = c/a
+            </div>
+            <p class="example"><b>Quick Example:</b> For x² - 5x + 6 = 0, roots are 2 and 3. Sum = 5, Product = 6.</p>
+        </details>
+    </div>
+
+    <div class="chapter-card" style="border-left-color: #ff007f;">
+        <details>
+            <summary>2. Trigonometry Identities</summary>
+            <div class="formula-box">
+                sin²θ + cos²θ = 1 <br>
+                sin(2θ) = 2sinθcosθ <br>
+                cos(2θ) = cos²θ - sin²θ = 2cos²θ - 1
+            </div>
+            <div class="mind-map-note">Mind Map: Sin → Cos → Tan transformations are key for Calculus.</div>
+        </details>
+    </div>
+
+    <div class="chapter-card" style="border-left-color: #79c0ff;">
+        <details>
+            <summary>3. Differentiation (Calculus)</summary>
+            <div class="formula-box">
+                d/dx (xⁿ) = nxⁿ⁻¹ <br>
+                d/dx (sin x) = cos x <br>
+                d/dx (log x) = 1/x <br>
+                Product Rule: (uv)' = u'v + uv'
+            </div>
+            <p class="example"><b>Example:</b> d/dx (x³) = 3x².</p>
+        </details>
+    </div>
+
+    <p style="text-align:center; color:#484f58; font-size: 0.8rem;">Coordinate Geometry & Vectors coming soon...</p>
+</div>
+
+</body>
+</html>
+
