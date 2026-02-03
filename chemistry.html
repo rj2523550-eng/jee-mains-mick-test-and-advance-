@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Hub - JEE Concepts</title>
+    <style>
+        body { background: #0a0a0c; color: #d1d1d1; font-family: 'Segoe UI', sans-serif; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; }
+        h1 { color: #00ffcc; text-align: center; text-transform: uppercase; text-shadow: 0 0 15px rgba(0,255,204,0.4); }
+        .back-btn { background: transparent; color: #00ffcc; border: 1px solid #00ffcc; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
+        .back-btn:hover { background: #00ffcc; color: black; }
+        
+        /* Subject Cards */
+        .chem-card { background: #1c1c21; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-top: 4px solid #00ffcc; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .organic { border-top-color: #ffde59; }
+        .physical { border-top-color: #5271ff; }
+        .inorganic { border-top-color: #ff5757; }
+
+        details summary { cursor: pointer; font-weight: bold; color: #ffffff; font-size: 1.1rem; padding: 5px 0; }
+        .formula-box { background: #111; padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #444; color: #00ffcc; font-family: monospace; }
+        .note { color: #888; font-size: 0.85rem; margin-top: 8px; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="back-btn" onclick="location.href='index.html'">← Home Dashboard</button>
+    
+    <h1>Chemistry Revision Hub</h1>
+
+    <div class="chem-card physical">
+        <details open>
+            <summary>🧪 Physical Chemistry: Mole Concept</summary>
+            <div class="formula-box">
+                Moles (n) = Given Mass / Molar Mass <br>
+                Molarity (M) = Moles of Solute / Vol. of Solution (L) <br>
+                Ideal Gas Law: PV = nRT
+            </div>
+            <p class="note"><b>Note:</b> STP conditions use 22.4L for 1 mole of gas.</p>
+        </details>
+    </div>
+
+    <div class="chem-card organic">
+        <details>
+            <summary>🍀 Organic Chemistry: General Basics</summary>
+            <div class="formula-box">
+                - Inductive Effect: Electronic displacement via sigma bonds. <br>
+                - Resonance: Delocalization of pi electrons. <br>
+                - SN1 vs SN2: Reaction mechanisms for alkyl halides.
+            </div>
+            <div class="note">Focus on Name Reactions like Wurtz, Kolbe, and Reimer-Tiemann.</div>
+        </details>
+    </div>
+
+    <div class="chem-card inorganic">
+        <details>
+            <summary>🧱 Inorganic Chemistry: Periodic Table</summary>
+            <div class="formula-box">
+                - Ionization Energy: Increases across period, decreases down group. <br>
+                - Atomic Radius: Decreases across period, increases down group. <br>
+                - Hybridization: sp, sp2, sp3, sp3d, sp3d2.
+            </div>
+            <div class="note"><b>Tip:</b> Block-wise properties (s, p, d, f) are very scoring!</div>
+        </details>
+    </div>
+
+    <p style="text-align:center; color:#444; font-size: 0.8rem;">Thermodynamics & Kinetics coming soon...</p>
+</div>
+
+</body>
+</html>
+
