@@ -6,9 +6,7 @@
     <title>Physics Hub - JEE Master Hub</title>
     
     <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-    };
+      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -20,7 +18,7 @@
         
         .chapter-card { background: #1a1a1a; border-left: 5px solid #00ffcc; border-radius: 12px; padding: 20px; margin-bottom: 25px; width: 100%; box-sizing: border-box; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .formula-box { background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; margin: 15px 0; color: #eee; line-height: 1.8; overflow-x: auto; }
-        details summary { cursor: pointer; font-weight: bold; color: #00ffcc; font-size: 1.3rem; list-style: none; padding: 10px 0; }
+        details summary { cursor: pointer; font-weight: bold; color: #00ffcc; font-size: 1.3rem; list-style: none; padding: 10px 0; outline: none; }
         .example-box { background: #252525; padding: 12px; border-radius: 8px; border-left: 3px solid #ffad33; margin-top: 10px; font-size: 0.95rem; }
         
         .table-wrapper { overflow-x: auto; margin-top: 15px; }
@@ -40,9 +38,8 @@
         <details>
             <summary>🚀 1. Kinematics & Mechanics</summary>
             <div class="formula-box">
-                • <b>Equations of Motion:</b> $v = u + at$ | $s = ut + \frac{1}{2}at^2$ | $v^2 = u^2 + 2as$ <br>
-                • <b>Work Power Energy:</b> $W = \vec{F} \cdot \vec{d} = Fd \cos \theta$ <br>
-                • <b>Kinetic Energy:</b> $K = \frac{1}{2}mv^2$
+                • <b>Motion:</b> $v = u + at$ | $s = ut + \frac{1}{2}at^2$ | $v^2 = u^2 + 2as$ <br>
+                • <b>Work:</b> $W = Fd \cos \theta$ | <b>Power:</b> $P = F \cdot v$
             </div>
         </details>
     </div>
@@ -55,19 +52,17 @@
             <div class="formula-box">
                 • Energy of a Photon: $E = h\nu = \frac{hc}{\lambda}$ <br>
                 • <b>Shortcut:</b> $E (\text{eV}) \approx \frac{12400}{\lambda (\text{Å})}$ <br>
-                • de-Broglie Wavelength: $\lambda = \frac{h}{p} = \frac{12.27}{\sqrt{V}} \text{ Å}$
+                • de-Broglie: $\lambda = \frac{12.27}{\sqrt{V}} \text{ Å}$
             </div>
 
             <div class="example-box">
-                <b>Example:</b> Agar metal ka Work Function $2.0 \text{ eV}$ hai aur Photon $3.1 \text{ eV}$ ka hai, toh Stopping Potential ($V_0$) kya hoga? <br>
-                <b>Solution:</b> $K_{max} = 3.1 - 2.0 = 1.1 \text{ eV} \Rightarrow V_0 = 1.1 \text{ V}$.
+                <b>Example:</b> If $\lambda = 4000 \text{ Å}$, then $E = 12400/4000 = 3.1 \text{ eV}$.
             </div>
 
             <h3 style="color: #ffad33; margin-top: 25px;">Atomic Structure & Nuclei</h3>
             <div class="formula-box">
-                • Radius of $n^{th}$ orbit: $r_n = 0.529 \frac{n^2}{Z} \text{ Å}$ <br>
-                • Energy: $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV}$ <br>
-                • Decay Law: $N = N_0 e^{-\lambda t}$ | $T_{1/2} = \frac{0.693}{\lambda}$
+                • $r_n = 0.529 \frac{n^2}{Z} \text{ Å}$ | $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV}$ <br>
+                • Nuclear Radius: $R = R_0 A^{1/3}$ | Half Life: $T_{1/2} = \frac{0.693}{\lambda}$
             </div>
 
             <div class="table-wrapper">
@@ -76,9 +71,8 @@
                         <tr><th>Topic</th><th>Master Formula</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Photoelectric Effect</td><td>$K_{max} = h\nu - \phi$</td></tr>
-                        <tr><td>Mass-Energy</td><td>$E = \Delta m \cdot c^2$</td></tr>
-                        <tr><td>Moseley's Law</td><td>$\sqrt{\nu} = a(Z - b)$</td></tr>
+                        <tr><td>Photoelectric</td><td>$K_{max} = h\nu - \phi$</td></tr>
+                        <tr><td>X-Rays</td><td>$\sqrt{\nu} = a(Z - b)$</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -89,40 +83,6 @@
 </body>
 </html>
 
-<div class="container">
-    <button class="back-btn" onclick="location.href='index.html'">← Back to Dashboard</button>
-    
-    <h1>Physics Concept Bank</h1>
-
-    <div class="chapter-card">
-        <details open>
-            <summary>1. Kinematics (Motion)</summary>
-            <div class="formula-box">
-                v = u + at <br>
-                s = ut + ½at² <br>
-                v² = u² + 2as
-            </div>
-            <p class="example"><b>Example:</b> If a car starts from rest (u=0) and accelerates at 2m/s² for 10s, its final velocity v = 0 + (2*10) = 20m/s.</p>
-        </details>
-    </div>
-
-    <div class="chapter-card">
-        <details>
-            <summary>2. Work, Energy & Power</summary>
-            <div class="formula-box">
-                Work (W) = F × d × cos(θ) <br>
-                Kinetic Energy = ½mv² <br>
-                Potential Energy = mgh
-            </div>
-            <p class="example"><b>Example:</b> A 2kg object at 5m height has P.E = 2 * 9.8 * 5 = 98 Joules.</p>
-        </details>
-    </div>
-
-    <p style="text-align:center; color:#555;">More chapters coming soon...</p>
-</div>
-
-</body>
-</html>
 <div class="chapter-card" style="border-left: 5px solid #00ffcc; background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     <details open>
         <summary style="font-size: 22px; color: #00ffcc; cursor: pointer; font-weight: bold; list-style: none; display: flex; align-items: center;">
