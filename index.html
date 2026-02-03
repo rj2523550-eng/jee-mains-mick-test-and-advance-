@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Study Hub - Login & Solver</title>
+    <style>
+        :root {
+            --bg: #0f0f0f; --panel: #1a1a1a; --text: #ffffff;
+            --glow: #00ffcc; --btn: #252525;
+        }
+
+        .light-mode {
+            --bg: #f4f7f6; --panel: #ffffff; --text: #1a1a1a;
+            --glow: #007bff; --btn: #e4e6eb;
+        }
+
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; transition: 0.3s; overflow-x: hidden; }
+
+        /* --- Login Overlay --- */
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: flex; justify-content: center;
+            align-items: center; z-index: 9999; transition: 0.5s;
+        }
+        .login-box {
+            background: var(--panel); padding: 40px; border-radius: 20px;
+            border: 1px solid var(--glow); text-align: center; width: 300px;
+            box-shadow: 0 0 20px var(--glow);
+        }
+        .login-box input {
+            width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;
+            border: 1px solid #444; background: #000; color: white;
+        }
+        .login-btn {
+            background: var(--glow); color: black; border: none;
+            padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;
+        }
+
+        /* --- Navigation Menu --- */
+        nav {
+            background: var(--panel); padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--glow); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 22px; font-weight: bold; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
+        
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--glow); }
+
+        /* --- Layout --- */
+        .container { display: flex; padding: 40px 5%; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        
+        /* Dropdown Menu Style */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: var(--panel);
+            min-width: 200px; box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            z-index: 1; border: 1px solid var(--glow); border-radius: 8px;
+        }
+        .dropdown-content a { padding: 12px 16px; display: block; text-align: left; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* Calculator & Review Styles (Same as before) */
+        .calculator { background: var(--panel); padding: 25px; border-radius: 30px; width: 360px; border: 1px solid #444; transform: perspective(1000px) rotateX(2deg); }
+        #display { width: 100%; height: 60px; font-size: 24px; text-align: right; background: #000; color: var(--glow); border: none; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        button { padding: 15px; border-radius: 8px; border: none; background: var(--btn); color: var(--text); cursor: pointer; }
+        .op { background: #d35400 !important; color: white; }
+        .solve { background: var(--glow) !important; color: black; font-weight: bold; grid-column: span 2; }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2 style="color: var(--glow)">JEE Login</h2>
+            <input type="text" id="username" placeholder="Student Name">
+            <input type="password" id="password" placeholder="Password (admin)">
+            <button class="login-btn" onclick="checkLogin()">Enter Website</button>
+            <p id="loginError" style="color: red; font-size: 12px; display: none;">Wrong credentials!</p>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <nav>
+            <div class="logo">JEE MASTER HUB</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <div class="dropdown">
+                    <a href="#" style="color: var(--glow);">Subjects ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#">Physics Section</a>
+                        <a href="#">Maths Section</a>
+                        <a href="#">Chemistry Section</a>
+                    </div>
+                </div>
+                <a href="#">PYQ Papers</a>
+                <button onclick="document.body.classList.toggle('light-mode')" style="background:none; border:1px solid var(--glow); color:var(--glow); cursor:pointer; padding:5px 10px; border-radius:15px;">🌓</button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div style="width: 280px; background: var(--panel); padding: 20px; border-radius: 15px;">
+                <h3 style="color: var(--glow)">Dashboard</h3>
+                <p>● JEE Mains 2024 PYQ</p>
+                <p>● JEE Mains 2023 PYQ</p>
+                <p>● Physics Formulas</p>
+                <hr style="border: 0.5px solid #444;">
+                <button class="login-btn" onclick="location.reload()">Logout</button>
+            </div>
+
+            <div class="calculator">
+                <input type="text" id="display" placeholder="0" readonly>
+                <div class="grid">
+                    <button onclick="clearDisplay()" class="op">AC</button>
+                    <button onclick="append('**')" class="op">^</button>
+                    <button onclick="append('/')" class="op">÷</button>
+                    <button onclick="backspace()" class="op">DEL</button>
+                    <button onclick="append('7')">7</button><button onclick="append('8')">8</button><button onclick="append('9')">9</button>
+                    <button onclick="append('*')" class="op">×</button>
+                    <button onclick="append('4')">4</button><button onclick="append('5')">5</button><button onclick="append('6')">6</button>
+                    <button onclick="append('-')" class="op">-</button>
+                    <button onclick="append('1')">1</button><button onclick="append('2')">2</button><button onclick="append('3')">3</button>
+                    <button onclick="append('+')" class="op">+</button>
+                    <button onclick="append('0')">0</button><button onclick="append('.')">.</button>
+                    <button onclick="calculate()" class="solve">= SOLVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Login Logic
+        function checkLogin() {
+            const pass = document.getElementById('password').value;
+            if (pass === "admin") { // Maine password 'admin' rakha hai
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        // Calculator Logic
+        let display = document.getElementById('display');
+        function append(val) { display.value += val; }
+        function clearDisplay() { display.value = ''; }
+        function backspace() { display.value = display.value.slice(0, -1); }
+        function calculate() {
+            try { display.value = eval(display.value); }
+            catch (e) { display.value = "Error"; }
+        }
+    </script>
+</body>
+</html>
+
