@@ -51,76 +51,117 @@
 
 </body>
 </html>
-<div class="chapter-card" style="border-left: 5px solid #00ffcc; background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+<div class="chapter-card" style="border-left: 5px solid #00ffcc; background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);">
     <details open>
-        <summary style="font-size: 20px; color: #00ffcc; cursor: pointer; font-weight: bold;">
-            🚀 Modern Physics (High Weightage)
+        <summary style="font-size: 22px; color: #00ffcc; cursor: pointer; font-weight: bold; list-style: none; display: flex; align-items: center;">
+            <span style="margin-right: 10px;">⚛️</span> Modern Physics (Complete JEE Guide)
         </summary>
 
-        <div style="margin-top: 15px;">
-            <h3 style="color: #ffad33; border-bottom: 1px solid #444;">1. Dual Nature of Radiation & Matter</h3>
-            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; color: #eee; font-family: monospace;">
-                • <b>Photon Energy:</b> $E = h\nu = \frac{hc}{\lambda}$ (Yaad rakhein: $hc \approx 12400 \text{ eV}\cdot\text{Å}$)<br>
-                • <b>Einstein's Eq:</b> $K_{max} = eV_0 = h\nu - \phi$ (Jahan $\phi$ Work Function hai)<br>
-                • <b>De-Broglie Wavelength:</b> $\lambda = \frac{h}{p} = \frac{h}{\sqrt{2mK}}$<br>
-                • <b>For Electron:</b> $\lambda \approx \frac{12.27}{\sqrt{V}} \text{ Å}$
-            </div>
-            <p style="font-size: 14px; color: #bbb;"><b>Example:</b> Agar wavelength aadhi ($\lambda/2$) kar di jaye, toh photon ki energy double ($2E$) ho jayegi.</p>
-        </div>
-
         <div style="margin-top: 20px;">
-            <h3 style="color: #ffad33; border-bottom: 1px solid #444;">2. Atoms (Bohr's Model)</h3>
-            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; color: #eee; font-family: monospace;">
-                • <b>Radius:</b> $r_n = 0.529 \frac{n^2}{Z} \text{ Å}$<br>
-                • <b>Velocity:</b> $v_n = 2.18 \times 10^6 \frac{Z}{n} \text{ m/s}$<br>
-                • <b>Energy:</b> $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV}$<br>
-                • <b>Transition:</b> $\frac{1}{\lambda} = RZ^2 \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)$
+            <h3 style="color: #ffad33; border-bottom: 1px solid #444; padding-bottom: 5px;">1. Dual Nature of Radiation and Matter</h3>
+            <p style="font-size: 14px; color: #aaa; font-style: italic;">Is section mein photon energy aur de-Broglie wavelength sabse zyada pucha jata hai.</p>
+            
+            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; line-height: 1.8;">
+                • <b>Energy of a Photon:</b> $E = h\nu = \frac{hc}{\lambda}$ <br>
+                • <span style="color: #00ffcc;"><b>Shortcut:</b></span> $E (\text{in eV}) \approx \frac{12400}{\lambda (\text{in \AA})}$ ya $\frac{1240}{\lambda (\text{in nm})}$ <br>
+                • <b>Einstein’s Photoelectric Equation:</b> $K_{max} = eV_0 = h\nu - \phi$ <br>
+                <small>(Yahan $V_0$ stopping potential hai aur $\phi$ (work function) = $h\nu_{threshold}$)</small> <br>
+                • <b>de-Broglie Wavelength:</b> $\lambda = \frac{h}{p} = \frac{h}{mv} = \frac{h}{\sqrt{2mK}}$ <br>
+                • <b>For an electron:</b> $\lambda \approx \sqrt{\frac{150}{V}} \text{ \AA} \approx \frac{12.27}{\sqrt{V}} \text{ \AA}$
+            </div>
+
+            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #00ffcc;">
+                <b>Example:</b> Agar ek metal ka work function $2.0 \text{ eV}$ hai aur uspar $4000 \text{ \AA}$ ki light girti hai, to stopping potential kya hoga? <br>
+                <b>Solution:</b> $E = \frac{12400}{4000} = 3.1 \text{ eV}$. <br>
+                Ab, $K_{max} = 3.1 - 2.0 = 1.1 \text{ eV}$. Isliye, <span style="color: #00ffcc;">$V_0 = 1.1 \text{ V}$</span>.
             </div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <h3 style="color: #ffad33; border-bottom: 1px solid #444;">3. Nuclei & Radioactivity</h3>
-            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; color: #eee; font-family: monospace;">
-                • <b>Nuclear Radius:</b> $R = R_0 A^{1/3}$ (Jahan $R_0 = 1.1 \text{ fm}$)<br>
-                • <b>Mass Defect:</b> $\Delta m = [Zm_p + (A-Z)m_n] - M_{nucleus}$<br>
-                • <b>Decay Law:</b> $N = N_0 e^{-\lambda t}$<br>
-                • <b>Half Life:</b> $T_{1/2} = \frac{0.693}{\lambda}$
+        <div style="margin-top: 25px;">
+            <h3 style="color: #ffad33; border-bottom: 1px solid #444; padding-bottom: 5px;">2. Atomic Structure (Bohr’s Model)</h3>
+            <p style="font-size: 13px; color: #888;">*Formulas sirf hydrogen-like atoms ($Z = 1, 2, 3 \dots$) ke liye valid hain.</p>
+            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
+                • <b>Radius of $n^{th}$ orbit:</b> $r_n = 0.529 \frac{n^2}{Z} \text{ \AA}$ <br>
+                • <b>Velocity in $n^{th}$ orbit:</b> $v_n = 2.19 \times 10^6 \frac{Z}{n} \text{ m/s}$ <br>
+                • <b>Energy in $n^{th}$ orbit:</b> $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV}$ <br>
+                • <b>Wavelength:</b> $\frac{1}{\lambda} = RZ^2 \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)$ <br>
+                <small>(Rydberg constant $R \approx 1.097 \times 10^7 \text{ m}^{-1}$)</small>
             </div>
         </div>
 
-        <div style="margin-top: 30px; border: 2px dashed #00ffcc; padding: 15px; border-radius: 10px; background: rgba(0,255,204,0.05);">
-            <h3 style="text-align: center; color: #00ffcc;">🧠 Modern Physics Mind Map</h3>
-            <p style="text-align: center; font-size: 12px; color: #888;">(Niche di gayi sheet ko screenshot le kar save karein)</p>
-            
-            <div style="background: #000; padding: 20px; border-radius: 8px; border: 1px solid #333;">
-                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                    <tr>
-                        <th style="border: 1px solid #444; padding: 8px; color: #ffad33;">Topic</th>
-                        <th style="border: 1px solid #444; padding: 8px; color: #ffad33;">Key Formula</th>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #444; padding: 8px;">Photoelectric</td>
-                        <td style="border: 1px solid #444; padding: 8px;">$K_{max} = h\nu - \phi$</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #444; padding: 8px;">De-Broglie</td>
-                        <td style="border: 1px solid #444; padding: 8px;">$\lambda = h/p$</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #444; padding: 8px;">Bohr's Orbit</td>
-                        <td style="border: 1px solid #444; padding: 8px;">$mvr = nh/2\pi$</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #444; padding: 8px;">Binding Energy</td>
-                        <td style="border: 1px solid #444; padding: 8px;">$E = \Delta m \cdot c^2$</td>
-                    </tr>
-                </table>
+        <div style="margin-top: 25px;">
+            <h3 style="color: #ffad33; border-bottom: 1px solid #444; padding-bottom: 5px;">3. Nuclear Physics</h3>
+            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
+                • <b>Mass-Energy Equivalence:</b> $E = \Delta m \cdot c^2$ <br>
+                • <b>Unit:</b> $1 \text{ amu} = 931.5 \text{ MeV}$ <br>
+                • <b>Nuclear Radius:</b> $R = R_0 A^{1/3}$ ($R_0 \approx 1.2 \text{ fm}$) <br>
+                • <b>Decay Law:</b> $N = N_0 e^{-\lambda t}$ <br>
+                • <b>Half-life:</b> $T_{1/2} = \frac{0.693}{\lambda}$ <br>
+                • <b>Activity (A):</b> $A = \lambda N$
             </div>
-            
-            <button onclick="window.print()" style="width: 100%; margin-top: 15px; padding: 12px; background: #00ffcc; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;">
-                🖨️ Download Modern Physics Formula Sheet
-            </button>
+            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #00ffcc;">
+                <b>Example:</b> Half-life $20 \text{ mins}$ hai, kitne time baad $75\%$ decay ho jayega? <br>
+                <b>Solution:</b> $75\%$ decay = $25\%$ ($1/4$) bacha hai. $1 \xrightarrow{T_{1/2}} 1/2 \xrightarrow{T_{1/2}} 1/4$. <br>
+                Do half-lives lagenge. Total time = $2 \times 20 = \mathbf{40 \text{ mins}}$.
+            </div>
         </div>
+
+        <div style="margin-top: 25px;">
+            <h3 style="color: #ffad33; border-bottom: 1px solid #444; padding-bottom: 5px;">4. Semiconductors</h3>
+            <div class="formula-box" style="background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
+                • <b>Mass Action Law:</b> $n_e \cdot n_h = n_i^2$ <br>
+                • <b>Conductivity:</b> $\sigma = e(n_e \mu_e + n_h \mu_h)$ <br>
+                • <b>Logic Gates:</b> Practice AND, OR, NOT, NAND, NOR. <br>
+                <small style="color: #ff5757;">*JEE Tip: NAND/NOR se basic gates banane ke questions zaroor dekhein.</small>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; border: 2px solid #00ffcc; border-radius: 10px; overflow: hidden;">
+            <table style="width: 100%; border-collapse: collapse; background: #000; color: #fff; text-align: left; font-size: 13px;">
+                <thead>
+                    <tr style="background: #00ffcc; color: #000;">
+                        <th style="padding: 10px;">Topic</th>
+                        <th style="padding: 10px;">Key Concept</th>
+                        <th style="padding: 10px;">Master Formula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 10px;">Photons</td>
+                        <td style="padding: 10px;">Energy-Wavelength</td>
+                        <td style="padding: 10px;">$E = 12400/\lambda$</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 10px;">Photoelectric</td>
+                        <td style="padding: 10px;">Max KE</td>
+                        <td style="padding: 10px;">$K_{max} = h\nu - \phi$</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 10px;">Matter Waves</td>
+                        <td style="padding: 10px;">de-Broglie</td>
+                        <td style="padding: 10px;">$\lambda = h/\sqrt{2mqV}$</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 10px;">Atoms</td>
+                        <td style="padding: 10px;">Energy Levels</td>
+                        <td style="padding: 10px;">$E_n = -13.6 Z^2/n^2$</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #333;">
+                        <td style="padding: 10px;">Nuclei</td>
+                        <td style="padding: 10px;">Decay</td>
+                        <td style="padding: 10px;">$N/N_0 = (1/2)^{t/T_{1/2}}$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">X-Rays</td>
+                        <td style="padding: 10px;">Moseley's Law</td>
+                        <td style="padding: 10px;">$\sqrt{\nu} = a(Z - b)$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button onclick="window.print()" style="width: 100%; margin-top: 20px; padding: 12px; background: #00ffcc; color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase;">
+            🖨️ Print/Save Modern Physics Notes
+        </button>
     </details>
 </div>
-
