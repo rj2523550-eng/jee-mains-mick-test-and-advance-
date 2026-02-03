@@ -3,18 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Hub - JEE Master Hub</title>
+    <title>Physics - JEE Master Hub</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
-        body { background: #0f0f0f; color: white; font-family: 'Segoe UI', sans-serif; padding: 20px; line-height: 1.6; }
-        .container { max-width: 800px; margin: auto; }
-        h1 { color: #00ffcc; text-align: center; text-shadow: 0 0 10px #00ffcc; }
-        .back-btn { background: #00ffcc; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 20px; }
-        .chapter-card { background: #1a1a1a; border: 1px solid #333; border-radius: 12px; padding: 15px; margin-bottom: 20px; border-left: 5px solid #00ffcc; }
-        .formula-box { background: #222; padding: 10px; border-radius: 8px; margin-top: 10px; font-style: italic; color: #00ffcc; }
-        details summary { cursor: pointer; font-weight: bold; color: #ffad33; font-size: 18px; }
-        .example { color: #aaa; font-size: 14px; margin-top: 5px; border-top: 1px solid #333; padding-top: 5px; }
+        :root {
+            --bg: #0f0f0f;
+            --panel: #1a1a1a;
+            --glow: #00ffcc;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Container: Isse box side se chipkega nahi aur full width rahega */
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--glow);
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--glow);
+            border: 1px solid var(--glow);
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--glow);
+            color: black;
+        }
+
+        /* Chapter Card Fix: Isse box "column" jaisa patla nahi dikhega */
+        .chapter-card {
+            background: var(--panel);
+            border-left: 5px solid var(--glow);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            width: 100%; /* Full width */
+            box-sizing: border-box;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .formula-box {
+            background: #111;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin: 15px 0;
+            color: var(--glow);
+            overflow-x: auto; /* Lambe formulas ke liye scroll */
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #ffad33;
+            font-size: 1.2rem;
+            outline: none;
+            padding: 5px 0;
+        }
+
+        /* Table ko mobile par responsive banane ke liye */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px; /* Mobile par table ko dabne se rokega */
+            background: #000;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--glow);
+            color: #000;
+        }
+
+        .example-box {
+            background: #252525;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--glow);
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            .container { width: 98%; padding: 5px; }
+            .chapter-card { padding: 15px; }
+            summary { font-size: 1.1rem; }
+        }
     </style>
 </head>
+    
 <body>
 
 <div class="container">
