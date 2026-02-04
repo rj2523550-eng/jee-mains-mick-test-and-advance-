@@ -186,6 +186,35 @@
             catch (e) { display.value = "Error"; }
         }
     </script>
+<section id="feedback-panel" style="margin: 40px 20px; padding: 25px; background: #0a0a0a; border-radius: 20px; border: 1px solid #2ecc71; box-shadow: 0 0 15px rgba(46, 204, 113, 0.1);">
+    
+    <div style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #222;">
+        <p style="color: #2ecc71; font-size: 14px; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;">📊 LIVE WEBSITE ANALYTICS</p>
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Frj2523550-eng.github.io%2Fjee-mains-mick-test-and-advance-%2F&count_bg=%232ecc71&title_bg=%23333333&icon=&icon_color=%23E7E7E7&title=Total+Visits&edge_flat=false" alt="Total Visits">
+        <p style="color: #555; font-size: 11px; margin-top: 8px;">Total logo ne ab tak is website ko visit kiya hai.</p>
+    </div>
+
+    <h2 style="color: #fff; text-align: center; font-size: 1.2em; margin-bottom: 20px;">📝 Write a Review</h2>
+    
+    <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" style="display: flex; flex-direction: column; gap: 12px;">
+        <input type="text" name="name" placeholder="Aapka Naam" required 
+               style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: white; outline: none;">
+        
+        <select name="rating" required style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: white;">
+            <option value="">Rating Dein ⭐</option>
+            <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
+            <option value="4">⭐⭐⭐⭐ (Very Good)</option>
+            <option value="3">⭐⭐⭐ (Good)</option>
+        </select>
+
+        <textarea name="message" placeholder="Aapka feedback yahan likhein..." rows="3" required 
+                  style="padding: 12px; border-radius: 8px; border: 1px solid #333; background: #000; color: white; resize: none;"></textarea>
+        
+        <button type="submit" style="padding: 12px; background: #2ecc71; color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+            Submit Feedback
+        </button>
+    </form>
+</section>
 </body>
 </html>
 
