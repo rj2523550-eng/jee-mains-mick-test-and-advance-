@@ -418,3 +418,80 @@
            </div>
         </details>
 </div>
+
+<div class="chapter-card" style="border-left: 5px solid #3498db;">
+    <details>
+        <summary style="color: #3498db;">🔌 Electromagnetic Induction & AC</summary>
+
+        <h3 style="color: #2980b9;">1. Electromagnetic Induction (EMI)</h3>
+        <p style="font-size: 0.9em; color: #ccc;">Magnetic field se electricity generate karne ka process.</p>
+        <div class="formula-box" style="border-color: #3498db; color: #eaf2f8;">
+            • <b>Magnetic Flux ($\phi$):</b> $\phi = \vec{B} \cdot \vec{A} = BA \cos \theta$ <br>
+            • <b>Faraday's Law:</b> $e = -\frac{d\phi}{dt}$ (EMF is rate of change of flux) <br>
+            • <b>Lenz's Law:</b> Induced current hamesha apne 'cause' ka oppose karta hai. <br>
+            • <b>Motional EMF:</b> $e = BvL$ (Wire moving in B-field) <br>
+            • <b>Self-Inductance (L):</b> $\phi = LI$ | Energy $U = \frac{1}{2}LI^2$ <br>
+            • <b>Mutual Inductance (M):</b> $\phi_2 = MI_1$
+        </div>
+
+        <h3 style="color: #2980b9; margin-top: 15px;">2. Alternating Current (AC)</h3>
+        <div class="formula-box" style="border-color: #3498db; color: #eaf2f8;">
+            • <b>RMS Value:</b> $I_{rms} = \frac{I_0}{\sqrt{2}} \approx 0.707 I_0$ (Gharon mein 220V RMS hota hai) <br>
+            • <b>Reactance:</b> $X_L = \omega L$ | $X_C = \frac{1}{\omega C}$ <br>
+            • <b>Impedance (Z):</b> $Z = \sqrt{R^2 + (X_L - X_C)^2}$ <br>
+            • <b>Resonance ($X_L = X_C$):</b> $f = \frac{1}{2\pi\sqrt{LC}}$ | Current maximum hota hai. <br>
+            • <b>Power Factor:</b> $\cos \phi = \frac{R}{Z}$ | $P_{avg} = V_{rms}I_{rms} \cos \phi$
+        </div>
+
+        <h3 style="color: #2980b9; margin-top: 15px;">3. Transformer</h3>
+        <div class="formula-box" style="border-color: #3498db; color: #eaf2f8;">
+            • <b>Relation:</b> $\frac{V_s}{V_p} = \frac{N_s}{N_p} = \frac{I_p}{I_s}$ <br>
+            • <b>Step-up:</b> $N_s > N_p$ (Voltage badhata hai) <br>
+            • <b>Step-down:</b> $N_s < N_p$ (Voltage ghatata hai)
+        </div>
+
+        <h3 style="color: #2980b9; margin-top: 15px;">Key Components Summary</h3>
+        <div class="table-wrapper">
+            <table style="width:100%; border-collapse: collapse; font-size: 0.85em; background: #111;">
+                <thead>
+                    <tr style="background: #3498db; color: white;">
+                        <th style="padding: 8px; border: 1px solid #444;">Device</th>
+                        <th style="padding: 8px; border: 1px solid #444;">Property</th>
+                        <th style="padding: 8px; border: 1px solid #444;">Formula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #444;">Inductor</td>
+                        <td style="padding: 8px; border: 1px solid #444;">Opposes current change</td>
+                        <td style="padding: 8px; border: 1px solid #444;">$V_L = L \frac{dI}{dt}$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #444;">Capacitor</td>
+                        <td style="padding: 8px; border: 1px solid #444;">Blocks DC, allows AC</td>
+                        <td style="padding: 8px; border: 1px solid #444;">$X_C = 1/\omega C$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #444;">LCR Circuit</td>
+                        <td style="padding: 8px; border: 1px solid #444;">Phase difference</td>
+                        <td style="padding: 8px; border: 1px solid #444;">$\tan \phi = \frac{X_L - X_C}{R}$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #444;">Quality Factor</td>
+                        <td style="padding: 8px; border: 1px solid #444;">Sharpness of Resonance</td>
+                        <td style="padding: 8px; border: 1px solid #444;">$Q = \frac{1}{R} \sqrt{\frac{L}{C}}$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align:center; margin-top:20px; padding:15px; background:#000; border-radius:12px; border:1px solid #3498db;">
+            <p style="font-size:12px; color:#3498db; font-weight:bold; margin-bottom:10px;">📊 Visual: Transformer & LCR Circuit</p>
+            <img src="emi_ac_diagram.jpg" 
+                 alt="EMI and AC Diagram" 
+                 style="width:100%; max-width:500px; border-radius:8px;">
+        </div>
+
+    </details>
+        </div>
+        
