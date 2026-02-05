@@ -186,14 +186,47 @@
             catch (e) { display.value = "Error"; }
         }
     </script>
-<div style="margin: 20px 0; text-align: center; padding: 15px; background: #111; border-radius: 10px; border: 1px solid #2ecc71;">
-    <p style="color: #2ecc71; font-size: 14px; font-weight: bold; margin-bottom: 10px;">📊 TOTAL WEBSITE VISITS</p>
+<div id="mango-counter-zone" style="margin: 30px auto; max-width: 400px; padding: 20px; background: #0a0a0a; border: 2px solid #2ecc71; border-radius: 20px; text-align: center; position: relative; overflow: hidden;">
     
-    <img src="https://count.getloli.com/get/@rj2523550_jee_hub?theme=rule_34" 
-         alt="Visitor Counter" 
-         style="height: 35px;">
-         
-    <p style="color: #666; font-size: 11px; margin-top: 8px;">Unique counts powered by Live Analytics</p>
+    <h3 style="color: #2ecc71; font-size: 14px; margin-bottom: 10px;">🥭 MANGO GARDEN VISITOR LOG</h3>
+
+    <div style="position: relative; height: 180px; margin-bottom: 15px;">
+        <div style="font-size: 80px; line-height: 1;">🌳</div>
+        
+        <div id="falling-mango" style="position: absolute; left: 50%; transform: translateX(-50%); top: 40px; font-size: 30px; opacity: 0; transition: all 1.5s ease-in;">🥭</div>
+        
+        <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); font-size: 50px;">🧺</div>
+    </div>
+
+    <div style="display: flex; justify-content: space-around; background: #111; padding: 10px; border-radius: 10px;">
+        <div>
+            <p style="color: #888; font-size: 10px; margin: 0;">Total Visits</p>
+            <img src="https://count.getloli.com/get/@rj2523550_total?theme=asoul" style="height: 25px;">
+        </div>
+        <div style="border-left: 1px solid #333;"></div>
+        <div>
+            <p style="color: #888; font-size: 10px; margin: 0;">Unique People</p>
+            <img src="https://count.getloli.com/get/@rj2523550_unique?theme=asoul" style="height: 25px;">
+        </div>
+    </div>
+
+    <script>
+        // Mango Girne wala Animation logic
+        window.onload = function() {
+            const mango = document.getElementById('falling-mango');
+            
+            // 1 second baad mango girega
+            setTimeout(() => {
+                mango.style.opacity = '1';
+                mango.style.top = '120px'; // Tokri tak girna
+                
+                // Girne ke baad thoda hilega
+                setTimeout(() => {
+                    mango.style.transform = 'translateX(-50%) rotate(20deg)';
+                }, 1000);
+            }, 500);
+        };
+    </script>
 </div>
 </body>
 </html>
