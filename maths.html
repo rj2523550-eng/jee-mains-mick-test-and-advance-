@@ -27,45 +27,78 @@
 
     <div class="chapter-card" style="border-left-color: #00ffcc;">
         <details open>
-            <summary>1. Quadratic Equations</summary>
-            <div class="formula-box">
-                Standard Form: ax² + bx + c = 0 <br>
-                Roots (x) = [-b ± √(b² - 4ac)] / 2a <br>
-                Sum of roots (α+β) = -b/a <br>
-                Product of roots (αβ) = c/a
+            <div class="chapter-card" style="border-left: 5px solid #9b59b6; background: #1a1a2e;">
+    <details>
+        <summary style="color: #9b59b6;">📐1. Coordinate Geometry (Straight Lines & Conics)</summary>
+
+        <h3 style="color: #bb8fce;">1. Straight Lines (Saral Rekha)</h3>
+        <div class="formula-box" style="border-color: #9b59b6; background: #251b2e; color: #f5eef8;">
+            • <b>Distance:</b> $d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ <br>
+            • <b>Slope (m):</b> $m = \tan \theta = \frac{y_2-y_1}{x_2-x_1}$ <br>
+            • <b>Angle between Lines:</b> $\tan \theta = |\frac{m_1 - m_2}{1 + m_1m_2}|$ <br>
+            • <b>Parallel:</b> $m_1 = m_2$ | <b>Perpendicular:</b> $m_1m_2 = -1$ <br>
+            • <b>Point to Line Distance:</b> $d = \frac{|ax_1+by_1+c|}{\sqrt{a^2+b^2}}$
+        </div>
+
+        <h3 style="color: #bb8fce; margin-top:15px;">2. Circles (Vritt)</h3>
+        <div class="formula-box" style="border-color: #9b59b6; background: #251b2e; color: #f5eef8;">
+            • <b>Standard Eqn:</b> $x^2 + y^2 + 2gx + 2fy + c = 0$ <br>
+            • <b>Center:</b> $(-g, -f)$ | <b>Radius:</b> $\sqrt{g^2+f^2-c}$ <br>
+            • <b>Condition of Tangency:</b> $c^2 = r^2(1+m^2)$ <br>
+            • <b>Length of Tangent:</b> $L = \sqrt{S_1}$ | <b>Orthogonal:</b> $2g_1g_2 + 2f_1f_2 = c_1 + c_2$
+        </div>
+
+        <h3 style="color: #bb8fce; margin-top:15px;">3. Conic Sections (Quick Summary)</h3>
+        <div class="table-wrapper">
+            <table style="width:100%; border-collapse: collapse; font-size: 0.82em; background: #0f0f1a; color: #ddd;">
+                <thead>
+                    <tr style="background: #8e44ad; color: white;">
+                        <th style="padding: 6px; border: 1px solid #444;">Feature</th>
+                        <th style="padding: 6px; border: 1px solid #444;">Parabola ($y^2=4ax$)</th>
+                        <th style="padding: 6px; border: 1px solid #444;">Ellipse</th>
+                        <th style="padding: 6px; border: 1px solid #444;">Hyperbola</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 6px; border: 1px solid #444;">Eccentricity (e)</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$e = 1$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$\sqrt{1 - \frac{b^2}{a^2}}$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$\sqrt{1 + \frac{b^2}{a^2}}$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 6px; border: 1px solid #444;">Focus</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$(a, 0)$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$(\pm ae, 0)$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$(\pm ae, 0)$</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 6px; border: 1px solid #444;">Latus Rectum</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$4a$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$2b^2/a$</td>
+                        <td style="padding: 6px; border: 1px solid #444;">$2b^2/a$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 style="color: #bb8fce; margin-top:15px;">4. Golden Tricks for JEE</h3>
+        <div class="example-box" style="background: #2e1a3d; border-left: 4px solid #9b59b6; padding: 10px; color: #ebdef0;">
+            • <b>T=0 Rule:</b> Tangent ke liye $x^2 \to xx_1, x \to \frac{x+x_1}{2}$ replace karein. <br>
+            • <b>Director Circle:</b> Locus of $\perp$ tangents. <br>
+            &nbsp; - Circle: $x^2+y^2=2r^2$ | Ellipse: $x^2+y^2=a^2+b^2$
+        </div>
+
+        <div style="text-align:center; margin-top:20px; padding:15px; background:#000; border-radius:12px; border:1px solid #9b59b6;">
+            <p style="font-size:12px; color:#9b59b6; font-weight:bold; margin-bottom:10px;">📊 Visual: Conic Sections Geometry Map</p>
+            <img src="coordinate_geometry_map.jpg" 
+                 alt="Coordinate Geometry Diagram" 
+                 style="width:100%; max-width:500px; border-radius:8px;">
+        </div>
+
+    </details>
             </div>
-            <p class="example"><b>Quick Example:</b> For x² - 5x + 6 = 0, roots are 2 and 3. Sum = 5, Product = 6.</p>
-        </details>
-    </div>
-
-    <div class="chapter-card" style="border-left-color: #ff007f;">
-        <details>
-            <summary>2. Trigonometry Identities</summary>
-            <div class="formula-box">
-                sin²θ + cos²θ = 1 <br>
-                sin(2θ) = 2sinθcosθ <br>
-                cos(2θ) = cos²θ - sin²θ = 2cos²θ - 1
-            </div>
-            <div class="mind-map-note">Mind Map: Sin → Cos → Tan transformations are key for Calculus.</div>
-        </details>
-    </div>
-
-    <div class="chapter-card" style="border-left-color: #79c0ff;">
-        <details>
-            <summary>3. Differentiation (Calculus)</summary>
-            <div class="formula-box">
-                d/dx (xⁿ) = nxⁿ⁻¹ <br>
-                d/dx (sin x) = cos x <br>
-                d/dx (log x) = 1/x <br>
-                Product Rule: (uv)' = u'v + uv'
-            </div>
-            <p class="example"><b>Example:</b> d/dx (x³) = 3x².</p>
-        </details>
-    </div>
-
-    <p style="text-align:center; color:#484f58; font-size: 0.8rem;">Coordinate Geometry & Vectors coming soon...</p>
-</div>
-
+            
 </body>
 </html>
 
