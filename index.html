@@ -186,56 +186,57 @@
             catch (e) { display.value = "Error"; }
         }
     </script>
-<div id="mango-garden" style="margin: 40px auto; max-width: 500px; padding: 30px; background: linear-gradient(145deg, #0a0a0a, #1a1a1a); border-radius: 30px; border: 2px solid #ffcc00; text-align: center; font-family: 'Arial', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+<div style="margin: 40px auto; max-width: 700px; padding: 30px; background: #0d1117; border-radius: 20px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.6); font-family: 'Segoe UI', sans-serif;">
     
-    <h2 style="color: #ffcc00; font-size: 1.5rem; margin-bottom: 5px; text-shadow: 2px 2px 4px #000;">🥭 JEE HARVEST COUNTER</h2>
-    <p style="color: #888; font-size: 12px; margin-bottom: 20px;">Har naye visitor par ek aam tokri mein girega!</p>
-
-    <div style="position: relative; height: 250px; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid #333;">
-        
-        <div style="font-size: 120px; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1;">🌳</div>
-        
-        <div id="mango-fruit" style="position: absolute; left: 52%; top: 60px; font-size: 35px; z-index: 2; transition: all 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);">🥭</div>
-        
-        <div style="font-size: 60px; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); z-index: 3;">🧺</div>
-
-        <div style="position: absolute; bottom: 0; width: 100%; height: 15px; background: #2ecc71;"></div>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #58a6ff; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">📊 Community Impact</h2>
+        <p style="color: #8b949e; font-size: 13px;">Har Unique Visitor ko milta hai ek naya JEE Challenge!</p>
     </div>
 
-    <div style="display: flex; gap: 10px; margin-top: 20px;">
-        <div style="flex: 1; background: #222; padding: 10px; border-radius: 15px; border: 1px solid #444;">
-            <p style="color: #ffcc00; font-size: 10px; margin: 0;">TOTAL VISITS</p>
-            <img src="https://count.getloli.com/get/@rj_total_v?theme=asoul" style="height: 25px; margin-top: 5px;">
+    <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 180px; background: #161b22; padding: 20px; border-radius: 15px; border-bottom: 4px solid #238636; text-align: center;">
+            <p style="color: #2ea043; font-size: 12px; font-weight: bold; margin-bottom: 8px;">TOTAL CHALLENGES SERVED</p>
+            <img src="https://count.getloli.com/get/@rj_jee_total?theme=asoul" style="height: 30px; filter: hue-rotate(90deg);">
         </div>
-        <div style="flex: 1; background: #222; padding: 10px; border-radius: 15px; border: 1px solid #444;">
-            <p style="color: #2ecc71; font-size: 10px; margin: 0;">UNIQUE VISITORS</p>
-            <img src="https://count.getloli.com/get/@rj_unique_v?theme=asoul" style="height: 25px; margin-top: 5px;">
+        <div style="flex: 1; min-width: 180px; background: #161b22; padding: 20px; border-radius: 15px; border-bottom: 4px solid #1f6feb; text-align: center;">
+            <p style="color: #58a6ff; font-size: 12px; font-weight: bold; margin-bottom: 8px;">UNIQUE ASPIRANTS</p>
+            <img src="https://count.getloli.com/get/@rj_jee_unique?theme=asoul" style="height: 30px;">
         </div>
     </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            const mango = document.getElementById('mango-fruit');
-            
-            // Animation Sequence
-            setTimeout(() => {
-                // 1. Pehle aam thoda hilega (shake)
-                mango.style.transform = 'translateX(-50%) rotate(15deg)';
-                
-                setTimeout(() => {
-                    // 2. Phir aam niche girega tokri mein
-                    mango.style.top = '190px';
-                    mango.style.transform = 'translateX(-50%) rotate(-10deg)';
-                    
-                    // 3. Tokri mein girne ke baad gayab ho jayega (collected)
-                    setTimeout(() => {
-                        mango.style.opacity = '0';
-                    }, 1000);
-                }, 500);
-            }, 800);
-        });
-    </script>
+    <div id="question-box" style="background: #000; padding: 25px; border-radius: 15px; border: 1px dashed #58a6ff; position: relative; min-height: 150px;">
+        <span style="position: absolute; top: -12px; left: 20px; background: #58a6ff; color: #000; padding: 2px 12px; border-radius: 10px; font-weight: bold; font-size: 12px;">DAILY JEE CHALLENGE</span>
+        
+        <p id="subject-tag" style="color: #ffcc00; font-weight: bold; margin-bottom: 10px; font-size: 14px;"></p>
+        <p id="jee-question" style="color: #fff; font-size: 16px; line-height: 1.6; font-style: italic;">Loading your challenge...</p>
+        
+        <button onclick="generateQuestion()" style="margin-top: 15px; background: transparent; border: 1px solid #58a6ff; color: #58a6ff; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 12px; transition: 0.3s;">
+            Next Challenge ↻
+        </button>
+    </div>
 </div>
+
+<script>
+    const questions = [
+        {sub: "PHYSICS", q: "A particle moves in a circle of radius R with a constant speed v. What is the magnitude of average acceleration during the passage over an arc of angle 60°?"},
+        {sub: "CHEMISTRY", q: "Which of the following has the highest ionic radius? (A) F⁻ (B) O²⁻ (C) Na⁺ (D) Mg²⁺"},
+        {sub: "MATHS", q: "If α and β are the roots of x² - 5x + 6 = 0, find the value of α³ + β³."},
+        {sub: "PHYSICS", q: "Two capacitors of 2μF and 4μF are connected in parallel. A 10V battery is connected across them. Find the total energy stored."},
+        {sub: "CHEMISTRY", q: "What is the oxidation state of Cr in K₂Cr₂O₇?"},
+        {sub: "MATHS", q: "Find the number of ways to arrange the letters of the word 'GOOGLE' so that the two O's are together."},
+        {sub: "PHYSICS", q: "If the error in measuring the radius of a sphere is 2%, what is the error in its volume?"}
+    ];
+
+    function generateQuestion() {
+        const randomIndex = Math.floor(Math.random() * questions.length);
+        const selected = questions[randomIndex];
+        document.getElementById('subject-tag').innerText = "📍 Subject: " + selected.sub;
+        document.getElementById('jee-question').innerText = "Q: " + selected.q;
+    }
+
+    // Load first question on start
+    window.onload = generateQuestion;
+</script>
 </body>
 </html>
 
