@@ -186,46 +186,54 @@
             catch (e) { display.value = "Error"; }
         }
     </script>
-<div id="mango-counter-zone" style="margin: 30px auto; max-width: 400px; padding: 20px; background: #0a0a0a; border: 2px solid #2ecc71; border-radius: 20px; text-align: center; position: relative; overflow: hidden;">
+<div id="mango-garden" style="margin: 40px auto; max-width: 500px; padding: 30px; background: linear-gradient(145deg, #0a0a0a, #1a1a1a); border-radius: 30px; border: 2px solid #ffcc00; text-align: center; font-family: 'Arial', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
     
-    <h3 style="color: #2ecc71; font-size: 14px; margin-bottom: 10px;">🥭 MANGO GARDEN VISITOR LOG</h3>
+    <h2 style="color: #ffcc00; font-size: 1.5rem; margin-bottom: 5px; text-shadow: 2px 2px 4px #000;">🥭 JEE HARVEST COUNTER</h2>
+    <p style="color: #888; font-size: 12px; margin-bottom: 20px;">Har naye visitor par ek aam tokri mein girega!</p>
 
-    <div style="position: relative; height: 180px; margin-bottom: 15px;">
-        <div style="font-size: 80px; line-height: 1;">🌳</div>
+    <div style="position: relative; height: 250px; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid #333;">
         
-        <div id="falling-mango" style="position: absolute; left: 50%; transform: translateX(-50%); top: 40px; font-size: 30px; opacity: 0; transition: all 1.5s ease-in;">🥭</div>
+        <div style="font-size: 120px; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1;">🌳</div>
         
-        <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); font-size: 50px;">🧺</div>
+        <div id="mango-fruit" style="position: absolute; left: 52%; top: 60px; font-size: 35px; z-index: 2; transition: all 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);">🥭</div>
+        
+        <div style="font-size: 60px; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); z-index: 3;">🧺</div>
+
+        <div style="position: absolute; bottom: 0; width: 100%; height: 15px; background: #2ecc71;"></div>
     </div>
 
-    <div style="display: flex; justify-content: space-around; background: #111; padding: 10px; border-radius: 10px;">
-        <div>
-            <p style="color: #888; font-size: 10px; margin: 0;">Total Visits</p>
-            <img src="https://count.getloli.com/get/@rj2523550_total?theme=asoul" style="height: 25px;">
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <div style="flex: 1; background: #222; padding: 10px; border-radius: 15px; border: 1px solid #444;">
+            <p style="color: #ffcc00; font-size: 10px; margin: 0;">TOTAL VISITS</p>
+            <img src="https://count.getloli.com/get/@rj_total_v?theme=asoul" style="height: 25px; margin-top: 5px;">
         </div>
-        <div style="border-left: 1px solid #333;"></div>
-        <div>
-            <p style="color: #888; font-size: 10px; margin: 0;">Unique People</p>
-            <img src="https://count.getloli.com/get/@rj2523550_unique?theme=asoul" style="height: 25px;">
+        <div style="flex: 1; background: #222; padding: 10px; border-radius: 15px; border: 1px solid #444;">
+            <p style="color: #2ecc71; font-size: 10px; margin: 0;">UNIQUE VISITORS</p>
+            <img src="https://count.getloli.com/get/@rj_unique_v?theme=asoul" style="height: 25px; margin-top: 5px;">
         </div>
     </div>
 
     <script>
-        // Mango Girne wala Animation logic
-        window.onload = function() {
-            const mango = document.getElementById('falling-mango');
+        window.addEventListener('load', () => {
+            const mango = document.getElementById('mango-fruit');
             
-            // 1 second baad mango girega
+            // Animation Sequence
             setTimeout(() => {
-                mango.style.opacity = '1';
-                mango.style.top = '120px'; // Tokri tak girna
+                // 1. Pehle aam thoda hilega (shake)
+                mango.style.transform = 'translateX(-50%) rotate(15deg)';
                 
-                // Girne ke baad thoda hilega
                 setTimeout(() => {
-                    mango.style.transform = 'translateX(-50%) rotate(20deg)';
-                }, 1000);
-            }, 500);
-        };
+                    // 2. Phir aam niche girega tokri mein
+                    mango.style.top = '190px';
+                    mango.style.transform = 'translateX(-50%) rotate(-10deg)';
+                    
+                    // 3. Tokri mein girne ke baad gayab ho jayega (collected)
+                    setTimeout(() => {
+                        mango.style.opacity = '0';
+                    }, 1000);
+                }, 500);
+            }, 800);
+        });
     </script>
 </div>
 </body>
