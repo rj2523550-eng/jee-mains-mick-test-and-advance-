@@ -102,3 +102,74 @@
 </body>
 </html>
 
+            <div class="chapter-card" style="border-left: 5px solid #3498db; background: #0a192f; padding: 20px; border-radius: 15px; margin-bottom: 25px; color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <details open>
+        <summary style="color: #3498db; font-size: 1.3em; font-weight: bold; cursor: pointer; list-style: none;">
+            📘 Calculus (Limits, Continuity & Differentiation)
+        </summary>
+
+        <h3 style="color: #5dade2; border-bottom: 1px solid #1c2d46; margin-top: 20px;">1. Limits (Seema)</h3>
+        <div class="formula-box" style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
+            <p style="color: #ffcc00; font-weight: bold;">Indeterminate Forms:</p>
+            <p style="font-size: 0.9em;">$\frac{0}{0}, \frac{\infty}{\infty}, \infty - \infty, 0 \times \infty, 1^\infty, 0^0, \infty^0$</p>
+            
+            <p>• <b>L'Hopital's Rule:</b> If form is $\frac{0}{0}$ or $\frac{\infty}{\infty}$, then $\lim \frac{f(x)}{g(x)} = \lim \frac{f'(x)}{g'(x)}$</p>
+            <p>• <b>Standard Limits:</b> <br>
+                $\lim_{x \to 0} \frac{\sin x}{x} = 1$ | $\lim_{x \to 0} \frac{\tan x}{x} = 1$ | $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$ <br>
+                $\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1$ | $\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}$
+            </p>
+            <p style="background: #1a3a6d; padding: 8px; border-radius: 5px;">
+                🚀 <b>$1^\infty$ Shortcut:</b> If $\lim_{x \to a} [f(x)]^{g(x)}$ is $1^\infty$, then Result = $e^{\lim_{x \to a} g(x)[f(x)-1]}$
+            </p>
+        </div>
+
+        <h3 style="color: #5dade2; margin-top: 20px;">2. Continuity & Differentiability</h3>
+        <div class="formula-box" style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
+            • <b>Continuity:</b> $LHL = RHL = f(a)$ <br>
+            • <b>Differentiability:</b> Graph mein <i>"Sharp Corner"</i> ya <i>"Break"</i> nahi hona chahiye. <br>
+            • <b>Note:</b> Every differentiable function is continuous, but vice-versa is <u>NOT</u> true (e.g., $|x|$ at $x=0$).
+        </div>
+
+        
+
+        <h3 style="color: #5dade2; margin-top: 20px;">3. Differentiation Formulas</h3>
+        <div style="overflow-x: auto;">
+            <table style="width:100%; border-collapse: collapse; background: #0d1117; font-size: 0.85em;">
+                <tr style="background: #1f3a5f; color: white;">
+                    <th style="padding: 10px; border: 1px solid #333;">Function</th>
+                    <th style="padding: 10px; border: 1px solid #333;">Derivative $\frac{d}{dx}$</th>
+                </tr>
+                <tr><td>$x^n$</td><td>$nx^{n-1}$</td></tr>
+                <tr><td>$\sin x$</td><td>$\cos x$</td></tr>
+                <tr><td>$\cos x$</td><td>$-\sin x$</td></tr>
+                <tr><td>$\tan x$</td><td>$\sec^2 x$</td></tr>
+                <tr><td>$e^x$</td><td>$e^x$</td></tr>
+                <tr><td>$a^x$</td><td>$a^x \ln a$</td></tr>
+                <tr><td>$\ln x$</td><td>$1/x$</td></tr>
+                <tr><td>$\tan^{-1} x$</td><td>$\frac{1}{1+x^2}$</td></tr>
+            </table>
+        </div>
+
+        <h3 style="color: #5dade2; margin-top: 20px;">4. Rules & Applications</h3>
+        <div class="formula-box" style="background: #112240; padding: 15px; border-radius: 10px;">
+            • <b>Product Rule:</b> $(uv)' = u'v + uv'$ <br>
+            • <b>Quotient Rule:</b> $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$ <br>
+            • <b>Tangent Slope:</b> $m = \left(\frac{dy}{dx}\right)_{(x_1, y_1)}$ <br>
+            • <b>Normal Slope:</b> $m_n = -\frac{1}{dy/dx}$
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: #1a3a6d; border-radius: 10px; border-left: 4px solid #f1c40f;">
+            <h4 style="margin: 0; color: #f1c40f;">🌟 GOLDEN TRICKS FOR JEE</h4>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                • <b>Expansion Series:</b> $\sin x \approx x - \frac{x^3}{6}$, $e^x \approx 1 + x + \frac{x^2}{2}$. (L'Hopital se fast hai!) <br>
+                • <b>Sandwich Theorem:</b> If $f(x) \le g(x) \le h(x)$ and $\lim f = \lim h = L$, then $\lim g = L$.
+            </p>
+        </div>
+
+        <div style="text-align:center; margin-top:20px; padding:15px; background:#000; border-radius:12px; border:1px solid #3498db;">
+            <p style="font-size:12px; color:#3498db; font-weight:bold; margin-bottom:10px;">📊 Visual: Differentiation & Continuity Concepts</p>
+            <img src="calculus_map.jpg" alt="Calculus Concepts" style="width:100%; max-width:500px; border-radius:8px;">
+        </div>
+    </details>
+            </div>
+            
