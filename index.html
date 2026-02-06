@@ -238,5 +238,50 @@
     window.onload = generateQuestion;
 </script>
 </body>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; frame-src https://docs.google.com;">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<style>
+    /* Content selection ko disable karta hai */
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    /* Printing ko block karta hai (Notes save nahi honge) */
+    @media print {
+        body { display: none !important; }
+    }
+</style>
+
+<div style="margin: 20px; padding: 15px; background: rgba(248, 81, 73, 0.1); border: 1px dashed #f85149; border-radius: 10px; text-align: center;">
+    <p style="color: #f85149; font-family: sans-serif; font-size: 12px; font-weight: bold; margin: 0;">
+        🚨 CYBER SECURITY NOTICE: Unauthorized access, scraping, or code injection is strictly prohibited under IT Act. IP addresses and session IDs are being monitored.
+    </p>
+</div>
+
+<script>
+    // Right Click Disable
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Keyboard Shortcuts Block (F12, Ctrl+U, Ctrl+Shift+I)
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) return false; // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+    };
+
+    // Console detection (Agar koi inspect kholta hai toh warning)
+    setInterval(function() {
+        if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+            document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%;'>Security Violation Detected! Access Denied.</h1>";
+        }
+    }, 1000);
+</script>
 </html>
 
