@@ -230,139 +230,102 @@
     </details>
             </div>
 
-            <div class="chapter-card" style="border-left: 5px solid #00d4ff; background: #0a192f; padding: 25px; border-radius: 15px; margin-bottom: 30px; color: #e0f7fa; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    
-    <h2 style="color: #00d4ff; text-align: center; text-transform: uppercase; letter-spacing: 2px;">📌 Vector Algebra (Short Notes)</h2>
+     <div class="chapter-card" style="border-left: 5px solid #9b59b6; background: #161b22; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+    <details>
+        <summary style="color: #9b59b6; font-size: 1.2em; font-weight: bold; cursor: pointer;">
+            📌 Vector Algebra (Short Notes)
+        </summary>
 
-    <h3 style="color: #00d4ff; border-bottom: 1px solid #1a3a4a; margin-top: 25px;">1. Basic Concepts</h3>
-    <div style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
-        <p>• <b>Magnitude:</b> Agar $\vec{a} = x\hat{i} + y\hat{j} + z\hat{k}$, toh $|\vec{a}| = \sqrt{x^2 + y^2 + z^2}$</p>
-        <p>• <b>Unit Vector:</b> $\hat{a} = \frac{\vec{a}}{|\vec{a}|}$ (Magnitude = 1)</p>
-        <p>• <b>Direction Cosines (DC's):</b> $l = \cos\alpha, m = \cos\beta, n = \cos\gamma$</p>
-        <p>• <b>Relationship:</b> $l^2 + m^2 + n^2 = 1$</p>
-    </div>
+        <h3 style="color: #bb8fce; margin-top: 20px;">1. Basic Concepts</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6; margin-top: 10px;">
+            • <b>Magnitude:</b> Agar $\vec{a} = x\hat{i} + y\hat{j} + z\hat{k}$, toh $|\vec{a}| = \sqrt{x^2 + y^2 + z^2}$ <br>
+            • <b>Unit Vector:</b> $\hat{a} = \frac{\vec{a}}{|\vec{a}|}$ (Iska magnitude 1 hota hai) <br>
+            • <b>Direction Cosines:</b> $l^2 + m^2 + n^2 = 1$
+        </div>
 
-    <div style="text-align:center; margin: 20px 0;">
-        <img src="vector_angles.jpg" alt="Direction Cosines Graph" style="width:100%; max-width:400px; border: 1px solid #00d4ff; border-radius: 8px;">
-        <p style="font-size: 11px; color: #00d4ff;">[Image: Vector Direction Cosines & Angles]</p>
-    </div>
-    
-
-    <h3 style="color: #00d4ff; margin-top: 25px;">2. Dot Product (Scalar Product)</h3>
-    <div style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
-        <p>• <b>Formula:</b> $\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}| \cos\theta$</p>
-        <p>• <b>Component Form:</b> $\vec{a} \cdot \vec{b} = a_1b_1 + a_2b_2 + a_3b_3$</p>
-        <p>• <b>Perpendicularity:</b> Agar $\vec{a} \perp \vec{b} \implies \vec{a} \cdot \vec{b} = 0$</p>
-        <p>• <b>Projection:</b> Projection of $\vec{a}$ on $\vec{b} = \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}$</p>
-    </div>
-
-    <h3 style="color: #00d4ff; margin-top: 25px;">3. Cross Product (Vector Product)</h3>
-    <div style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
-        <p>• <b>Formula:</b> $\vec{a} \times \vec{b} = |\vec{a}||\vec{b}| \sin\theta \, \hat{n}$</p>
-        <p>• <b>Determinant Form:</b> 
-            $\vec{a} \times \vec{b} = \begin{vmatrix} \hat{i} & \hat{j} & \hat{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix}$
-        </p>
-        <p>• <b>Area of Triangle:</b> $\frac{1}{2} |\vec{a} \times \vec{b}|$</p>
-    </div>
-
-    <div style="text-align:center; margin: 20px 0;">
-        <img src="cross_product.jpg" alt="Cross Product Rule" style="width:100%; max-width:400px; border: 1px solid #00d4ff; border-radius: 8px;">
-        <p style="font-size: 11px; color: #00d4ff;">[Image: Right Hand Thumb Rule for Cross Product]</p>
-    </div>
-    [attachment_0](attachment)
-
-    <h3 style="color: #00d4ff; margin-top: 25px;">4. Triple Products (High Yield)</h3>
-    <div style="background: #112240; padding: 15px; border-radius: 10px; border: 1px solid #1f3a5f;">
-        <p>• <b>STP:</b> $[\vec{a} \vec{b} \vec{c}] = \vec{a} \cdot (\vec{b} \times \vec{c})$ (Volume of Parallelepiped)</p>
-        <p>• <b>Coplanarity:</b> Agar $[\vec{a} \vec{b} \vec{c}] = 0 \implies$ vectors ek hi plane mein hain.</p>
-        <p>• <b>VTP:</b> $\vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \cdot \vec{c})\vec{b} - (\vec{a} \cdot \vec{b})\vec{c}$</p>
-    </div>
-
-    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 204, 0, 0.1); border: 1px dashed #ffcc00; border-radius: 10px;">
-        <h4 style="color: #ffcc00; margin: 0;">🌟 GOLDEN TRICKS FOR JEE</h4>
-        <p style="font-size: 0.9em; margin-top: 10px;">
-            • <b>Dot vs Cross:</b> Angle ke liye Dot, Perpendicular vector ke liye Cross use karein.<br>
-            • <b>Tetrahedron:</b> $V = \frac{1}{6} |[\vec{a} \vec{b} \vec{c}]|$ <br>
-            • <b>Lagrange:</b> $|\vec{a} \times \vec{b}|^2 = |\vec{a}|^2|\vec{b}|^2 - (\vec{a} \cdot \vec{b})^2$
-        </p>
-    </div>
-            </div>
-   
-            
-            <div style="text-align:center; margin: 20px 0;">
-        <img src="stp_volume.jpg" alt="STP Volume" style="width:100%; max-width:400px; border: 1px solid #00d4ff; border-radius: 8px;">
-        <p style="font-size: 11px; color: #00d4ff;">[Image: Scalar Triple Product - Volume of Parallelepiped]</p>
-    </div>
-    
-
-    <div class="chapter-card" style="border-left: 5px solid #1a237e; background: #000033; padding: 25px; border-radius: 15px; margin-bottom: 30px; color: #e8eaf6; box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
-    
-    <h2 style="color: #ffd700; text-align: center; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 1px 5px #000;">
-        <summary style="color: #3498db; font-size: 1.3 📏4. 3D Geometry (Short Notes)</h2>
-
-    <h3 style="color: #9fa8da; border-bottom: 1px solid #303f9f; margin-top: 25px;">1. Direction Cosines (DC's) & Ratios (DR's)</h3>
-    <div style="background: #1a1a4d; padding: 15px; border-radius: 10px; border: 1px solid #303f9f;">
-        <p>• <b>DC's:</b> $l, m, n$ are values such that $l^2 + m^2 + n^2 = 1$</p>
-        <p>• <b>Relation:</b> $l = \cos\alpha, m = \cos\beta, n = \cos\gamma$ (Angles with x, y, z axes)</p>
-        <p>• <b>DR's:</b> Any three numbers $a, b, c$ proportional to $l, m, n$.</p>
-    </div>
-
-    <div style="text-align:center; margin: 20px 0;">
-        <img src="3d_axes_angles.jpg" alt="Direction Cosines in 3D Space" style="width:100%; max-width:400px; border: 2px solid #303f9f; border-radius: 12px;">
-        <p style="font-size: 11px; color: #9fa8da;">[Image: Direction Angles α, β, γ in 3D Coordinate System]</p>
-    </div>
-    
-
-    <h3 style="color: #9fa8da; margin-top: 25px;">2. The Straight Line</h3>
-    <div style="background: #1a1a4d; padding: 15px; border-radius: 10px; border: 1px solid #303f9f;">
-        <p>• <b>Vector Form:</b> $\vec{r} = \vec{a} + \lambda \vec{b}$</p>
-        <p>• <b>Cartesian Form:</b> $\frac{x-x_1}{b_1} = \frac{y-y_1}{b_2} = \frac{z-z_1}{b_3}$</p>
-        <p>• <b>Angle between Lines:</b> $\cos \theta = \frac{|a_1a_2 + b_1b_2 + c_1c_2|}{\sqrt{\sum a_i^2}\sqrt{\sum b_i^2}}$</p>
-        <p style="background: #000051; padding: 10px; border-radius: 5px; margin-top: 10px;">
-            🚀 <b>Shortest Distance (Skew Lines):</b><br>
-            $d = \frac{|(\vec{a}_2 - \vec{a}_1) \cdot (\vec{b}_1 \times \vec{b}_2)|}{|\vec{b}_1 \times \vec{b}_2|}$
-        </p>
-    </div>
-
-    <h3 style="color: #9fa8da; margin-top: 25px;">3. The Plane</h3>
-    <div style="background: #1a1a4d; padding: 15px; border-radius: 10px; border: 1px solid #303f9f;">
-        <p>• <b>Normal Form:</b> $lx + my + nz = p$ ($p$ = distance from origin)</p>
-        <p>• <b>General Form:</b> $ax + by + cz + d = 0$ ($a, b, c$ are DR's of normal)</p>
-        <p>• <b>Intercept Form:</b> $\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$</p>
-        <p>• <b>Distance of Point from Plane:</b> $d = \frac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}$</p>
-    </div>
-
-    <div style="text-align:center; margin: 20px 0;">
-        <img src="line_plane_angle.jpg" alt="Angle between line and plane" style="width:100%; max-width:400px; border: 2px solid #303f9f; border-radius: 12px;">
-        <p style="font-size: 11px; color: #9fa8da;">[Image: Visualization of Angle θ between a Line and a Plane]</p>
-    </div>
-    [attachment_0](attachment)
-
-    <h3 style="color: #ffd700; margin-top: 25px;">4. Image & Foot of Perpendicular (High Yield)</h3>
-    <div style="background: #000051; padding: 15px; border-radius: 10px; border-left: 4px solid #ffd700;">
-        <p><b>Foot of Perpendicular $(x, y, z)$:</b><br>
-        $\frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c} = -\frac{(ax_1+by_1+cz_1+d)}{a^2+b^2+c^2}$</p>
         
-        <p><b>Image of Point $(x, y, z)$:</b><br>
-        $\frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c} = -2\frac{(ax_1+by_1+cz_1+d)}{a^2+b^2+c^2}$</p>
-    </div>
 
-    <h3 style="color: #9fa8da; margin-top: 25px;">5. Coplanarity of Lines</h3>
-    <p style="background: #1a1a4d; padding: 12px; border-radius: 8px;">
-        Two lines are coplanar if: $(\vec{a}_2 - \vec{a}_1) \cdot (\vec{b}_1 \times \vec{b}_2) = 0$
-    </p>
+        <h3 style="color: #bb8fce; margin-top: 20px;">2. Dot Product (Scalar Product)</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>Formula:</b> $\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}| \cos\theta$ <br>
+            • <b>Perpendicularity:</b> Agar $\vec{a} \perp \vec{b} \implies \vec{a} \cdot \vec{b} = 0$ <br>
+            • <b>Projection:</b> Projection of $\vec{a}$ on $\vec{b} = \frac{\vec{a} \cdot \vec{b}}{|\vec{b}|}$
+        </div>
 
-    <div style="margin-top: 20px; padding: 15px; background: rgba(255, 215, 0, 0.1); border: 1px dashed #ffd700; border-radius: 10px;">
-        <h4 style="color: #ffd700; margin: 0;">🌟 GOLDEN TRICKS FOR JEE</h4>
-        <p style="font-size: 0.9em; margin-top: 10px;">
-            • <b>Parallel Condition:</b> If line is parallel to plane, $\vec{b} \cdot \vec{n} = 0$ (Direction vector ⊥ Normal).<br>
-            • <b>Family of Planes:</b> Plane through intersection of two planes: $P_1 + \lambda P_2 = 0$.<br>
-            • <b>Parallel Lines Distance:</b> $d = \frac{|(\vec{a}_2 - \vec{a}_1) \times \vec{b}|}{|\vec{b}|}$
-        </p>
-    </div>
+        <h3 style="color: #bb8fce; margin-top: 20px;">3. Cross Product (Vector Product)</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>Formula:</b> $\vec{a} \times \vec{b} = |\vec{a}||\vec{b}| \sin\theta \, \hat{n}$ <br>
+            • <b>Determinant Form:</b> <br>
+            $\vec{a} \times \vec{b} = \begin{vmatrix} \hat{i} & \hat{j} & \hat{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix}$ <br>
+            • <b>Area of Triangle:</b> $\frac{1}{2} |\vec{a} \times \vec{b}|$
+        </div>
 
-    </div>
+        
+
+        <h3 style="color: #bb8fce; margin-top: 20px;">4. Triple Products (High Yield)</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>Scalar Triple Product (STP):</b> $[\vec{a} \vec{b} \vec{c}] = \vec{a} \cdot (\vec{b} \times \vec{c})$ <br>
+            • <b>Volume of Parallelepiped:</b> $V = |[\vec{a} \vec{b} \vec{c}]|$ <br>
+            • <b>Vector Triple Product (VTP):</b> $\vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \cdot \vec{c})\vec{b} - (\vec{a} \cdot \vec{b})\vec{c}$
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: rgba(155, 89, 182, 0.1); border: 1px dashed #9b59b6; border-radius: 10px;">
+            <h4 style="color: #bb8fce; margin: 0;">🌟 GOLDEN TRICKS FOR JEE</h4>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                • <b>Angle:</b> Jab angle nikalna ho toh Dot Product use karein. <br>
+                • <b>Coplanar:</b> Agar $[\vec{a} \vec{b} \vec{c}] = 0$, toh vectors ek hi plane mein hain. <br>
+                • <b>Lagrange:</b> $|\vec{a} \times \vec{b}|^2 = |\vec{a}|^2|\vec{b}|^2 - (\vec{a} \cdot \vec{b})^2$
+            </p>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <img src="vector_diagram.jpg" alt="Vector Algebra Concepts" style="width:100%; max-width:500px; border-radius:10px; border: 1px solid #333;">
+            <p style="font-size: 11px; color: #777;">[Image: Vector Operations Visual Guide]</p>
+        </div>
+
+    </details>
+     </div>
+
+            <div class="chapter-card" style="border-left: 5px solid #9b59b6; background: #161b22; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+    <details>
+        <summary style="color: #9b59b6; font-size: 1.2em; font-weight: bold; cursor: pointer;">
+            📏 3D Geometry (Short Notes)
+        </summary>
+
+        <h3 style="color: #bb8fce; margin-top: 20px;">1. Direction Cosines (DC's) & Ratios (DR's)</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6; margin-top: 10px;">
+            • <b>DC's:</b> $l, m, n$ are values where $l^2 + m^2 + n^2 = 1$ <br>
+            • <b>Relation:</b> $l = \cos\alpha, m = \cos\beta, n = \cos\gamma$ (Angles with axes) <br>
+            • <b>DR's:</b> Any three numbers $a, b, c$ proportional to $l, m, n$.
+        </div>
+
+        [attachment_0](attachment)
+
+        <h3 style="color: #bb8fce; margin-top: 20px;">2. The Straight Line</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>Vector Equation:</b> $\vec{r} = \vec{a} + \lambda \vec{b}$ <br>
+            • <b>Cartesian Form:</b> $\frac{x-x_1}{b_1} = \frac{y-y_1}{b_2} = \frac{z-z_1}{b_3}$ <br>
+            • <b>Shortest Distance (Skew Lines):</b> <br>
+            $d = \frac{|(\vec{a}_2 - \vec{a}_1) \cdot (\vec{b}_1 \times \vec{b}_2)|}{|\vec{b}_1 \times \vec{b}_2|}$
+        </div>
+
+        <h3 style="color: #bb8fce; margin-top: 20px;">3. The Plane</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>General Form:</b> $ax + by + cz + d = 0$ <br>
+            • <b>Intercept Form:</b> $\frac{x}{a} + \frac{y}{b} + \frac{z}{c} = 1$ <br>
+            • <b>Point to Plane Distance:</b> $d = \frac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}$
+        </div>
+
+        [attachment_1](attachment)
+
+        <h3 style="color: #bb8fce; margin-top: 20px;">4. Image & Foot of Perpendicular</h3>
+        <div class="formula-box" style="background: #0d1117; padding: 15px; border-radius: 8px; border-left: 3px solid #9b59b6;">
+            • <b>Foot (x, y, z):</b> $\frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c} = -\frac{(ax_1+by_1+cz_1+d)}{a^2+b^2+c^2}$ <br>
+            • <b>Image (x, y, z):</b> $\frac{x-x_1}{a} = \frac{y-y_1}{b} = \frac{z-z_1}{c} = -2\frac{(ax_1+by_1+cz_1+d)}{a^2+b^2+c^2}$
+        </div>
+
+        <div style="margin-top: 20px; padding: 15px; background: rgba(155, 89, 182, 0.1); border: 1px dashed #9b59b6; border-radius: 10px;">
+            <h4 style="color: #bb8fce; margin: 0;">🌟 GOLDEN TRICKS FOR JEE</h4>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                • <b>Parallel Lines Distance:</b> $d = \frac{|(\vec{a}_2 - \
                 
-            
-            
-            
