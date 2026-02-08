@@ -85,17 +85,32 @@
 
     <div id="mainContent" style="display: none;">
         <nav>
-            <nav>
-    <div class="logo">JEE MASTER HUB</div>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <div class="dropdown">... Subjects ...</div>
-        <a href="#">PYQ Papers</a>
-        <a href="#mock-test-section" style="color: #ffd700; font-weight: bold;">📝 Mock Test</a>
-        <a href="#about-us-section">About Us</a>
-        <a href="#contact-us-section">Contact Us</a>
+            <nav style="display: flex; justify-content: space-between; align-items: center; padding: 10px 5%; background: var(--panel); border-bottom: 1px solid var(--glow); position: sticky; top: 0; z-index: 1000;">
+    <div class="logo" style="color: var(--glow); font-weight: bold; font-size: 1.5rem;">JEE MASTER HUB</div>
+    
+    <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
+        <a href="index.html" style="text-decoration: none; color: var(--text);">Home</a>
+
+        <div class="dropdown" style="position: relative; display: inline-block;">
+            <button style="background: none; border: none; color: var(--text); cursor: pointer; font-size: 16px;">Subjects ▼</button>
+            <div class="dropdown-content" style="display: none; position: absolute; background-color: #161b22; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border: 1px solid var(--glow); border-radius: 8px;">
+                <a href="#maths" style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Mathematics</a>
+                <a href="#physics" style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Physics</a>
+                <a href="#chemistry" style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Chemistry</a>
+            </div>
+        </div>
+
+        <a href="#mock-test-section" style="text-decoration: none; color: #ffd700; font-weight: bold;">📝 Mock Test</a>
+        <a href="#about-us-section" style="text-decoration: none; color: var(--text);">About Us</a>
+        <a href="#contact-us-section" style="text-decoration: none; color: var(--text);">Contact Us</a>
     </div>
-            </nav>
+</nav>
+
+<style>
+    .dropdown:hover .dropdown-content { display: block !important; }
+    .dropdown-content a:hover { background-color: #1f6feb; border-radius: 8px; }
+</style>
+            
             
 <div class="logo">JEE MASTER HUB</div>  <div class="nav-links">                 
 </div>                                  </nav>                                  ```
