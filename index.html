@@ -85,30 +85,32 @@
 
     <div id="mainContent" style="display: none;">
         <nav>
-            <div class="logo">JEE MASTER HUB</div>
-            <div class="nav-links">
-                <a href="#">Home</a>
-                <div class="dropdown">
-                    <a href="#" style="color: var(--glow);">Subjects ▼</a>
-                    <div class="dropdown-content">
-                        : <a href="physics.html">Physics Section</a>
-                        <a href="maths.html">Maths Section</a>
-                          <a href="chemistry.html">Chemistry Section</a>
-                    </div>
-                </div>
-                <a href="#">PYQ Papers</a>
-                <button onclick="document.body.classList.toggle('light-mode')" style="background:none; border:1px solid var(--glow); color:var(--glow); cursor:pointer; padding:5px 10px; border-radius:15px;">🌓</button>
-            <a href="#mock-test-section" style="color: #ffd700; font-weight: bold;">📝 Mock Test</a>
-
-               <nav>
+            <nav>
     <div class="logo">JEE MASTER HUB</div>
     <div class="nav-links">
         <a href="index.html">Home</a>
+        <div class="dropdown">... Subjects ...</div>
+        <a href="#">PYQ Papers</a>
+        <a href="#mock-test-section" style="color: #ffd700; font-weight: bold;">📝 Mock Test</a>
         <a href="#about-us-section">About Us</a>
         <a href="#contact-us-section">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
     </div>
-               </nav>
+            </nav>
+            
+<div class="logo">JEE MASTER HUB</div>  <div class="nav-links">                 <a href="index.html">Home</a>       ...
+</div>                                  </nav>                                  ```
+
+---
+
+### 🛠️ Step 2: Sahi Menu Links yahan jodein
+Ab **Line 101** ke thik niche (jahan `Mock Test` khatam ho raha hai), ye links add karein taaki sab ek hi line mein aa jayein:
+
+```html
+<a href="#about-us-section">About Us</a>
+<a href="#contact-us-section">Contact Us</a>
+<a href="privacy.html">Privacy Policy</a>
+               
+    </nav>
 
         <div class="container">
             <div style="width: 280px; background: var(--panel); padding: 20px; border-radius: 15px;">
