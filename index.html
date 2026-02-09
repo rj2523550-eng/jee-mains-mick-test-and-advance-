@@ -100,98 +100,56 @@
     </div>
 </nav>
 
-    <div style="width: 100%; display: flex; justify-content: center; background: var(--bg); padding-top: 20px;">
-        
-        <main style="width: 95%; max-width: 650px; box-sizing: border-box;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 20px 10px; box-sizing: border-box; background: var(--bg);">
 
-            <div style="background: var(--panel); padding: 10px; border-radius: 12px; border: 1px solid var(--glow); text-align: center; margin-bottom: 20px;">
-                <span style="color: var(--glow); font-size: 14px; font-weight: bold;">📊 Total Visitors: <span id="visitor-count">1310</span></span>
-            </div>
-
-            <div style="background: #161b22; padding: 25px; border-radius: 20px; border: 2px solid #ffcc00; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;">
-                <h3 style="color: #ffcc00; margin-top: 0;">🎯 JEE Daily Challenge</h3>
-                <p style="color: #8b949e; font-size: 13px;">Naye visitors ke liye aaj ka sawal:</p>
-                
-                <div style="background: #0d1117; padding: 15px; border-radius: 10px; border: 1px solid #333; margin: 15px 0;">
-                    <p id="daily-q" style="color: #fff; font-size: 1.1rem; margin: 0;">Solve: sin(90°) + cos(0°) = ?</p>
-                </div>
-
-                <input type="text" id="ans-input" placeholder="Apna Jawab Likhein" style="width: 100%; padding: 12px; background: #0d1117; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; margin-bottom: 15px;">
-                
-                <button onclick="checkAns()" style="width: 100%; background: #ffcc00; color: #000; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">Check Answer</button>
-                <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
-            </div>
-
-            <div id="blog-section" style="background: var(--panel); padding: 30px; border-radius: 20px; border: 1px solid #333; line-height: 1.8; color: #c9d1d9;">
-                <h2 style="color: var(--glow); text-align: center; margin-top: 0;">🚀 JEE Mains 2026: Success Blueprint</h2>
-                <p style="text-align: center; font-size: 12px; color: #8b949e;">Article by Ram Jaiswal | Cyber Secure Portal 🛡️</p>
-                
-                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-
-                <div style="font-size: 1rem;">
-                    <p>JEE Mains sirf ek imtihan nahi, balki ek jung hai jo dimag aur discipline se jeeti jati hai. 1000 se 2000 words ke is article mein hum baat karenge har us pehlu ki jo aapko topper banayega...</p>
-                    
-                    <h3 style="color: #ffcc00;">1. Physics Strategy</h3>
-                    <p>Physics ko ratne ki galti kabhi na karein. HC Verma ke har sawal ko visualize karein. Mechanics aur Modern Physics aapka base honi chahiye.</p>
-
-                    <h3 style="color: #ffcc00;">2. Chemistry: The Rank Booster</h3>
-                    <p>Inorganic ke liye NCERT ki har line yaad honi chahiye. Organic mein reaction mechanism ko samjhein, aur Physical mein calculation speed badhayein.</p>
-                    
-                    <h3 style="color: #ffcc00;">3. Mathematics: Practice is Key</h3>
-                    <p>Calculus aur Vectors-3D score badhane ke liye best hain. Rozana kam se kam 40 numerical solve karne ka target rakhein.</p>
-
-                    <p>(Aap yahan apna baaki 2000 words ka content fill kar sakte hain, structure ekdam professional set hai...)</p>
-                </div>
-
-                <div style="background: rgba(255, 68, 68, 0.1); color: #ffbbbb; padding: 15px; border-radius: 10px; border: 1px dashed #ff4444; margin-top: 30px; font-size: 12px; text-align: center;">
-                    🛡️ <b>SECURITY ALERT:</b> Content copying, right-clicking, or screenshots are disabled to prevent cyber theft.
-                </div>
-            </div>
-
-            <div style="height: 50px;"></div> </main>
+    <div style="width: 100%; max-width: 400px; background: var(--panel); padding: 10px; border-radius: 12px; border: 1px solid var(--glow); text-align: center; margin-bottom: 20px;">
+        <span style="color: var(--glow); font-size: 14px; font-weight: bold;">👁️ Total Visitors: <span id="visitor-count">1325</span></span>
     </div>
 
-    <script>
-        // 1. Visitor Counter
-        let count = localStorage.getItem('vis_cnt') || 1310;
-        count++;
-        localStorage.setItem('vis_cnt', count);
-        document.getElementById('visitor-count').innerText = count;
+    <div style="width: 100%; max-width: 400px; background: #161b22; padding: 25px; border-radius: 20px; border: 2px solid #ffcc00; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;">
+        <div style="background: #ffcc00; color: #000; display: inline-block; padding: 2px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; margin-bottom: 15px;">NEW VISITOR CHALLENGE</div>
+        <p id="daily-q" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">Value of sin(90°) + cos(0°)?</p>
+        <input type="text" id="ans-input" placeholder="Answer..." style="width: 100%; background: #0d1117; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; box-sizing: border-box;">
+        <button onclick="checkAns()" style="width: 100%; background: #ffcc00; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #000;">Submit Answer</button>
+        <p id="feedback" style="margin-top: 10px; font-weight: bold;"></p>
+    </div>
 
-        // 2. Cyber Security: Disable Right Click & Copy
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            // Disable F12, Ctrl+Shift+I, Ctrl+U
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
-                return false;
-            }
-        };
+    <div style="width: 100%; max-width: 450px; background: var(--panel); padding: 25px; border-radius: 20px; border: 1px solid var(--glow); line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <h2 style="color: var(--glow); text-align: center; font-size: 1.5rem; margin-top: 0;">🚀 JEE Mains 2026 Strategy</h2>
+        <p style="color: #8b949e; text-align: center; font-size: 12px; margin-bottom: 20px;">Article by Ram Jaiswal | 15 min read</p>
+        
+        <div style="color: #c9d1d9; font-size: 1rem;">
+            <p>JEE Mains crack karne ke liye aapko <b>Consistency</b> par dhyan dena hoga. Physics mein concepts, Chemistry mein NCERT, aur Maths mein practice ko apna hathiyar banayein.</p>
+            
+            <h3 style="color: #ffcc00; font-size: 1.1rem;">Cyber Security Notice:</h3>
+            <p style="font-size: 14px;">Ye portal encrypted hai. Content copy karna ya screenshot lena mana hai.</p>
+        </div>
 
-        // 3. Challenge Logic
-        function checkAns() {
-            let val = document.getElementById('ans-input').value;
-            let f = document.getElementById('feedback');
-            if(val == "2") {
-                f.innerText = "✅ Excellent! Logic Correct Hai."; f.style.color = "#00ffcc";
-            } else {
-                f.innerText = "❌ Galat! Hint: 1 + 1 kitna hota hai?"; f.style.color = "#ff4444";
-            }
-        }
-    </script>
+        <div style="background: rgba(255, 68, 68, 0.1); border: 1px dashed #ff4444; padding: 10px; border-radius: 10px; margin-top: 20px; font-size: 11px; color: #ffbbbb; text-align: center;">
+            🛡️ SECURITY: Right-click & Copying Disabled.
+        </div>
+    </div>
 
-    <style>
-        /* Extra Security via CSS */
-        body {
-            -webkit-user-select: none;
-            user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-        /* Mobile optimization */
-        @media (max-width: 600px) {
-            main { width: 98%; }
-            #blog-section { padding: 15px; }
-        }
-    </style>
+</div>
+
+<script>
+    // Visitor Count logic
+    let vCount = localStorage.getItem('v_count') || 1325;
+    vCount++;
+    localStorage.setItem('v_count', vCount);
+    document.getElementById('visitor-count').innerText = vCount;
+
+    // Security: No Right Click & No Selection
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Answer Check
+    function checkAns() {
+        let val = document.getElementById('ans-input').value;
+        let f = document.getElementById('feedback');
+        if(val == "2") { f.innerText = "✅ Correct!"; f.style.color = "#00ffcc"; }
+        else { f.innerText = "❌ Try again!"; f.style.color = "#ff4444"; }
+    }
+</script>
+            
             
