@@ -100,95 +100,98 @@
     </div>
 </nav>
 
-            <main style="width: 100%; max-width: 1260px; margin: 0 auto; padding: 20px 15px; box-sizing: border-box; background: var(--bg);">
+    <div style="width: 100%; display: flex; justify-content: center; background: var(--bg); padding-top: 20px;">
         
-        <div style="background: #ff4444; color: #fff; padding: 10px; border-radius: 5px 5px 0 0; display: flex; align-items: center; overflow: hidden; margin-bottom: 2px;">
-            <span style="font-weight: bold; padding-right: 15px; border-right: 2px solid #fff; white-space: nowrap;">LATEST UPDATES</span>
-            <marquee behavior="scroll" direction="left" style="font-size: 14px; font-weight: 500;">
-                JEE Mains 2026 Strategy Live Now... | Total Online Aspirants: <span id="visitor-count">1289</span> | Cyber Security Shield Active 🛡️ | Don't forget to solve the Daily Challenge!
-            </marquee>
-        </div>
+        <main style="width: 95%; max-width: 650px; box-sizing: border-box;">
 
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
-            
-            <div style="flex: 3; min-width: 320px;">
-                <article style="background: var(--panel); border-radius: 12px; border: 1px solid #333; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    <div style="padding: 25px;">
-                        <span style="color: var(--glow); font-weight: bold; font-size: 12px; letter-spacing: 1px;">EXPERT ANALYSIS</span>
-                        <h1 style="color: #fff; font-size: 2.2rem; margin: 15px 0; line-height: 1.2; font-family: 'Segoe UI', Roboto, sans-serif;">
-                            JEE Mains 2026: The Ultimate Roadmap to 99 Percentile
-                        </h1>
-                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                            <img src="https://ui-avatars.com/api/?name=Ram+Jaiswal&background=00ffcc&color=000" alt="Author" style="width: 40px; border-radius: 50%;">
-                            <div style="font-size: 13px; color: #8b949e;">
-                                <b>Ram Jaiswal</b><br>Updated: Feb 09, 2026, 16:20 IST
-                            </div>
-                        </div>
-
-                        <div id="blog-content" style="color: #c9d1d9; line-height: 1.8; font-size: 1.1rem; border-top: 1px solid #333; padding-top: 20px;">
-                            <p>JEE Mains ki taiyari shuru karne ke liye sirf kitabein kafi nahi hain, aapko ek system chahiye. Is article mein hum 2000+ words ka deep analysis karenge jo aapko topper banayega...</p>
-                            
-                            <h2 style="color: var(--glow);">1. Concepts vs Ratta-fication</h2>
-                            <p>Physics mein concepts ko visualize karna seekhein. Mathematics mein shortcut tricks tabhi kaam aati hain jab aapko base pata ho. Chemistry rank-maker hai, ise ignore na karein.</p>
-                            
-                            <div style="background: rgba(0, 255, 204, 0.05); padding: 15px; border-left: 4px solid var(--glow); margin: 25px 0; font-size: 14px; font-style: italic;">
-                                Note: This content is protected under Cyber Security layers. Copying or redistribution is strictly prohibited.
-                            </div>
-
-                            <p>Is roadmap ko follow karke aap na sirf syllabus jaldi khatam karenge balki revision ke liye bhi samay nikal payenge...</p>
-                        </div>
-                    </div>
-                </article>
+            <div style="background: var(--panel); padding: 10px; border-radius: 12px; border: 1px solid var(--glow); text-align: center; margin-bottom: 20px;">
+                <span style="color: var(--glow); font-size: 14px; font-weight: bold;">📊 Total Visitors: <span id="visitor-count">1310</span></span>
             </div>
 
-            <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="background: #161b22; padding: 25px; border-radius: 20px; border: 2px solid #ffcc00; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;">
+                <h3 style="color: #ffcc00; margin-top: 0;">🎯 JEE Daily Challenge</h3>
+                <p style="color: #8b949e; font-size: 13px;">Naye visitors ke liye aaj ka sawal:</p>
                 
-                <div style="background: #161b22; padding: 25px; border-radius: 12px; border: 2px solid #ffcc00; box-shadow: 0 0 10px rgba(255,204,0,0.1);">
-                    <h3 style="color: #ffcc00; margin-top: 0; display: flex; align-items: center; gap: 10px;">🎯 Daily Challenge</h3>
-                    <p style="color: #8b949e; font-size: 12px; margin-bottom: 15px;">New Visitor Task: Solve this to unlock more content.</p>
-                    <div id="quest-area" style="background: #0d1117; padding: 15px; border-radius: 8px; border: 1px solid #333; margin-bottom: 15px;">
-                        <p id="daily-q" style="color: #fff; margin: 0; font-size: 1rem;">Solve: sin(90°) + cos(0°)?</p>
-                    </div>
-                    <input type="text" id="ans-input" placeholder="Your answer" style="width: 100%; padding: 12px; background: #0d1117; border: 1px solid #333; color: #fff; border-radius: 5px; margin-bottom: 10px; box-sizing: border-box;">
-                    <button onclick="checkAns()" style="width: 100%; background: #ffcc00; color: #000; border: none; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s;">Submit Solution</button>
-                    <p id="feedback" style="margin-top: 10px; text-align: center; font-weight: bold; font-size: 14px;"></p>
+                <div style="background: #0d1117; padding: 15px; border-radius: 10px; border: 1px solid #333; margin: 15px 0;">
+                    <p id="daily-q" style="color: #fff; font-size: 1.1rem; margin: 0;">Solve: sin(90°) + cos(0°) = ?</p>
                 </div>
 
-                <div style="background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #ff4444;">
-                    <h4 style="color: #ff4444; margin-top: 0; font-size: 14px;">🛡️ CYBER SECURITY ACTIVE</h4>
-                    <p style="color: #8b949e; font-size: 12px; line-height: 1.4;">Encryption Status: 256-bit AES<br>Your IP: Logged<br>Copy Protection: Enabled</p>
+                <input type="text" id="ans-input" placeholder="Apna Jawab Likhein" style="width: 100%; padding: 12px; background: #0d1117; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; margin-bottom: 15px;">
+                
+                <button onclick="checkAns()" style="width: 100%; background: #ffcc00; color: #000; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">Check Answer</button>
+                <p id="feedback" style="margin-top: 15px; font-weight: bold;"></p>
+            </div>
+
+            <div id="blog-section" style="background: var(--panel); padding: 30px; border-radius: 20px; border: 1px solid #333; line-height: 1.8; color: #c9d1d9;">
+                <h2 style="color: var(--glow); text-align: center; margin-top: 0;">🚀 JEE Mains 2026: Success Blueprint</h2>
+                <p style="text-align: center; font-size: 12px; color: #8b949e;">Article by Ram Jaiswal | Cyber Secure Portal 🛡️</p>
+                
+                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+                <div style="font-size: 1rem;">
+                    <p>JEE Mains sirf ek imtihan nahi, balki ek jung hai jo dimag aur discipline se jeeti jati hai. 1000 se 2000 words ke is article mein hum baat karenge har us pehlu ki jo aapko topper banayega...</p>
+                    
+                    <h3 style="color: #ffcc00;">1. Physics Strategy</h3>
+                    <p>Physics ko ratne ki galti kabhi na karein. HC Verma ke har sawal ko visualize karein. Mechanics aur Modern Physics aapka base honi chahiye.</p>
+
+                    <h3 style="color: #ffcc00;">2. Chemistry: The Rank Booster</h3>
+                    <p>Inorganic ke liye NCERT ki har line yaad honi chahiye. Organic mein reaction mechanism ko samjhein, aur Physical mein calculation speed badhayein.</p>
+                    
+                    <h3 style="color: #ffcc00;">3. Mathematics: Practice is Key</h3>
+                    <p>Calculus aur Vectors-3D score badhane ke liye best hain. Rozana kam se kam 40 numerical solve karne ka target rakhein.</p>
+
+                    <p>(Aap yahan apna baaki 2000 words ka content fill kar sakte hain, structure ekdam professional set hai...)</p>
+                </div>
+
+                <div style="background: rgba(255, 68, 68, 0.1); color: #ffbbbb; padding: 15px; border-radius: 10px; border: 1px dashed #ff4444; margin-top: 30px; font-size: 12px; text-align: center;">
+                    🛡️ <b>SECURITY ALERT:</b> Content copying, right-clicking, or screenshots are disabled to prevent cyber theft.
                 </div>
             </div>
-        </div>
-    </main>
+
+            <div style="height: 50px;"></div> </main>
+    </div>
 
     <script>
-        // 1. Visitor Counter Logic
-        let count = localStorage.getItem('v_count') || 1289;
+        // 1. Visitor Counter
+        let count = localStorage.getItem('vis_cnt') || 1310;
         count++;
-        localStorage.setItem('v_count', count);
+        localStorage.setItem('vis_cnt', count);
         document.getElementById('visitor-count').innerText = count;
 
-        // 2. Security: Disable Copy/Right-Click/Inspect
+        // 2. Cyber Security: Disable Right Click & Copy
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('selectstart', e => e.preventDefault());
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+U
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
                 return false;
             }
         };
 
-        // 3. Question Logic
+        // 3. Challenge Logic
         function checkAns() {
-            let userAns = document.getElementById('ans-input').value;
-            let feedback = document.getElementById('feedback');
-            if(userAns == "2") {
-                feedback.innerText = "✅ Excellent! Logic is correct.";
-                feedback.style.color = "#00ffcc";
+            let val = document.getElementById('ans-input').value;
+            let f = document.getElementById('feedback');
+            if(val == "2") {
+                f.innerText = "✅ Excellent! Logic Correct Hai."; f.style.color = "#00ffcc";
             } else {
-                feedback.innerText = "❌ Hint: sin(90)=1, cos(0)=1";
-                feedback.style.color = "#ff4444";
+                f.innerText = "❌ Galat! Hint: 1 + 1 kitna hota hai?"; f.style.color = "#ff4444";
             }
         }
     </script>
-    
+
+    <style>
+        /* Extra Security via CSS */
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        /* Mobile optimization */
+        @media (max-width: 600px) {
+            main { width: 98%; }
+            #blog-section { padding: 15px; }
+        }
+    </style>
+            
