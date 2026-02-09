@@ -100,62 +100,30 @@
     </div>
 </nav>
 
-<div style="display: flex; flex-direction: column; align-items: center; width: 100%; background: var(--bg); padding: 20px 0; box-sizing: border-box;">
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; background: var(--bg); padding: 20px 0;">
 
-    <div id="home" style="width: 90%; max-width: 420px; margin-bottom: 40px;">
-        <div style="background: var(--panel); border-radius: 25px; border: 2px solid var(--glow); padding: 30px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5);">
-            <h2 style="color: var(--glow); margin-top: 0;">🎯 JEE Daily Challenge</h2>
-            <div style="background: #0d1117; padding: 15px; border-radius: 15px; border: 1px solid #333; margin: 15px 0;">
-                <p id="q-text" style="color: #fff;">Solve: sin(90°) + cos(0°) = ?</p>
-            </div>
-            <input type="text" id="user-ans" placeholder="Enter Answer" style="width: 100%; padding: 12px; background: #161b22; border: 1px solid #444; color: #fff; border-radius: 10px; text-align: center; margin-bottom: 15px;">
-            <button onclick="verifyAns()" style="width: 100%; background: var(--glow); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer;">Submit Solution</button>
-            <p id="msg" style="margin-top: 10px; font-weight: bold;"></p>
+    <div id="physics" style="width: 90%; max-width: 450px; margin-bottom: 50px; background: var(--panel); padding: 25px; border-radius: 20px; border: 2px solid #00d4ff; text-align: center;">
+        <h2 style="color: #00d4ff;">🔭 Physics Session</h2>
+        <p style="color: #c9d1d9;">Physics ke liye Concepts aur Numericals par focus karein.</p>
+        <div style="background: #0d1117; padding: 10px; border-radius: 10px; color: #8b949e; font-size: 13px;">
+            Chapter: Mechanics, Optics, Modern Physics
         </div>
     </div>
 
-    <div id="physics" style="width: 90%; max-width: 420px; margin-bottom: 40px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333;">
-        <h2 style="color: #00d4ff; text-align: center;">🔭 Physics Session</h2>
-        <p style="color: #c9d1d9; font-size: 14px;">Physics mein <b>Mechanics</b> aur <b>Modern Physics</b> scoring hain. HC Verma ke numericals solve karna shuru karein.</p>
-        <ul style="color: #8b949e; font-size: 13px;">
-            <li>✅ Focus on Concepts</li>
-            <li>✅ Practice PYQs</li>
-        </ul>
+    <div id="chemistry" style="width: 90%; max-width: 450px; margin-bottom: 50px; background: var(--panel); padding: 25px; border-radius: 20px; border: 2px solid #00ff88; text-align: center;">
+        <h2 style="color: #00ff88;">🧪 Chemistry Session</h2>
+        <p style="color: #c9d1d9;">Inorganic Chemistry ke liye NCERT ratna shuru karein.</p>
+        <div style="background: #0d1117; padding: 10px; border-radius: 10px; color: #8b949e; font-size: 13px;">
+            Chapter: Organic, Inorganic, Physical
+        </div>
     </div>
 
-    <div id="chemistry" style="width: 90%; max-width: 420px; margin-bottom: 40px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333;">
-        <h2 style="color: #00ff88; text-align: center;">🧪 Chemistry Session</h2>
-        <p style="color: #c9d1d9; font-size: 14px;"><b>Inorganic</b> ke liye sirf NCERT padhein. <b>Organic</b> mein named reactions ki notebook banayein.</p>
-    </div>
-
-    <div id="mathematics" style="width: 90%; max-width: 420px; margin-bottom: 40px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333;">
-        <h2 style="color: #ffcc00; text-align: center;">📐 Mathematics Session</h2>
-        <p style="color: #c9d1d9; font-size: 14px;"><b>Calculus</b> aur <b>Vectors</b> rank badhane ke liye best hain. Daily 30 questions practice karein.</p>
+    <div id="mathematics" style="width: 90%; max-width: 450px; margin-bottom: 50px; background: var(--panel); padding: 25px; border-radius: 20px; border: 2px solid #ffcc00; text-align: center;">
+        <h2 style="color: #ffcc00;">📐 Mathematics Session</h2>
+        <p style="color: #c9d1d9;">Maths mein Calculus aur Vectors-3D sabse scoring hain.</p>
+        <div style="background: #0d1117; padding: 10px; border-radius: 10px; color: #8b949e; font-size: 13px;">
+            Chapter: Algebra, Calculus, Coordinate
+        </div>
     </div>
 
 </div>
-
-<script>
-    // Security & Logic
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    function verifyAns() {
-        let val = document.getElementById('user-ans').value;
-        let m = document.getElementById('msg');
-        if(val == "2") { m.innerText = "✅ Correct!"; m.style.color = "#00ffcc"; }
-        else { m.innerText = "❌ Try Again!"; m.style.color = "#ff4444"; }
-    }
-</script>
-
-<style>
-    /* Smooth Scrolling ke liye */
-    html {
-        scroll-behavior: smooth;
-    }
-    body {
-        margin: 0;
-        text-align: center;
-    }
-</style>
-            
