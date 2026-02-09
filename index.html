@@ -100,74 +100,73 @@
     </div>
 </nav>
 
-<div class="main-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 80vh; padding: 20px; box-sizing: border-box;">
+<div style="display: flex; flex-direction:  center; justify-content: center; width: 100%; min-height: 90vh; background: var(--bg); padding: 20px 0; box-sizing: border-box;">
 
-    <div style="background: rgba(0, 255, 204, 0.1); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--glow); margin-bottom: 20px; color: var(--glow); font-weight: bold; font-size: 14px;">
-        👁️ Visitors: <span id="v-count">1350</span>
+    <div style="background: rgba(0, 255, 204, 0.1); padding: 8px 25px; border-radius: 50px; border: 1px solid var(--glow); margin-bottom: 25px; color: var(--glow); font-weight: bold; font-size: 14px; text-align: center;">
+        👁️ Total Visitors: <span id="v-count">1360</span>
     </div>
 
-    <div class="calculator-box" style="width: 100%; max-width: 400px; background: var(--panel); border-radius: 25px; border: 2px solid var(--glow); padding: 30px; box-shadow: 0 0 25px rgba(0, 255, 204, 0.2); text-align: center;">
+    <div style="width: 90%; max-width: 420px; background: var(--panel); border-radius: 25px; border: 2px solid var(--glow); padding: 30px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); text-align: center; box-sizing: border-box;">
         
-        <h2 style="color: var(--glow); margin-bottom: 20px; font-size: 1.5rem;">🎯 Daily Challenge</h2>
+        <h2 style="color: var(--glow); margin-top: 0; margin-bottom: 20px;">🎯 JEE Challenge</h2>
         
         <div style="background: #0d1117; padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px;">
             <p id="q-text" style="color: #fff; font-size: 1.1rem; margin: 0;">Solve: sin(90°) + cos(0°) = ?</p>
         </div>
 
-        <input type="text" id="user-ans" placeholder="Type Answer Here" style="width: 100%; padding: 15px; background: #161b22; border: 1px solid #444; color: #fff; border-radius: 12px; text-align: center; font-size: 1.2rem; margin-bottom: 20px; outline: none; box-sizing: border-box;">
+        <input type="text" id="user-ans" placeholder="Enter Answer" style="width: 100%; padding: 15px; background: #161b22; border: 1px solid #444; color: #fff; border-radius: 12px; text-align: center; font-size: 1.2rem; margin-bottom: 20px; box-sizing: border-box; outline: none;">
 
-        <button onclick="verifyAns()" style="width: 100%; background: var(--glow); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;">Submit Answer</button>
+        <button onclick="verifyAns()" style="width: 100%; background: var(--glow); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;">Submit Solution</button>
         
         <p id="msg" style="margin-top: 15px; font-weight: bold;"></p>
     </div>
 
-    <div style="width: 100%; max-width: 400px; margin-top: 30px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333; color: #c9d1d9; line-height: 1.6;">
-        <h3 style="color: var(--glow); text-align: center;">🚀 JEE 2026 Blog</h3>
+    <div style="width: 90%; max-width: 420px; margin-top: 30px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333; color: #c9d1d9; line-height: 1.6; text-align: left; box-sizing: border-box;">
+        <h3 style="color: var(--glow); text-align: center; margin-top: 0;">🚀 JEE 2026 Strategy</h3>
         <p style="font-size: 14px;">
-            JEE crack karne ke liye consistency hi sabse bada weapon hai. Physics concepts, Chemistry NCERT aur Maths practice... ye 3 pillars aapko 99 percentile tak le jayenge. 
-            <br><br>
-            <i>(Ye section 2000 words tak expand ho sakta hai)</i>
+            JEE 2026 crack karne ke liye har subject ka balance zaruri hai. Chemistry ko rank booster maanein, Physics mein concepts deep karein aur Maths mein daily 40 questions practice karein.
         </p>
-        <div style="font-size: 11px; color: #ff4444; text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;">
-            🛡️ Cyber Security Active | No Copy | No Screenshot
+        <div style="font-size: 11px; color: #ff4444; text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 15px;">
+            🛡️ Cyber Security Active | Content Protected
         </div>
     </div>
 
 </div>
 
 <script>
-    // 1. Visitor Counter Logic
-    let currentV = localStorage.getItem('site_visits') || 1350;
-    currentV++;
-    localStorage.setItem('site_visits', currentV);
-    document.getElementById('v-count').innerText = currentV;
+    // Visitor Count logic
+    let vTotal = localStorage.getItem('visit_total') || 1360;
+    vTotal++;
+    localStorage.setItem('visit_total', vTotal);
+    document.getElementById('v-count').innerText = vTotal;
 
-    // 2. Security (Anti-Copy & Right Click)
+    // Security: Anti-Copy & Anti-Screenshot
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('selectstart', e => e.preventDefault());
     document.onkeydown = function(e) {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
     };
 
-    // 3. Challenge Logic
+    // Challenge Logic
     function verifyAns() {
-        let input = document.getElementById('user-ans').value;
+        let val = document.getElementById('user-ans').value;
         let m = document.getElementById('msg');
-        if(input == "2") {
-            m.innerText = "✅ Correct! Excellent Logic."; m.style.color = "#00ffcc";
+        if(val == "2") {
+            m.innerText = "✅ Excellent! Sahi hai."; m.style.color = "#00ffcc";
         } else {
-            m.innerText = "❌ Try Again! Hint: 1+1"; m.style.color = "#ff4444";
+            m.innerText = "❌ Hint: 1 + 1 = ?"; m.style.color = "#ff4444";
         }
     }
 </script>
 
 <style>
-    /* Sabse important: Poore page ko center mein lock karne ke liye */
-    html, body {
-        height: 100%;
+    /* Sabse important CSS jo sab kuch center mein rakhegi */
+    body {
         margin: 0;
-        display: flex;
-        flex-direction: column;
-        background: var(--bg);
+        padding: 0;
+        display: block !important; /* Kisi bhi purane flex ko hatane ke liye */
+        text-align: center;
+        -webkit-user-select: none;
+        user-select: none;
     }
 </style>
