@@ -100,98 +100,82 @@
     </div>
 </nav>
 
-    <main id="mainContent" style="padding: 20px; max-width: 1200px; margin: 0 auto; display: block;">
+        <main style="padding: 10px; max-width: 500px; margin: 0 auto; display: block;">
         
-        <div style="text-align: right; margin-bottom: 10px; color: var(--glow); font-size: 14px; font-weight: bold;">
-            👁️ Total Visitors: <span id="visitor-count">1,240</span>
+        <div style="background: var(--panel); padding: 10px; border-radius: 12px; border: 1px solid var(--glow); text-align: center; margin-bottom: 20px;">
+            <span style="color: var(--glow); font-size: 14px; font-weight: bold;">👁️ Total Visitors: <span id="visitor-count">1250</span></span>
         </div>
 
-        <div id="welcome-quest" style="background: linear-gradient(45deg, #161b22, #0d1117); padding: 25px; border-radius: 15px; border: 2px solid #ffcc00; margin-bottom: 30px; position: relative;">
-            <span style="position: absolute; top: -10px; left: 20px; background: #ffcc00; color: #000; padding: 2px 10px; font-size: 12px; font-weight: bold; border-radius: 5px;">NEW VISITOR CHALLENGE</span>
-            <h3 style="color: #fff; margin-top: 10px;">🎯 Solve this to enter the Zone:</h3>
-            <p id="daily-q" style="color: #c9d1d9; font-style: italic; font-size: 1.1rem;">Loading your unique question...</p>
-            <input type="text" id="ans-input" placeholder="Your Answer Here..." style="background: #0d1117; border: 1px solid #333; color: #fff; padding: 8px; border-radius: 5px; width: 200px;">
-            <button onclick="checkAns()" style="background: #ffcc00; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Submit</button>
+        <div style="background: #0d1117; padding: 20px; border-radius: 20px; border: 2px solid #ffcc00; margin-bottom: 25px; box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);">
+            <div style="background: #ffcc00; color: #000; display: inline-block; padding: 2px 12px; border-radius: 5px; font-size: 12px; font-weight: bold; margin-bottom: 10px;">NEW VISITOR CHALLENGE</div>
+            <p id="daily-q" style="color: #fff; font-size: 1.1rem; margin-bottom: 15px;">Value of sin(90)?</p>
+            <input type="text" id="ans-input" placeholder="Answer..." style="width: 70%; background: #161b22; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+            <button onclick="checkAns()" style="width: 100%; background: #ffcc00; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #000;">Submit Answer</button>
             <p id="feedback" style="margin-top: 10px; font-weight: bold;"></p>
         </div>
 
-        <div style="background: var(--panel); padding: 40px; border-radius: 20px; border: 1px solid var(--glow); line-height: 1.8;">
-            <h1 style="color: var(--glow); text-align: center;">🚀 JEE Mains 2026: The Ultimate Success Roadmap</h1>
-            <p style="color: #8b949e; text-align: center;">Published by: Ram Jaiswal | 15 min read</p>
+        <div style="background: var(--panel); padding: 20px; border-radius: 20px; border: 1px solid var(--glow); line-height: 1.6; margin-bottom: 30px;">
+            <h2 style="color: var(--glow); text-align: center; font-size: 1.5rem;">🚀 JEE Mains 2026 Strategy</h2>
+            <p style="color: #8b949e; text-align: center; font-size: 12px; margin-bottom: 20px;">By: Ram Jaiswal | 15 min read</p>
             
-            <h2 style="color: var(--glow);">Introduction</h2>
-            <p>JEE Mains sirf ek exam nahi hai, ye lakho students ke sapno ki udaan hai. Har saal 12 lakh se zyada bacche isme baithte hain, lekin sirf wahi top par pahunchte hain jinki strategy 'Bulletproof' hoti hai...</p>
-
-            <h3 style="color: #ffcc00;">Subject-Wise Deep Dive</h3>
-            <p><b>Physics:</b> Mechanics se lekar Modern Physics tak, har chapter ka apna ek weightage hai. Aapko HC Verma ke har ek sawal ko at least 2 baar solve karna chahiye. Concepts ko visualize karne ke liye animation videos ka sahara lein.</p>
-            
-            <p><b>Chemistry:</b> Ye rank-maker subject hai. Inorganic Chemistry ke liye NCERT ki har ek line 'Gita' ki tarah hai. Organic mein reactions ko ratne ke bajaye mechanisms par dhyan dein. Physical Chemistry mein calculation speed badhayein.</p>
-
-            <p><b>Mathematics:</b> Calculus aur Algebra ko ignore karna matlab rank se hath dhona. Rozana 50 sawal practice karne ka sankalp lein...</p>
-            
-            <div style="background: rgba(0,255,204,0.05); padding: 20px; border-left: 5px solid var(--glow); margin: 20px 0;">
-                <h4>Cyber Security Tip for Students:</h4>
-                <p>Internet par study material download karte waqt hamesha verify karein ki site secure (HTTPS) hai ya nahi. Hamari website 'Cyber Crime' protection ke liye encrypted hai.</p>
+            <div style="color: #c9d1d9; font-size: 0.95rem;">
+                <p><b>Introduction:</b> JEE Mains sirf ek exam nahi hai, ye aapke career ki pehli badi sidhi hai. 99 Percentile laane ke liye rozana discipline zaruri hai.</p>
+                
+                <h3 style="color: #ffcc00; font-size: 1.1rem; margin-top: 20px;">1. Subject Focus</h3>
+                <p>Physics mein concepts, Chemistry mein NCERT, aur Maths mein practice ko apna hathiyar banayein.</p>
+                
+                <p>Inorganic Chemistry ko roz 1 ghanta dein aur Physics ke numericals bina solution dekhe solve karne ki aadat dalein.</p>
             </div>
 
-            <p>(...Isi tarah aap yahan 1000-2000 words ka content fill kar sakte hain, maine structure professional banaya hai...)</p>
+            <div style="background: rgba(255, 68, 68, 0.1); border: 1px dashed #ff4444; padding: 10px; border-radius: 10px; margin-top: 20px; font-size: 12px; color: #ffbbbb; text-align: center;">
+                🛡️ Cyber Security: This portal is encrypted. Content theft is strictly prohibited.
+            </div>
         </div>
     </main>
 
     <script>
-        // 1. Disable Right Click (Anti-Copy)
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        // Right click block
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // Text selection block (Mobile)
+        document.addEventListener('selectstart', e => e.preventDefault());
 
-        // 2. Disable Keyboard Shortcuts (Inspect Element/Source Code)
+        // Keyboard security
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
-                alert("Security Alert: Copying code is not allowed!");
-                return false;
-            }
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
         };
 
-        // 3. Prevent Screenshots (Overlay trick)
-        document.addEventListener('keyup', (e) => {
-            if (e.key == 'PrintScreen') {
-                navigator.clipboard.writeText('');
-                alert('Screenshots are disabled for privacy.');
-            }
-        });
-
-        // 4. Visitor Counter (Demo logic)
-        let count = localStorage.getItem('vis_count') || 1240;
+        // Visitor count logic
+        let count = localStorage.getItem('vis_count') || 1250;
         count++;
         localStorage.setItem('vis_count', count);
         document.getElementById('visitor-count').innerText = count;
 
-        // 5. Unique Question Logic
-        const questions = [
-            {q: "What is the value of g on Earth? (9.8 or 10)", a: "9.8"},
-            {q: "Oxidation state of Oxygen in H2O?", a: "-2"},
-            {q: "Value of sin(90)?", a: "1"}
-        ];
-        let currentQ = questions[Math.floor(Math.random() * questions.length)];
-        document.getElementById('daily-q').innerText = currentQ.q;
-
+        // Question check
         function checkAns() {
-            let userAns = document.getElementById('ans-input').value;
-            if(userAns == currentQ.a) {
-                document.getElementById('feedback').style.color = "#00ffcc";
-                document.getElementById('feedback').innerText = "✅ Correct! You are a JEE Pro.";
+            let val = document.getElementById('ans-input').value;
+            let feedback = document.getElementById('feedback');
+            if(val == "1") {
+                feedback.innerText = "✅ Correct!"; feedback.style.color = "#00ffcc";
             } else {
-                document.getElementById('feedback').style.color = "#ff4444";
-                document.getElementById('feedback').innerText = "❌ Keep trying, aspirant!";
+                feedback.innerText = "❌ Try again!"; feedback.style.color = "#ff4444";
             }
         }
     </script>
 
     <style>
-        /* Security: Content selection block */
+        /* CSS to make it look like a clean App/Calculator */
         body {
-            -webkit-user-select: none; /* Chrome/Safari */
-            -moz-user-select: none;    /* Firefox */
-            -ms-user-select: none;     /* IE10+ */
-            user-select: none;         /* Standard syntax */
+            -webkit-user-select: none;
+            user-select: none;
+            overflow-x: hidden;
+        }
+        main {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
     
