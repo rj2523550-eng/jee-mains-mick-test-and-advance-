@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+.<!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -127,65 +127,7 @@
 </div>
 
 <script>
-function checkLogin() {
-    var pass = document.getElementById("password").value;
-    // Password 'admin' set hai
-    if (pass === "admin") {
-        document.getElementById("loginOverlay").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
-    } else {
-        document.getElementById("loginError").style.display = "block";
-    }
-}
 
-// Enter button dabaane par bhi login ho jaye
-document.getElementById("password").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        checkLogin();
-    }
-});
-</script>
-    
-                <div class="grid">
-                    <button onclick="clearDisplay()" class="op">AC</button>
-                    <button onclick="append('**')" class="op">^</button>
-                    <button onclick="append('/')" class="op">÷</button>
-                    <button onclick="backspace()" class="op">DEL</button>
-                    <button onclick="append('7')">7</button><button onclick="append('8')">8</button><button onclick="append('9')">9</button>
-                    <button onclick="append('*')" class="op">×</button>
-                    <button onclick="append('4')">4</button><button onclick="append('5')">5</button><button onclick="append('6')">6</button>
-                    <button onclick="append('-')" class="op">-</button>
-                    <button onclick="append('1')">1</button><button onclick="append('2')">2</button><button onclick="append('3')">3</button>
-                    <button onclick="append('+')" class="op">+</button>
-                    <button onclick="append('0')">0</button><button onclick="append('.')">.</button>
-                    <button onclick="calculate()" class="solve">= SOLVE</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Login Logic
-        function checkLogin() {
-            const pass = document.getElementById('password').value;
-            if (pass === "admin") { // Maine password 'admin' rakha hai
-                document.getElementById('loginOverlay').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-
-        // Calculator Logic
-        let display = document.getElementById('display');
-        function append(val) { display.value += val; }
-        function clearDisplay() { display.value = ''; }
-        function backspace() { display.value = display.value.slice(0, -1); }
-        function calculate() {
-            try { display.value = eval(display.value); }
-            catch (e) { display.value = "Error"; }
-        }
-    </script>
 <div style="margin: 40px auto; max-width: 700px; padding: 30px; background: #0d1117; border-radius: 20px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.6); font-family: 'Segoe UI', sans-serif;">
     
     <div style="text-align: center; margin-bottom: 30px;">
