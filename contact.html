@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - JEE Mains Master Hub</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --panel: #161b22;
+            --glow: #00ffcc;
+            --text: #c9d1d9;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .contact-card {
+            max-width: 500px;
+            width: 100%;
+            background: var(--panel);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glow);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+        }
+        h1 { color: var(--glow); text-align: center; margin-bottom: 10px; font-size: 24px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; color: var(--glow); font-size: 14px; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: white;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--glow);
+            color: #0d1117;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--glow);
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-card">
+    <h1>📩 Contact Ram</h1>
+    <p style="text-align: center; font-size: 14px; color: #8b949e;">JEE Mains Master Hub se judne ke liye message bhejien.</p>
+
+    <form action="https://formspree.io/f/xgolvaop" method="POST">
+        <div class="form-group">
+            <label>Aapka Naam</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Aapka Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit">Send Message 🚀</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+</div>
+
+</body>
+</html>
