@@ -115,64 +115,31 @@
 
 <style>
     .dropdown:hover .dropdown-content { display: block !important; }
-    .dropdown-content a:hover { background-color: #1f6feb; border-radius: 8px; }
-</style>
-            
-            
-<div class="logo">JEE MASTER HUB</div>  <div class="nav-links">                 
-</div>                                  </nav>                                  ```
-
----
-
-
-               
-    </nav>
-
-        <div class="container">
-            <div style="width: 280px; background: var(--panel); padding: 20px; border-radius: 15px;">
-                <h3 style="color: var(--glow)">Dashboard</h3>
-        
-         <p onclick="window.open('https://www.shiksha.com/engineering/jee-main-question-papers-rtp')" style="cursor: pointer; color: #00ffcc; font-weight: bold;">● Download JEE Mains 2024 PYQ</p>
-<p onclick="window.open('https://jeemain.nta.ac.in/')" style="cursor: pointer; color: #00ffcc; font-weight: bold;">● JEE Mains 2025 (Official Site)</p>
-
-<hr style="border: 0.5px solid #444; margin: 15px 0;">
-
-<h3 style="color: #00ffcc; font-size: 16px;">Physics Revision Hub</h3>
-<div style="background: #222; padding: 10px; border-radius: 8px; font-size: 13px; text-align: left;">
-    <details>
-        <summary style="cursor: pointer; color: #ffad33; font-weight: bold;">1. Kinematics (Motion)</summary>
-        <p style="margin-top: 5px;"><b>Formula:</b> $v = u + at$ <br>
-        <b>Example:</b> Car starts from rest (u=0), acceleration (a) is 2m/s² for 5s. <br>
-        <i>Velocity (v) = 0 + (2 × 5) = 10 m/s</i></p>
-    </details>
-
-    <h3 onclick="location.href='physics.html'" style="color: #00ffcc; font-size: 16px; cursor: pointer;">Physics Revision Hub (Open Page)</h3>
-<div style="background: #222; padding: 10px; border-radius: 8px; font-size: 13px; text-align: left;">
+ <div class="container" style="display: block; width: 90%; max-width: 1200px; margin: 30px auto;">
     
-    <details style="margin-bottom: 8px;">
-        <summary style="cursor: pointer; color: #ffad33; font-weight: bold;">1. Kinematics (Motion)</summary>
-        <div style="padding: 5px; color: #eee; border-top: 1px solid #444; margin-top: 5px;">
-            <b>Formula:</b> $v = u + at$ <br>
-            <b>Example:</b> Car starts from rest ($u=0$), $a=2m/s^2$ for $5s \rightarrow v = 10m/s$.
+    <div style="background: var(--panel); padding: 25px; border-radius: 20px; border: 1px solid var(--glow); box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+            <h2 style="color: var(--glow); margin: 0; font-size: 1.4rem;">📰 Latest JEE Info & Blogs</h2>
+            <span style="background: var(--glow); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">UPDATED</span>
         </div>
-    </details>
 
-    <details>
-        <summary style="cursor: pointer; color: #ffad33; font-weight: bold;">2. Work & Energy</summary>
-        <div style="padding: 5px; color: #eee; border-top: 1px solid #444; margin-top: 5px;">
-            <b>Formula:</b> $W = F \cdot d$ <br>
-            <b>Example:</b> $F=10N, d=5m \rightarrow W=50J$.
-        </div>
-    </details>
-</div>
-    
-                
-                <hr style="border: 0.5px solid #444;">
-                <button class="login-btn" onclick="location.reload()">Logout</button>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            
+            <div style="background: #0d1117; padding: 15px; border-radius: 12px; border: 1px solid #30363d;">
+                <h3 style="color: var(--glow); font-size: 1.1rem; margin-top: 0;">JEE Mains 2026 Strategy</h3>
+                <p style="color: #8b949e; font-size: 14px;">Physics aur Maths mein 99 percentile kaise layein? Janne ke liye padhein...</p>
+                <a href="blog1.html" style="color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; border-bottom: 1px solid var(--glow);">Read Article →</a>
             </div>
 
-            <div class="calculator">
-                <input type="text" id="display" placeholder="0" readonly>
+            <div style="background: #0d1117; padding: 15px; border-radius: 12px; border: 1px solid #30363d;">
+                <h3 style="color: var(--glow); font-size: 1.1rem; margin-top: 0;">NTA New Pattern Updates</h3>
+                <p style="color: #8b949e; font-size: 14px;">Kya 2026 mein syllabus badlega? NTA ki latest press release ki poori jankari...</p>
+                <a href="blog2.html" style="color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; border-bottom: 1px solid var(--glow);">Check Updates →</a>
+            </div>
+
+        </div>
+    </div>
+</div>
                 <div class="grid">
                     <button onclick="clearDisplay()" class="op">AC</button>
                     <button onclick="append('**')" class="op">^</button>
