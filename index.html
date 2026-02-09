@@ -100,64 +100,74 @@
     </div>
 </nav>
 
-<div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); padding: 20px 0;">
+<div class="main-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 80vh; padding: 20px; box-sizing: border-box;">
 
-    <div style="width: 90%; max-width: 500px; margin: 0 auto;">
-        
-        <div style="background: var(--panel); padding: 12px; border-radius: 12px; border: 1px solid var(--glow); text-align: center; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);">
-            <span style="color: var(--glow); font-size: 14px; font-weight: bold;">📊 Total Visitors: <span id="visitor-count">1340</span></span>
-        </div>
-
-        <div style="background: #161b22; padding: 25px; border-radius: 20px; border: 2px solid #ffcc00; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;">
-            <h3 style="color: #ffcc00; margin-top: 0;">🎯 JEE Daily Challenge</h3>
-            <div style="background: #0d1117; padding: 15px; border-radius: 10px; border: 1px solid #333; margin: 15px 0;">
-                <p id="daily-q" style="color: #fff; font-size: 1.1rem; margin: 0;">Solve: sin(90°) + cos(0°) = ?</p>
-            </div>
-            <input type="text" id="ans-input" placeholder="Answer..." style="width: 100%; padding: 12px; background: #0d1117; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; text-align: center; margin-bottom: 15px;">
-            <button onclick="checkAns()" style="width: 100%; background: #ffcc00; color: #000; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;">Check Answer</button>
-            <p id="feedback" style="margin-top: 10px; font-weight: bold;"></p>
-        </div>
-
-        <div style="background: var(--panel); padding: 25px; border-radius: 20px; border: 1px solid #333; line-height: 1.8; color: #c9d1d9;">
-            <h2 style="color: var(--glow); text-align: center; margin-top: 0;">🚀 JEE 2026 Strategy</h2>
-            <p style="font-size: 0.9rem;">JEE crack karne ke liye consistency chahiye. Chemistry rank booster hai, Physics concept-based hai aur Maths practice-heavy hai...</p>
-            
-            <div style="background: rgba(255, 68, 68, 0.1); color: #ffbbbb; padding: 10px; border-radius: 8px; border: 1px dashed #ff4444; margin-top: 20px; font-size: 11px; text-align: center;">
-                🛡️ Cyber Security Enabled: No Copy / No Screenshot
-            </div>
-        </div>
-
+    <div style="background: rgba(0, 255, 204, 0.1); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--glow); margin-bottom: 20px; color: var(--glow); font-weight: bold; font-size: 14px;">
+        👁️ Visitors: <span id="v-count">1350</span>
     </div>
+
+    <div class="calculator-box" style="width: 100%; max-width: 400px; background: var(--panel); border-radius: 25px; border: 2px solid var(--glow); padding: 30px; box-shadow: 0 0 25px rgba(0, 255, 204, 0.2); text-align: center;">
+        
+        <h2 style="color: var(--glow); margin-bottom: 20px; font-size: 1.5rem;">🎯 Daily Challenge</h2>
+        
+        <div style="background: #0d1117; padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px;">
+            <p id="q-text" style="color: #fff; font-size: 1.1rem; margin: 0;">Solve: sin(90°) + cos(0°) = ?</p>
+        </div>
+
+        <input type="text" id="user-ans" placeholder="Type Answer Here" style="width: 100%; padding: 15px; background: #161b22; border: 1px solid #444; color: #fff; border-radius: 12px; text-align: center; font-size: 1.2rem; margin-bottom: 20px; outline: none; box-sizing: border-box;">
+
+        <button onclick="verifyAns()" style="width: 100%; background: var(--glow); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s;">Submit Answer</button>
+        
+        <p id="msg" style="margin-top: 15px; font-weight: bold;"></p>
+    </div>
+
+    <div style="width: 100%; max-width: 400px; margin-top: 30px; background: var(--panel); padding: 25px; border-radius: 25px; border: 1px solid #333; color: #c9d1d9; line-height: 1.6;">
+        <h3 style="color: var(--glow); text-align: center;">🚀 JEE 2026 Blog</h3>
+        <p style="font-size: 14px;">
+            JEE crack karne ke liye consistency hi sabse bada weapon hai. Physics concepts, Chemistry NCERT aur Maths practice... ye 3 pillars aapko 99 percentile tak le jayenge. 
+            <br><br>
+            <i>(Ye section 2000 words tak expand ho sakta hai)</i>
+        </p>
+        <div style="font-size: 11px; color: #ff4444; text-align: center; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;">
+            🛡️ Cyber Security Active | No Copy | No Screenshot
+        </div>
+    </div>
+
 </div>
 
 <script>
-    // Security & Logic
+    // 1. Visitor Counter Logic
+    let currentV = localStorage.getItem('site_visits') || 1350;
+    currentV++;
+    localStorage.setItem('site_visits', currentV);
+    document.getElementById('v-count').innerText = currentV;
+
+    // 2. Security (Anti-Copy & Right Click)
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('selectstart', e => e.preventDefault());
-    
-    let count = localStorage.getItem('v_cnt') || 1340;
-    count++;
-    localStorage.setItem('v_cnt', count);
-    document.getElementById('visitor-count').innerText = count;
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
+    };
 
-    function checkAns() {
-        let val = document.getElementById('ans-input').value;
-        if(val == "2") {
-            document.getElementById('feedback').innerText = "✅ Correct!";
-            document.getElementById('feedback').style.color = "#00ffcc";
+    // 3. Challenge Logic
+    function verifyAns() {
+        let input = document.getElementById('user-ans').value;
+        let m = document.getElementById('msg');
+        if(input == "2") {
+            m.innerText = "✅ Correct! Excellent Logic."; m.style.color = "#00ffcc";
         } else {
-            document.getElementById('feedback').innerText = "❌ Try Again!";
-            document.getElementById('feedback').style.color = "#ff4444";
+            m.innerText = "❌ Try Again! Hint: 1+1"; m.style.color = "#ff4444";
         }
     }
 </script>
 
 <style>
-    /* Sabse important CSS jo center mein rakhegi */
-    body {
+    /* Sabse important: Poore page ko center mein lock karne ke liye */
+    html, body {
+        height: 100%;
         margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* Side scroll khatam karne ke liye */
-        display: block !important;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
     }
 </style>
