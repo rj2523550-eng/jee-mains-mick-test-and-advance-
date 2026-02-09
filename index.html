@@ -239,6 +239,19 @@
 
 <style>
     /* Content selection ko disable karta hai */
+  <script>
+function checkLogin() {
+    var pass = document.getElementById("password").value;
+    // Password 'admin' set hai
+    if (pass === "admin") {
+        document.getElementById("loginOverlay").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        document.getElementById("loginError").style.display = "block";
+    }
+}
+</script>
+    
     body {
         -webkit-user-select: none;
         -moz-user-select: none;
