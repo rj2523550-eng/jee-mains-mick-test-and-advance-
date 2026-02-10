@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - JEE MASTER HUB</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --panel: #161b22;
+            --glow: #00ffcc;
+            --text: #c9d1d9;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: block;
+        }
+
+        /* Centered Container */
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Blog Card Style */
+        .blog-card {
+            background: var(--panel);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: var(--glow);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        h2 {
+            color: #ffcc00;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--glow);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Friendly */
+        @media (max-width: 600px) {
+            .blog-card {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Dashboard</a>
+
+        <article class="blog-card">
+            <h1>Yahan Apna Blog Title Likhein</h1>
+            <div class="meta">Published on: Feb 10, 2026 | By: Ram Jaiswal</div>
+
+            <div class="content">
+                <p>
+                    Bhai, yahan aap apna pehla paragraph likhein. Maine iska font size aur spacing ekdam perfect rakhi hai taaki student bore na ho. Ye poora box screen ke beech mein hi rahega.
+                </p>
+
+                <h2>Important Strategy Tip</h2>
+                <p>
+                    Agar aap JEE Mains ki taiyari kar rahe hain, toh hamesha yaad rakhein ki consistency hi sabse badi power hai. Niche diye gaye points ko follow karein:
+                </p>
+
+                <ul style="color: var(--glow); padding-left: 20px;">
+                    <li>Daily revision karna zaroori hai.</li>
+                    <li>Mock tests ko ignore na karein.</li>
+                    <li>NCERT Chemistry ki har line ko dhyan se padhein.</li>
+                </ul>
+
+                <p>
+                    Aap is file mein jitna chahein lamba blog likh sakte hain, ye card apne aap niche bada hota jayega. 
+                </p>
+
+                <div style="background: rgba(0,255,204,0.1); border: 1px dashed var(--glow); padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center;">
+                    <strong>Pro Tip:</strong> Rozana 6-8 ghante ki quality study rank improve karne mein madad karti hai.
+                </div>
+            </div>
+        </article>
+
+        <div style="text-align: center; margin-top: 40px; color: #555; font-size: 0.8rem;">
+            © 2026 JEE MASTER HUB | Secured & Encrypted
+        </div>
+    </div>
+
+</body>
+</html>
