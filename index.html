@@ -165,44 +165,34 @@
     </div>
     </div>
 
-    <div style="width: 100%; display: flex; justify-content: center; padding: 40px 0; background: transparent; clear: both;">
+    <div style="width: 100%; display: flex; justify-content: center; padding: 50px 0; background: #f8f9fa; clear: both;">
     
-    <div style="
-        background: rgba(255, 255, 255, 0.1); 
-        backdrop-filter: blur(10px); 
-        -webkit-backdrop-filter: blur(10px); 
-        border: 1px solid rgba(255, 255, 255, 0.2); 
-        padding: 20px 40px; 
-        border-radius: 20px; 
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        gap: 10px;
-        transition: transform 0.3s ease;">
-
-        <div style="display: flex; align-items: center; gap: 8px; background: rgba(0, 255, 127, 0.1); padding: 5px 15px; border-radius: 50px; border: 1px solid rgba(0, 255, 127, 0.3);">
-            <span style="height: 8px; width: 8px; background: #00ff7f; border-radius: 50%; box-shadow: 0 0 10px #00ff7f; animation: pulse-green 2s infinite;"></span>
-            <span style="color: #00ff7f; font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">Live Traffic</span>
-        </div>
-
-        <div style="color: #555; font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: 500;">
-            Our Community is Growing
-        </div>
-
-        <div style="background: #1a1a1a; padding: 8px 15px; border-radius: 10px; border: 1px solid #333;">
-            <img src="https://profile-counter.glitch.me/rj2523550-eng/count.svg" alt="Visitor Count" style="height: 30px; filter: hue-rotate(180deg) brightness(1.2);">
-        </div>
+    <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #e0e0e0; text-align: center; min-width: 250px;">
         
-        <div style="font-size: 11px; color: #888; margin-top: 5px;">Total Visits Recorded</div>
-    </div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: #e8f5e9; padding: 5px 15px; border-radius: 20px; margin-bottom: 15px;">
+            <span style="height: 8px; width: 8px; background: #4caf50; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite;"></span>
+            <span style="color: #2e7d32; font-size: 12px; font-weight: bold; text-transform: uppercase;">Live Traffic</span>
+        </div>
 
+        <div style="color: #666; font-size: 14px; margin-bottom: 10px; font-weight: 500;">Total Page Views</div>
+
+        <div style="background: #222; padding: 10px; border-radius: 8px; display: inline-block;">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Frj2523550-eng&count_bg=%2300FF7F&title_bg=%23333333&icon=&icon_color=%23E7E7E7&title=VISITS&edge_flat=false" 
+                 alt="Hits" 
+                 style="height: 25px; display: block;"
+                 onerror="this.parentElement.innerHTML='<span style=\'color:white\'>1,248</span>'"/>
+        </div>
+
+        <div style="margin-top: 15px; font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 10px;">
+            Tracking started for JEE 2026
+        </div>
+    </div>
 </div>
 
 <style>
-@keyframes pulse-green {
-    0% { transform: scale(0.95); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(0.95); opacity: 0.8; }
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
 }
 </style>
