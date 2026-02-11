@@ -1,6 +1,38 @@
 .<!DOCTYPE html>
 <html lang="hi">
 <head>
+   <script>
+    // 1. Right Click Disable (Content chori rokne ke liye)
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 2. Keyboard Shortcuts Disable (Inspect Element & Source Code rokne ke liye)
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { return false; } // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U (View Source)
+    };
+
+    // 3. Debugger Protection (Agar koi console khole toh website pause ho jaye)
+    setInterval(function(){
+        debugger;
+    }, 1000);
+
+    // 4. Frame Busting (Taki koi aapki site ko frame mein na chalaye - Anti-Clickjacking)
+    if (top !== self) { top.location = self.location; }
+</script>
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<style>
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Study Hub - Login & Solver</title>
