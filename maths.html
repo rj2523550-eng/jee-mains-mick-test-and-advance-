@@ -918,3 +918,73 @@ function toggleTrigChapter() {
     }
 }
 </script>
+
+
+            <div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #00f2ff; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            How to Master JEE Mathematics: The Ultimate 99 Percentile Guide
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="math-intro">
+                JEE Mains Mathematics ko aksar sabse tough aur lengthy section mana jata hai. Bahut se students Calculus aur Complex Numbers ke sawalon mein phans kar apna kafi samay barbaad kar dete hain. Lekin sahi strategy aur selection of questions se aap is section mein bhi 80+ marks score kar sakte hain. Is guide mein hum detail mein baat karenge ki kaise aap apne weak topics ko strong karein...
+            </p>
+
+            <div id="math-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Calculus: The Backbone of Maths</h2>
+                <p>Calculus JEE ka 30-35% weightage rakhta hai. Isme sabse pehle <b>Limits, Continuity aur Differentiability (LCD)</b> ko master karein kyunki ye base hai. 
+                <br>• <b>Definite Integration:</b> Isme <i>King's Property</i> aur <i>Leibnitz Rule</i> se har saal direct sawal aate hain.
+                <br>• <b>AOD:</b> Tangents aur Normals aur Maxima-Minima ke word problems ki practice karein.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Algebra: The Scoring Zone</h2>
+                <p>Algebra mein Matrices, Determinants aur Vectors aise chapters hain jo kam mehnat mein zyada marks dete hain.
+                <br>• <b>Matrices:</b> System of equations (Cramer's Rule) par focus karein.
+                <br>• <b>Probability:</b> Bayes' Theorem aur Binomial Distribution ko hamesha priority par rakhein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. Coordinate Geometry: Formulas & Visuals</h2>
+                <p>Circles aur Conic Sections (Parabola, Ellipse, Hyperbola) puri tarah se conditions aur equations par depend karte hain. 
+                <br><b>Trick:</b> Hamesha figure banakar check karein ki tangent point of contact par hai ya bahar se khincha gaya hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Practice aur Speed Building</h2>
+                <p>Maths mein sirf formula ratne se kaam nahi chalta. Aapko kam se kam 50 sawal rozana solve karne honge. Pichle 10 saal ke <b>PYQs (Previous Year Questions)</b> aapke sabse bade dost hain. Har hafte ek full-length mock test dein taaki aapki speed aur accuracy dono improve ho sakein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Final Revision Strategy</h2>
+                <p>Ek <b>Formula Notebook</b> banayein jisme har chapter ke short tricks aur important results hon. Exam se 15 din pehle kuch bhi naya na padhein, sirf purane notes ko revise karein aur calculation error se bachne ke liye table aur squares yaad rakhein.</p>
+
+                <div style="background: rgba(0, 242, 255, 0.1); border: 1px dashed #00f2ff; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Bhai, yaad rakho:</b> "Mathematics is not about numbers, equations or algorithms; it's about understanding." - Consistent raho aur success tumhari hogi!
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="read-more-btn" onclick="toggleMathBlog()" style="background: #00f2ff; color: #000; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0,242,255,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleMathBlog() {
+    var content = document.getElementById("math-full-content");
+    var btn = document.getElementById("read-more-btn");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        // Scroll back to top of the blog if needed
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
