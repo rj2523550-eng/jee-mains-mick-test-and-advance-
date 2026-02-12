@@ -608,4 +608,89 @@
 
     </details>
         </div>
+
+        <div id="units-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Courier New', Courier, monospace;">
+    
+    <div onclick="toggleUnitsChapter()" style="background: #020d1f; padding: 18px 25px; border-radius: 12px; border: 2px solid #39ff14; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); transition: 0.3s;">
+        <span style="color: #39ff14; font-size: 1.25rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">⚡ UNITS & DIMENSIONS (MASTER SHEET)</span>
+        <span id="units-btn-icon" style="color: #39ff14;">▼</span>
+    </div>
+
+    <div id="units-content-body" style="display: none; background: #050a14; border: 1px solid #1a2a44; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #a0aec0;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #39ff14; border-bottom: 1px solid #39ff14; padding-bottom: 5px;">1. DIMENSION KI "GOLDEN LIST"</h2>
+            <p>JEE Mains aksar inhi complex quantities ke dimensions poochta hai:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: #0a192f; color: #39ff14; border: 1px solid #1a2a44;">
+                <tr style="border-bottom: 1px solid #1a2a44;">
+                    <th style="padding: 10px; text-align: left;">Quantity</th>
+                    <th style="padding: 10px; text-align: left;">Dimensions</th>
+                </tr>
+                <tr><td style="padding: 8px;">Gravitational Constant (G)</td><td>$[M^{-1}L^3T^{-2}]$</td></tr>
+                <tr><td style="padding: 8px;">Viscosity ($\eta$)</td><td>$[ML^{-1}T^{-1}]$</td></tr>
+                <tr><td style="padding: 8px;">Planck's Constant (h)</td><td>$[ML^2T^{-1}]$</td></tr>
+                <tr><td style="padding: 8px;">Permittivity ($\epsilon_0$)</td><td>$[M^{-1}L^{-3}T^4A^2]$</td></tr>
+                <tr><td style="padding: 8px;">Permeability ($\mu_0$)</td><td>$[MLT^{-2}A^{-2}]$</td></tr>
+            </table>
+
+            <h2 style="color: #39ff14; border-bottom: 1px solid #39ff14; padding-bottom: 5px; margin-top: 30px;">2. BRAHMASTRA: PRINCIPLE OF HOMOGENEITY</h2>
+            <p>Physics mein sirf wahi terms add ya subtract ho sakte hain jinke dimensions equal hon.</p>
+            <div style="background: rgba(57, 255, 20, 0.05); border-left: 4px solid #39ff14; padding: 15px; margin: 10px 0;">
+                <b>Example:</b> $P = \frac{a - x^2}{bt}$ <br>
+                Yahan $[a] = [x^2] = [L^2]$ hona chahiye, tabhi subtraction possible hai.
+            </div>
+
+            <h2 style="color: #39ff14; border-bottom: 1px solid #39ff14; padding-bottom: 5px; margin-top: 30px;">3. ERROR PROPAGATION (ERROR KA KHEL)</h2>
+            <p>Errors hamesha <b>ADD</b> hote hain. Agar $X = \frac{A^a B^b}{C^c}$, toh Max Relative Error:</p>
+            <p style="text-align: center; color: #fff; background: #1a202c; padding: 10px; border-radius: 8px;">
+                $\frac{\Delta X}{X} = a\left(\frac{\Delta A}{A}\right) + b\left(\frac{\Delta B}{B}\right) + c\left(\frac{\Delta C}{C}\right)$
+            </p>
+            <p><b>Trick:</b> Power ko hamesha coefficient banakar multiply kar do.</p>
+
+            
+
+            <h2 style="color: #39ff14; border-bottom: 1px solid #39ff14; padding-bottom: 5px; margin-top: 30px;">4. MEASURING INSTRUMENTS (POCKET FORMULAS)</h2>
+            <p><b>Vernier Caliper:</b> $LC = 1 MSD - 1 VSD$. Reading = $MSR + (VSR \times LC)$.</p>
+            <p><b>Screw Gauge:</b> $LC = \frac{\text{Pitch}}{\text{Total Divisions}}$. Reading = $MSR + (CSR \times LC)$.</p>
+            <p style="color: #ff4d4d;">⚠️ <b>Zero Error:</b> Positive error ko subtract karo, Negative ko add karo.</p>
+
+            
+
+            <h2 style="color: #39ff14; border-bottom: 1px solid #39ff14; padding-bottom: 5px; margin-top: 30px;">5. TIME-SAVER SHORTCUTS (JEE SPECIAL)</h2>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🚀 <b>Velocity ($LT^{-1}$):</b> $\frac{E}{B}$ or $\frac{1}{\sqrt{\mu_0 \epsilon_0}}$</li>
+                <li>⏳ <b>Time ($T$):</b> $RC$, $\frac{L}{R}$, $\sqrt{LC}$ (Time Constants)</li>
+                <li>🔋 <b>Energy ($ML^2T^{-2}$):</b> $PV$, $I\omega^2$, $mc^2$, $LI^2$, $\frac{Q^2}{2C}$</li>
+            </ul>
+
+            <div style="background: rgba(57, 255, 20, 0.1); border: 1px dashed #39ff14; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #39ff14; margin-top: 0;">🔥 JEE MAINS TIPS</h3>
+                <p>1. <b>Option Elimination:</b> 50% sawal sirf dimensions check karke solve ho jate hain.</p>
+                <p>2. <b>Units Table:</b> Dimensions nikalne ke liye basic units (Force = $kg \cdot m/s^2$) hamesha yaad rakho.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="units-dimensions-chart.jpg" alt="Units and Dimensions Master Chart" style="max-width: 100%; border-radius: 10px; border: 1px solid #39ff14; box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);">
+                <p style="font-size: 0.8rem; color: #39ff14;">[Image: Dimensional Formulas of Physical Quantities Table]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleUnitsChapter() {
+    var body = document.getElementById("units-content-body");
+    var icon = document.getElementById("units-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
+        
         
