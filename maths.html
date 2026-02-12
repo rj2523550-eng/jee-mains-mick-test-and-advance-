@@ -436,3 +436,83 @@ function toggleMatricesSection() {
     }
 }
 </script>
+
+            <div id="complex-master-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <div onclick="toggleComplexSection()" style="background: var(--panel); padding: 18px 25px; border-radius: 12px; border: 1px solid var(--glow); cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,255,204,0.1); transition: all 0.3s ease;">
+        <span style="color: var(--glow); font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🌀 COMPLEX NUMBERS (FULL CHAPTER SUMMARY)</span>
+        <span id="complex-arrow" style="color: var(--glow); transition: transform 0.3s;">▼</span>
+    </div>
+
+    <div id="complex-box-content" style="display: none; background: var(--panel); border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; overflow: hidden;">
+        
+        <div style="line-height: 1.8; color: #c9d1d9; font-size: 1.05rem;">
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px;">1. BASIC DEFINITION & IOTA ($\iota$)</h2>
+            <p>A number of the form $z = a + i b$, where $a, b \in \mathbb{R}$ and $i = \sqrt{-1}$.</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 $i^2 = -1, i^3 = -i, i^4 = 1$</li>
+                <li>🔹 Sum of four consecutive powers of $i$ is always **zero**: $i^n + i^{n+1} + i^{n+2} + i^{n+3} = 0$.</li>
+            </ul>
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">2. CONJUGATE, MODULUS & ARGUMENT</h2>
+            <p>If $z = x + iy$, then:</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>✅ <b>Conjugate ($\bar{z}$):</b> $x - iy$ (Reflection in x-axis).</li>
+                <li>✅ <b>Modulus ($|z|$):</b> $\sqrt{x^2 + y^2}$ (Distance from origin).</li>
+                <li>✅ <b>Argument ($\theta$):</b> $\tan^{-1}(y/x)$. Principal value lies in $(-\pi, \pi]$.</li>
+            </ul>
+
+            
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">3. REPRESENTATION FORMS</h2>
+            <p><b>Euler's Form:</b> $z = r e^{i \theta}$ (Most powerful for multiplication/division).</p>
+            <p><b>Polar Form:</b> $z = r(\cos \theta + i \sin \theta)$.</p>
+            <p><b>De Moivre's Theorem:</b> $(\cos \theta + i \sin \theta)^n = \cos(n\theta) + i \sin(n\theta)$.</p>
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">4. CUBE ROOTS OF UNITY ($1, \omega, \omega^2$)</h2>
+            <ul style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                <li>• $1 + \omega + \omega^2 = 0$</li>
+                <li>• $\omega^3 = 1$</li>
+                <li>• $\omega = \frac{-1 + i\sqrt{3}}{2}$ and $\omega^2 = \frac{-1 - i\sqrt{3}}{2}$</li>
+            </ul>
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">5. GEOMETRY (MOST IMPORTANT)</h2>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>📍 $|z - z_1| = |z - z_2|$ : Perpendicular bisector.</li>
+                <li>📍 $|z - z_1| = r$ : Circle with center $z_1$ and radius $r$.</li>
+                <li>📍 $|z - z_1| + |z - z_2| = 2a$ : Ellipse if $2a > |z_1 - z_2|$.</li>
+            </ul>
+
+            
+
+            <div style="background: rgba(0, 255, 204, 0.05); border: 1px dashed var(--glow); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                <h3 style="color: var(--glow); margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>• <b>Rotation Theorem:</b> $\frac{z_3 - z_1}{z_2 - z_1} = \left| \frac{z_3 - z_1}{z_2 - z_1} \right| e^{i \alpha}$.</p>
+                <p>• <b>Distance Formula:</b> Distance between $z_1$ and $z_2$ is $|z_1 - z_2|$.</p>
+                <p>• <b>Logarithm:</b> $\ln(z) = \ln|z| + i(arg(z) + 2n\pi)$.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="YOUR_COMPLEX_IMAGE_URL" alt="Complex Numbers Summary Chart" style="max-width: 100%; border-radius: 8px; border: 1px solid #444; display: block; margin: 10px auto;">
+                <p style="color: #555; font-size: 0.8rem;">[Image: Argand Plane & Vector Representation]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleComplexSection() {
+    var content = document.getElementById("complex-box-content");
+    var arrow = document.getElementById("complex-arrow");
+    
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.style.transform = "rotate(180deg)";
+    } else {
+        content.style.display = "none";
+        arrow.style.transform = "rotate(0deg)";
+    }
+}
+</script>
