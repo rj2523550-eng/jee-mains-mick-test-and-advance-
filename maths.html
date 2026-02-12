@@ -437,65 +437,80 @@ function toggleMatricesSection() {
 }
 </script>
 
-            <div id="complex-master-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <div id="complex-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Arial, sans-serif;">
     
-    <div onclick="toggleComplexSection()" style="background: var(--panel); padding: 18px 25px; border-radius: 12px; border: 1px solid var(--glow); cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,255,204,0.1); transition: all 0.3s ease;">
-        <span style="color: var(--glow); font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🌀 COMPLEX NUMBERS (FULL CHAPTER SUMMARY)</span>
-        <span id="complex-arrow" style="color: var(--glow); transition: transform 0.3s;">▼</span>
+    <div onclick="toggleComplexChapter()" style="background: #1a1a1a; padding: 18px 25px; border-radius: 12px; border: 1px solid #ff69b4; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2); transition: 0.3s;">
+        <span style="color: #ff69b4; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">➿ COMPLEX NUMBERS: FULL SUMMARY</span>
+        <span id="complex-btn-icon" style="color: #ff69b4;">▼</span>
     </div>
 
-    <div id="complex-box-content" style="display: none; background: var(--panel); border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; overflow: hidden;">
+    <div id="complex-content-body" style="display: none; background: #0f0f0f; border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px;">
         
-        <div style="line-height: 1.8; color: #c9d1d9; font-size: 1.05rem;">
+        <div style="line-height: 1.8; color: #e0e0e0; font-size: 1.05rem;">
+            
+            <p style="color: #ff69b4; font-weight: bold; background: rgba(255,105,180,0.1); padding: 10px; border-radius: 5px; text-align: center;">
+                Property: $i^n + i^{n+1} + i^{n+2} + i^{n+3} = 0$
+            </p>
 
-            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px;">1. BASIC DEFINITION & IOTA ($\iota$)</h2>
-            <p>A number of the form $z = a + i b$, where $a, b \in \mathbb{R}$ and $i = \sqrt{-1}$.</p>
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px;">1. ALGEBRAIC PROPERTIES</h2>
+            <p><b>Power of $i$ (Iota):</b> $i = \sqrt{-1}$</p>
             <ul style="list-style: none; padding-left: 10px;">
-                <li>🔹 $i^2 = -1, i^3 = -i, i^4 = 1$</li>
-                <li>🔹 Sum of four consecutive powers of $i$ is always **zero**: $i^n + i^{n+1} + i^{n+2} + i^{n+3} = 0$.</li>
+                <li>🔹 $i^{4n} = 1$ | $i^{4n+1} = i$ | $i^{4n+2} = -1$ | $i^{4n+3} = -i$</li>
+                <li>🔹 <b>Equality:</b> $z_1 = z_2 \Rightarrow Re(z_1) = Re(z_2)$ and $Im(z_1) = Im(z_2)$</li>
+                <li>🔹 <b>Square Root:</b> $\pm \left( \sqrt{\frac{|z|+x}{2}} + i \frac{y}{|y|} \sqrt{\frac{|z|-x}{2}} \right)$</li>
             </ul>
 
-            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">2. CONJUGATE, MODULUS & ARGUMENT</h2>
-            <p>If $z = x + iy$, then:</p>
-            <ul style="list-style: none; padding-left: 10px;">
-                <li>✅ <b>Conjugate ($\bar{z}$):</b> $x - iy$ (Reflection in x-axis).</li>
-                <li>✅ <b>Modulus ($|z|$):</b> $\sqrt{x^2 + y^2}$ (Distance from origin).</li>
-                <li>✅ <b>Argument ($\theta$):</b> $\tan^{-1}(y/x)$. Principal value lies in $(-\pi, \pi]$.</li>
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px; margin-top: 30px;">2. MODULUS & CONJUGATE (THE BACKBONE)</h2>
+            <p><b>Conjugate ($\bar{z}$):</b> Replace $i$ with $-i$.</p>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li>$\overline{z_1 \pm z_2} = \bar{z}_1 \pm \bar{z}_2$</li>
+                <li>$z + \bar{z} = 2Re(z)$ | $z \bar{z} = |z|^2$</li>
+                <li><b>Triangle Inequalities:</b> $|z_1 + z_2| \leq |z_1| + |z_2|$</li>
+                <li>$|z_1 - z_2| \geq ||z_1| - |z_2||$</li>
             </ul>
 
             
 
-            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">3. REPRESENTATION FORMS</h2>
-            <p><b>Euler's Form:</b> $z = r e^{i \theta}$ (Most powerful for multiplication/division).</p>
-            <p><b>Polar Form:</b> $z = r(\cos \theta + i \sin \theta)$.</p>
-            <p><b>De Moivre's Theorem:</b> $(\cos \theta + i \sin \theta)^n = \cos(n\theta) + i \sin(n\theta)$.</p>
-
-            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">4. CUBE ROOTS OF UNITY ($1, \omega, \omega^2$)</h2>
-            <ul style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
-                <li>• $1 + \omega + \omega^2 = 0$</li>
-                <li>• $\omega^3 = 1$</li>
-                <li>• $\omega = \frac{-1 + i\sqrt{3}}{2}$ and $\omega^2 = \frac{-1 - i\sqrt{3}}{2}$</li>
-            </ul>
-
-            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">5. GEOMETRY (MOST IMPORTANT)</h2>
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px; margin-top: 30px;">3. ARGUMENT & FORMS</h2>
+            <p><b>Argument:</b> $\theta = \tan^{-1}(y/x)$. Principal Value: $(-\pi, \pi]$.</p>
             <ul style="list-style: none; padding-left: 10px;">
-                <li>📍 $|z - z_1| = |z - z_2|$ : Perpendicular bisector.</li>
-                <li>📍 $|z - z_1| = r$ : Circle with center $z_1$ and radius $r$.</li>
-                <li>📍 $|z - z_1| + |z - z_2| = 2a$ : Ellipse if $2a > |z_1 - z_2|$.</li>
+                <li>📍 $arg(z_1 z_2) = arg(z_1) + arg(z_2)$</li>
+                <li>📍 $arg(z_1/z_2) = arg(z_1) - arg(z_2)$</li>
+                <li>📍 <b>Euler Form:</b> $z = r e^{i\theta}$</li>
+                <li>📍 <b>DMT:</b> $(\cos \theta + i\sin \theta)^n = \cos(n\theta) + i\sin(n\theta)$</li>
             </ul>
+
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px; margin-top: 30px;">4. CUBE ROOTS OF UNITY ($1, \omega, \omega^2$)</h2>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                <p>$\omega = \frac{-1 + i\sqrt{3}}{2}, \omega^2 = \frac{-1 - i\sqrt{3}}{2}$</p>
+                <p>✅ $1 + \omega + \omega^2 = 0$ | $\omega^3 = 1$</p>
+                <p>✅ $\bar{\omega} = \omega^2$</p>
+            </div>
 
             
 
-            <div style="background: rgba(0, 255, 204, 0.05); border: 1px dashed var(--glow); padding: 20px; border-radius: 12px; margin-top: 30px;">
-                <h3 style="color: var(--glow); margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
-                <p>• <b>Rotation Theorem:</b> $\frac{z_3 - z_1}{z_2 - z_1} = \left| \frac{z_3 - z_1}{z_2 - z_1} \right| e^{i \alpha}$.</p>
-                <p>• <b>Distance Formula:</b> Distance between $z_1$ and $z_2$ is $|z_1 - z_2|$.</p>
-                <p>• <b>Logarithm:</b> $\ln(z) = \ln|z| + i(arg(z) + 2n\pi)$.</p>
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px; margin-top: 30px;">5. GEOMETRY IN ARGAND PLANE</h2>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>📏 <b>Distance:</b> $|z_1 - z_2|$</li>
+                <li>📏 <b>Circle:</b> $|z - z_0| = r$</li>
+                <li>📏 <b>Perpendicular Bisector:</b> $|z - z_1| = |z - z_2|$</li>
+                <li>📏 <b>Rotation (Koni's):</b> $\frac{z_3-z_1}{z_2-z_1} = \left| \frac{z_3-z_1}{z_2-z_1} \right| e^{i\alpha}$</li>
+            </ul>
+
+            <h2 style="color: #ff69b4; border-bottom: 1px solid #ff69b4; padding-bottom: 5px; margin-top: 30px;">6. LOGARITHM</h2>
+            <p>$\ln(z) = \ln|z| + i(arg(z) + 2k\pi)$</p>
+
+            <div style="background: rgba(255,105,180,0.1); border: 1px dashed #ff69b4; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #ff69b4; margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>1. <b>Purely Real:</b> $z = \bar{z}$</p>
+                <p>2. <b>Purely Imaginary:</b> $z = -\bar{z}$</p>
+                <p>3. <b>Uni-modular:</b> If $|z|=1$, then $\bar{z} = 1/z$</p>
+                <p>4. <b>Max/Min Value:</b> In $|z-z_1|=r$, min $|z| = |z_1|-r$, max $|z| = |z_1|+r$</p>
             </div>
 
             <div style="margin-top: 25px; text-align: center;">
-                <img src="YOUR_COMPLEX_IMAGE_URL" alt="Complex Numbers Summary Chart" style="max-width: 100%; border-radius: 8px; border: 1px solid #444; display: block; margin: 10px auto;">
-                <p style="color: #555; font-size: 0.8rem;">[Image: Argand Plane & Vector Representation]</p>
+                <img src="YOUR_COMPLEX_IMAGE_LINK" alt="Complex Numbers Chart" style="max-width: 100%; border-radius: 10px; border: 1px solid #ff69b4;">
+                <p style="font-size: 0.8rem; color: #ff69b4;">[Image: Complex Numbers Geometric Summary]</p>
             </div>
 
         </div>
@@ -503,16 +518,17 @@ function toggleMatricesSection() {
 </div>
 
 <script>
-function toggleComplexSection() {
-    var content = document.getElementById("complex-box-content");
-    var arrow = document.getElementById("complex-arrow");
-    
-    if (content.style.display === "none" || content.style.display === "") {
-        content.style.display = "block";
-        arrow.style.transform = "rotate(180deg)";
+function toggleComplexChapter() {
+    var body = document.getElementById("complex-content-body");
+    var icon = document.getElementById("complex-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
     } else {
-        content.style.display = "none";
-        arrow.style.transform = "rotate(0deg)";
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
     }
 }
 </script>
