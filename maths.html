@@ -341,86 +341,54 @@
     </details>
     
 
-            <div class="chapter-card" style="border-left: 5px solid #9b59b6; background: #161b22; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
-    <details>
-        <summary style="color: #9b59b6; font-size: 1.2em; font-weight: bold; cursor: pointer;">
-        Matrices & Determinants: Full Chapter Summary & JEE Short Notes
-        </h1>    
-        </summary>    
+            <div class="chapter-container" style="width: 100%; margin-bottom: 20px; clear: both;">
+    
+    <div onclick="toggleChapter('matrices-content')" style="background: var(--panel); padding: 15px 25px; border-radius: 10px; border: 1px solid var(--glow); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
+        <span style="color: var(--glow); font-size: 1.3rem; font-weight: bold;">📊 MATRICES & DETERMINANTS (FULL CHAPTER)</span>
+        <span id="matrices-icon" style="color: var(--glow);">▼</span>
+    </div>
 
-    </h1> <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9; text-align: justify;">
+    <div id="matrices-content" style="display: none; background: var(--panel); padding: 25px; border-radius: 0 0 15px 15px; border: 1px solid #333; border-top: none; margin-top: -5px;">
+        
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9; text-align: justify;">
             
-            <p>JEE Mains aur Advanced ke liye Matrices and Determinants sabse scoring chapters mein se ek hai. Is blog mein humne poore chapter ko summarize kiya hai taaki aap kam samay mein poora revision kar sakein.</p>
-
-            <h2 style="color: #ffcc00; margin-top: 30px; border-left: 5px solid var(--glow); padding-left: 15px;">1. DETERMINANTS: CORE CONCEPTS</h2>
-            <p><b>Expansion:</b> $3 \times 3$ determinant ko kisi bhi row ya column ke along expand kiya ja sakta hai.</p>
-            
-            <h3 style="color: var(--glow);">Properties (The Game Changers):</h3>
-            <ul style="list-style-type: square; padding-left: 20px;">
-                <li><b>Transpose:</b> $|A| = |A^T|$</li>
-                <li><b>Interchange:</b> Agar do rows ya do columns ko interchange karein, toh sign badal jata hai.</li>
-                <li><b>Identical:</b> Agar do rows/columns identical hon, toh $|A| = 0$.</li>
-                <li><b>Scalar Multiplication:</b> $|kA| = k^n |A|$ (Order $n$ ke liye).</li>
-                <li><b>Product Property:</b> $|AB| = |A| |B|$.</li>
-                <li><b>Summation:</b> Ek row ke elements do terms ka sum hain, toh determinant ko break kiya ja sakta hai.</li>
-            </ul>
+            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">1. DETERMINANTS: CORE CONCEPTS</h2>
+            <p>• <b>Expansion:</b> $3 \times 3$ determinant ko kisi bhi row/column ke along expand karein.</p>
+            <p>• <b>Properties:</b> $|A| = |A^T|$, $|kA| = k^n|A|$, aur $|AB| = |A||B|$.</p>
 
             <div style="text-align: center; margin: 20px 0;">
-                <img src="https://via.placeholder.com/800x400.png?text=Determinant+Properties+Visual+Chart" alt="Determinant Properties" style="max-width: 100%; border-radius: 10px; border: 1px solid #444;">
-                <p style="font-size: 0.8rem; color: #8b949e;">[Image: Determinant Properties and Expansion Guide]</p>
+                <img src="your-image-link.jpg" alt="Matrices Chart" style="max-width: 100%; border-radius: 10px; border: 1px solid #444;">
+                <p style="font-size: 0.8rem; color: #8b949e;">[Image: Determinant Properties Summary Table]</p>
             </div>
 
-            <h2 style="color: #ffcc00; margin-top: 35px; border-left: 5px solid var(--glow); padding-left: 15px;">2. TYPES OF MATRICES</h2>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;">
-                <p>• <b>Symmetric:</b> $A^T = A$</p>
-                <p>• <b>Skew-Symmetric:</b> $A^T = -A$ (Diagonal elements hamesha 0 hote hain).</p>
-                <p>• <b>Orthogonal:</b> $AA^T = I$ (Iska matlab $|A| = \pm 1$).</p>
-                <p>• <b>Idempotent:</b> $A^2 = A$ | <b>Involutory:</b> $A^2 = I$</p>
-                <p>• <b>Nilpotent:</b> $A^k = 0$ | <b>Unitary:</b> $A^\theta A = I$</p>
+            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">2. TYPES OF MATRICES</h2>
+            <p>Symmetric ($A^T=A$), Skew-Symmetric ($A^T=-A$), Orthogonal ($AA^T=I$).</p>
+
+            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">3. ADJOINT & INVERSE</h2>
+            <p>• $A \cdot (adj A) = |A| I$</p>
+            <p>• $|adj A| = |A|^{n-1}$</p>
+
+            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">4. CRAMER'S RULE</h2>
+            <p>Unique Solution if $D \neq 0$. No Solution if $D=0$ and any $D_i \neq 0$.</p>
+
+            <div style="background: rgba(0, 255, 204, 0.1); border: 1px dashed var(--glow); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center;">
+                <b>Golden Trick:</b> Odd order skew-symmetric matrix ka determinant hamesha 0 hota hai!
             </div>
-
-            <h2 style="color: #ffcc00; margin-top: 35px; border-left: 5px solid var(--glow); padding-left: 15px;">3. ADJOINT AND INVERSE (HIGH WEIGHTAGE)</h2>
-            <p><b>Adjoint Properties:</b></p>
-            <ul style="color: #00ffcc;">
-                <li>$A \cdot (adj A) = |A| I_n$</li>
-                <li>$|adj A| = |A|^{n-1}$</li>
-                <li>$adj(adj A) = |A|^{n-2} A$</li>
-                <li>$|adj(adj A)| = |A|^{(n-1)^2}$</li>
-                <li>$adj(AB) = (adj B)(adj A)$</li>
-            </ul>
-
-            <h2 style="color: #ffcc00; margin-top: 35px; border-left: 5px solid var(--glow); padding-left: 15px;">4. SYSTEM OF LINEAR EQUATIONS (CRAMER'S RULE)</h2>
-            <p>Consistency Conditions for $D$ (Coefficient Determinant):</p>
-            <table style="width: 100%; border-collapse: collapse; background: #0d1117; color: white; margin: 15px 0;">
-                <tr style="border-bottom: 1px solid #333;">
-                    <th style="padding: 10px;">Condition</th>
-                    <th style="padding: 10px;">Solution Type</th>
-                </tr>
-                <tr>
-                    <td style="padding: 10px;">$D \neq 0$</td>
-                    <td style="padding: 10px;">Unique Solution</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px;">$D = 0$ & $D_x=D_y=D_z=0$</td>
-                    <td style="padding: 10px;">Infinite Solutions</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px;">$D = 0$ & any $D_i \neq 0$</td>
-                    <td style="padding: 10px;">No Solution</td>
-                </tr>
-            </table>
-
-            <h2 style="color: #ffcc00; margin-top: 35px; border-left: 5px solid var(--glow); padding-left: 15px;">5. CAYLEY-HAMILTON THEOREM</h2>
-            <p>Har square matrix apni Characteristic Equation ko satisfy karta hai: $|A - \lambda I| = 0$. Iska use badi powers aur $A^{-1}$ nikalne mein hota hai.</p>
-
-            <div style="background: rgba(0, 255, 204, 0.1); border: 1px dashed var(--glow); padding: 20px; border-radius: 15px; margin-top: 40px;">
-                <h3 style="color: var(--glow); margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
-                <p>• <b>Trace (Tr):</b> Sum of principal diagonal elements. $Tr(A+B) = Tr(A) + Tr(B)$.</p>
-                <p>• <b>Skew-Symmetric Det:</b> Odd order skew-symmetric matrix ka determinant hamesha 0 hota hai.</p>
-                <p>• <b>Differentiation:</b> Determinant ko row by row differentiate karein.</p>
-            </div>
-
         </div>
     </div>
-                </div>
-                
+</div>
+
+<script>
+function toggleChapter(id) {
+    var content = document.getElementById(id);
+    var icon = document.getElementById(id.replace('content', 'icon'));
+    
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        content.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
