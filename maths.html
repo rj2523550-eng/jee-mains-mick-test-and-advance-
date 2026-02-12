@@ -630,3 +630,96 @@ function toggleStatsChapter() {
     }
 }
 </script>
+
+            <div id="sequence-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, sans-serif;">
+    
+    <div onclick="toggleSequenceChapter()" style="background: #e0f7fa; padding: 18px 25px; border-radius: 12px; border: 1px solid #0288d1; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(2, 136, 209, 0.1); transition: 0.3s;">
+        <span style="color: #01579b; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📈 SEQUENCE & SERIES (FULL SUMMARY)</span>
+        <span id="seq-btn-icon" style="color: #0288d1;">▼</span>
+    </div>
+
+    <div id="seq-content-body" style="display: none; background: #ffffff; border: 1px solid #b3e5fc; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #333;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px;">1. ARITHMETIC PROGRESSION (AP)</h2>
+            <p>Jab consecutive terms ke beech ka difference (d) same ho.</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 <b>General Term:</b> $a_n = a + (n-1)d$</li>
+                <li>🔹 <b>Sum of n terms:</b> $S_n = \frac{n}{2} [2a + (n-1)d] = \frac{n}{2} [a + l]$</li>
+                <li>🔹 <b>Arithmetic Mean (AM):</b> Agar a, A, b AP mein hain, toh $A = \frac{a+b}{2}$.</li>
+                <li>🔹 <b>Property:</b> $a_1 + a_n = a_2 + a_{n-1} = \dots$ (Equidistant sum is constant).</li>
+            </ul>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">2. GEOMETRIC PROGRESSION (GP)</h2>
+            <p>Jab consecutive terms ka ratio (r) same ho.</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>✅ <b>General Term:</b> $a_n = ar^{n-1}$</li>
+                <li>✅ <b>Sum of n terms:</b> $S_n = \frac{a(r^n - 1)}{r - 1}$ (for $r \neq 1$)</li>
+                <li>✅ <b>Infinite GP Sum:</b> $S_\infty = \frac{a}{1-r}$ (kab jab $|r| < 1$).</li>
+                <li>✅ <b>Geometric Mean (GM):</b> Agar a, G, b GP mein hain, toh $G = \sqrt{ab}$.</li>
+            </ul>
+
+            
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">3. HARMONIC PROGRESSION (HP)</h2>
+            <p>Reciprocals ($\frac{1}{a_1}, \frac{1}{a_2}, \dots$) AP mein hote hain. <br> <b>Harmonic Mean (HM):</b> $H = \frac{2ab}{a+b}$.</p>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">4. RELATION BETWEEN AM, GM, HM</h2>
+            <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; border-left: 5px solid #4caf50;">
+                <p>📍 <b>Inequality:</b> $AM \geq GM \geq HM$ (For positive numbers)</p>
+                <p>📍 <b>Equation:</b> $G^2 = A \times H$ (For two numbers)</p>
+                <p>Note: $AM = GM$ sirf tab hota hai jab $a=b=c \dots$</p>
+            </div>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">5. ARITHMETICO-GEOMETRIC PROGRESSION (AGP)</h2>
+            <p>Form: $a, (a+d)r, (a+2d)r^2, \dots$ <br> <b>Method:</b> Series ko $S$ maano, $r$ se multiply karke shift karke subtract karo.</p>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">6. SPECIAL SERIES (SUMMATION)</h2>
+            <ul style="list-style: circle; padding-left: 20px;">
+                <li>$\sum n = \frac{n(n+1)}{2}$</li>
+                <li>$\sum n^2 = \frac{n(n+1)(2n+1)}{6}$</li>
+                <li>$\sum n^3 = \left[ \frac{n(n+1)}{2} \right]^2$</li>
+                <li><b>V_n Method:</b> $T_n = V_n - V_{n-1}$ form mein likhein.</li>
+            </ul>
+
+            
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #0288d1; padding-bottom: 5px; margin-top: 30px;">7. MISCELLANEOUS SERIES</h2>
+            <p>• $T_n = S_n - S_{n-1}$</p>
+            <p>• $\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \dots$</p>
+            <p>• $e^x = 1 + x + \frac{x^2}{2!} + \dots$</p>
+
+            <div style="background: #e1f5fe; border: 1px dashed #0288d1; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #01579b; margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>1. <b>Assumptions:</b> AP ke liye $(a-d, a, a+d)$ aur GP ke liye $(a/r, a, ar)$ maanein.</p>
+                <p>2. <b>Linear Property:</b> $\sum (a_k \pm b_k) = \sum a_k \pm \sum b_k$.</p>
+                <p>3. <b>Min/Max:</b> Jab positive numbers ki "Minimum value" puchi jaye, pehle $AM \geq GM$ lagayein.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="sequence-series-chart.jpg" alt="Sequence and Series Formula Sheet" style="max-width: 100%; border-radius: 10px; border: 2px solid #0288d1;">
+                <p style="font-size: 0.8rem; color: #0288d1;">[Image: AP, GP, HP and Special Series Summary Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSequenceChapter() {
+    var body = document.getElementById("seq-content-body");
+    var icon = document.getElementById("seq-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+</script>
+
+            
