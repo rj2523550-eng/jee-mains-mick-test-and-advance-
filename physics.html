@@ -612,7 +612,7 @@
         <div id="units-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Courier New', Courier, monospace;">
     
     <div onclick="toggleUnitsChapter()" style="background: #020d1f; padding: 18px 25px; border-radius: 12px; border: 2px solid #39ff14; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); transition: 0.3s;">
-        <span style="color: #39ff14; font-size: 1.25rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">⚡ UNITS & DIMENSIONS (MASTER SHEET)</span>
+        <span style="color: #39ff14; font-size: 1.25rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">⚡8. UNITS & DIMENSIONS (MASTER SHEET)</span>
         <span id="units-btn-icon" style="color: #39ff14;">▼</span>
     </div>
 
@@ -693,4 +693,90 @@ function toggleUnitsChapter() {
 }
 </script>
         
+        <div id="error-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, sans-serif;">
+    
+    <div onclick="toggleErrorChapter()" style="background: #e1f5fe; padding: 18px 25px; border-radius: 12px; border: 1px solid #03a9f4; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(3, 169, 244, 0.15); transition: 0.3s;">
+        <span style="color: #01579b; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📏9. ERROR ANALYSIS (FULL SUMMARY)</span>
+        <span id="error-btn-icon" style="color: #03a9f4;">▼</span>
+    </div>
+
+    <div id="error-content-body" style="display: none; background: #ffffff; border: 1px solid #b3e5fc; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #37474f;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #e1f5fe; padding-bottom: 5px;">1. TYPES OF ERRORS (Galti Ke Prakaar)</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>📉 <b>Systematic Errors:</b> Fixed pattern mein hoti hain (e.g., Instrumental error). Inhein calibration se door kiya ja sakta hai.</li>
+                <li>🎲 <b>Random Errors:</b> Unpredictable hoti hain. Inhein kam karne ke liye zyada measurements lekar <b>Mean</b> nikalte hain.</li>
+            </ul>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #e1f5fe; padding-bottom: 5px; margin-top: 30px;">2. MATHEMATICAL TERMS</h2>
+            <p>Agar readings $a_1, a_2, \dots, a_n$ hain:</p>
+            <div style="background: #f9fbfd; padding: 15px; border-radius: 8px; border: 1px solid #e1f5fe;">
+                <p>🔹 <b>Mean Value ($a_m$):</b> $\frac{\sum a_i}{n}$ (True Value)</p>
+                <p>🔹 <b>Absolute Error ($\Delta a_i$):</b> $|a_m - a_i|$ (Hamesha positive)</p>
+                <p>🔹 <b>Mean Absolute Error ($\overline{\Delta a}$):</b> $\frac{\sum |\Delta a_i|}{n}$</p>
+                <p>🔹 <b>Percentage Error:</b> $\frac{\overline{\Delta a}}{a_m} \times 100\%$</p>
+            </div>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #e1f5fe; padding-bottom: 5px; margin-top: 30px;">3. PROPAGATION OF ERRORS (Sabse Important)</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: #fff;">
+                <thead>
+                    <tr style="background: #03a9f4; color: white;">
+                        <th style="padding: 10px; border: 1px solid #b3e5fc;">Operation</th>
+                        <th style="padding: 10px; border: 1px solid #b3e5fc;">Formula</th>
+                        <th style="padding: 10px; border: 1px solid #b3e5fc;">Max Error</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="padding: 10px; border: 1px solid #b3e5fc;">Addition/Subtraction</td><td style="padding: 10px; border: 1px solid #b3e5fc;">$Z = A \pm B$</td><td style="padding: 10px; border: 1px solid #b3e5fc;">$\Delta Z = \Delta A + \Delta B$</td></tr>
+                    <tr><td style="padding: 10px; border: 1px solid #b3e5fc;">Product/Division</td><td style="padding: 10px; border: 1px solid #b3e5fc;">$Z = AB$ or $A/B$</td><td style="padding: 10px; border: 1px solid #b3e5fc;">$\frac{\Delta Z}{Z} = \frac{\Delta A}{A} + \frac{\Delta B}{B}$</td></tr>
+                </tbody>
+            </table>
+            <p style="color: #d32f2f; font-weight: bold;">💡 GOLDEN RULE: Errors hamesha ADD hote hain!</p>
+
+            
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #e1f5fe; padding-bottom: 5px; margin-top: 30px;">4. GENERAL ERROR FORMULA (JEE SPECIAL)</h2>
+            <p>Agar $Z = \frac{A^p B^q}{C^r}$, toh maximum percentage error:</p>
+            <p style="text-align: center; background: #e3f2fd; padding: 15px; border-radius: 10px; font-weight: bold; color: #01579b;">
+                $\% \text{ Error in } Z = \left[ p\left(\frac{\Delta A}{A}\right) + q\left(\frac{\Delta B}{B}\right) + r\left(\frac{\Delta C}{C}\right) \right] \times 100$
+            </p>
+            <p><i>Note: Denominator ki power ($r$) ko bhi positive hi lena hai.</i></p>
+
+            <h2 style="color: #0288d1; border-bottom: 2px solid #e1f5fe; padding-bottom: 5px; margin-top: 30px;">5. ZERO ERROR IN INSTRUMENTS</h2>
+            <p>✅ <b>Positive Zero Error:</b> Final reading se <b>Subtract</b> karo.</p>
+            <p>✅ <b>Negative Zero Error:</b> Final reading mein <b>Add</b> karo.</p>
+
+            
+
+            <div style="background: #f1f8e9; border: 1px dashed #4caf50; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #2e7d32; margin-top: 0;">🔥 JEE MAINS SMART TRICKS</h3>
+                <p>1. <b>Least Count:</b> Agar $\Delta A$ nahi diya hai, toh instrument ka Least Count hi uska error hai.</p>
+                <p>2. <b>Sensitivity:</b> Jis variable ki power sabse zyada hai, wo total error mein sabse zyada contribute karta hai.</p>
+                <p>3. <b>Log Method:</b> Complex formulas ke liye dono side $\ln$ lekar differentiate kar do.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="error-analysis-chart.jpg" alt="Error Analysis Formula Summary" style="max-width: 100%; border-radius: 10px; border: 1px solid #b3e5fc;">
+                <p style="font-size: 0.8rem; color: #0288d1;">[Image: Error Calculation and Propagation Summary Table]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleErrorChapter() {
+    var body = document.getElementById("error-content-body");
+    var icon = document.getElementById("error-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
         
