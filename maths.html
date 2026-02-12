@@ -806,3 +806,115 @@ function toggleBinomialChapter() {
     }
 }
 </script>
+
+            <div id="trig-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Arial, sans-serif;">
+    
+    <div onclick="toggleTrigChapter()" style="background: #2d2d2d; padding: 18px 25px; border-radius: 12px; border: 1px solid #ff7043; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(255, 112, 67, 0.2); transition: 0.3s;">
+        <span style="color: #ff7043; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📐 TRIGONOMETRY: FULL UNIT SUMMARY</span>
+        <span id="trig-btn-icon" style="color: #ff7043;">▼</span>
+    </div>
+
+    <div id="trig-content-body" style="display: none; background: #1a1a1a; border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px;">
+        
+        <div style="line-height: 1.8; color: #e0e0e0; font-size: 1.05rem;">
+
+            <h2 style="color: #ff7043; border-bottom: 2px solid #ff7043; padding-bottom: 5px;">1. TRIGONOMETRIC RATIOS & IDENTITIES</h2>
+            <p><b>Basic Identities:</b> $\sin^2\theta + \cos^2\theta = 1$ | $1 + \tan^2\theta = \sec^2\theta$ | $1 + \cot^2\theta = \text{cosec}^2\theta$</p>
+            
+            <p><b style="color: #ffab91;">Compound Angles:</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 $\sin(A \pm B) = \sin A \cos B \pm \cos A \sin B$</li>
+                <li>🔹 $\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$</li>
+                <li>🔹 $\tan(A \pm B) = \frac{\tan A \pm \tan B}{1 \mp \tan A \tan B}$</li>
+            </ul>
+
+            
+
+            <p><b style="color: #ffab91;">Transformation & Multiple Angles:</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 $2\sin A \cos B = \sin(A+B) + \sin(A-B)$</li>
+                <li>🔹 $\sin 2\theta = 2\sin\theta\cos\theta = \frac{2\tan\theta}{1+\tan^2\theta}$</li>
+                <li>🔹 $\cos 2\theta = \cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta$</li>
+                <li>🔹 $\sin 3\theta = 3\sin\theta - 4\sin^3\theta$ | $\cos 3\theta = 4\cos^3\theta - 3\cos\theta$</li>
+            </ul>
+
+            <h2 style="color: #ff7043; border-bottom: 2px solid #ff7043; padding-bottom: 5px; margin-top: 30px;">2. TRIGONOMETRIC EQUATIONS</h2>
+            <p><b>General Solutions:</b></p>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li>$\sin\theta = \sin\alpha \Rightarrow \theta = n\pi + (-1)^n\alpha$</li>
+                <li>$\cos\theta = \cos\alpha \Rightarrow \theta = 2n\pi \pm \alpha$</li>
+                <li>$\tan\theta = \tan\alpha \Rightarrow \theta = n\pi + \alpha$</li>
+            </ul>
+            <p><b>Special Form ($a\cos\theta + b\sin\theta = c$):</b> Solution exists if $|c| \leq \sqrt{a^2+b^2}$. Range is $[-\sqrt{a^2+b^2}, \sqrt{a^2+b^2}]$.</p>
+
+            <h2 style="color: #ff7043; border-bottom: 2px solid #ff7043; padding-bottom: 5px; margin-top: 30px;">3. INVERSE TRIGONOMETRIC FUNCTIONS (ITF)</h2>
+            <p><b>Principal Value Branches:</b> $\sin^{-1}x \in [-\pi/2, \pi/2]$ | $\cos^{-1}x \in [0, \pi]$ | $\tan^{-1}x \in (-\pi/2, \pi/2)$</p>
+            <p><b>Key Properties:</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>📍 $\sin^{-1}x + \cos^{-1}x = \pi/2$</li>
+                <li>📍 $\tan^{-1}x + \tan^{-1}y = \tan^{-1}\left(\frac{x+y}{1-xy}\right)$</li>
+                <li>📍 $2\tan^{-1}x = \sin^{-1}\left(\frac{2x}{1+x^2}\right) = \cos^{-1}\left(\frac{1-x^2}{1+x^2}\right)$</li>
+            </ul>
+
+            [attachment_0](attachment)
+
+            <h2 style="color: #ff7043; border-bottom: 2px solid #ff7043; padding-bottom: 5px; margin-top: 30px;">4. PROPERTIES OF TRIANGLES (SOT)</h2>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>✅ <b>Sine Rule:</b> $\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R$</li>
+                <li>✅ <b>Cosine Rule:</b> $\cos A = \frac{b^2 + c^2 - a^2}{2bc}$</li>
+                <li>✅ <b>Area ($\Delta$):</b> $\frac{1}{2}ab\sin C = \frac{abc}{4R} = rs$</li>
+            </ul>
+
+            <h2 style="color: #ff7043; border-bottom: 2px solid #ff7043; padding-bottom: 5px; margin-top: 30px;">5. TRIGONOMETRIC RATIOS TABLE</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: #262626; text-align: center; border: 1px solid #444;">
+                    <thead>
+                        <tr style="background: #ff7043; color: white;">
+                            <th style="padding: 10px; border: 1px solid #444;">θ (Deg)</th>
+                            <th style="padding: 10px; border: 1px solid #444;">0°</th>
+                            <th style="padding: 10px; border: 1px solid #444;">30°</th>
+                            <th style="padding: 10px; border: 1px solid #444;">45°</th>
+                            <th style="padding: 10px; border: 1px solid #444;">60°</th>
+                            <th style="padding: 10px; border: 1px solid #444;">90°</th>
+                            <th style="padding: 10px; border: 1px solid #444;">180°</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding: 10px; border: 1px solid #444; font-weight: bold; color: #ffab91;">sin θ</td><td>0</td><td>1/2</td><td>1/√2</td><td>√3/2</td><td>1</td><td>0</td></tr>
+                        <tr><td style="padding: 10px; border: 1px solid #444; font-weight: bold; color: #ffab91;">cos θ</td><td>1</td><td>√3/2</td><td>1/√2</td><td>1/2</td><td>0</td><td>-1</td></tr>
+                        <tr><td style="padding: 10px; border: 1px solid #444; font-weight: bold; color: #ffab91;">tan θ</td><td>0</td><td>1/√3</td><td>1</td><td>√3</td><td>∞</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: rgba(255, 112, 67, 0.1); border: 1px dashed #ff7043; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #ff7043; margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>1. <b>Value Putting:</b> Agar options numeric hain, toh $\theta = 0^\circ, 45^\circ, 90^\circ$ rakh kar dekhein.</p>
+                <p>2. <b>Max/Min:</b> $a\sin\theta + b\cos\theta$ ki max value $\sqrt{a^2+b^2}$ hoti hai.</p>
+                <p>3. <b>Cosine Product:</b> $\cos\theta \cos 2\theta \cos 4\theta \dots \cos 2^{n-1}\theta = \frac{\sin 2^n \theta}{2^n \sin\theta}$</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="trig-summary-chart.jpg" alt="Trigonometry Full Formula Chart" style="max-width: 100%; border-radius: 10px; border: 1px solid #ff7043;">
+                <p style="font-size: 0.8rem; color: #ff7043;">[Image: Trigonometric Formulas and Graphs Summary]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleTrigChapter() {
+    var body = document.getElementById("trig-content-body");
+    var icon = document.getElementById("trig-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+</script>
