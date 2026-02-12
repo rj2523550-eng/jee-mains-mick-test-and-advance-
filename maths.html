@@ -987,3 +987,74 @@ function toggleMathBlog() {
     }
 }
 </script>
+
+            <div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #00f2ff; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Algebra & Calculus: Master the Core of JEE Mains Mathematics
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="math-blog2-intro">
+                JEE Mains ke paper mein 30 sawalon mein se lagbhag 18-20 sawal sirf Algebra aur Calculus se hote hain. Agar aapne in do pillars par pakad bana li, toh aapka cutoff hi nahi, balki rank bhi top levels par hogi. Lekin aksar students in chapters ki depth mein kho jate hain aur exam-relevant patterns ko miss kar dete hain. Is blog mein hum dekhenge ki in do mega-topics ko step-by-step kaise finish karein...
+            </p>
+
+            <div id="math-blog2-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Algebra: The Scoring Machine</h2>
+                <p>Algebra ko log "ratta" samajhte hain, lekin ye logic ka khel hai. JEE mein <b>Matrices, Vectors, aur 3D Geometry</b> sabse pehle khatam karne chahiye.
+                <br>• <b>Vector & 3D:</b> Isme hamesha visualization ka use karein. Dot product aur Cross product ki physical significance samjhein.
+                <br>• <b>Complex Numbers:</b> Ise coordinate geometry se relate karke padhein. $|z-z_1|$ ka matlab distance hota hai, ye samajhte hi 50% sawal asaan ho jate hain.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Calculus: Visualization and Continuity</h2>
+                <p>Calculus sirf formulas nahi, balki graphs ka safar hai. 
+                <br>• <b>Functions:</b> Domain aur Range nikalne ki practice karein. Graphical transformations (jaise $f(x)$ se $f(x-a)$) ko master karein.
+                <br>• <b>Integral Calculus:</b> Integration by parts aur substitution ke alawa, areas under the curve mein symmetry ka upyog karein. Isse calculation fast hoti hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. The Concept of "Linkage" in Maths</h2>
+                <p>JEE Mains ab direct sawal nahi puchta. Wo ek hi sawal mein Trigonometry aur Calculus ko mix kar dete hain. Isliye, jab aap Differentiation padh rahe hon, toh ensure karein ki aapki Trigonometric identities (jaise $\cos 2\theta$) ekdam tips par hon. 
+                <br><b>Strategy:</b> Har week kam se kam 5 aise "Mixed Concept" sawal solve karein jo do alag chapters ko jodte hon.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Common Mistakes to Avoid</h2>
+                <p>Sabse badi galti: **Over-Calculation**. 
+                Kai baar students determinant ko poora expand karte hain, jabki property lagane se wo zero ho raha hota hai. 
+                Hamesha sawal shuru karne se pehle 5 second sochein: <i>"Kya iska koi chota rasta hai?"</i>
+                Saath hi, negative marking se bachne ke liye calculation ko rough sheet par bhi organize karke likhein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Final Word for 2026 Aspirants</h2>
+                <p>Maths raato-raat strong nahi hoti. Ye ek marathon hai. Har din 20-30 quality sawal solve karna hi ekmatra rasta hai. Mock tests mein score kam aaye toh ghabrayein nahi, balki us sawal ka logic samjhein jo aapse nahi bana. Yaad rakhein, exam mein wahi sawal repeat ho sakta hai!</p>
+
+                <div style="background: rgba(0, 242, 255, 0.1); border: 1px dashed #00f2ff; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Pro Tip:</b> "NCERT Exemplar aur Pichle 10 saal ke PYQs... bas itna hi kafi hai 99 percentile ke liye!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="read-more-btn2" onclick="toggleMathBlog2()" style="background: #00f2ff; color: #000; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(0,242,255,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleMathBlog2() {
+    var content = document.getElementById("math-blog2-full-content");
+    var btn = document.getElementById("read-more-btn2");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
