@@ -339,56 +339,100 @@
 </div>
 
     </details>
-    
+            </div>
 
-            <div class="chapter-container" style="width: 100%; margin-bottom: 20px; clear: both;">
+           
+            <div id="matrices-master-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     
-    <div onclick="toggleChapter('matrices-content')" style="background: var(--panel); padding: 15px 25px; border-radius: 10px; border: 1px solid var(--glow); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
-        <span style="color: var(--glow); font-size: 1.3rem; font-weight: bold;">📊 MATRICES & DETERMINANTS (FULL CHAPTER)</span>
-        <span id="matrices-icon" style="color: var(--glow);">▼</span>
+    <div onclick="toggleMatricesSection()" style="background: var(--panel); padding: 18px 25px; border-radius: 12px; border: 1px solid var(--glow); cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,255,204,0.1); transition: all 0.3s ease;">
+        <span style="color: var(--glow); font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📊 MATRICES & DETERMINANTS (FULL CHAPTER SUMMARY)</span>
+        <span id="matrices-arrow" style="color: var(--glow); transition: transform 0.3s;">▼</span>
     </div>
 
-    <div id="matrices-content" style="display: none; background: var(--panel); padding: 25px; border-radius: 0 0 15px 15px; border: 1px solid #333; border-top: none; margin-top: -5px;">
+    <div id="matrices-box-content" style="display: none; background: var(--panel); border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; overflow: hidden;">
         
-        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9; text-align: justify;">
+        <div style="line-height: 1.8; color: #c9d1d9; font-size: 1.05rem;">
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px;">1. DETERMINANTS: CORE CONCEPTS</h2>
+            <p><b>Expansion:</b> $3 \times 3$ determinant ko kisi bhi row/column ke along expand kiya ja sakta hai.</p>
+            <p><b style="color: var(--glow);">Properties (The Game Changers):</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 <b>Transpose:</b> $|A| = |A^T|$.</li>
+                <li>🔹 <b>Interchange:</b> Agar do rows ya do columns ko interchange karein, toh sign badal jata hai.</li>
+                <li>🔹 <b>Identical:</b> Agar do rows/columns identical (same) hon, toh $|A| = 0$.</li>
+                <li>🔹 <b>Scalar Multiplication:</b> $|kA| = k^n |A|$ (Order $n$ ke liye).</li>
+                <li>🔹 <b>Product Property:</b> $|AB| = |A| |B|$.</li>
+                <li>🔹 <b>Summation:</b> Agar ek row ke elements do terms ka sum hain, toh determinant ko do determinants ke sum mein break kar sakte hain.</li>
+            </ul>
+
             
-            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">1. DETERMINANTS: CORE CONCEPTS</h2>
-            <p>• <b>Expansion:</b> $3 \times 3$ determinant ko kisi bhi row/column ke along expand karein.</p>
-            <p>• <b>Properties:</b> $|A| = |A^T|$, $|kA| = k^n|A|$, aur $|AB| = |A||B|$.</p>
 
-            <div style="text-align: center; margin: 20px 0;">
-                <img src="your-image-link.jpg" alt="Matrices Chart" style="max-width: 100%; border-radius: 10px; border: 1px solid #444;">
-                <p style="font-size: 0.8rem; color: #8b949e;">[Image: Determinant Properties Summary Table]</p>
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">2. TYPES OF MATRICES</h2>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>✅ <b>Symmetric:</b> $A^T = A$.</li>
+                <li>✅ <b>Skew-Symmetric:</b> $A^T = -A$. (Diagonal elements hamesha 0 hote hain).</li>
+                <li>✅ <b>Orthogonal:</b> $AA^T = I$ (Iska matlab $|A| = \pm 1$).</li>
+                <li>✅ <b>Idempotent:</b> $A^2 = A$.</li>
+                <li>✅ <b>Involutory:</b> $A^2 = I$ (Self-inverse).</li>
+                <li>✅ <b>Nilpotent:</b> $A^k = 0$ (Kissi power $k$ ke liye matrix null ho jaye).</li>
+                <li>✅ <b>Unitary:</b> $A^\theta A = I$ (Complex matrices ke liye).</li>
+            </ul>
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">3. ADJOINT AND INVERSE (HIGH WEIGHTAGE)</h2>
+            <p><b style="color: var(--glow);">Adjoint Properties:</b></p>
+            <ul style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                <li>• $A \cdot (adj A) = (adj A) \cdot A = |A| I_n$</li>
+                <li>• $|adj A| = |A|^{n-1}$</li>
+                <li>• $adj(adj A) = |A|^{n-2} A$</li>
+                <li>• $|adj(adj A)| = |A|^{(n-1)^2}$</li>
+                <li>• $adj(AB) = (adj B)(adj A)$ (Reverse law)</li>
+            </ul>
+            <p><b>Inverse ($A^{-1}$):</b> Exist tabhi karega jab $|A| \neq 0$ (Non-Singular). <br> Relation: $(A^T)^{-1} = (A^{-1})^T$</p>
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">4. SYSTEM OF LINEAR EQUATIONS (CRAMER'S RULE)</h2>
+            <p><b>Consistency Conditions:</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>📌 <b>Unique Solution:</b> $D \neq 0$.</li>
+                <li>📌 <b>Infinite Solutions:</b> $D = 0$ AND $D_x = D_y = D_z = 0$.</li>
+                <li>📌 <b>No Solution:</b> $D = 0$ AND kam se kam ek $D_i$ non-zero ho.</li>
+            </ul>
+
+            
+
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">5. CAYLEY-HAMILTON THEOREM</h2>
+            <p>Har square matrix apni Characteristic Equation ko satisfy karta hai: $|A - \lambda I| = 0$.</p>
+            
+            <h2 style="color: #ffcc00; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 30px;">6. ELEMENTARY OPERATIONS</h2>
+            <p>1. $R_i \leftrightarrow R_j$ | 2. $R_i \to k R_i$ | 3. $R_i \to R_i + k R_j$</p>
+            <p><i>Note: Determinant ki value sirf teesri operation se change nahi hoti.</i></p>
+
+            <div style="background: rgba(0, 255, 204, 0.05); border: 1px dashed var(--glow); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                <h3 style="color: var(--glow); margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>• <b>Trace (Tr):</b> Sum of principal diagonal elements. $Tr(A+B) = Tr(A) + Tr(B)$.</p>
+                <p>• <b>Skew-Symmetric Det:</b> Odd order ($3 \times 3$, $5 \times 5$) ka determinant hamesha 0 hota hai.</p>
+                <p>• <b>Differentiation:</b> Row by row differentiate karein aur baki rows constant rakhein.</p>
             </div>
 
-            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">2. TYPES OF MATRICES</h2>
-            <p>Symmetric ($A^T=A$), Skew-Symmetric ($A^T=-A$), Orthogonal ($AA^T=I$).</p>
-
-            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">3. ADJOINT & INVERSE</h2>
-            <p>• $A \cdot (adj A) = |A| I$</p>
-            <p>• $|adj A| = |A|^{n-1}$</p>
-
-            <h2 style="color: #ffcc00; border-left: 5px solid var(--glow); padding-left: 10px;">4. CRAMER'S RULE</h2>
-            <p>Unique Solution if $D \neq 0$. No Solution if $D=0$ and any $D_i \neq 0$.</p>
-
-            <div style="background: rgba(0, 255, 204, 0.1); border: 1px dashed var(--glow); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center;">
-                <b>Golden Trick:</b> Odd order skew-symmetric matrix ka determinant hamesha 0 hota hai!
+            <div style="margin-top: 25px; text-align: center;">
+                <p style="color: #555; font-size: 0.8rem;">[AdSense Friendly Space - Add Your Chapter Image Below]</p>
+                <img src="YOUR_IMAGE_URL_HERE" alt="Matrices Summary Chart" style="max-width: 100%; border-radius: 8px; border: 1px solid #444; display: block; margin: 10px auto;">
             </div>
+
         </div>
     </div>
 </div>
 
 <script>
-function toggleChapter(id) {
-    var content = document.getElementById(id);
-    var icon = document.getElementById(id.replace('content', 'icon'));
+function toggleMatricesSection() {
+    var content = document.getElementById("matrices-box-content");
+    var arrow = document.getElementById("matrices-arrow");
     
-    if (content.style.display === "none") {
+    if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
-        icon.innerHTML = "▲";
+        arrow.style.transform = "rotate(180deg)";
     } else {
         content.style.display = "none";
-        icon.innerHTML = "▼";
+        arrow.style.transform = "rotate(0deg)";
     }
 }
 </script>
