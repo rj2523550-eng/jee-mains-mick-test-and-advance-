@@ -779,4 +779,107 @@ function toggleErrorChapter() {
     }
 }
 </script>
+
+        <div id="wep-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Arial, sans-serif;">
+    
+    <div onclick="toggleWEPChapter()" style="background: #001f3f; padding: 18px 25px; border-radius: 12px; border: 1px solid #ffd700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0, 31, 63, 0.4); transition: 0.3s;">
+        <span style="color: #ffd700; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">⚙️ WORK, ENERGY & POWER (FULL CHAPTER)</span>
+        <span id="wep-btn-icon" style="color: #ffd700;">▼</span>
+    </div>
+
+    <div id="wep-content-body" style="display: none; background: #fdfdfd; border: 1px solid #001f3f; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #001f3f;">
         
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px;">1. WORK DONE (Karya)</h2>
+            <p><b>Work by Constant Force:</b> $W = \vec{F} \cdot \vec{S} = FS \cos \theta$</p>
+            <p><b>Work by Variable Force:</b> $W = \int \vec{F} \cdot d\vec{x}$ (Area under F-x graph).</p>
+            
+            <p><b style="color: #d4af37;">Conservative vs Non-Conservative Forces:</b></p>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li><b>Conservative:</b> Path par depend nahi karta (Gravity, Electrostatic). Closed loop work = 0.</li>
+                <li><b>Non-Conservative:</b> Path par depend karta hai (Friction, Viscosity).</li>
+            </ul>
+
+            
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px; margin-top: 30px;">2. KINETIC ENERGY & WORK-ENERGY THEOREM</h2>
+            <p><b>Kinetic Energy (K.E.):</b> $K = \frac{1}{2}mv^2 = \frac{p^2}{2m}$ (p = momentum)</p>
+            <div style="background: #001f3f; color: #fff; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                <p style="margin: 0; font-weight: bold; color: #ffd700;">🚀 Work-Energy Theorem (The Master Key):</p>
+                <p style="margin: 10px 0 0 0;">$W_{total} = \Delta K = K_f - K_i$</p>
+                <p style="font-size: 0.9rem; margin-top: 5px;">(Sum of work by ALL forces = Change in Kinetic Energy)</p>
+            </div>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px; margin-top: 30px;">3. POTENTIAL ENERGY (P.E.)</h2>
+            <p>Define sirf Conservative Forces ke liye hoti hai: $F = -\frac{dU}{dx}$</p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>📍 <b>Gravitational P.E.:</b> $U = mgh$</li>
+                <li>📍 <b>Elastic Spring P.E.:</b> $U = \frac{1}{2}kx^2$</li>
+            </ul>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px; background: #f0f4f8;">
+                <tr style="background: #001f3f; color: #fff;">
+                    <th style="padding: 10px; border: 1px solid #ccc;">Equilibrium</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">Condition</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">U Value</th>
+                </tr>
+                <tr><td style="padding: 10px; border: 1px solid #ccc;">Stable</td><td style="padding: 10px; border: 1px solid #ccc;">$d^2U/dx^2 > 0$</td><td style="padding: 10px; border: 1px solid #ccc;">Minimum</td></tr>
+                <tr><td style="padding: 10px; border: 1px solid #ccc;">Unstable</td><td style="padding: 10px; border: 1px solid #ccc;">$d^2U/dx^2 < 0$</td><td style="padding: 10px; border: 1px solid #ccc;">Maximum</td></tr>
+            </table>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px; margin-top: 30px;">4. POWER & EFFICIENCY</h2>
+            <p><b>Instantaneous Power:</b> $P = \frac{dW}{dt} = \vec{F} \cdot \vec{v} = Fv \cos \theta$</p>
+            <p><b>Efficiency ($\eta$):</b> $\frac{P_{output}}{P_{input}} \times 100\%$</p>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px; margin-top: 30px;">5. COLLISIONS (Takkar)</h2>
+            <p><b>Momentum Conservation:</b> Har type ke collision mein linear momentum conserve rehta hai.</p>
+            <p><b>Coefficient of Restitution (e):</b> $e = \frac{\text{Velocity of Separation}}{\text{Velocity of Approach}}$</p>
+            <ul style="list-style: none; padding-left: 10px; border-left: 3px solid #001f3f;">
+                <li>🔹 <b>Elastic (e=1):</b> No K.E. loss.</li>
+                <li>🔹 <b>Inelastic (0 < e < 1):</b> K.E. loss hota hai.</li>
+                <li>🔹 <b>Perfectly Inelastic (e=0):</b> Bodies stick together.</li>
+            </ul>
+
+            [attachment_0](attachment)
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #001f3f; padding-bottom: 5px; margin-top: 30px;">6. VERTICAL CIRCULAR MOTION</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>✅ <b>Bottom Velocity for Full Circle:</b> $\sqrt{5gr}$</li>
+                <li>✅ <b>Velocity at Top:</b> $\sqrt{gr}$</li>
+                <li>✅ <b>Reach Horizontal:</b> $\sqrt{2gr}$</li>
+            </ul>
+
+            
+
+            <div style="background: rgba(0, 31, 63, 0.05); border: 1px dashed #001f3f; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #001f3f; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Spring Cutting:</b> Agar spring $n$ parts mein kategi, toh naya $k' = nk$.</p>
+                <p>2. <b>Constant Power:</b> $v \propto t^{1/2}$ and $s \propto t^{3/2}$.</p>
+                <p>3. <b>Elastic Collision Shortcut:</b> Agar $m_1 = m_2$, toh velocities interchange ho jayengi.</p>
+                <p>4. <b>P-t graph Area:</b> Ye hamesha $\Delta K$ (Change in K.E.) deta hai.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="work-energy-power-chart.jpg" alt="Work Energy Power Formula Sheet" style="max-width: 100%; border-radius: 10px; border: 2px solid #001f3f;">
+                <p style="font-size: 0.8rem; color: #001f3f;">[Image: Work Energy and Power Complete Summary Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleWEPChapter() {
+    var body = document.getElementById("wep-content-body");
+    var icon = document.getElementById("wep-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
+                    
