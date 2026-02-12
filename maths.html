@@ -723,3 +723,86 @@ function toggleSequenceChapter() {
 </script>
 
             
+<div id="binomial-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Roboto, sans-serif;">
+    
+    <div onclick="toggleBinomialChapter()" style="background: #1a0b2e; padding: 18px 25px; border-radius: 12px; border: 1px solid #bc13fe; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(188, 19, 254, 0.2); transition: 0.3s;">
+        <span style="color: #d4af37; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📐 BINOMIAL THEOREM (ULTIMATE CHECKLIST)</span>
+        <span id="bin-btn-icon" style="color: #bc13fe;">▼</span>
+    </div>
+
+    <div id="bin-content-body" style="display: none; background: #0f051a; border: 1px solid #331a4d; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #e0d0f0;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px;">1. BINOMIAL EXPANSION FOR POSITIVE INTEGER</h2>
+            <p><b>Standard Expansion:</b> $(x + y)^n = \sum_{r=0}^{n} {}^nC_r x^{n-r} y^r$</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 <b style="color: #bc13fe;">General Term ($T_{r+1}$):</b> ${}^nC_r x^{n-r} y^r$ (Most Used!)</li>
+                <li>🔹 <b>Total Terms:</b> $(n+1)$</li>
+                <li>🔹 <b>Symmetry:</b> ${}^nC_r = {}^nC_{n-r}$</li>
+            </ul>
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px; margin-top: 30px;">2. TERMS IN EXPANSION (SPECIAL CASES)</h2>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li><b>Middle Term:</b> 
+                    <br>&nbsp;&nbsp;• If $n$ is even: $(\frac{n}{2} + 1)^{th}$ term.
+                    <br>&nbsp;&nbsp;• If $n$ is odd: $(\frac{n+1}{2})^{th}$ and $(\frac{n+3}{2})^{th}$ terms.
+                </li>
+                <li><b>Term Independent of $x$:</b> Jab $x$ ki net power zero ho jaye.</li>
+                <li><b>NGT (Numerically Greatest Term):</b> Calculate $m = \frac{(n+1)|y|}{|x| + |y|}$. Agar $m \in I$, toh $T_m, T_{m+1}$ are NGT.</li>
+            </ul>
+
+            
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px; margin-top: 30px;">3. BINOMIAL COEFFICIENTS & SERIES</h2>
+            <div style="background: rgba(188, 19, 254, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37;">
+                <p>✅ $\sum {}^nC_r = 2^n$</p>
+                <p>✅ $\sum (-1)^r {}^nC_r = 0$</p>
+                <p>✅ <b>Vandermonde's Identity:</b> $\sum {}^nC_k \cdot {}^mC_{r-k} = {}^{n+m}C_r$</p>
+            </div>
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px; margin-top: 30px;">4. MULTINOMIAL THEOREM</h2>
+            <p>Expansion: $(x_1 + x_2 + \dots + x_k)^n = \sum \frac{n!}{n_1! n_2! \dots n_k!} x_1^{n_1} \dots x_k^{n_k}$</p>
+            <p><b>Total Terms:</b> ${}^{n+k-1}C_{k-1}$</p>
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px; margin-top: 30px;">5. BINOMIAL FOR ANY INDEX</h2>
+            <p>Mandatory Condition: $|x| < 1$.</p>
+            <p>📌 $(1-x)^{-1} = 1 + x + x^2 + x^3 \dots$</p>
+            <p>📌 $(1-x)^{-2} = 1 + 2x + 3x^2 + 4x^3 \dots$</p>
+
+            
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #bc13fe; padding-bottom: 5px; margin-top: 30px;">6. REMAINDER AND DIVISIBILITY</h2>
+            <p><b>Finding Remainder:</b> $a^n$ ko $b$ se divide karne par. <br> 💡 Trick: $a$ ko $(kb \pm 1)$ ke form mein likho.</p>
+
+            <div style="background: rgba(212, 175, 55, 0.1); border: 1px dashed #d4af37; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #d4af37; margin-top: 0;">🔥 JEE MAINS RAMBAAN TRICKS</h3>
+                <p>1. <b>Sum of Coefficients:</b> Pura expression mein $x=1, y=1$ daal do.</p>
+                <p>2. <b>Pascal's Identity:</b> ${}^nC_r + {}^nC_{r-1} = {}^{n+1}C_r$ (Most Important!)</p>
+                <p>3. <b>Integral/Fractional Part:</b> Use $(I+F)(I-F) = \text{constant}$ concept.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="binomial-notes.jpg" alt="Binomial Theorem Formula Sheet" style="max-width: 100%; border-radius: 10px; border: 1px solid #bc13fe;">
+                <p style="font-size: 0.8rem; color: #bc13fe;">[Image: Binomial Theorem Full Formula & Tricks Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleBinomialChapter() {
+    var body = document.getElementById("bin-content-body");
+    var icon = document.getElementById("bin-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+</script>
