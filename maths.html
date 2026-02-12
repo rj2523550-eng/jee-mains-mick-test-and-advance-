@@ -532,3 +532,101 @@ function toggleComplexChapter() {
     }
 }
 </script>
+
+            <div id="stats-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Arial, sans-serif;">
+    
+    <div onclick="toggleStatsChapter()" style="background: #0a192f; padding: 18px 25px; border-radius: 12px; border: 1px solid #00f2ff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0, 242, 255, 0.2); transition: 0.3s;">
+        <span style="color: #00f2ff; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">📊 PROBABILITY & STATISTICS (FULL SUMMARY)</span>
+        <span id="stats-btn-icon" style="color: #00f2ff;">▼</span>
+    </div>
+
+    <div id="stats-content-body" style="display: none; background: #0d1117; border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px;">
+        
+        <div style="line-height: 1.8; color: #e6edf3; font-size: 1.05rem;">
+
+            <h2 style="color: #00f2ff; border-bottom: 1px solid #00f2ff; padding-bottom: 5px;">1. PROBABILITY: CORE CONCEPTS</h2>
+            <p><b>Sample Space & Events:</b> Total possible outcomes aur favourable outcomes ka ratio.</p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔹 <b>Addition Theorem:</b> $P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+                <li>🔹 <b>For 3 Events:</b> $P(A \cup B \cup C) = \sum P(A) - \sum P(A \cap B) + P(A \cap B \cap C)$</li>
+                <li>🔹 <b>Conditional Probability:</b> $P(A/B) = \frac{P(A \cap B)}{P(B)}$ (B has already occurred)</li>
+                <li>🔹 <b>Independent Events:</b> Agar $P(A \cap B) = P(A) \cdot P(B)$ ho. (Complements $A'$ aur $B'$ bhi independent honge).</li>
+            </ul>
+
+            <h2 style="color: #00f2ff; border-bottom: 1px solid #00f2ff; padding-bottom: 5px; margin-top: 30px;">2. THEOREMS OF PROBABILITY (JEE FAVORITES)</h2>
+            <p><b>Total Probability Theorem:</b> $P(A) = \sum P(E_i)P(A/E_i)$</p>
+            <p><b>Bayes' Theorem (Reverse Prob):</b> $$P(E_k/A) = \frac{P(E_k)P(A/E_k)}{\sum P(E_i)P(A/E_i)}$$</p>
+            
+            
+            
+            <p><b>Binomial Distribution:</b> $P(X=r) = {}^nC_r p^r q^{n-r}$</p>
+            <div style="background: rgba(0, 242, 255, 0.05); padding: 15px; border-radius: 8px; border-left: 4px solid #00f2ff;">
+                Mean = $np$ | Variance = $npq$ | S.D. = $\sqrt{npq}$
+            </div>
+
+            <h2 style="color: #00f2ff; border-bottom: 1px solid #00f2ff; padding-bottom: 5px; margin-top: 30px;">3. STATISTICS: MEASURES OF CENTRAL TENDENCY</h2>
+            <p><b>Mean ($\bar{x}$):</b> $\frac{\sum x_i}{n}$ or $\frac{\sum f_i x_i}{\sum f_i}$</p>
+            <p><b>Median:</b> Middle value. (Odd $n$: $(\frac{n+1}{2})^{th}$ term | Even $n$: Average of $\frac{n}{2}^{th}$ and $(\frac{n}{2}+1)^{th}$ terms).</p>
+            <p><b>Empirical Relation:</b> <b style="color: #ffcc00;">Mode = 3 Median - 2 Mean</b></p>
+
+            <h2 style="color: #00f2ff; border-bottom: 1px solid #00f2ff; padding-bottom: 5px; margin-top: 30px;">4. MEASURES OF DISPERSION (MOST IMPORTANT)</h2>
+            <p><b>Variance ($\sigma^2$):</b> $\frac{\sum x_i^2}{n} - (\bar{x})^2$</p>
+            <p><b>Mean Deviation:</b> $M.D. = \frac{\sum |x_i - \text{Mean/Median}|}{n}$</p>
+
+            
+
+            <h2 style="color: #00f2ff; border-bottom: 1px solid #00f2ff; padding-bottom: 5px; margin-top: 30px;">5. ANALYSIS OF DATA (TRANSFORMATION)</h2>
+            <p>Agar har observation $x_i$ ko $ax_i + b$ mein badal diya jaye:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: #161b22;">
+                <tr style="border-bottom: 2px solid #00f2ff; color: #00f2ff;">
+                    <th style="padding: 10px; text-align: left;">Change</th>
+                    <th style="padding: 10px; text-align: left;">New Mean</th>
+                    <th style="padding: 10px; text-align: left;">New Var ($\sigma^2$)</th>
+                    <th style="padding: 10px; text-align: left;">New S.D. ($\sigma$)</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 10px;">Add $b$</td>
+                    <td style="padding: 10px;">$\bar{x} + b$</td>
+                    <td style="padding: 10px;">No Change</td>
+                    <td style="padding: 10px;">No Change</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #333;">
+                    <td style="padding: 10px;">Multiply $a$</td>
+                    <td style="padding: 10px;">$a\bar{x}$</td>
+                    <td style="padding: 10px;">$a^2 \sigma^2$</td>
+                    <td style="padding: 10px;">$|a|\sigma$</td>
+                </tr>
+            </table>
+
+            <div style="background: rgba(0, 242, 255, 0.1); border: 1px dashed #00f2ff; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #00f2ff; margin-top: 0;">🔥 GOLDEN TRICKS FOR JEE MAINS</h3>
+                <p>1. <b>At least one:</b> $P(\text{At least one}) = 1 - P(\text{All failures})$</p>
+                <p>2. <b>Natural Numbers:</b> First $n$ natural numbers ka Variance = $\frac{n^2 - 1}{12}$</p>
+                <p>3. <b>Inconsistent Data:</b> Binomial mein hamesha Mean > Variance hota hai ($np > npq$). Agar sawal mein ulta diya ho, toh data impossible hai.</p>
+                <p>4. <b>Combined Mean:</b> $\bar{x}_{comb} = \frac{n_1 \bar{x}_1 + n_2 \bar{x}_2}{n_1 + n_2}$</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="YOUR_STATS_IMAGE_NAME.jpg" alt="Statistics Transformation Table" style="max-width: 100%; border-radius: 10px; border: 1px solid #00f2ff;">
+                <p style="font-size: 0.8rem; color: #00f2ff;">[Image: Probability and Statistics Cheat Sheet for JEE]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleStatsChapter() {
+    var body = document.getElementById("stats-content-body");
+    var icon = document.getElementById("stats-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+</script>
