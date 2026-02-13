@@ -823,3 +823,69 @@ function toggleBioChapter() {
     }
 }
 </script>
+
+        <div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #10b981; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Organic Chemistry: How to Master Reactions without Rote Learning
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="chem-blog1-intro">
+                Zyadatar JEE aspirants ke liye Organic Chemistry ek bura sapna (nightmare) hoti hai. Hazaaron reactions, dher saare reagents, aur unse bhi zyada exceptions! Lekin kya aapne kabhi socha hai ki kuch topper students organic ke sawal 10-20 seconds mein kaise solve kar lete hain? Asal mein, Organic Chemistry ratne (memorization) ka nahi, balki patterns aur logic ko samajhne ka subject hai. Is blog mein hum un secret strategies par baat karenge jo aapko Organic ka king bana dengi...
+            </p>
+
+            <div id="chem-blog1-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. The Foundation: GOC is Everything</h2>
+                <p>Organic Chemistry ek imarat ki tarah hai, aur <b>General Organic Chemistry (GOC)</b> uski neev hai. Agar aapka Inductive effect, Resonance, aur Hyperconjugation clear nahi hai, toh aap kabhi ye nahi samajh payenge ki ek nucleophile kahan attack karega. 
+                <br>• <b>Electronic Effects:</b> Inka use karke carbocations aur carbanions ki stability nikalna seekhein. 
+                <br>• <b>Acidic & Basic Strength:</b> Isse har saal JEE Mains mein 1-2 sawal aate hain.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Understand the "Why" (Reaction Mechanism)</h2>
+                <p>Reaction ko ratne ke bajaye uska mechanism (SN1, SN2, E1, E2) samjhein. Jab aapko pata hota hai ki electron kahan se kahan ja rahe hain, toh aap kisi bhi naye sawal ko solve kar sakte hain. 
+                <br>• <b>Reagents:</b> Har reagent ka ek specific kaam hota hai. Maslan, $LiAlH_4$ hamesha reduction karega, aur $PCC$ sirf alcohol ko aldehyde tak hi le jayega. Ek alag se "Reagent Diary" banayein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. The Art of Conversions</h2>
+                <p>Organic master karne ka sabse accha tarika hai <b>Roadmaps</b> banana. Ek compound se dusre compound tak pahunchne ke kitne raste hain? Maslan, Alcohol se Acid banana, fir Acid se Amine banana. Jab aap ye connection seekh jayenge, toh exam mein "Product Prediction" wale sawal aapke liye khel ban jayenge.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Stereochemistry: The 3D Perspective</h2>
+                <p>Sirf paper par structure banana kafi nahi hai. Aapko ye samajhna hoga ki molecules 3D space mein kaise dikhte hain. Chirality, Enantiomers, aur Diastereomers ka concept samajhna zaroori hai, kyunki aksar options mein stereoisomers hi aapko confuse karte hain.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Revision and NCERT Role</h2>
+                <p>Organic Chemistry ke liye NCERT "Gold Standard" hai. JEE Mains ke 80% theoretical sawal aur naming reactions direct NCERT se aati hain. Rozana 30 minute naming reactions (jaise Aldol, Cannizzaro, Reimer-Tiemann) ko likh-likh kar practice karein. Memory maps banayein aur unhe apne kamre mein chipka dein.</p>
+
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed #10b981; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Golden Rule:</b> "Don't memorize the product, understand the process. The electrons will show you the way!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="chem-read-more-btn1" onclick="toggleChemBlog1()" style="background: #10b981; color: #fff; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(16,185,129,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleChemBlog1() {
+    var content = document.getElementById("chem-blog1-full-content");
+    var btn = document.getElementById("chem-read-more-btn1");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
