@@ -378,3 +378,65 @@ function toggleThermoChapter() {
 }
 </script>
         
+<div id="pblock-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Tahoma, sans-serif;">
+    
+    <div onclick="togglePBlockChapter()" style="background: #4b0082; padding: 18px 25px; border-radius: 12px; border: 1px solid #9370db; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3); transition: 0.3s;">
+        <span style="color: #ffffff; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🧪 P-BLOCK ELEMENTS (GROUP 13-18)</span>
+        <span id="pblock-btn-icon" style="color: #9370db;">▼</span>
+    </div>
+
+    <div id="pblock-content-body" style="display: none; background: #fdfbff; border: 1px solid #dcd0ff; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #2d1a47;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #4b0082; border-bottom: 2px solid #9370db; padding-bottom: 5px;">1. BORON & CARBON FAMILY (GP 13-14)</h2>
+            <p>🔹 <b>Inert Pair Effect:</b> Group mein niche jaane par lower oxidation state (+1) zyada stable hoti hai.</p>
+            <p>🔹 <b>Diborane ($B_2H_6$):</b> Isme <b>Banana Bond</b> (3c-2e bond) hota hai.</p>
+            
+            
+
+            <p>🔹 <b>Silicates & Zeolites:</b> Basic unit $SiO_4^{4-}$. Zeolites (like ZSM-5) alcohol ko petrol mein badalte hain.</p>
+
+            <h2 style="color: #4b0082; border-bottom: 2px solid #9370db; padding-bottom: 5px; margin-top: 30px;">2. NITROGEN & OXYGEN FAMILY (GP 15-16)</h2>
+            <p>🔹 <b>Nitric Acid ($HNO_3$):</b> Metals ke saath reactions (Conc. vs Dilute) hamesha puchi jati hain.</p>
+            <p>🔹 <b>Phosphorus Oxoacids:</b> $H_3PO_2$ (monobasic), $H_3PO_3$ (dibasic), $H_3PO_4$ (tribasic).</p>
+            <p>🔹 <b>Sulphur Oxoacids:</b> <b>Marshall’s acid</b> ($H_2S_2O_8$) mein peroxide bond hota hai.</p>
+
+            
+
+            <h2 style="color: #4b0082; border-bottom: 2px solid #9370db; padding-bottom: 5px; margin-top: 30px;">3. HALOGENS & NOBLE GASES (GP 17-18)</h2>
+            <p>🔹 <b>Electron Gain Enthalpy:</b> Order $\to Cl > F > Br > I$. (Cl ki sabse zyada hai).</p>
+            <p>🔹 <b>Interhalogens:</b> Inki shapes ($ClF_3$ - T-shape, $IF_7$ - PBP) VSEPR se aati hain.</p>
+            <p>🔹 <b>Xenon Compounds:</b> $XeF_4$ (Square Planar), $XeF_2$ (Linear), $XeO_3$ (Pyramidal).</p>
+
+            
+
+            <div style="background: #f3e5f5; border: 1px dashed #4b0082; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #4b0082; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Bond Angle Trend:</b> Group mein niche jaane par hydride bond angle ghatt-ta hai ($NH_3 > PH_3 > AsH_3$).</p>
+                <p>2. <b>Back Bonding:</b> $BF_3$ mein $p\pi-p\pi$ bonding ki wajah se ye $BI_3$ se weak Lewis acid hai.</p>
+                <p>3. <b>Oxidizing Power:</b> $F_2$ puri periodic table ka sabse strong oxidizing agent hai.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="p-block-master-chart.jpg" alt="P-Block Elements Trends and Structures Chart" style="max-width: 100%; border-radius: 10px; border: 2px solid #4b0082;">
+                <p style="font-size: 0.8rem; color: #4b0082;">[Image: Group 13-18 Elements Properties and Oxoacids Summary Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePBlockChapter() {
+    var body = document.getElementById("pblock-content-body");
+    var icon = document.getElementById("pblock-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
