@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Test - JEE Master</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --primary: #3b82f6;
+            --success: #10b981;
+            --error: #f43f5e;
+            --text: #f8fafc;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .test-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #334155;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .timer-box {
+            position: sticky;
+            top: 10px;
+            background: var(--error);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .subject-tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .option-label {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid #334155;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            background: #26334d;
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        #result-screen {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 20px auto;
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+
+<div class="test-container" id="main-test">
+    <div class="header">
+        <h1>🚀 Weekly Test - 01</h1>
+        <p style="color: #94a3b8;">Full Syllabus Practice | 10 Questions</p>
+        <div class="timer-box" id="timer">Time Left: 15:00</div>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-wrapper"></div>
+        <button type="button" class="submit-btn" onclick="submitTest()">Finish Test & View Score</button>
+    </form>
+</div>
+
+<div class="test-container" id="result-screen">
+    <h2>🎉 Test Completed!</h2>
+    <div class="score-circle" id="final-score">0/10</div>
+    <p id="performance-msg" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
+    <button onclick="location.reload()" style="background: var(--primary); color:white; border:none; padding:10px 30px; border-radius:8px; cursor:pointer;">Try Again</button>
+    <a href="index.html" style="display:block; margin-top:20px; color:var(--primary); text-decoration:none;">Back to Dashboard</a>
+</div>
+
+<script>
+// Test Data: Aap yahan naye sawal add kar sakte hain
+const questions = [
+    {
+        sub: 'Physics', color: '#39ff14',
+        q: 'Dimension of Surface Tension is:',
+        options: ['[MT⁻²]', '[MLT⁻²]', '[ML⁻¹T⁻²]', '[M²T⁻¹]'],
+        ans: 0
+    },
+    {
+        sub: 'Chemistry', color: '#10b981',
+        q: 'Which effect is permanent in GOC?',
+        options: ['Inductive Effect', 'Electromeric Effect', 'Resonance', 'Both A & C'],
+        ans: 3
+    },
+    {
+        sub: 'Maths', color: '#3b82f6',
+        q: 'The value of cos(15°) is:',
+        options: ['(√3+1)/2√2', '(√3-1)/2√2', '1/√2', '√3/2'],
+        ans: 0
+    }
+    // Aap aur bhi questions isi format mein add kar sakte hain
+];
+
+function loadQuestions() {
+    const wrapper = document.getElementById('questions-wrapper');
+    wrapper.innerHTML = questions.map((item, index) => `
+        <div class="question-card">
+            <span class="subject-tag" style="background: ${item.color}; color: #000;">${item.sub}</span>
+            <p style="font-weight: bold;">Q${index + 1}. ${item.q}</p>
+            <div class="options-grid">
+                ${item.options.map((opt, i) => `
+                    <label class="option-label">
+                        <input type="radio" name="q${index}" value="${i}">
+                        ${opt}
+                    </label>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Timer Logic
+let time = 900; // 15 Minutes
+const timerEl = document.getElementById('timer');
+const countdown = setInterval(() => {
+    let min = Math.floor(time / 60);
+    let sec = time % 60;
+    timerEl.innerHTML = `Time Left: ${min}:${sec < 10 ? '0' : ''}${sec}`;
+    if (time <= 0) {
+        clearInterval(countdown);
+        submitTest();
+    }
+    time--;
+}, 1000);
+
+function submitTest() {
+    clearInterval(countdown);
+    let score = 0;
+    questions.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && parseInt(selected.value) === item.ans) {
+            score++;
+        }
+    });
+
+    document.getElementById('main-test').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('final-score').innerHTML = `${score}/${questions.length}`;
+    
+    const msg = document.getElementById('performance-msg');
+    if (score === questions.length) msg.innerHTML = "Perfect! You are an IITian in making! 🏆";
+    else if (score >= questions.length/2) msg.innerHTML = "Great job! Just a little more focus. 👍";
+    else msg.innerHTML = "Need more practice. Read the Master Sheets again! 📚";
+}
+
+loadQuestions();
+</script>
+
+</body>
+</html>
