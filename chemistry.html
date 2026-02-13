@@ -889,3 +889,76 @@ function toggleChemBlog1() {
     }
 }
 </script>
+
+        <div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #10b981; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Inorganic Chemistry: Stop Memorizing, Start Visualizing
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="chem-blog2-intro">
+                JEE aspirants ke beech ek myth famous hai—"Inorganic Chemistry toh sirf ratne ka subject hai." Sach toh ye hai ki agar aapne Periodic Table aur Chemical Bonding ke basics samajh liye, toh 70% Inorganic khud-ba-khud solve ho jayegi. Inorganic Chemistry wo section hai jo JEE Mains mein aapka sabse zyada time bachata hai aur guaranteed marks deta hai. Is blog mein hum baat karenge un techniques ki jo Inorganic ko aapka favourite subject bana dengi...
+            </p>
+
+            <div id="chem-blog2-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. The Core Pillars: Periodic Table & Bonding</h2>
+                <p>Inorganic ke har block (s, p, d, f) ka rasta <b>Chemical Bonding</b> se hokar nikalta hai. 
+                <br>• <b>Trends:</b> Atomic radius, Ionization Enthalpy, aur Electronegativity ke trends ko ratne ke bajaye effective nuclear charge ($Z_{eff}$) se connect karein. 
+                <br>• <b>Structures:</b> VSEPR theory aur Hybridization se molecules ki shape imagine karna seekhein. Jab aap structure draw kar lete hain, toh uski properties yaad rakhna asaan ho jata hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Coordination Compounds: The Heavyweight</h2>
+                <p>Coordination Compounds se har saal 2-3 sawal aate hain. 
+                <br>• <b>CFT & VBT:</b> Crystal Field Splitting ko dhyan se samjhein. Strong field aur weak field ligands ka asar magnetic nature par kaise padta hai, ye master karein. 
+                <br>• <b>Isomerism:</b> Geometric aur Optical isomerism ko visualize karne ke liye structures banayein.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. P-Block: The Ocean of Information</h2>
+                <p>P-block sabse bada unit hai, lekin ise tod-tod kar padhna chahiye. 
+                <br>• <b>Oxoacids:</b> Phosphorus, Sulphur aur Halogens ke oxoacids ke structures aur unki acidic strength ka trend hamesha pucha jata hai. 
+                <br>• <b>Anomalous Behavior:</b> Second period elements (N, O, F) apne group se alag kyun behave karte hain, iska reason (small size, high EN, absence of d-orbitals) hamesha dhyan rakhein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Qualitative Analysis (Salt Analysis)</h2>
+                <p>Ab JEE Mains mein practical chemistry ka weightage badh gaya hai. Colors of precipitates aur specific gas tests (like Lime water test, Brown ring test) ko ek chart par likh kar yaad karein. Ye 4 marks bonus hote hain agar aapne sahi se revision kiya hai.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. The NCERT Bible Strategy</h2>
+                <p>Inorganic ke liye NCERT ki ek-ek line, ek-ek reaction aur table important hai. 
+                <br><b>Revision Tip:</b> Har chapter ke baad ek "Exceptions Page" banayein. Inorganic mein exceptions hi asal sawal hote hain (e.g., Electron gain enthalpy of Cl vs F). Rozana subah 15 minute inorganic ke trends ko revise karne ki aadat dalein.</p>
+
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed #10b981; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Bhai ki Advice:</b> "Inorganic ko bojh mat samjho, ise ek story ki tarah padho. Har element ki apni personality hai!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="chem-read-more-btn2" onclick="toggleChemBlog2()" style="background: #10b981; color: #fff; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(16,185,129,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleChemBlog2() {
+    var content = document.getElementById("chem-blog2-full-content");
+    var btn = document.getElementById("chem-read-more-btn2");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
+        
+
+        
