@@ -960,5 +960,76 @@ function toggleChemBlog2() {
 }
 </script>
         
+<div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #10b981; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Physical Chemistry: Mastering Calculations and Concepts
+        </h1>
 
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="chem-blog3-intro">
+                Physical Chemistry JEE ka wo hissa hai jo Physics ki tarah logic aur Mathematics ki tarah calculation mangta hai. Bahut se students ko concepts toh samajh aa jate hain, lekin jab numerical solve karne ki baari aati hai, toh wo calculation mein phans jate hain ya unit conversion mein galti kar dete hain. Physical Chemistry mein 99 percentile laane ke liye aapko sirf formulas nahi, balki unka application seekhna hoga. Is blog mein hum dekhenge ki Physical Chemistry ko asaan banane ke kya raaz hain...
+            </p>
+
+            <div id="chem-blog3-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Thermodynamics & Equilibrium: The Conceptual Core</h2>
+                <p>Ye do units poori Physical Chemistry ki jaan hain. 
+                <br>• <b>Thermodynamics:</b> Gibbs Free Energy ($\Delta G$) aur Spontaneity ke concepts ko master karein. Physics aur Chemistry ke sign convention ka antar (difference) hamesha dhyan rakhein. 
+                <br>• <b>Equilibrium:</b> Le-Chatelier’s Principle aur Ionic Equilibrium mein pH calculation wale sawalon ki khoob practice karein. Buffer solutions aur Solubility product ($K_{sp}$) se har saal sawal banta hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Mole Concept & Stoichiometry: The Foundation</h2>
+                <p>Agar aapka Mole Concept kamzor hai, toh poori Physical Chemistry hilegi. 
+                <br>• <b>Concentration Terms:</b> Molarity, Molality, aur Mole Fraction ke beech ke inter-conversion ko tips par rakhein. 
+                <br>• <b>Limiting Reagent:</b> Reactions mein Limiting Reagent pehchanne ki practice karein, kyunki stoichiometry ke zyadatar sawal yahin se ghumte hain.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. Electrochemistry & Kinetics: Scoring High</h2>
+                <p>Ye chapters calculation-intensive hain lekin predictable hain. 
+                <br>• <b>Electrochemistry:</b> Nernst Equation aur Faraday’s laws par command banayein. $E^\circ_{cell}$ nikalte waqt oxidation aur reduction potentials ko dhyan se check karein. 
+                <br>• <b>Chemical Kinetics:</b> First-order reactions aur Half-life ($t_{1/2}$) ke graphs aur formulas ko master karein. Arrhenius Equation se temperature dependence wale sawal aksar aate hain.</p>
+                
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Calculation Hacks and Time Management</h2>
+                <p>JEE exam mein calculator allow nahi hota, isliye aapki manual calculation fast honi chahiye. 
+                <br>• <b>Log & Ln Values:</b> $\log 2, \log 3, \log 5$ aur $\ln 10$ ki values hamesha yaad rakhein. 
+                <br>• <b>Approximation:</b> Jab options door-door hon, toh approximate calculation karke samay bachayein. 
+                <br>• <b>Unit Conversion:</b> R (Gas constant) ki alag-alga units (0.0821 vs 8.314) kab use karni hai, isme kabhi galti na karein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Practice and Error Analysis</h2>
+                <p>Physical Chemistry sirf padhne se nahi, pen chalane se aati hai. 
+                <br><b>Strategy:</b> Pehle formula sheet banayein, fir basic numericals karein, aur end mein pichle 5 saal ke PYQs solve karein. Agar koi sawal galat ho, toh dekhein ki galti concept mein thi ya calculation mein. Ek "Mistake Book" banayein jahan aap apni calculation errors ko note karein.</p>
+
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed #10b981; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Bhai ki Advice:</b> "Physical Chemistry mein units ka khel hai. Agar units sahi hain, toh aadha rasta wahi tay ho gaya!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="chem-read-more-btn3" onclick="toggleChemBlog3()" style="background: #10b981; color: #fff; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(16,185,129,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleChemBlog3() {
+    var content = document.getElementById("chem-blog3-full-content");
+    var btn = document.getElementById("chem-read-more-btn3");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
         
