@@ -217,3 +217,82 @@ function toggleBondingChapter() {
 }
 </script>
         
+<div id="coordination-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Arial, sans-serif;">
+    
+    <div onclick="toggleCoordinationChapter()" style="background: #fff5f5; padding: 18px 25px; border-radius: 12px; border: 1px solid #e53e3e; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(229, 62, 62, 0.15); transition: 0.3s;">
+        <span style="color: #c53030; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🧱 COORDINATION COMPOUNDS (MASTER SHEET)</span>
+        <span id="coord-btn-icon" style="color: #e53e3e;">▼</span>
+    </div>
+
+    <div id="coord-content-body" style="display: none; background: #ffffff; border: 1px solid #feb2b2; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #2d3748;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px;">1. WERNER’S THEORY</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>🔴 <b>Primary Valency:</b> Ionizable (Oxidation state ke barabar).</li>
+                <li>🔴 <b>Secondary Valency:</b> Non-ionizable (Coordination number). Geometry decide karti hai.</li>
+            </ul>
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px; margin-top: 30px;">2. NOMENCLATURE & LIGANDS</h2>
+            <p><b>Chelating Ligands:</b> Jo ring banate hain aur stability badhate hain (e.g., $en, ox^{2-}$).</p>
+            <p><b>Ambidentate:</b> Do alag atoms se donate karne wale (e.g., $SCN^-$ and $NCS^-$).</p>
+            <p><b>IUPAC Rule:</b> Ligands (Alphabetical) + Metal + (Oxidation State in Roman).</p>
+
+            
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px; margin-top: 30px;">3. ISOMERISM (Most Important)</h2>
+            <div style="background: #fffaf0; padding: 15px; border-radius: 8px; border-left: 5px solid #ed8936;">
+                <p>🔹 <b>Structural:</b> Ionization, Linkage, Hydrate, Coordination.</p>
+                <p>🔹 <b>Geometrical (GI):</b> Cis-Trans (Square planar $MA_2B_2$ and Octahedral).</p>
+                <p>🔹 <b>Optical (OI):</b> Non-superimposable mirror images. (Chelating ligands wale octahedral hamesha OI dikhate hain).</p>
+            </div>
+
+            
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px; margin-top: 30px;">4. VALENCE BOND THEORY (VBT)</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>✔️ $sp^3$: Tetrahedral | $dsp^2$: Square Planar</li>
+                <li>✔️ $d^2sp^3$: Inner orbital | $sp^3d^2$: Outer orbital</li>
+                <li>✔️ <b>Magnetic Moment ($\mu$):</b> $\sqrt{n(n+2)}$ BM ($n$ = unpaired electrons)</li>
+            </ul>
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px; margin-top: 30px;">5. CRYSTAL FIELD THEORY (CFT)</h2>
+            <p><b>Octahedral Splitting:</b> $t_{2g}$ (niche) aur $e_g$ (upar).</p>
+            <p><b>Spectrochemical Series:</b> Ligand strength ka order ($CO > CN^- > en > NH_3 > \dots > F^- > Cl^-$).</p>
+            <p>⚠️ <b>Strong Field Ligands (SFL):</b> Pairing karwa dete hain (Low Spin).</p>
+
+            
+
+            <h2 style="color: #c53030; border-bottom: 2px solid #fed7d7; padding-bottom: 5px; margin-top: 30px;">6. SYNERGIC BONDING IN CARBONYLS</h2>
+            <p>Metal apne electrons CO ke anti-bonding orbital mein back-donate karta hai. Isse <b>M-C bond strong</b> aur <b>C-O bond weak</b> ho jata hai.</p>
+
+            <div style="background: #fff5f5; border: 1px dashed #e53e3e; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #c53030; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>SFL Pairing:</b> $CN^-, CO, en, NH_3$ dikhe toh aankh band karke pairing karwa do (Generally).</p>
+                <p>2. <b>EAN Rule:</b> $EAN = Z - (O.S.) + 2 \times (C.N.)$. Agar Noble gas number aaye toh stable hai.</p>
+                <p>3. <b>Optical Inactivity:</b> Agar molecule mein Plane of Symmetry (POS) hai, toh wo OI nahi dikhayega.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="coordination-compounds-chart.jpg" alt="Coordination Compounds Isomerism and CFT Summary Chart" style="max-width: 100%; border-radius: 10px; border: 2px solid #e53e3e;">
+                <p style="font-size: 0.8rem; color: #c53030;">[Image: CFT Splitting and Isomerism in Coordination Compounds]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleCoordinationChapter() {
+    var body = document.getElementById("coord-content-body");
+    var icon = document.getElementById("coord-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
