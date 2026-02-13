@@ -30,44 +30,78 @@
     <h1>Chemistry Revision Hub</h1>
 
     <div class="chem-card physical">
-        <details open>
-            <summary>🧪 Physical Chemistry: Mole Concept</summary>
-            <div class="formula-box">
-                Moles (n) = Given Mass / Molar Mass <br>
-                Molarity (M) = Moles of Solute / Vol. of Solution (L) <br>
-                Ideal Gas Law: PV = nRT
-            </div>
-            <p class="note"><b>Note:</b> STP conditions use 22.4L for 1 mole of gas.</p>
         </details>
+        <div id="goc-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    
+    <div onclick="toggleGOCChapter()" style="background: #064e3b; padding: 18px 25px; border-radius: 12px; border: 1px solid #10b981; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2); transition: 0.3s;">
+        <span style="color: #ecfdf5; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🧪 GOC: GENERAL ORGANIC CHEMISTRY</span>
+        <span id="goc-btn-icon" style="color: #10b981;">▼</span>
     </div>
 
-    <div class="chem-card organic">
-        <details>
-            <summary>🍀 Organic Chemistry: General Basics</summary>
-            <div class="formula-box">
-                - Inductive Effect: Electronic displacement via sigma bonds. <br>
-                - Resonance: Delocalization of pi electrons. <br>
-                - SN1 vs SN2: Reaction mechanisms for alkyl halides.
-            </div>
-            <div class="note">Focus on Name Reactions like Wurtz, Kolbe, and Reimer-Tiemann.</div>
-        </details>
-    </div>
+    <div id="goc-content-body" style="display: none; background: #111827; border: 1px solid #1f2937; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #d1d5db;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
 
-    <div class="chem-card inorganic">
-        <details>
-            <summary>🧱 Inorganic Chemistry: Periodic Table</summary>
-            <div class="formula-box">
-                - Ionization Energy: Increases across period, decreases down group. <br>
-                - Atomic Radius: Decreases across period, increases down group. <br>
-                - Hybridization: sp, sp2, sp3, sp3d, sp3d2.
-            </div>
-            <div class="note"><b>Tip:</b> Block-wise properties (s, p, d, f) are very scoring!</div>
-        </details>
-    </div>
+            <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 5px;">1. ELECTRONIC EFFECTS (Sabse Important)</h2>
+            <p>Ye effects decide karte hain ki molecule kitna reactive ya stable hoga.</p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>🟢 <b>Inductive Effect (I):</b> $\sigma$-electrons ka displacement. <br> &nbsp; (+I: Alkyl groups | -I: $NO_2, CN, F, COOH$)</li>
+                <li>🟢 <b>Resonance (M):</b> $\pi$-electrons ka delocalization. <br> &nbsp; (+M: $OH, NH_2, OR$ | -M: $C=O, NO_2, CN$)</li>
+                <li>🟢 <b>Hyperconjugation:</b> $\sigma$-bond (C-H) aur $\pi$-orbital ka overlap. Ise "Baker-Nathan effect" bhi kehte hain.</li>
+            </ul>
 
-    <p style="text-align:center; color:#444; font-size: 0.8rem;">Thermodynamics & Kinetics coming soon...</p>
+            <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 5px; margin-top: 30px;">2. STABILITY OF REACTION INTERMEDIATES</h2>
+            <div style="background: rgba(16, 185, 129, 0.05); padding: 15px; border-radius: 8px; border-left: 5px solid #10b981;">
+                <p>🔹 <b>Carbocation ($C^+$):</b> Resonance > Hyperconjugation > Inductive.</p>
+                <p>🔹 <b>Carbanion ($C^-$):</b> Stable by -I and -M groups.</p>
+                <p>🔹 <b>Free Radicals:</b> Follows Carbocation stability pattern.</p>
+            </div>
+
+            
+
+            <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 5px; margin-top: 30px;">3. ACIDIC & BASIC STRENGTH</h2>
+            <p><b>Acidic Strength:</b> Directly proportional to -M and -I groups. (Stable anion = Strong Acid).</p>
+            <p><b>Basic Strength:</b> Directly proportional to +M and +I groups. (Lone pair availability).</p>
+            
+            [Image showing acidic strength comparison of substituted phenols]
+
+            <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 5px; margin-top: 30px;">4. ISOMERISM (Short Glance)</h2>
+            <p>• <b>Structural:</b> Chain, Position, Functional, Metamerism, Tautomerism.</p>
+            <p>• <b>Stereoisomerism:</b> Geometrical (Cis-Trans, E-Z) and Optical (Chiral center, Enantiomers, Meso).</p>
+
+            <h2 style="color: #10b981; border-bottom: 2px solid #10b981; padding-bottom: 5px; margin-top: 30px;">5. REAGENTS & PURIFICATION</h2>
+            <p><b>Electrophiles ($E^+$):</b> Electron loving ($AlCl_3, BF_3, NO_2^+$).</p>
+            <p><b>Nucleophiles ($Nu^-$):</b> Nucleus loving ($OH^-, CN^-, NH_3$).</p>
+            <p><b>Analysis:</b> Lassaigne's Test (N, S, Halogens detection) | Kjeldahl’s Method (N estimation).</p>
+
+            <div style="background: #064e3b; border: 1px dashed #10b981; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #10b981; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Aromaticity:</b> Cyclic, Planar, Fully Conjugated + $(4n+2)\pi$ electrons (Huckel's Rule).</p>
+                <p>2. <b>Stability Order (A-H-I):</b> Hamesha pehle Aromaticity check karein, fir Resonance (M), fir Hyperconjugation, fir Inductive Effect.</p>
+                <p>3. <b>Tautomerism:</b> $\alpha$-hydrogen ka hona mandatory hai.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="goc-master-chart.jpg" alt="GOC Stability and Effects Chart" style="max-width: 100%; border-radius: 10px; border: 2px solid #10b981;">
+                <p style="font-size: 0.8rem; color: #10b981;">[Image: Electronic Effects and Stability Comparison Table]</p>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-</body>
-</html>
-
+<script>
+function toggleGOCChapter() {
+    var body = document.getElementById("goc-content-body");
+    var icon = document.getElementById("goc-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+</script>
