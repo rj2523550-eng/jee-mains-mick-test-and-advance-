@@ -599,3 +599,74 @@ function toggleAtomicChapter() {
     }
 }
 </script>
+
+        <div id="hydrocarbons-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Verdana', sans-serif;">
+    
+    <div onclick="toggleHydroChapter()" style="background: #064e3b; padding: 18px 25px; border-radius: 12px; border: 1px solid #a8ff00; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(6, 78, 59, 0.4); transition: 0.3s;">
+        <span style="color: #a8ff00; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🌿 HYDROCARBONS (ALKANES, ALKENES, ALKYNES)</span>
+        <span id="hydro-btn-icon" style="color: #a8ff00;">▼</span>
+    </div>
+
+    <div id="hydro-content-body" style="display: none; background: #0b1a13; border: 1px solid #064e3b; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #e2e8f0;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #a8ff00; border-bottom: 2px solid #064e3b; padding-bottom: 5px;">1. ALKANES (Paraffins)</h2>
+            <p>🔹 <b>Wurtz Reaction:</b> $2RX + 2Na \xrightarrow{Dry Ether} R-R$ (Symmetrical alkanes ke liye best).</p>
+            <p>🔹 <b>Corey-House:</b> Unsymmetrical alkanes banane ka tool.</p>
+            <p>🔹 <b>Free Radical Substitution:</b> Reactivity Order: $F_2 > Cl_2 > Br_2 > I_2$.</p>
+
+            <h2 style="color: #a8ff00; border-bottom: 2px solid #064e3b; padding-bottom: 5px; margin-top: 30px;">2. ALKENES (Olefins)</h2>
+            <div style="background: rgba(168, 255, 0, 0.05); padding: 15px; border-radius: 8px; border-left: 5px solid #a8ff00;">
+                <li>📍 <b>Markownikoff’s Rule:</b> Negative part us Carbon par jayega jahan H kam hain.</li>
+                <li>📍 <b>Kharasch Effect:</b> Sirf $HBr + \text{Peroxide}$ ke saath Anti-Markownikoff hota hai.</li>
+            </div>
+            
+            
+
+            <p>🔹 <b>Ozonolysis:</b> $C=C$ bond tod kar Aldehydes/Ketones banana. Structure identify karne ke liye best hai.</p>
+            <p>🔹 <b>HBO Reaction:</b> Net addition of $H_2O$ follows Anti-Markownikoff rule.</p>
+
+            <h2 style="color: #a8ff00; border-bottom: 2px solid #064e3b; padding-bottom: 5px; margin-top: 30px;">3. ALKYNES</h2>
+            <p>🔹 <b>Acidic Nature:</b> Terminal Alkynes ($R-C \equiv C-H$) acidic hote hain.</p>
+            <p>🔹 <b>Kucherov Reaction:</b> $H_2O / Hg^{2+}$ ki presence mein Alkynes se Carbonyl compounds bante hain.</p>
+            <p>🔹 <b>Cyclic Polymerization:</b> Ethyne $\xrightarrow{\text{Red hot Iron tube}}$ Benzene.</p>
+
+            
+
+            <h2 style="color: #a8ff00; border-bottom: 2px solid #064e3b; padding-bottom: 5px; margin-top: 30px;">4. AROMATIC HYDROCARBONS</h2>
+            <p>🔹 <b>Huckel’s Rule:</b> $(4n+2)\pi$ electrons + Planar + Cyclic.</p>
+            <p>🔹 <b>ESR Reactions:</b> Nitration ($NO_2^+$), Friedel-Crafts ($R^+$ or $RCO^+$).</p>
+            <p>🔹 <b>Directing Groups:</b> $+M/+I \to$ ortho/para directing. $-M/-I \to$ meta directing.</p>
+
+            
+
+            <div style="background: #064e3b; border: 1px dashed #a8ff00; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #a8ff00; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Ozonolysis Shortcut:</b> Bond kaato aur dono taraf Oxygen (=O) chipka do.</p>
+                <p>2. <b>Cis vs Trans:</b> <b>Lindlar’s Catalyst</b> $\to$ Cis-alkene. <b>Birch Reduction</b> $\to$ Trans-alkene.</p>
+                <p>3. <b>Stability:</b> Alkenes ki stability $\alpha$-hydrogens (Hyperconjugation) se check karo.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="hydrocarbons-master-chart.jpg" alt="Hydrocarbons Reactions and Mechanism Summary Chart" style="max-width: 100%; border-radius: 10px; border: 2px solid #a8ff00;">
+                <p style="font-size: 0.8rem; color: #a8ff00;">[Image: Alkanes Alkenes and Alkynes Important Naming Reactions Summary]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleHydroChapter() {
+    var body = document.getElementById("hydro-content-body");
+    var icon = document.getElementById("hydro-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
