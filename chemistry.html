@@ -750,3 +750,76 @@ function toggleSolutionsChapter() {
     }
 }
 </script>
+
+        <div id="biomolecules-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Trebuchet MS', sans-serif;">
+    
+    <div onclick="toggleBioChapter()" style="background: #2d5a27; padding: 18px 25px; border-radius: 12px; border: 1px solid #8bc34a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3); transition: 0.3s;">
+        <span style="color: #ffffff; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🍃 BIOMOLECULES (NICHOD)</span>
+        <span id="bio-btn-icon" style="color: #8bc34a;">▼</span>
+    </div>
+
+    <div id="bio-content-body" style="display: none; background: #f9fbf9; border: 1px solid #c5e1a5; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #33691e;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #2d5a27; border-bottom: 2px solid #8bc34a; padding-bottom: 5px;">1. CARBOHYDRATES (Saccharides)</h2>
+            <p>🔹 <b>Monosaccharides:</b> Glucose, Fructose (Cannot be hydrolysed further).</p>
+            <p>🔹 <b>Reducing Sugars:</b> Jo Tollen’s/Fehling’s ko reduce karein (All mono-saccharides + Maltose, Lactose).</p>
+            <p>🔹 <b>Non-Reducing:</b> <b>Sucrose</b> (Carbonyl group is blocked in linkage).</p>
+
+            <h2 style="color: #2d5a27; border-bottom: 2px solid #8bc34a; padding-bottom: 5px; margin-top: 30px;">2. GLUCOSE (The Star Molecule)</h2>
+            <div style="background: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #dcedc8;">
+                <p>🧪 <b>With HI:</b> n-hexane (Proves 6-carbon straight chain).</p>
+                <p>🧪 <b>With $Br_2$ water:</b> Gluconic acid (Proves Aldehyde group).</p>
+                <p>🧪 <b>With $HNO_3$:</b> Saccharic acid (Proves Primary Alcohol).</p>
+            </div>
+            
+
+            <h2 style="color: #2d5a27; border-bottom: 2px solid #8bc34a; padding-bottom: 5px; margin-top: 30px;">3. PROTEINS & AMINO ACIDS</h2>
+            <p>🔹 <b>Zwitter Ion:</b> Dipolar ion formed at neutral pH.</p>
+            <p>🔹 <b>Structures:</b> Primary (Sequence), Secondary ($\alpha$-helix, $\beta$-pleated), Tertiary (3D folding).</p>
+            <p>🔹 <b>Denaturation:</b> Protein structure loss due to heat/pH (e.g., Coagulation of egg white).</p>
+            [attachment_0](attachment)
+
+            <h2 style="color: #2d5a27; border-bottom: 2px solid #8bc34a; padding-bottom: 5px; margin-top: 30px;">4. NUCLEIC ACIDS (DNA & RNA)</h2>
+            <p>🔹 <b>Nucleoside:</b> Sugar + Base | <b>Nucleotide:</b> Sugar + Base + Phosphate.</p>
+            <p>🔹 <b>DNA:</b> Deoxyribose sugar + Bases (A, G, C, <b>Thymine</b>).</p>
+            <p>🔹 <b>RNA:</b> Ribose sugar + Bases (A, G, C, <b>Uracil</b>).</p>
+            
+
+            <h2 style="color: #2d5a27; border-bottom: 2px solid #8bc34a; padding-bottom: 5px; margin-top: 30px;">5. VITAMINS & DEFICIENCIES</h2>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li>💧 <b>Water Soluble:</b> B, C (Not stored in body).</li>
+                <li>🥑 <b>Fat Soluble:</b> A, D, E, K (Stored in Liver/Adipose tissue).</li>
+                <li>⚠️ <b>Vit A:</b> Night Blindness | <b>Vit C:</b> Scurvy | <b>Vit D:</b> Rickets.</li>
+            </ul>
+
+            <div style="background: #f1f8e9; border: 1px dashed #2d5a27; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #1b5e20; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Inversion of Sugar:</b> Sucrose (+) hydrolysis ke baad (-) mixture deta hai.</p>
+                <p>2. <b>DNA Base Pairing:</b> A=T (2 Hydrogen bonds), C≡G (3 Hydrogen bonds).</p>
+                <p>3. <b>Essential Amino Acids Trick:</b> "VILMPATH" (Valine, Isoleucine, Lysine, Methionine, Phenylalanine, Arginine, Threonine, Histidine).</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="biomolecules-nichod-chart.jpg" alt="Biomolecules Summary Chart Carbohydrates Proteins Nucleic Acids" style="max-width: 100%; border-radius: 10px; border: 2px solid #2d5a27;">
+                <p style="font-size: 0.8rem; color: #2d5a27;">[Image: Comprehensive Summary of Carbohydrates, Proteins, and Vitamins]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleBioChapter() {
+    var body = document.getElementById("bio-content-body");
+    var icon = document.getElementById("bio-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
