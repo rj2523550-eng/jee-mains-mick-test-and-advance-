@@ -882,4 +882,74 @@ function toggleWEPChapter() {
     }
 }
 </script>
+
+    <div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #39ff14; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Physics Mastery: How to Score 80+ in JEE Mains Physics
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="phys-blog1-intro">
+                JEE Mains mein Physics ek aisa subject hai jo aapki rank decide karta hai. Aksar students formulas toh yaad kar lete hain, lekin jab sawal thoda twist hokar aata hai, toh wo phans jate hain. Physics sirf mathematics nahi hai, ye nature ko samajhne ka ek nazariya hai. Agar aapne concepts ki "Feel" le li, toh complex numericals bhi asaan ho jayenge. Is blog mein hum baat karenge un pillars ki jo aapki Physics ko strong banayenge...
+            </p>
+
+            <div id="phys-blog1-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Mechanics: The Foundation</h2>
+                <p>Mechanics Physics ka base hai. Agar aapka **Newton's Laws of Motion (NLM)** aur **Kinematics** strong nahi hai, toh aapko Electrostatics aur Magnetism mein bhi dikkat aayegi. 
+                <br>• <b>Free Body Diagrams (FBD):</b> Har sawal mein FBD banane ki aadat dalein. 
+                <br>• <b>Conservation Laws:</b> Momentum aur Energy conservation kab lagana hai aur kab nahi, ye samajhna sabse bada game-changer hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Electrodynamics: High Weightage Zone</h2>
+                <p>JEE Mains mein lagbhag 25-30% weightage Electrodynamics ka hota hai. 
+                <br>• <b>Gauss Law & Ampere's Law:</b> In laws ki symmetry ko samjhein. 
+                <br>• <b>Circuits:</b> KCL aur KVL (Kirchhoff’s Laws) ko master karein. Complex networks ko simplify karne ke liye symmetry aur star-delta transformation seekhein.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. Modern Physics: The Bonus Marks</h2>
+                <p>Modern Physics sabse scoring unit hai kyunki isme sawal direct aur formula-based hote hain. 
+                <br>• <b>Photoelectric Effect & Atoms:</b> In chapters ko NCERT se line-by-line padhein. 
+                <br>• <b>Nuclear Physics:</b> Binding energy aur Radioactivity ke graphs ko dhyan se samjhein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Visualization and Graphs</h2>
+                <p>Physics mein graphs ka bahut mahatva hai. $v-t$ graph, $a-t$ graph, ya Potential Energy curves... inka slope aur area kya represent karta hai, ye aapko tips par hona chahiye. Sawal solve karte waqt hamesha visualize karein ki physical situation mein kya ho raha hai.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Strategy for Numerical Solving</h2>
+                <p>Zyaadatar students numerical dekhte hi calculation shuru kar dete hain. 
+                <br><b>Right Approach:</b> Pehle data likhein, fir concept sochein, aur end mein values put karein. Units aur Dimensions ka dhyan rakhein, kyunki 10% galti sirf unit conversion ki wajah se hoti hai.</p>
+
+                <div style="background: rgba(57, 255, 20, 0.1); border: 1px dashed #39ff14; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Pro Tip:</b> "Physics is not about solving 100 questions, it's about solving 1 question in 10 different ways!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="phys-read-more-btn1" onclick="togglePhysBlog1()" style="background: #39ff14; color: #000; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(57,255,20,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePhysBlog1() {
+    var content = document.getElementById("phys-blog1-full-content");
+    var btn = document.getElementById("phys-read-more-btn1");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
                     
