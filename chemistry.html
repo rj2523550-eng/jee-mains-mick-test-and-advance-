@@ -440,3 +440,82 @@ function togglePBlockChapter() {
     }
 }
 </script>
+
+        <div id="equilibrium-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Georgia', serif;">
+    
+    <div onclick="toggleEquiChapter()" style="background: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%); padding: 18px 25px; border-radius: 12px; border: 1px solid #996515; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); transition: 0.3s;">
+        <span style="color: #000; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">⚖️ EQUILIBRIUM (CHEMICAL & IONIC)</span>
+        <span id="equi-btn-icon" style="color: #000;">▼</span>
+    </div>
+
+    <div id="equi-content-body" style="display: none; background: #1a1a1a; border: 2px solid #d4af37; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #f4f4f4;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">PART A: CHEMICAL EQUILIBRIUM</h2>
+            <p><b>1. Law of Mass Action:</b> Equilibrium par, Rate of Forward reaction = Rate of Backward reaction.</p>
+            <p><b>2. Equilibrium Constants:</b> $K_p = K_c(RT)^{\Delta n_g}$ 
+                <br><i style="color: #f1c40f;">(Note: K sirf Temperature par depend karta hai)</i></p>
+            
+            <p><b>3. Reaction Quotient (Q):</b></p>
+            <ul style="list-style: none; padding-left: 10px;">
+                <li>🔸 $Q < K$: Reaction <b>Forward</b> jayegi.</li>
+                <li>🔸 $Q > K$: Reaction <b>Backward</b> jayegi.</li>
+                <li>🔸 $Q = K$: Equilibrium state.</li>
+            </ul>
+
+            
+
+            <p><b>4. Le-Chatelier’s Principle:</b></p>
+            <ul style="list-style: circle; padding-left: 20px;">
+                <li>Concentration badhao $\to$ Opposite side shift.</li>
+                <li>Pressure badhao $\to$ Shift towards less gaseous moles.</li>
+                <li>Temp badhao $\to$ Endothermic reaction forward jayegi.</li>
+            </ul>
+
+            <h2 style="color: #d4af37; border-bottom: 2px solid #d4af37; padding-bottom: 5px; margin-top: 30px;">PART B: IONIC EQUILIBRIUM</h2>
+            <p><b>1. Ostwald’s Dilution Law:</b> Weak electrolytes ke liye, $\alpha = \sqrt{\frac{K_a}{C}}$.</p>
+            
+            <p><b>2. pH Calculation:</b></p>
+            <div style="background: rgba(212, 175, 55, 0.1); padding: 15px; border-radius: 8px; border-left: 5px solid #d4af37;">
+                <li>Weak Acid: $pH = \frac{1}{2}(pK_a - \log C)$</li>
+                <li>WA + SB Salt: $pH = 7 + \frac{1}{2}(pK_a + \log C)$</li>
+                <li>SA + WB Salt: $pH = 7 - \frac{1}{2}(pK_b + \log C)$</li>
+            </div>
+
+            
+
+            <p><b>3. Buffer Solutions & Ksp:</b></p>
+            <p>🔹 <b>Henderson Equation:</b> $pH = pK_a + \log \frac{[Salt]}{[Acid]}$</p>
+            <p>🔹 <b>Solubility Product ($K_{sp}$):</b> Precipitation tab hoga jab $Q_{sp} > K_{sp}$.</p>
+            <p>🔹 <b>Common Ion Effect:</b> Common ion ki presence mein solubility ghat jati hai.</p>
+
+            <div style="background: #000; border: 1px solid #d4af37; padding: 20px; border-radius: 15px; margin-top: 40px; box-shadow: inset 0 0 10px #d4af37;">
+                <h3 style="color: #d4af37; margin-top: 0; text-align: center;">👑 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Solid/Liquid Ignore Karo:</b> $K_c$ ya $K_p$ likhte waqt Pure Solids aur Liquids ko 1 maante hain.</p>
+                <p>2. <b>Van't Hoff Equation:</b> $\log \frac{K_2}{K_1} = \frac{\Delta H}{2.303R} \left( \frac{1}{T_1} - \frac{1}{T_2} \right)$.</p>
+                <p>3. <b>Buffer Pehchano:</b> Agar Weak Acid + Salt (with SB) dikhe, toh seedha Henderson lagao.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="equilibrium-master-notes.jpg" alt="Chemical and Ionic Equilibrium Formula Sheet" style="max-width: 100%; border-radius: 10px; border: 2px solid #d4af37;">
+                <p style="font-size: 0.8rem; color: #d4af37;">[Image: Equilibrium Spontaneity and pH Calculation Summary Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleEquiChapter() {
+    var body = document.getElementById("equi-content-body");
+    var icon = document.getElementById("equi-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
