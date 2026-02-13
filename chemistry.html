@@ -296,3 +296,85 @@ function toggleCoordinationChapter() {
     }
 }
 </script>
+
+        <div id="thermo-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Roboto, sans-serif;">
+    
+    <div onclick="toggleThermoChapter()" style="background: #001f3f; padding: 18px 25px; border-radius: 12px; border: 1px solid #0074d9; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0, 31, 63, 0.3); transition: 0.3s;">
+        <span style="color: #ffffff; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">🔥 THERMODYNAMICS & ENERGETICS</span>
+        <span id="thermo-btn-icon" style="color: #0074d9;">▼</span>
+    </div>
+
+    <div id="thermo-content-body" style="display: none; background: #ffffff; border: 1px solid #001f3f; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #111;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px;">1. BASIC TERMS (Terminology)</h2>
+            <p><b>System:</b> Wo part jise hum study kar rahe hain.</p>
+            <ul style="list-style: square; padding-left: 20px;">
+                <li><b>Open:</b> Matter + Energy exchange hoti hai.</li>
+                <li><b>Closed:</b> Sirf Energy exchange hoti hai.</li>
+                <li><b>Isolated:</b> Kuch bhi exchange nahi hota (Ideal Case).</li>
+            </ul>
+            <p>🔹 <b>State Functions:</b> Initial aur Final state par depend karte hain ($\Delta U, \Delta H, \Delta G, \Delta S$). <br> 🔹 <b>Path Functions:</b> Raste (path) par depend karte hain ($w, q$).</p>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px; margin-top: 30px;">2. FIRST LAW (FLOT)</h2>
+            <div style="background: #f1f8ff; padding: 15px; border-radius: 8px; border-left: 5px solid #001f3f;">
+                <p style="font-weight: bold; margin: 0;">$\Delta U = q + w$</p>
+                <p style="font-size: 0.95rem; margin-top: 5px;">Chemistry mein Work: $w = -P_{ext} \Delta V$</p>
+            </div>
+            <p>✅ <b>Expansion:</b> $w$ is negative (-ve). <br> ✅ <b>Compression:</b> $w$ is positive (+ve).</p>
+
+            
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px; margin-top: 30px;">3. ENTHALPY ($\Delta H$)</h2>
+            <p>Constant pressure par heat exchange: $\Delta H = \Delta U + \Delta n_g RT$</p>
+            <p>📌 <b>$\Delta n_g$:</b> (Total moles of gaseous products) - (Total moles of gaseous reactants).</p>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px; margin-top: 30px;">4. THERMOCHEMISTRY</h2>
+            <p><b>Hess's Law:</b> Total enthalpy change same rehta hai chahe reaction kitne bhi steps mein ho.</p>
+            <p><b>Bond Enthalpy:</b> $\Delta H_{reaction} = \sum (\text{B.E. Reactants}) - \sum (\text{B.E. Products})$</p>
+
+            
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px; margin-top: 30px;">5. SECOND LAW & ENTROPY (S)</h2>
+            <p>Universe ki randomness (Entropy) badh rahi hai: $\Delta S = \frac{q_{rev}}{T}$</p>
+            <p><b>Spontaneity:</b> Agar $\Delta S_{total} > 0$, toh process spontaneous hoga.</p>
+
+            <h2 style="color: #001f3f; border-bottom: 2px solid #0074d9; padding-bottom: 5px; margin-top: 30px;">6. GIBBS FREE ENERGY ($\Delta G$)</h2>
+            <p style="background: #001f3f; color: white; padding: 10px; border-radius: 5px; text-align: center;">$\Delta G = \Delta H - T\Delta S$</p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>🚀 <b>$\Delta G < 0$:</b> Spontaneous (Apne aap hoga).</li>
+                <li>🚀 <b>$\Delta G > 0$:</b> Non-spontaneous.</li>
+                <li>🚀 <b>$\Delta G = 0$:</b> Equilibrium.</li>
+            </ul>
+
+            <div style="background: #eef2f7; border: 1px dashed #001f3f; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #001f3f; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>$\Delta n_g$ Calculation:</b> Sirf "Gas" phase wale moles ginn-na hai. Solid/Liquid ko galti se bhi mat lena.</p>
+                <p>2. <b>Physics vs Chemistry:</b> Chemistry mein system par work ho toh <b>Positive</b>, system kare toh <b>Negative</b>.</p>
+                <p>3. <b>Spontaneity Master Rule:</b> Agar $\Delta H = -ve$ aur $\Delta S = +ve$ hai, toh wo reaction hamesha spontaneous hogi (at all T).</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="thermo-summary-notes.jpg" alt="Thermodynamics Formulas and Spontaneity Table" style="max-width: 100%; border-radius: 10px; border: 2px solid #001f3f;">
+                <p style="font-size: 0.8rem; color: #001f3f;">[Image: Thermodynamics Summary and Gibbs Free Energy Spontaneity Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleThermoChapter() {
+    var body = document.getElementById("thermo-content-body");
+    var icon = document.getElementById("thermo-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
+        
