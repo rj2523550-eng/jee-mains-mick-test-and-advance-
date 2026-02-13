@@ -1094,4 +1094,75 @@ function togglePhysBlog3() {
 }
 </script>
                     
-                    
+<div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #39ff14; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            Electromagnetism: Mastering the Core of JEE Physics
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="phys-blog4-intro">
+                Electromagnetism JEE Physics ka sabse bada aur mahatvapurn pillar hai. Isme Electrostatics se lekar Alternating Current tak sab kuch shamil hai. Aksar students is unit ke bade-bade integration aur complex circuits se dar jate hain, lekin agar aapne "Field aur Potential" ka core logic samajh liya, toh ye unit aapki rank ko boost karne ka sabse bada zariya ban sakti hai. Is final blog mein hum electromagnetism ke har ek pahlu ko simplify karenge...
+            </p>
+
+            <div id="phys-blog4-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Electrostatics: The Foundation of Fields</h2>
+                <p>Electrostatics ki shuruat <b>Coulomb’s Law</b> se hoti hai, lekin iska real hero <b>Gauss’s Law</b> hai. 
+                <br>• <b>Gauss’s Law:</b> Symmetry ka use karke Electric Field nikalna seekhein. Spheres, Cylinders aur Infinite sheets ke results tips par honi chahiye. 
+                <br>• <b>Electric Potential:</b> Yaad rakhein ki Electric Field hamesha high potential se low potential ki taraf flow karti hai ($E = -dV/dr$).</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Current Electricity & Capacitors</h2>
+                <p>Capacitors mein energy storage ($1/2 CV^2$) aur dielectrics ka asar sabse zyada pucha jata hai. 
+                <br>• <b>Kirchhoff’s Laws:</b> KCL aur KVL ko complex circuits mein lagana seekhein. 
+                <br>• <b>Potentiometer & Meter Bridge:</b> In experimental topics ko ignore na karein, kyunki JEE Mains inpar focus karta hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. Magnetic Effects & Induction (EMI)</h2>
+                <p>Magnetism puri tarah se "Direction" ka khel hai. Right-hand thumb rule aur Fleming’s rules ko master karein. 
+                <br>• <b>Biot-Savart Law & Ampere’s Law:</b> Inka upyog karke Magnetic Field ($B$) nikalna seekhein. 
+                <br>• <b>Faraday’s Law & Lenz’s Law:</b> Induced EMF ($e = -d\phi/dt$) nikalte waqt Lenz law se direction check karna na bhulein. Self aur Mutual inductance ke formulas numericals mein bahut aate hain.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Alternating Current (AC): The Vector Logic</h2>
+                <p>AC circuits ko asaan banane ka sabse accha rasta hai <b>Phasor Diagrams</b>. 
+                <br>• <b>Resonance:</b> $LCR$ circuit mein resonance condition ($X_L = X_C$) aur Quality Factor ($Q$) par har saal sawal banta hai. 
+                <br>• <b>Power in AC:</b> Average power ($V_{rms}I_{rms}\cos\phi$) mein power factor ($\cos\phi$) ka mahatva samjhein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Final Revision Strategy for Physics</h2>
+                <p>Electromagnetism ko revise karne ke liye har chapter ke liye ek "Formula Sheet" banayein. Units aur Dimensions ka dhyan rakhein (jaise $\mu_0$ aur $\epsilon_0$ ke units). Pichle 5-10 saal ke PYQs solve karte waqt focus karein ki aap concepts ko mix kaise kar rahe hain (jaise Magnetic force ko Centripetal force ke barabar rakhna). Physics ratne se nahi, bar-bar visualize karne se aati hai.</p>
+
+                <div style="background: rgba(57, 255, 20, 0.1); border: 1px dashed #39ff14; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Final Word:</b> "Electromagnetism master kar liya toh samajho JEE Physics ka killa fateh kar liya. Confidence rakho aur practice karte raho!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="phys-read-more-btn4" onclick="togglePhysBlog4()" style="background: #39ff14; color: #000; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(57,255,20,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePhysBlog4() {
+    var content = document.getElementById("phys-blog4-full-content");
+    var btn = document.getElementById("phys-read-more-btn4");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
