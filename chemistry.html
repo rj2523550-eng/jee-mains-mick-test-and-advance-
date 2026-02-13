@@ -519,3 +519,83 @@ function toggleEquiChapter() {
     }
 }
 </script>
+
+        <div id="atomic-section-wrapper" style="width: 100%; margin: 20px 0; clear: both; display: block; font-family: 'Segoe UI', Roboto, sans-serif;">
+    
+    <div onclick="toggleAtomicChapter()" style="background: #2e004f; padding: 18px 25px; border-radius: 12px; border: 1px solid #bc13fe; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(188, 19, 254, 0.3); transition: 0.3s;">
+        <span style="color: #f0dbff; font-size: 1.25rem; font-weight: bold; letter-spacing: 1px;">⚛️ ATOMIC STRUCTURE (MASTER SHEET)</span>
+        <span id="atomic-btn-icon" style="color: #bc13fe;">▼</span>
+    </div>
+
+    <div id="atomic-content-body" style="display: none; background: #0b0014; border: 1px solid #33004d; border-top: none; border-radius: 0 0 12px 12px; padding: 30px; margin-top: -2px; color: #e0d0f0;">
+        
+        <div style="line-height: 1.8; font-size: 1.05rem;">
+
+            <h2 style="color: #bc13fe; border-bottom: 2px solid #33004d; padding-bottom: 5px;">1. BOHR’S ATOMIC MODEL (Sabse Important)</h2>
+            <p>Valid sirf single electron species ke liye ($H, He^+, Li^{2+}$).</p>
+            <div style="background: rgba(188, 19, 254, 0.05); padding: 15px; border-radius: 8px; border-left: 5px solid #bc13fe;">
+                <li>🔹 <b>Radius:</b> $r_n = 0.529 \frac{n^2}{Z} \text{ \AA}$</li>
+                <li>🔹 <b>Velocity:</b> $v_n = 2.18 \times 10^6 \frac{Z}{n} \text{ m/s}$</li>
+                <li>🔹 <b>Energy:</b> $E_n = -13.6 \frac{Z^2}{n^2} \text{ eV/atom}$</li>
+            </div>
+            <p style="font-size: 0.9rem; color: #bc13fe; margin-top: 10px;"><b>Note:</b> T.E. = -(K.E.) = 1/2 P.E.</p>
+
+            
+
+            <h2 style="color: #bc13fe; border-bottom: 2px solid #33004d; padding-bottom: 5px; margin-top: 30px;">2. HYDROGEN SPECTRUM</h2>
+            <p>Rydberg Formula: $\frac{1}{\lambda} = RZ^2 \left[ \frac{1}{n_1^2} - \frac{1}{n_2^2} \right]$</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px; color: #e0d0f0; text-align: center; background: #1a0029;">
+                <tr style="border-bottom: 1px solid #33004d;">
+                    <th style="padding: 10px;">Series</th><th style="padding: 10px;">$n_1$</th><th style="padding: 10px;">Region</th>
+                </tr>
+                <tr><td style="padding: 8px;">Lyman</td><td>1</td><td>UV</td></tr>
+                <tr><td style="padding: 8px;">Balmer</td><td>2</td><td>Visible</td></tr>
+                <tr><td style="padding: 8px;">Paschen</td><td>3</td><td>Infrared</td></tr>
+            </table>
+
+            
+
+            <h2 style="color: #bc13fe; border-bottom: 2px solid #33004d; padding-bottom: 5px; margin-top: 30px;">3. QUANTUM MECHANICAL MODEL</h2>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>📍 <b>Principal (n):</b> Shell/Size (1, 2, 3...)</li>
+                <li>📍 <b>Azimuthal (l):</b> Subshell/Shape (0 to n-1). <br>&nbsp;&nbsp;&nbsp;&nbsp;l=0 (s), 1 (p), 2 (d), 3 (f)</li>
+                <li>📍 <b>Magnetic ($m_l$):</b> Orientation (-l to +l)</li>
+                <li>📍 <b>Spin ($m_s$):</b> Rotation (+1/2, -1/2)</li>
+            </ul>
+
+            <h2 style="color: #bc13fe; border-bottom: 2px solid #33004d; padding-bottom: 5px; margin-top: 30px;">4. CONFIGURATION RULES</h2>
+            <p>✅ <b>Pauli:</b> Max 2 electrons per orbital with opposite spin.</p>
+            <p>✅ <b>Aufbau:</b> Electrons fill lower energy orbitals first (n+l rule).</p>
+            <p>✅ <b>Hund:</b> Pairing tab tak nahi hogi jab tak har orbital half-filled na ho jaye.</p>
+
+            
+
+            <div style="background: #1a0029; border: 1px dashed #bc13fe; padding: 20px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="color: #bc13fe; margin-top: 0;">🔥 JEE MAINS GOLDEN TRICKS</h3>
+                <p>1. <b>Nodes:</b> Total = $(n-1)$, Radial = $(n-l-1)$, Angular = $l$.</p>
+                <p>2. <b>Magnetic Moment ($\mu$):</b> $\sqrt{n(n+2)} \text{ BM}$ ($n$ = unpaired electrons).</p>
+                <p>3. <b>$\lambda$ Shortcut:</b> Longest $\lambda \to$ Min energy gap. Shortest $\lambda \to$ Max energy gap.</p>
+            </div>
+
+            <div style="margin-top: 25px; text-align: center;">
+                <img src="atomic-structure-notes.jpg" alt="Atomic Structure Formula and Quantum Numbers Summary Chart" style="max-width: 100%; border-radius: 10px; border: 2px solid #bc13fe;">
+                <p style="font-size: 0.8rem; color: #bc13fe;">[Image: Atomic Models and Quantum Numbers Detailed Summary Chart]</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleAtomicChapter() {
+    var body = document.getElementById("atomic-content-body");
+    var icon = document.getElementById("atomic-btn-icon");
+    if (body.style.display === "none" || body.style.display === "") {
+        body.style.display = "block";
+        icon.innerHTML = "▲";
+    } else {
+        body.style.display = "none";
+        icon.innerHTML = "▼";
+    }
+}
+</script>
