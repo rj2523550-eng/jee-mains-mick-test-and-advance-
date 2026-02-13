@@ -1033,3 +1033,77 @@ function toggleChemBlog3() {
 }
 </script>
         
+<div style="width: 100%; padding: 40px 0; background: var(--bg); display: block; clear: both;">
+    <div style="max-width: 900px; margin: 0 auto; padding: 25px; background: var(--panel); border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        
+        <h1 style="color: #10b981; text-align: center; font-size: 2rem; margin-bottom: 15px;">
+            The Score Boosters: Mastering Biomolecules and Polymers
+        </h1>
+
+        <div style="line-height: 1.8; font-size: 1.1rem; color: #c9d1d9;">
+            <p id="chem-blog4-intro">
+                JEE Chemistry ke syllabus mein kuch aise chapters hain jinhe "Memorization Heavy" kaha jata hai. Zyadatar aspirants Biomolecules, Polymers, aur Chemistry in Everyday Life ko end ke liye chhod dete hain aur fir wahi galti hoti hai. Ye chapters "Free ke Marks" hote hain kyunki inka sawal direct NCERT se uthaya jata hai. Agar aapne in par pakad bana li, toh aap 10-15 marks bina kisi complex calculation ke confirm kar sakte hain. Is final blog mein hum dekhenge in "Scoring Powerhouses" ko master karne ka sahi tarika...
+            </p>
+
+            <div id="chem-blog4-full-content" style="display: none;">
+                
+                <h2 style="color: #ffcc00; margin-top: 25px;">1. Biomolecules: The Chemistry of Life</h2>
+                <p>Biomolecules sirf Biology nahi hai, ye pure Organic Chemistry hai. 
+                <br>• <b>Carbohydrates:</b> Glucose ki reactions (with HI, $Br_2$ water, $HNO_3$) ko master karein. Reducing aur Non-reducing sugars ka antar (difference) hamesha pucha jata hai. 
+                <br>• <b>Proteins:</b> Amino acids ke Zwitter ion structure aur Peptide bonds ko samjhein. Primary, Secondary, aur Tertiary structures ka visualization zaroori hai. 
+                <br>• <b>Nucleic Acids:</b> DNA aur RNA ke bases (A, T, G, C, U) aur unki pairing ka dhyan rakhein.</p>
+
+                
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">2. Polymers: Chains of Success</h2>
+                <p>Polymers se aksar direct match the following wale sawal aate hain. 
+                <br>• <b>Classification:</b> Addition aur Condensation polymers ke beech ka fark samjhein. 
+                <br>• <b>Monomers:</b> Bakelite, Nylon-6,6, Terylene, aur Buna-S jaise important polymers ke monomers ko ek table mein likh kar yaad karein. 
+                <br>• <b>Biodegradable Polymers:</b> PHBV aur Nylon-2-Nylon-6 jaise modern polymers par NTA ka focus rehta hai.</p>
+
+                
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">3. Chemistry in Everyday Life & Environmental Chemistry</h2>
+                <p>In chapters ko ignore karna sabse badi galti ho sakti hai. 
+                <br>• <b>Medicines:</b> Antiseptics, Disinfectants, aur Antibiotics (Broad spectrum vs Narrow spectrum) ke examples yaad rakhein. 
+                <br>• <b>Environment:</b> Greenhouse effect, Acid Rain, aur Ozone depletion ke chemical reactions ko NCERT se padhein. BOD (Biochemical Oxygen Demand) ka concept pollution check karne ke liye mahatvapurn hai.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">4. Why NCERT is Unbeatable for these Chapters?</h2>
+                <p>In chapters ke liye kisi bhi coaching module se behtar NCERT hai. JEE Mains ke paper utha kar dekhein, 95% sawal direct NCERT ki lines ya tables se hote hain. 
+                <br><b>Strategy:</b> NCERT ko highlight karke padhein aur har chapter ke end mein ek self-made "Fact Sheet" banayein jise aap har hafte revise kar sakein.</p>
+
+                <h2 style="color: #ffcc00; margin-top: 25px;">5. Final Revision Tips for Chemistry</h2>
+                <p>Ab jab aapne Chemistry ke teeno pillars (Organic, Inorganic, Physical) cover kar liye hain, toh mix practice shuru karein. 
+                <br>• <b>Inter-linking:</b> Kabhi-kabhi Biomolecules ka sawal GOC ke concept se solve hota hai. 
+                <br>• <b>PYQs:</b> Pichle 5 saal ke sawal ye batane ke liye kafi hain ki kaunsa topic NTA ka favourite hai. Chemistry mein 100/100 lana possible hai agar aap accuracy aur speed ka balance banaye rakhein.</p>
+
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed #10b981; padding: 20px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <b>Bhai ki Final Advice:</b> "Scoring chapters ko chhota mat samjho. Yahi wo chapters hain jo ek average student ko topper se alag karte hain!"
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="chem-read-more-btn4" onclick="toggleChemBlog4()" style="background: #10b981; color: #fff; border: none; padding: 10px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 15px rgba(16,185,129,0.4);">
+                Read More
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleChemBlog4() {
+    var content = document.getElementById("chem-blog4-full-content");
+    var btn = document.getElementById("chem-read-more-btn4");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerHTML = "Read Less";
+    } else {
+        content.style.display = "none";
+        btn.innerHTML = "Read More";
+        window.scrollTo({ top: content.parentElement.offsetTop - 100, behavior: 'smooth' });
+    }
+}
+</script>
