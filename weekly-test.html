@@ -1,182 +1,125 @@
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Weekly PYQ Test | 30 Questions</title>
+    <title>JEE Weekly Test - PYQ Special</title>
     <style>
         :root {
-            --primary: #1e3a8a;
-            --bg: #f0f2f5;
+            --primary: #1e40af;
+            --bg: #f8fafc;
             --white: #ffffff;
-            --green: #16a34a;
-            --red: #dc2626;
-            --gray: #6b7280;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --text: #1e293b;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: #1f2937; }
-        
-        /* Header */
-        .header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .timer { background: var(--red); padding: 8px 20px; border-radius: 5px; font-weight: bold; font-family: monospace; font-size: 1.2rem; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        .header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .timer { background: var(--danger); padding: 5px 15px; border-radius: 5px; font-weight: bold; }
 
-        .main-container { max-width: 1100px; margin: 30px auto; display: grid; grid-template-columns: 1fr 300px; gap: 25px; padding: 0 15px; }
+        .container { max-width: 1000px; margin: 30px auto; display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 0 15px; }
 
-        /* Question Box */
-        .question-card { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); min-height: 450px; position: relative; }
-        .subject-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.85rem; margin-bottom: 20px; }
-        .chem-tag { background: #fef9c3; color: #854d0e; }
-        .phys-tag { background: #dcfce7; color: #166534; }
-        .math-tag { background: #dbeafe; color: #1e40af; }
+        .question-box { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); min-height: 400px; }
+        .subject-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-bottom: 15px; }
+        .phys { background: #dcfce7; color: #166534; }
+        .chem { background: #fef9c3; color: #854d0e; }
+        .math { background: #dbeafe; color: #1e40af; }
 
-        /* Options */
-        .options-list { margin-top: 25px; }
-        .option { display: block; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; position: relative; }
-        .option:hover { background: #f9fafb; border-color: var(--primary); }
-        .option input { margin-right: 15px; }
-        .selected-opt { background: #eff6ff !important; border-color: var(--primary) !important; font-weight: bold; }
+        .option { display: block; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background: #f1f5f9; border-color: var(--primary); }
+        .option.selected { background: #eff6ff; border-color: var(--primary); font-weight: bold; }
 
-        /* Palette */
-        .sidebar { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); height: fit-content; }
-        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .pal-btn { width: 42px; height: 42px; border: 1px solid #d1d5db; background: white; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
-        .pal-btn.current { border: 2px solid var(--primary); color: var(--primary); }
-        .pal-btn.answered { background: var(--green); color: white; border-color: var(--green); }
+        .palette { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); height: fit-content; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
+        .num-btn { width: 40px; height: 40px; border: 1px solid #cbd5e1; background: white; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+        .num-btn.active { border: 2px solid var(--primary); color: var(--primary); }
+        .num-btn.answered { background: var(--success); color: white; border-color: var(--success); }
 
-        /* Navigation Buttons */
-        .nav-btns { margin-top: 30px; display: flex; gap: 10px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; }
         .btn-next { background: var(--primary); color: white; }
-        .btn-clear { background: #e5e7eb; color: #374151; }
-        .btn-submit { background: var(--red); color: white; width: 100%; margin-top: 20px; font-size: 1rem; }
+        .btn-submit { background: var(--danger); color: white; width: 100%; }
 
-        /* Result Screen */
-        #result-screen { display: none; max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); text-align: center; }
-        .score-circle { width: 150px; height: 150px; border-radius: 50%; border: 10px solid var(--primary); display: flex; align-items: center; justify-content: center; margin: 20px auto; font-size: 2.5rem; font-weight: bold; color: var(--primary); }
-        .summary-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-        .summary-table th, .summary-table td { padding: 15px; border: 1px solid #eee; text-align: center; }
-        .summary-table th { background: #f8fafc; }
+        #result { display: none; text-align: center; background: white; padding: 40px; border-radius: 15px; max-width: 600px; margin: 50px auto; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <div><b>JEE WEEKLY TEST: 01 (PYQ BASED)</b></div>
-    <div class="timer" id="display-time">60:00</div>
+    <div><b>WEEKLY TEST: JEE ADVANCED/MAINS LEVEL</b></div>
+    <div class="timer" id="time-display">60:00</div>
 </div>
 
-<div class="main-container" id="quiz-ui">
-    <div class="question-card">
+<div class="container" id="quiz-ui">
+    <div class="question-box">
         <div id="sub-tag" class="subject-badge">SUBJECT</div>
-        <h3 id="q-number">Question 1</h3>
-        <p id="q-text" style="font-size: 1.15rem; line-height: 1.6;">Loading Question...</p>
-        
-        <div class="options-list" id="options-area">
-            </div>
-
-        <div class="nav-btns">
-            <button class="btn btn-next" onclick="saveNext()">Save & Next</button>
-            <button class="btn btn-clear" onclick="clearAns()">Clear Response</button>
-        </div>
+        <h3 id="q-num">Question 1</h3>
+        <p id="q-text" style="font-size: 1.1rem; line-height: 1.6;">Loading...</p>
+        <div id="options"></div>
+        <button class="btn btn-next" onclick="nextQ()">Save & Next</button>
     </div>
 
-    <div class="sidebar">
-        <h4 style="margin: 0 0 10px 0;">Question Palette</h4>
-        <div class="palette-grid" id="palette"></div>
-        <button class="btn btn-submit" onclick="confirmSubmit()">Submit Test</button>
+    <div class="palette">
+        <h4>Palette</h4>
+        <div class="grid" id="palette-grid"></div>
+        <button class="btn btn-submit" onclick="showResults()">Submit Test</button>
     </div>
 </div>
 
-<div id="result-screen">
-    <h1 style="color: var(--primary);">Test Analysis Result</h1>
-    <div class="score-circle" id="final-total">0</div>
-    <p style="font-size: 1.2rem;">Total Marks Secured (out of 120)</p>
-    
-    <div style="display: flex; justify-content: space-around; margin: 30px 0;">
-        <div style="color: var(--green);"><b>Correct:</b> <span id="res-c">0</span></div>
-        <div style="color: var(--red);"><b>Incorrect:</b> <span id="res-i">0</span></div>
-        <div style="color: var(--gray);"><b>Unattempted:</b> <span id="res-u">0</span></div>
-    </div>
-
-    <table class="summary-table">
-        <thead>
-            <tr><th>Subject</th><th>Marks</th><th>Accuracy</th></tr>
-        </thead>
-        <tbody id="subject-breakdown"></tbody>
-    </table>
-    
-    <button class="btn btn-next" style="margin-top: 30px;" onclick="location.reload()">Retake Test</button>
+<div id="result">
+    <h2>Test Summary</h2>
+    <div style="font-size: 3rem; color: var(--primary); margin: 20px 0;" id="total-score">0 / 60</div>
+    <p id="stats"></p>
+    <button class="btn btn-next" onclick="location.reload()">Restart Test</button>
 </div>
 
 <script>
-// --- QUESTION DATA ---
-const questions = [
-    // CHEMISTRY (1-10)
-    { id: 1, sub: 'CHEMISTRY', q: 'Correct acidic strength order: (I) Phenol, (II) p-Nitrophenol, (III) m-Nitrophenol, (IV) Ethanol', opts: ['II > III > I > IV', 'IV > I > III > II', 'II > I > III > IV', 'III > II > I > IV'], ans: 0 },
-    { id: 2, sub: 'CHEMISTRY', q: 'Magnetic nature of [Co(NH3)6]3+ and [CoF6]3- is:', opts: ['Dono paramagnetic hain', 'Dono diamagnetic hain', 'Pehla diamagnetic, dusra paramagnetic', 'Pehla paramagnetic, dusra diamagnetic'], ans: 2 },
-    { id: 3, sub: 'CHEMISTRY', q: 'Osmotic pressure comparison: 0.1 M glucose and 0.1 M MgCl2', opts: ['Glucose ka zyada hoga', 'MgCl2 ka 3 guna zyada hoga', 'Dono ka barabar hoga', 'MgCl2 ka 2 guna zyada hoga'], ans: 1 },
-    { id: 4, sub: 'CHEMISTRY', q: 'I3- ion ki geometry aur central atom par lone pairs:', opts: ['Linear, 3 lone pairs', 'Bent, 2 lone pairs', 'Trigonal bipyramidal, 0 lone pairs', 'Linear, 2 lone pairs'], ans: 0 },
-    { id: 5, sub: 'CHEMISTRY', q: 'Kaunsa vitamin blood clotting ke liye zimmedar hai?', opts: ['Vitamin A', 'Vitamin B12', 'Vitamin K', 'Vitamin E'], ans: 2 },
-    { id: 6, sub: 'CHEMISTRY', q: 'Li2+ ion ke 2nd orbit ki radius kya hogi? (in Å)', opts: ['0.529', '0.705', '1.058', '0.353'], ans: 1 },
-    { id: 7, sub: 'CHEMISTRY', q: 'White Phosphorus (P4) ke baare mein kya galat hai?', opts: ['Bond angle 60°', 'Insoluble in water', 'High angular strain', 'Phosphorus is sp2 hybridized'], ans: 3 },
-    { id: 8, sub: 'CHEMISTRY', q: 'Reversible isothermal expansion mein Ideal gas ke liye ΔU kya hai?', opts: ['Positive', 'Negative', 'Zero', 'q + w'], ans: 2 },
-    { id: 9, sub: 'CHEMISTRY', q: 'Calcium Carbide (CaC2) ki hydrolysis se kaunsi gas nikalti hai?', opts: ['Methane', 'Ethene', 'Ethyne', 'Ethane'], ans: 2 },
-    { id: 10, sub: 'CHEMISTRY', q: 'Conjugate base of H2PO4- is:', opts: ['H3PO4', 'HPO4 2-', 'PO4 3-', 'H4PO4'], ans: 1 },
+const quizData = [
+    // PHYSICS
+    { sub: 'PHYSICS', class: 'phys', q: 'Momentum (P), Area (A), and Time (T) are fundamental quantities. Dimensional formula for Energy is:', opts: ['[P^1 A^{1/2} T^{-1}]', '[P^2 A^{-1} T^1]', '[P^1 A^{-1/2} T^0]', '[P^1 A^{1/2} T^1]'], ans: 0 },
+    { sub: 'PHYSICS', class: 'phys', q: 'Velocity varies with displacement as v = α√x. Average velocity for the first S distance is:', opts: ['(α√S)/2', 'α√S', '(α√S)/√2', '(2α√S)/3'], ans: 0 },
+    { sub: 'PHYSICS', class: 'phys', q: 'A solid sphere and a solid cylinder (same M, R) roll down an inclined plane. Ratio of accelerations a_sphere/a_cylinder is:', opts: ['14:15', '15:14', '5:4', '2:3'], ans: 1 },
+    { sub: 'PHYSICS', class: 'phys', q: 'Ideal gas PV^2 = constant. Initial T and V. Final T when volume becomes 2V?', opts: ['2T', 'T/2', 'T/4', '4T'], ans: 1 },
+    { sub: 'PHYSICS', class: 'phys', q: 'Charges +Q, q, +Q at 0, d/2, d. If net force on +Q at x=0 is zero, then q is:', opts: ['-Q/2', '-Q/4', '+Q/2', '+Q/4'], ans: 1 },
 
-    // PHYSICS (11-20)
-    { id: 11, sub: 'PHYSICS', q: 'Modern Physics: de-Broglie wavelength 4 guna karne par Kinetic Energy:', opts: ['16 guna', '1/16 guna', '4 guna', '1/4 guna'], ans: 1 },
-    { id: 12, sub: 'PHYSICS', q: 'Meter bridge balance point 40 cm. Left gap = 10 Ω, Right gap = ?', opts: ['15 Ω', '20 Ω', '6.6 Ω', '10 Ω'], ans: 0 },
-    { id: 13, sub: 'PHYSICS', q: 'P-type semiconductor banane ke liye pure Silicon mein kya milayein?', opts: ['Phosphorus', 'Arsenic', 'Aluminium', 'Antimony'], ans: 2 },
-    { id: 14, sub: 'PHYSICS', q: 'Earth ke center par g ki value kya hoti hai?', opts: ['Infinite', '9.8 m/s²', 'Zero', '0.5 g'], ans: 2 },
-    { id: 15, sub: 'PHYSICS', q: 'Concave mirror (f=20cm), Object at 10cm. Image kaisi hogi?', opts: ['Real, inverted, diminished', 'Virtual, erect, magnified', 'Real, inverted, magnified', 'Virtual, erect, diminished'], ans: 1 },
-    { id: 16, sub: 'PHYSICS', q: 'Spring (x stretch) energy U. Extra x khinchne ke liye extra work?', opts: ['U', '2U', '3U', '4U'], ans: 2 },
-    { id: 17, sub: 'PHYSICS', q: 'RMS velocity of gas molecules vary with T as:', opts: ['v ∝ T', 'v ∝ √T', 'v ∝ T²', 'v ∝ 1/T'], ans: 1 },
-    { id: 18, sub: 'PHYSICS', q: 'Kaunsa gate "Universal Gate" kehlata hai?', opts: ['OR', 'AND', 'NOR', 'NOT'], ans: 2 },
-    { id: 19, sub: 'PHYSICS', q: 'Proton and Alpha same velocity in B. Radii ratio (rp / rα):', opts: ['1:1', '1:2', '2:1', '1:4'], ans: 1 },
-    { id: 20, sub: 'PHYSICS', q: 'Modulus of Elasticity ki dimensions kiske barabar hai?', opts: ['Force', 'Pressure', 'Work', 'Power'], ans: 1 },
+    // CHEMISTRY
+    { sub: 'CHEMISTRY', class: 'chem', q: 'For first-order reaction, time for 99% completion is x times the time for 90% completion. x is:', opts: ['1', '2', '3', '10'], ans: 1 },
+    { sub: 'CHEMISTRY', class: 'chem', q: 'Correct order of bond angle for BH3, NH3, PCl3, BF3 is:', opts: ['BF3 = BH3 > NH3 > PCl3', 'PCl3 > NH3 > BH3 > BF3', 'NH3 > PCl3 > BF3 = BH3', 'BF3 > BH3 > NH3 > PCl3'], ans: 0 },
+    { sub: 'CHEMISTRY', class: 'chem', q: 'Which compound will undergo Cannizzaro reaction?', opts: ['CH3CHO', 'C6H5CHO', 'CH3CH2CHO', 'CH3COCH3'], ans: 1 },
+    { sub: 'CHEMISTRY', class: 'chem', q: 'Spin-only magnetic moment of [Fe(H2O)6]2+ is approximately:', opts: ['5.92 BM', '4.90 BM', '3.87 BM', '1.73 BM'], ans: 1 },
+    { sub: 'CHEMISTRY', class: 'chem', q: 'Na2SO4 (5g) in 45g water, ΔTf = -3.82°C. Kf = 1.86. Van\'t Hoff factor i is:', opts: ['2.1', '2.6', '3.0', '1.5'], ans: 1 },
 
-    // MATHS (21-30)
-    { id: 21, sub: 'MATHS', q: 'Agar A² - A + I = 0, toh A⁻¹ kiske barabar hai?', opts: ['A - I', 'I - A', 'A + I', 'A'], ans: 1 },
-    { id: 22, sub: 'MATHS', q: 'Coin 3 baar uchalne par at least one "Head" aane ki probability:', opts: ['1/8', '3/8', '7/8', '1/2'], ans: 2 },
-    { id: 23, sub: 'MATHS', q: 'Parabola y² = 8x ke focus ke coordinates kya hain?', opts: ['(4, 0)', '(2, 0)', '(0, 2)', '(8, 0)'], ans: 1 },
-    { id: 24, sub: 'MATHS', q: 'Complex: Agar |z - 3i| = |z + 3i|, toh z ka locus kya hoga?', opts: ['Circle', 'X-axis (Real axis)', 'Y-axis (Imaginary axis)', 'Ellipse'], ans: 1 },
-    { id: 25, sub: 'MATHS', q: 'Integral 0 to π/2: sin x / (sin x + cos x) dx:', opts: ['π/2', 'π/4', '0', '1'], ans: 1 },
-    { id: 26, sub: 'MATHS', q: 'Projection of vector a = i + j on b = i - j is:', opts: ['0', '√2', '2', '1'], ans: 0 },
-    { id: 27, sub: 'MATHS', q: '10th term of AP: 2, 7, 12, ... is:', opts: ['45', '47', '49', '52'], ans: 1 },
-    { id: 28, sub: 'MATHS', q: 'x² + px + q = 0 ke roots tan 30° aur tan 15° hain. 2+q-p is:', opts: ['2', '3', '0', '1'], ans: 1 },
-    { id: 29, sub: 'MATHS', q: 'Limit x -> 0 (e^x - 1) / x is:', opts: ['0', '1', 'e', 'Not defined'], ans: 1 },
-    { id: 30, sub: 'MATHS', q: 'Range of function f(x) = 3 sin x + 4 cos x is:', opts: ['[-3, 3]', '[-4, 4]', '[-5, 5]', '[-7, 7]'], ans: 2 }
+    // MATHS
+    { sub: 'MATHS', class: 'math', q: 'If f(x) = ∫[0 to x] (t^2)/(1+t^4) dt, then f\'(1) is:', opts: ['1/2', '1', '0', '1/4'], ans: 0 },
+    { sub: 'MATHS', class: 'math', q: 'If complex number z satisfies |z-i| = |z+i|, then locus of z is:', opts: ['A circle', 'The x-axis', 'The y-axis', 'A parabola'], ans: 1 },
+    { sub: 'MATHS', class: 'math', q: 'Volume of parallelepiped with edges a=i+j, b=j+k, c=k+i is:', opts: ['1', '2', '0', '4'], ans: 1 },
+    { sub: 'MATHS', class: 'math', q: 'If A is 3x3 matrix and |A|=5, then |adj(adj A)| is:', opts: ['5^2', '5^4', '5^8', '5^9'], ans: 1 },
+    { sub: 'MATHS', class: 'math', q: 'Two dice thrown. Probability that the sum is a prime number?', opts: ['5/12', '7/36', '1/2', '15/36'], ans: 0 }
 ];
 
-// --- APP LOGIC ---
 let currentIdx = 0;
-let userAnswers = new Array(30).fill(null);
-let timeLeft = 60 * 60; // 60 minutes
+let userAnswers = new Array(15).fill(null);
+let timeLeft = 3600;
 
-function initQuiz() {
+function init() {
     renderPalette();
     showQuestion();
     startTimer();
 }
 
 function showQuestion() {
-    const q = questions[currentIdx];
-    const subTag = document.getElementById('sub-tag');
-    subTag.innerText = q.sub;
-    subTag.className = `subject-badge ${q.sub === 'CHEMISTRY' ? 'chem-tag' : q.sub === 'PHYSICS' ? 'phys-tag' : 'math-tag'}`;
+    const data = quizData[currentIdx];
+    document.getElementById('sub-tag').innerText = data.sub;
+    document.getElementById('sub-tag').className = `subject-badge ${data.class}`;
+    document.getElementById('q-num').innerText = `Question ${currentIdx + 1}`;
+    document.getElementById('q-text').innerText = data.q;
     
-    document.getElementById('q-number').innerText = `Question ${currentIdx + 1}`;
-    document.getElementById('q-text').innerText = q.q;
-    
-    const area = document.getElementById('options-area');
-    area.innerHTML = q.opts.map((opt, i) => `
-        <div class="option ${userAnswers[currentIdx] === i ? 'selected-opt' : ''}" onclick="selectOpt(${i})">
-            <input type="radio" name="answer" ${userAnswers[currentIdx] === i ? 'checked' : ''}>
-            ${opt}
-        </div>
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = data.opts.map((opt, i) => `
+        <div class="option ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="selectOpt(${i})">${opt}</div>
     `).join('');
-
-    updatePaletteUI();
+    
+    updatePalette();
 }
 
 function selectOpt(i) {
@@ -184,101 +127,55 @@ function selectOpt(i) {
     showQuestion();
 }
 
-function saveNext() {
-    if(currentIdx < 29) {
-        currentIdx++;
-        showQuestion();
-    }
-}
-
-function clearAns() {
-    userAnswers[currentIdx] = null;
-    showQuestion();
+function nextQ() {
+    if(currentIdx < 14) { currentIdx++; showQuestion(); }
 }
 
 function renderPalette() {
-    const pal = document.getElementById('palette');
-    pal.innerHTML = questions.map((_, i) => `
-        <button class="pal-btn" id="pal-${i}" onclick="jumpTo(${i})">${i+1}</button>
+    const grid = document.getElementById('palette-grid');
+    grid.innerHTML = quizData.map((_, i) => `
+        <button class="num-btn" id="btn-${i}" onclick="jumpTo(${i})">${i+1}</button>
     `).join('');
 }
 
-function updatePaletteUI() {
-    questions.forEach((_, i) => {
-        const btn = document.getElementById(`pal-${i}`);
-        btn.classList.remove('current', 'answered');
-        if(i === currentIdx) btn.classList.add('current');
+function updatePalette() {
+    quizData.forEach((_, i) => {
+        const btn = document.getElementById(`btn-${i}`);
+        btn.className = 'num-btn';
+        if(i === currentIdx) btn.classList.add('active');
         if(userAnswers[i] !== null) btn.classList.add('answered');
     });
 }
 
-function jumpTo(i) {
-    currentIdx = i;
-    showQuestion();
-}
+function jumpTo(i) { currentIdx = i; showQuestion(); }
 
 function startTimer() {
-    const clock = setInterval(() => {
+    const timer = setInterval(() => {
         timeLeft--;
-        const m = Math.floor(timeLeft / 60);
-        const s = timeLeft % 60;
-        document.getElementById('display-time').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-        if(timeLeft <= 0) {
-            clearInterval(clock);
-            confirmSubmit();
-        }
+        let m = Math.floor(timeLeft/60);
+        let s = timeLeft%60;
+        document.getElementById('time-display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+        if(timeLeft <= 0) { clearInterval(timer); showResults(); }
     }, 1000);
 }
 
-function confirmSubmit() {
-    if(confirm("Bhai, kya aap sure ho test submit karne ke liye?")) {
-        processResult();
-    }
-}
-
-function processResult() {
-    let stats = {
-        CHEMISTRY: { c:0, i:0, score:0 },
-        PHYSICS: { c:0, i:0, score:0 },
-        MATHS: { c:0, i:0, score:0 }
-    };
-
-    questions.forEach((q, idx) => {
-        const uAns = userAnswers[idx];
-        if(uAns !== null) {
-            if(uAns === q.ans) {
-                stats[q.sub].c++;
-                stats[q.sub].score += 4;
-            } else {
-                stats[q.sub].i++;
-                stats[q.sub].score -= 1;
-            }
+function showResults() {
+    let score = 0, correct = 0, wrong = 0;
+    userAnswers.forEach((ans, i) => {
+        if(ans !== null) {
+            if(ans === quizData[i].ans) { score += 4; correct++; }
+            else { score -= 1; wrong++; }
         }
     });
 
-    const totalC = stats.CHEMISTRY.c + stats.PHYSICS.c + stats.MATHS.c;
-    const totalI = stats.CHEMISTRY.i + stats.PHYSICS.i + stats.MATHS.i;
-    const totalScore = stats.CHEMISTRY.score + stats.PHYSICS.score + stats.MATHS.score;
-
     document.getElementById('quiz-ui').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
-    
-    document.getElementById('final-total').innerText = totalScore;
-    document.getElementById('res-c').innerText = totalC;
-    document.getElementById('res-i').innerText = totalI;
-    document.getElementById('res-u').innerText = 30 - (totalC + totalI);
-
-    document.getElementById('subject-breakdown').innerHTML = Object.keys(stats).map(s => `
-        <tr>
-            <td>${s}</td>
-            <td>${stats[s].score}</td>
-            <td>${stats[s].c > 0 ? Math.round((stats[s].c/(stats[s].c+stats[s].i))*100) : 0}%</td>
-        </tr>
-    `).join('');
+    const resDiv = document.getElementById('result');
+    resDiv.style.display = 'block';
+    document.getElementById('total-score').innerText = `${score} / 60`;
+    document.getElementById('stats').innerText = `Correct: ${correct} | Incorrect: ${wrong} | Unattempted: ${15-(correct+wrong)}`;
 }
 
-initQuiz();
+init();
 </script>
-
 </body>
 </html>
