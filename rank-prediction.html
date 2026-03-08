@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank Predictor | JEE Master Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <style>
+        :root { --primary: #003366; --accent: #A0050D; --bg: #f4f7f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #333; }
+        
+        .nav { background: var(--primary); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 900px; margin: 30px auto; padding: 20px; }
+        
+        /* Stats Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border-bottom: 4px solid var(--accent); }
+        .card h3 { margin: 0; color: #666; font-size: 0.9rem; text-transform: uppercase; }
+        .card .value { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin: 10px 0; }
+
+        /* Graph Section */
+        .graph-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        
+        /* Login Message */
+        #login-msg { display: none; text-align: center; padding: 50px; background: white; border-radius: 15px; }
+        .btn-login { background: var(--accent); color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <div style="font-size: 1.5rem; font-weight: bold;">JEE Master Hub</div>
+    <div id="user-info">Checking status...</div>
+</div>
+
+<div class="container">
+    <div id="predictor-ui" style="display: none;">
+        <h2 style="color: var(--primary);">Aapka Performance Analysis</h2>
+        
+        <div class="stats-grid">
+            <div class="card">
+                <h3>Latest Score</h3>
+                <div class="value" id="last-score">00</div>
+                <p style="color: #888;">Out of 300</p>
+            </div>
+            <div class="card">
+                <h3>Predicted Percentile</h3>
+                <div class="value" id="percentile">0.00%</div>
+                <p id="rank-status" style="color: #16a34a; font-weight: bold;">Keep Improving!</p>
+            </div>
+        </div>
+
+        <div class="graph-section">
+            <h3 style="margin-top: 0;">Score Progress Graph</h3>
+            <canvas id="performanceChart"></canvas>
+            
+        </div>
+    </div>
+
+    <div id="login-msg">
+        <h2 style="color: var(--primary);">Data Not Found!</h2>
+        <p>Apna data aur rank prediction dekhne ke liye login karein ya test dein.</p>
+        <button class="btn-login" onclick="window.location.href='index.html'">Go to Home / Login</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // Firebase Config (Aapki Key)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDILDVCQ7bBGbRazZhbTqnnu17BLdCVKzI",
+        authDomain: "jee-mains-master-hub.firebaseapp.com",
+        projectId: "jee-mains-master-hub",
+        storageBucket: "jee-mains-master-hub.firebasestorage.app",
+        messagingSenderId: "787191151732",
+        appId: "1:787191151732:web:ffb6a83bef4d16a7fbe521"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('user-info').innerText = "Hi, " + user.email.split('@')[0];
+            loadStudentData(user.uid);
+        } else {
+            document.getElementById('login-msg').style.display = 'block';
+            document.getElementById('predictor-ui').style.display = 'none';
+        }
+    });
+
+    async function loadStudentData(uid) {
+        const docRef = doc(db, "student_records", uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            document.getElementById('predictor-ui').style.display = 'block';
+            document.getElementById('login-msg').style.display = 'none';
+
+            // UI Update
+            const score = data.latestScore || 0;
+            const perc = ((score / 300) * 100).toFixed(2);
+            document.getElementById('last-score').innerText = score;
+            document.getElementById('percentile').innerText = perc + "%";
+
+            // Progress Graph (Chart.js)
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.testDates || ['Test 1'], // Dates array
+                    datasets: [{
+                        label: 'Test Score',
+                        data: data.scoreHistory || [score], // Scores array
+                        borderColor: '#A0050D',
+                        backgroundColor: 'rgba(160, 5, 13, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                }
+            });
+        } else {
+            document.getElementById('login-msg').style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
