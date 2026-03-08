@@ -129,23 +129,46 @@
     }
 </script>
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  // Firebase initialize karne ke liye modules import karein
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  // Your web app's Firebase configuration
+  // Aapka Firebase Config (Jo aapne copy kiya tha)
   const firebaseConfig = {
-    apiKey: "AIzaSyDILDVCQ7bBGbRazZhbTqnnu17BLdCVKzI",
-    authDomain: "jee-mains-master-hub.firebaseapp.com",
-    projectId: "jee-mains-master-hub",
-    storageBucket: "jee-mains-master-hub.firebasestorage.app",
-    messagingSenderId: "787191151732",
-    appId: "1:787191151732:web:2513d383d0e393c6fbe521"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "your-project.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:12345:web:abcde"
   };
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // Data Save Karne Ka Function
+  async function saveTestData(score, rank) {
+    const user = auth.currentUser; // Check karein ki user logged in hai ya nahi
+    
+    if (user) {
+      // User ki UID ke hisaab se data save karein
+      await setDoc(doc(db, "users", user.uid), {
+        score: score,
+        predictedRank: rank,
+        timestamp: new Date()
+      }, { merge: true });
+      
+      alert("Data save ho gaya!");
+    } else {
+      alert("Pehle login karein!");
+    }
+  }
+
+  // Ise apne 'Submit' button par call karein
+  // example: saveTestData(85, 1200);
 </script>
 </body>
 </html>
