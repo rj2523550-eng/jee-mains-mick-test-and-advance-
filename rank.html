@@ -155,7 +155,7 @@
     
     if (user) {
       // User ki UID ke hisaab se data save karein
-      await setDoc(doc(db, "users", user.uid), {
+      await setDoc(doc(db, "student_records", user.uid), {
         score: score,
         predictedRank: rank,
         timestamp: new Date()
