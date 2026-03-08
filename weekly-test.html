@@ -173,6 +173,11 @@ function showResults() {
     resDiv.style.display = 'block';
     document.getElementById('total-score').innerText = `${score} / 60`;
     document.getElementById('stats').innerText = `Correct: ${correct} | Incorrect: ${wrong} | Unattempted: ${15-(correct+wrong)}`;
+    // --- Data Save Logic Start ---
+    localStorage.setItem('jee_last_score', score);
+    localStorage.setItem('jee_test_date', new Date().toLocaleDateString());
+    console.log("Score saved locally: " + score);
+    // --- Data Save Logic End ---
 }
 
 init();
