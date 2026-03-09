@@ -13,7 +13,7 @@
         h2 { color: var(--blue); font-size: 1.2rem; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 16px; }
         .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; }
         .question-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.1rem; }
         .ans-sec { background: #f0f7ff; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--green); }
         .reply-box { display: flex; gap: 5px; margin-top: 12px; }
@@ -31,7 +31,7 @@
 
     <div class="card">
         <h2>❓ Ask a Doubt</h2>
-        <textarea id="userInputQuestion" placeholder="Yahan apna sawaal likhein..."></textarea>
+        <textarea id="myQuestionBox" placeholder="Yahan apna sawaal likhein..."></textarea>
         <button class="btn-post" onclick="postDoubt()">Post Doubt</button>
     </div>
 
@@ -42,7 +42,7 @@
 <script>
     const SHEET_API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    // 1. Graph Load Karna
+    // 1. Graph Setup
     function initGraph() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
         if(history.length === 0) return;
@@ -51,20 +51,20 @@
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', fill: true, tension: 0.3 }]
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', fill: true, tension: 0.3, backgroundColor: 'rgba(40, 167, 69, 0.1)' }]
             }
         });
     }
 
     // 2. Sawaal Post Karna
     function postDoubt() {
-        const qBox = document.getElementById('userInputQuestion');
+        const qBox = document.getElementById('myQuestionBox');
         const text = qBox.value.trim();
         
         if(!text) { alert("Bhai, sawaal toh likho!"); return; }
 
-        // YAHAN DHAYAN DO: 'question' ki spelling wahi honi chahiye jo Sheet ke Column B mein hai
-        const dataToSend = {
+        // Dhayan dena: 'question' ki spelling sheet headers se match honi chahiye
+        const payload = {
             id: Date.now().toString(),
             question: text, 
             answer: ""
@@ -73,37 +73,44 @@
         fetch(SHEET_API, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: [dataToSend] })
-        }).then(res => {
+            body: JSON.stringify({ data: [payload] })
+        }).then(() => {
             qBox.value = "";
+            alert("Doubt Post Ho Gaya!");
             loadDoubts();
-        });
+        }).catch(err => alert("Error saving to sheet!"));
     }
 
-    // 3. Doubts Dikhaana
+    // 3. Doubts Load Karna
     function loadDoubts() {
         fetch(SHEET_API)
         .then(res => res.json())
         .then(data => {
             const list = document.getElementById('doubtList');
-            if(data.length === 0) { list.innerHTML = "Abhi koi doubt nahi hai."; return; }
+            if(!data || data.length === 0) { list.innerHTML = "Abhi koi doubt nahi hai."; return; }
             
-            list.innerHTML = data.reverse().map(item => `
-                <div class="doubt-item">
-                    <span class="question-text">Q: ${item.question || "No Text Found"}</span>
-                    <div class="ans-sec" style="display: ${item.answer ? 'block' : 'none'}">
-                        <b>A:</b> ${item.answer}
+            // Reverse taaki naya upar dikhe
+            list.innerHTML = data.reverse().map(item => {
+                // Agar 'item.question' undefined hai, toh dikhao 'No Text'
+                let qText = item.question ? item.question : "No question found in sheet";
+                
+                return `
+                    <div class="doubt-item">
+                        <span class="question-text">Q: ${qText}</span>
+                        <div class="ans-sec" style="display: ${item.answer ? 'block' : 'none'}">
+                            <b>A:</b> ${item.answer}
+                        </div>
+                        <div class="reply-box">
+                            <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Apna answer likhein...">
+                            <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
+                        </div>
                     </div>
-                    <div class="reply-box">
-                        <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Write answer...">
-                        <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         });
     }
 
-    // 4. Answer Post Karna
+    // 4. Reply Karna
     function postAnswer(docId) {
         const ansText = document.getElementById('ans-'+docId).value;
         if(!ansText) return;
