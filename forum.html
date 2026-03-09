@@ -11,136 +11,110 @@
         .container { max-width: 600px; margin: 0 auto; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { color: var(--blue); font-size: 1.2rem; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        
-        /* Input Styles */
-        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-family: inherit; }
+        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 16px; }
         .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        .btn-post:hover { background: var(--red); }
-
-        /* Doubt List Styles */
         .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .question { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; }
+        .question-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.1rem; }
         .ans-sec { background: #f0f7ff; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--green); }
-        
         .reply-box { display: flex; gap: 5px; margin-top: 12px; }
         .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
-        
-        #loader { text-align: center; color: #666; padding: 20px; }
+        .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h2>📈 Your Progress (Last 30 Tests)</h2>
+        <h2>📈 Your Progress</h2>
         <canvas id="progressChart" style="width: 100%; height: 200px;"></canvas>
     </div>
 
     <div class="card">
         <h2>❓ Ask a Doubt</h2>
-        <textarea id="qInput" placeholder="Write your question here... (e.g. Physics, Chemistry, Maths)"></textarea>
-        <button class="btn-post" onclick="postDoubt()">Post to Community</button>
+        <textarea id="userInputQuestion" placeholder="Yahan apna sawaal likhein..."></textarea>
+        <button class="btn-post" onclick="postDoubt()">Post Doubt</button>
     </div>
 
     <h2 style="text-align: center; color: var(--blue);">💬 Community Doubt Wall</h2>
-    <div id="loader">Fetching doubts...</div>
-    <div id="doubtList"></div>
+    <div id="doubtList">Loading doubts...</div>
 </div>
 
 <script>
-    // TERA SHEETDB LINK
     const SHEET_API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    // 1. Graph Load Karna (Phone Memory se)
+    // 1. Graph Load Karna
     function initGraph() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
         if(history.length === 0) return;
-
         const ctx = document.getElementById('progressChart').getContext('2d');
         new Chart(ctx, {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{
-                    label: 'Score',
-                    data: history.map(h => h.score),
-                    borderColor: '#28a745',
-                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true, max: 300 } } }
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', fill: true, tension: 0.3 }]
+            }
         });
     }
 
-    // 2. Global Doubts Load Karna (Google Sheet se)
-    function loadDoubts() {
-        fetch(SHEET_API)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById('loader').style.display = 'none';
-            const list = document.getElementById('doubtList');
-            list.innerHTML = "";
-            
-            // Reverse taaki naya sawaal upar dikhe
-            data.reverse().forEach(item => {
-                list.innerHTML += `
-                    <div class="doubt-item">
-                        <span class="question">Q: ${item.question}</span>
-                        <div class="ans-sec" style="display: ${item.answer ? 'block' : 'none'}">
-                            <b>A:</b> ${item.answer}
-                        </div>
-                        <div class="reply-box">
-                            <input type="text" id="in-${item.id}" class="reply-input" placeholder="Write answer...">
-                            <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
-                        </div>
-                    </div>
-                `;
-            });
-        })
-        .catch(err => {
-            document.getElementById('loader').innerText = "Doubts load nahi ho paaye. Sheet link check karein!";
-        });
-    }
-
-    // 3. Naya Doubt Post Karna
+    // 2. Sawaal Post Karna
     function postDoubt() {
-        const qText = document.getElementById('qInput').value;
-        if(!qText) return alert("Pehle sawaal toh likho!");
+        const qBox = document.getElementById('userInputQuestion');
+        const text = qBox.value.trim();
+        
+        if(!text) { alert("Bhai, sawaal toh likho!"); return; }
 
-        const newDoubt = {
+        // YAHAN DHAYAN DO: 'question' ki spelling wahi honi chahiye jo Sheet ke Column B mein hai
+        const dataToSend = {
             id: Date.now().toString(),
-            question: qText,
+            question: text, 
             answer: ""
         };
 
         fetch(SHEET_API, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: [newDoubt] })
-        }).then(() => {
-            document.getElementById('qInput').value = "";
+            body: JSON.stringify({ data: [dataToSend] })
+        }).then(res => {
+            qBox.value = "";
             loadDoubts();
         });
     }
 
-    // 4. Answer (Reply) Post Karna
-    function postAnswer(id) {
-        const ansText = document.getElementById('in-'+id).value;
-        if(!ansText) return alert("Answer toh likho!");
+    // 3. Doubts Dikhaana
+    function loadDoubts() {
+        fetch(SHEET_API)
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById('doubtList');
+            if(data.length === 0) { list.innerHTML = "Abhi koi doubt nahi hai."; return; }
+            
+            list.innerHTML = data.reverse().map(item => `
+                <div class="doubt-item">
+                    <span class="question-text">Q: ${item.question || "No Text Found"}</span>
+                    <div class="ans-sec" style="display: ${item.answer ? 'block' : 'none'}">
+                        <b>A:</b> ${item.answer}
+                    </div>
+                    <div class="reply-box">
+                        <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Write answer...">
+                        <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
+                    </div>
+                </div>
+            `).join('');
+        });
+    }
 
-        fetch(`${SHEET_API}/id/${id}`, {
+    // 4. Answer Post Karna
+    function postAnswer(docId) {
+        const ansText = document.getElementById('ans-'+docId).value;
+        if(!ansText) return;
+
+        fetch(`${SHEET_API}/id/${docId}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ data: { answer: ansText } })
-        }).then(() => {
-            loadDoubts();
-        });
+        }).then(() => loadDoubts());
     }
 
-    // Start Everything
     initGraph();
     loadDoubts();
 </script>
