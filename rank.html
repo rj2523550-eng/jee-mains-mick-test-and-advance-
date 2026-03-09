@@ -3,74 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rank Prediction | JEE Master Hub</title>
+    <title>Progress Graph | JEE Master Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --blue: #003366; --red: #A0050D; --light: #f4f7f9; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; border-top: 8px solid var(--red); }
-        h1 { color: var(--blue); margin-bottom: 5px; }
-        .date { color: #888; font-size: 0.8rem; margin-bottom: 20px; }
-        .percentile-circle { width: 150px; height: 150px; border-radius: 50%; border: 10px solid #eee; border-top-color: var(--red); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-        .perc-val { font-size: 2.2rem; font-weight: bold; color: var(--blue); }
-        .score-info { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 25px; }
-        .score-info b { color: var(--red); font-size: 1.2rem; }
-        .btn { background: var(--blue); color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; transition: 0.3s; }
+        :root { --blue: #003366; --red: #A0050D; --green: #28a745; --light: #f4f7f9; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 95%; max-width: 600px; margin-bottom: 20px; }
+        h2 { color: var(--blue); margin: 0 0 15px 0; font-size: 1.4rem; }
+        .latest-stat { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .stat-box { text-align: center; }
+        .stat-val { font-size: 1.8rem; font-weight: bold; color: var(--blue); }
+        .stat-label { color: #666; font-size: 0.9rem; }
+        /* Graph Container */
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        .btn { background: var(--blue); color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; margin-top: 10px; transition: 0.3s; }
         .btn:hover { background: var(--red); transform: translateY(-2px); }
-        #no-data { display: none; }
+        #no-data-msg { display: none; color: var(--red); font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="result-card">
-        <h1>Your Prediction</h1>
-        <p class="date" id="display-date">Date: --/--/----</p>
+    <div class="card">
+        <h2>📈 Your Performance Graph (Last 30 Tests)</h2>
         
-        <div class="percentile-circle">
-            <span class="perc-val" id="display-perc">0%</span>
-            <small style="color:#888">Percentile</small>
+        <div class="latest-stat" id="stats-section">
+            <div class="stat-box">
+                <div class="stat-val" id="latest-score">--</div>
+                <div class="stat-label">Latest Score</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val" id="avg-score" style="color: var(--green);">--</div>
+                <div class="stat-label">Average Score</div>
+            </div>
         </div>
-        
-        <div class="score-info">
-            Your Last Score: <b id="display-score">0</b> / 300
+
+        <p id="no-data-msg">Abhi tak koi data nahi hai. Pehla test dein!</p>
+
+        <div class="chart-container">
+            <canvas id="progressChart"></canvas>
         </div>
-        
-        <p id="feedback" style="font-size: 0.9rem; color: #555; margin-bottom: 25px;"></p>
-        
-        <a href="index.html" class="btn">Take Another Test</a>
     </div>
 
-    <div class="card" id="no-data">
-        <h1>No Data Found!</h1>
-        <p>Aapne abhi tak koi Mock Test nahi diya hai.</p>
-        <br>
-        <a href="index.html" class="btn">Go to Test Section</a>
-    </div>
+    <a href="index.html" class="btn">Take Another Test</a>
 
     <script>
-        // 1. Phone ki memory (LocalStorage) se data mangwana
-        const score = localStorage.getItem('jee_last_score');
-        const date = localStorage.getItem('jee_test_date');
+        // 1. Phone memory se history nikalna
+        let historyData = JSON.parse(localStorage.getItem('jee_score_history')) || [];
 
-        if (score !== null) {
-            // 2. Percentile calculate karna (Formula: Score/300 * 100)
-            let percentile = ((parseInt(score) / 300) * 100).toFixed(2);
+        if (historyData.length > 0) {
+            // Data hai, toh graph banao
+            document.getElementById('stats-section').style.display = 'flex';
             
-            // 3. UI mein data set karna
-            document.getElementById('display-perc').innerText = percentile + "%";
-            document.getElementById('display-score').innerText = score;
-            document.getElementById('display-date').innerText = "Test Date: " + date;
+            // Graph ke liye data taiyar karna
+            const dates = historyData.map(item => item.date); // X-axis ke liye dates
+            const scores = historyData.map(item => item.score); // Y-axis ke liye scores
 
-            // 4. Feedback Logic
-            let msg = "";
-            if(percentile > 95) msg = "Excellent! You are in the top tier.";
-            else if(percentile > 80) msg = "Very Good! Focus on weak topics to reach 99.";
-            else msg = "Good start! Practice more Mock Tests daily.";
-            document.getElementById('feedback').innerText = msg;
+            // Latest aur Average calculate karna
+            const latest = scores[scores.length - 1];
+            const sum = scores.reduce((a, b) => a + b, 0);
+            const avg = (sum / scores.length).toFixed(0);
+
+            document.getElementById('latest-score').innerText = latest + "/300";
+            document.getElementById('avg-score').innerText = avg + "/300";
+
+            // --- CHART.JS CONFIGURATION (Share Market Style) ---
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            // Gradient Color banana (Share market jaisa green effect)
+            let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(40, 167, 69, 0.5)'); // Upar Green
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)'); // Niche White Fade
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates, // Dates niche aayengi
+                    datasets: [{
+                        label: 'Test Score',
+                        data: scores, // Scores ka graph banega
+                        borderColor: '#28a745', // Green Line color
+                        backgroundColor: gradient, // Niche ka fill color
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#28a745',
+                        pointRadius: 4,
+                        tension: 0.3, // Thoda curve (0.0 matlab ekdam seedhi line)
+                        fill: true // Line ke niche color bharna hai
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 300, // Maximum marks 300 hain
+                            grid: { color: '#eee' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false } // Upar ka label chupana
+                    }
+                }
+            });
 
         } else {
-            // Agar score nahi hai toh error card dikhao
-            document.getElementById('result-card').style.display = 'none';
-            document.getElementById('no-data').style.display = 'block';
+            // Data nahi hai
+            document.getElementById('stats-section').style.display = 'none';
+            document.getElementById('no-data-msg').style.display = 'block';
+            document.getElementById('progressChart').style.display = 'none';
         }
     </script>
 </body>
