@@ -3,134 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doubt Portal | JEE Master Hub</title>
+    <title>JEE Master Hub | Pro Portal</title>
     
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
-        };
-    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; --green: #28a745; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
+        :root { --blue: #003366; --red: #A0050D; --gold: #FFD700; --bg: #f0f2f5; --green: #28a745; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
         .container { max-width: 600px; margin: 0 auto; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h2 { color: var(--blue); font-size: 1.2rem; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 16px; }
-        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; }
-        .q-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.05rem; line-height: 1.6; }
-        .ans-box { background: #f0fdf4; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.95rem; border-left: 3px solid var(--green); color: #155724; }
-        .reply-group { display: flex; gap: 5px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 10px; }
-        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        
+        /* Dashboard Card */
+        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
+        
+        /* Doubt Input */
+        .input-area { background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 14px; }
+        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
+        .btn-post:hover { background: #002244; }
+
+        /* Community Doubt Card */
+        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: relative; border-left: 6px solid var(--blue); }
+        .badge { background: var(--gold); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; position: absolute; top: 12px; right: 12px; }
+        .verified-icon { color: #1da1f2; margin-left: 5px; font-size: 14px; }
+        
+        /* Voting Bar */
+        .action-bar { display: flex; gap: 20px; margin-top: 15px; border-top: 1px dotted #ccc; padding-top: 10px; font-size: 0.85rem; color: #666; }
+        .vote-btn { cursor: pointer; color: var(--blue); font-weight: 500; }
+        .vote-btn:hover { color: var(--red); }
+
+        /* Loader */
+        #loader { text-align: center; color: var(--blue); font-weight: bold; padding: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h2>📈 Your Progress Graph</h2>
-        <canvas id="myChart" style="width: 100%; height: 200px;"></canvas>
+        <h3 style="margin-top:0; color:var(--blue);"><i class="fas fa-chart-line"></i> Performance Graph</h3>
+        <canvas id="myChart" style="width:100%; height:180px;"></canvas>
     </div>
 
-    <div class="card">
-        <h2>❓ Ask a Doubt</h2>
-        <textarea id="qBox" placeholder="Formulae ke liye $ use karein, jaise: $\Delta U$"></textarea>
+    <div class="input-area">
+        <h4 style="margin:0 0 10px 0; color:var(--blue);">Ask a Question</h4>
+        <textarea id="qBox" placeholder="Write your doubt (MathJax supported: $\frac{a}{b}$)..."></textarea>
         <button class="btn-post" onclick="postDoubt()">Post to Community</button>
     </div>
 
-    <h2 style="color: var(--blue);">💬 Community Doubts</h2>
-    <div id="doubtList">Loading...</div>
+    <div style="background:linear-gradient(90deg, #003366, #0055aa); color:white; padding:12px; border-radius:12px; margin-bottom:20px; font-size:13px; display:flex; justify-content:space-between; align-items:center;">
+        <span><i class="fas fa-medal" style="color:var(--gold)"></i> Top Solver: <b>Aman</b></span>
+        <span style="font-size:11px;">Rank: #1 | 450 Pts</span>
+    </div>
+
+    <div id="loader">Fetching Community Doubts...</div>
+    <div id="doubtList"></div>
 </div>
 
 <script>
+    // Aapka SheetDB API URL
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    async function postDoubt() {
-        const txt = document.getElementById('qBox').value.trim();
-        if(!txt) return alert("Kuch toh likho!");
-        const payload = { "id": Date.now().toString(), "question": txt, "answer": "" };
-        try {
-            const res = await fetch(API, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [payload] })
-            });
-            if(res.ok) { alert("Doubt Saved!"); document.getElementById('qBox').value = ""; loadDoubts(); }
-        } catch(e) { alert("Error!"); }
-    }
-
-    async function loadDoubts() {
-        try {
-            const res = await fetch(API);
-            const data = await res.json();
-            const list = document.getElementById('doubtList');
-            list.innerHTML = "";
-            
-            data.reverse().forEach(item => {
-                let qText = item.question || item.Question || "No Text Found";
-                
-                // --- AUTO-FIX LOGIC: \Delta jaise words ko $ ke andar wrap karna ---
-                qText = qText.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow)/g, '$$$1$$');
-                
-                list.innerHTML += `
-                    <div class="doubt-item">
-                        <span class="q-text">Q: ${qText}</span>
-                        <div class="ans-box" style="display:${item.answer ? 'block' : 'none'}">
-                            <b>A:</b> ${item.answer}
-                        </div>
-                        <div class="reply-group">
-                            <input type="text" id="in-${item.id}" class="reply-input" placeholder="Reply...">
-                            <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
-                        </div>
-                    </div>`;
-            });
-
-            if (window.MathJax) {
-                window.MathJax.typesetPromise();
-            }
-        } catch(e) { console.log("Load Error"); }
-    }
-
-    async function postAnswer(docId) {
-        const ansVal = document.getElementById('in-' + docId).value.trim();
-        if(!ansVal) return;
-        try {
-            const res = await fetch(`${API}/id/${docId}`, {
-                method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: { "answer": ansVal } })
-            });
-            if(res.ok) { alert("Answer Saved!"); loadDoubts(); }
-        } catch(e) { alert("Reply Error!"); }
-    }
-
+    // --- Graph Logic (Old Feature) ---
     function initChart() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
+        if(history.length === 0) {
+            history = [{date: 'Today', score: 0}];
+        }
         new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.3, fill: true, backgroundColor: 'rgba(40, 167, 69, 0.1)' }]
-            }
+                datasets: [{ 
+                    label: 'Score Progress', 
+                    data: history.map(h => h.score), 
+                    borderColor: '#28a745', 
+                    borderWidth: 3,
+                    tension: 0.4, 
+                    fill: true, 
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)' 
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
         });
     }
 
-    initChart();
-    loadDoubts();
+    // --- Post Doubt (Combined Feature) ---
+    async function postDoubt() {
+        const txt = document.getElementById('qBox').value.trim();
+        if(!txt) return alert("Kuch toh likho!");
+
+        const btn = document.querySelector('.btn-post');
+        btn.innerText = "Posting...";
+        btn.disabled = true;
+
+        const payload = {
+            "id": "ID_" + Date.now(),
+            "question": txt,
+            "answer": "",
+            "votes": 0,
+            "badge": "Student",
+            "verified": "no"
+        };
+
+        try {
+            await fetch(API, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ data: [payload] })
+            });
+            alert("Doubt posted! Community will help you soon.");
+            document.getElementById('qBox').value = "";
+            loadDoubts();
+        } catch(e) { alert("Error!"); }
+        
+        btn.innerText = "Post to Community";
+        btn.disabled = false;
+    }
+
+    // --- Load Doubts (Gamified & Verified) ---
+    async function loadDoubts() {
+        try {
+            const res = await fetch(API);
+            const data = await res.json();
+            document.getElementById('loader').style.display = 'none';
+            const list = document.getElementById('doubtList');
+            list.innerHTML = "";
+
+            data.reverse().forEach(item => {
+                const tick = item.verified === "yes" ? '<i class="fas fa-check-circle verified-icon"></i>' : '';
+                
+                list.innerHTML += `
+                    <div class="doubt-card">
+                        <span class="badge">${item.badge || 'Learner'}</span>
+                        <div style="font-weight:600; color:var(--blue); margin-right:50px;">Q: ${item.question}</div>
+                        
+                        ${item.answer ? `
+                            <div style="margin-top:12px; padding:10px; background:#f9f9f9; border-radius:8px; border-left:4px solid var(--green);">
+                                <b style="color:var(--green)">Answer:</b> ${item.answer} ${tick}
+                            </div>
+                        ` : '<div style="margin-top:10px; color:gray; font-size:12px;"><i class="fas fa-clock"></i> Waiting for expert...</div>'}
+
+                        <div class="action-bar">
+                            <span class="vote-btn" onclick="upvote('${item.id}', ${item.votes || 0})">
+                                <i class="far fa-thumbs-up"></i> Helpful (${item.votes || 0})
+                            </span>
+                            <span><i class="far fa-comment"></i> Reply</span>
+                            <span><i class="fas fa-share-alt"></i> Share</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if (window.MathJax) MathJax.typesetPromise();
+        } catch(e) { console.log("Load Error"); }
+    }
+
+    // --- Upvote Logic (Real-time Sheet Update) ---
+    async function upvote(docId, currentVotes) {
+        const newVotes = parseInt(currentVotes) + 1;
+        // Optimization: UI update immediately
+        alert("Thanks for upvoting!");
+        
+        await fetch(`${API}/id/${docId}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ data: { "votes": newVotes } })
+        });
+        loadDoubts();
+    }
+
+    // Initialize Everything
+    window.onload = () => {
+        initChart();
+        loadDoubts();
+    };
 </script>
+
 </body>
 </html>
