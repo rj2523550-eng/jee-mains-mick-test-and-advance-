@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Doubt Portal</title>
+    <title>Doubt Portal | JEE Master Hub</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; }
+        :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; --green: #28a745; }
         body { font-family: sans-serif; background: var(--bg); padding: 15px; text-align: center; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; max-width: 500px; margin-inline: auto; }
         textarea { width: 100%; height: 70px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; box-sizing: border-box; font-size: 16px; }
         .btn { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: bold; cursor: pointer; }
-        .doubt-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid var(--red); text-align: left; max-width: 500px; margin-inline: auto; }
-        .ans-text { color: #28a745; margin-top: 8px; font-size: 0.9rem; background: #f0fdf4; padding: 5px; border-radius: 4px; }
+        
+        /* Doubt Item Styling */
+        .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); text-align: left; max-width: 500px; margin-inline: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .q-text { font-weight: bold; color: var(--blue); font-size: 1rem; display: block; margin-bottom: 8px; }
+        
+        /* Answer Section */
+        .ans-box { background: #f0fdf4; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border-left: 3px solid var(--green); color: #155724; }
+        
+        /* Reply Input Group */
+        .reply-group { display: flex; gap: 5px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 10px; }
+        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; font-size: 14px; }
+        .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h3>📈 Performance</h3>
+        <h3>📈 Your Progress</h3>
         <canvas id="myChart"></canvas>
     </div>
 
     <div class="card">
-        <h3>❓ Ask Doubt</h3>
+        <h3>❓ Ask a Doubt</h3>
         <textarea id="qBox" placeholder="Apna sawaal yahan likhein..."></textarea>
         <button class="btn" onclick="postDoubt()">Send to Community</button>
     </div>
@@ -33,28 +43,22 @@
 <script>
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    // 1. Sawaal Bhejna
+    // 1. Sawaal Bhejna (POST)
     async function postDoubt() {
         const txt = document.getElementById('qBox').value.trim();
-        if(!txt) return alert("Kuch likho toh sahi!");
-
+        if(!txt) return alert("Kuch toh likho!");
         const payload = { "id": Date.now().toString(), "question": txt, "answer": "" };
-
         try {
             const res = await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ data: [payload] })
             });
-            if(res.ok) {
-                alert("Sawaal Sheet mein chala gaya!");
-                document.getElementById('qBox').value = "";
-                loadDoubts();
-            }
-        } catch(e) { alert("Network Error!"); }
+            if(res.ok) { alert("Sawaal Post Ho Gaya!"); document.getElementById('qBox').value = ""; loadDoubts(); }
+        } catch(e) { alert("Error!"); }
     }
 
-    // 2. Sawaal Dikhana (Dono spelling check karega)
+    // 2. Sawaal aur Answer Dikhana (GET)
     async function loadDoubts() {
         try {
             const res = await fetch(API);
@@ -62,28 +66,49 @@
             const div = document.getElementById('list');
             div.innerHTML = "";
             
-            if(data.length === 0) { div.innerHTML = "Koi doubt nahi mila."; return; }
-
             data.reverse().forEach(item => {
-                // Yeh line sabse zaruri hai - Yeh har tarah ki spelling pakad legi
-                let qText = item.question || item.Question || item.QUESTION || "No Text Found";
-                
+                let qText = item.question || item.Question || "No Text Found";
                 div.innerHTML += `
                     <div class="doubt-item">
-                        <b>Q: ${qText}</b>
-                        <div class="ans-text" style="display:${item.answer ? 'block' : 'none'}">
+                        <span class="q-text">Q: ${qText}</span>
+                        
+                        <div class="ans-box" style="display:${item.answer ? 'block' : 'none'}">
                             <b>A:</b> ${item.answer}
+                        </div>
+
+                        <div class="reply-group">
+                            <input type="text" id="ans-in-${item.id}" class="reply-input" placeholder="Apna jawab likhein...">
+                            <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
                         </div>
                     </div>`;
             });
         } catch(e) { console.log("Load error"); }
     }
 
-    // 3. Graph
+    // 3. Jawab Bhejna (PATCH)
+    async function postAnswer(docId) {
+        const ansInput = document.getElementById('ans-in-' + docId);
+        const ansText = ansInput.value.trim();
+        if(!ansText) return alert("Jawab toh likho!");
+
+        try {
+            // SheetDB mein us specific ID wali row ko update karna
+            const res = await fetch(`${API}/id/${docId}`, {
+                method: 'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ data: { "answer": ansText } })
+            });
+            if(res.ok) {
+                alert("Jawab save ho gaya!");
+                loadDoubts();
+            }
+        } catch(e) { alert("Reply error!"); }
+    }
+
+    // 4. Graph Progress
     function showChart() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
+        new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
