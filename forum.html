@@ -5,7 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doubt Portal | JEE Master Hub</title>
     
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -16,15 +28,11 @@
         .container { max-width: 600px; margin: 0 auto; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         h2 { color: var(--blue); font-size: 1.2rem; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        
         textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 16px; }
         .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        
         .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; }
-        .q-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.05rem; line-height: 1.5; }
-        
+        .q-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.05rem; line-height: 1.6; }
         .ans-box { background: #f0fdf4; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.95rem; border-left: 3px solid var(--green); color: #155724; }
-        
         .reply-group { display: flex; gap: 5px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 10px; }
         .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
         .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
@@ -40,39 +48,31 @@
 
     <div class="card">
         <h2>❓ Ask a Doubt</h2>
-        <textarea id="qBox" placeholder="Copy-paste your doubt here... (e.g. N_2, \Delta H)"></textarea>
+        <textarea id="qBox" placeholder="Formulae ke liye $ use karein, jaise: $\Delta U$"></textarea>
         <button class="btn-post" onclick="postDoubt()">Post to Community</button>
     </div>
 
     <h2 style="color: var(--blue);">💬 Community Doubts</h2>
-    <div id="doubtList">Loading doubts...</div>
+    <div id="doubtList">Loading...</div>
 </div>
 
 <script>
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    // 1. Sawaal Post Karna
     async function postDoubt() {
         const txt = document.getElementById('qBox').value.trim();
-        if(!txt) return alert("Bhai, kuch toh likho!");
-
+        if(!txt) return alert("Kuch toh likho!");
         const payload = { "id": Date.now().toString(), "question": txt, "answer": "" };
-
         try {
             const res = await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ data: [payload] })
             });
-            if(res.ok) {
-                alert("Doubt Saved!");
-                document.getElementById('qBox').value = "";
-                loadDoubts();
-            }
-        } catch(e) { alert("Error saving doubt!"); }
+            if(res.ok) { alert("Doubt Saved!"); document.getElementById('qBox').value = ""; loadDoubts(); }
+        } catch(e) { alert("Error!"); }
     }
 
-    // 2. Doubts Load Karna aur Formulae Render karna
     async function loadDoubts() {
         try {
             const res = await fetch(API);
@@ -81,63 +81,50 @@
             list.innerHTML = "";
             
             data.reverse().forEach(item => {
-                let questionText = item.question || item.Question || "No Text Found";
+                let qText = item.question || item.Question || "No Text Found";
+                
+                // --- AUTO-FIX LOGIC: \Delta jaise words ko $ ke andar wrap karna ---
+                qText = qText.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow)/g, '$$$1$$');
                 
                 list.innerHTML += `
                     <div class="doubt-item">
-                        <span class="q-text">Q: ${questionText}</span>
+                        <span class="q-text">Q: ${qText}</span>
                         <div class="ans-box" style="display:${item.answer ? 'block' : 'none'}">
                             <b>A:</b> ${item.answer}
                         </div>
                         <div class="reply-group">
-                            <input type="text" id="in-${item.id}" class="reply-input" placeholder="Write answer...">
+                            <input type="text" id="in-${item.id}" class="reply-input" placeholder="Reply...">
                             <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
                         </div>
                     </div>`;
             });
 
-            // MATHJAX REFRESH: Yeh line formulae ko sundar banati hai
             if (window.MathJax) {
                 window.MathJax.typesetPromise();
             }
-
         } catch(e) { console.log("Load Error"); }
     }
 
-    // 3. Jawab Post Karna
     async function postAnswer(docId) {
         const ansVal = document.getElementById('in-' + docId).value.trim();
-        if(!ansVal) return alert("Jawab likho!");
-
+        if(!ansVal) return;
         try {
             const res = await fetch(`${API}/id/${docId}`, {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ data: { "answer": ansVal } })
             });
-            if(res.ok) {
-                alert("Answer Saved!");
-                loadDoubts();
-            }
+            if(res.ok) { alert("Answer Saved!"); loadDoubts(); }
         } catch(e) { alert("Reply Error!"); }
     }
 
-    // 4. Graph Logic
     function initChart() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
+        new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ 
-                    label: 'Score', 
-                    data: history.map(h => h.score), 
-                    borderColor: '#28a745', 
-                    tension: 0.3, 
-                    fill: true, 
-                    backgroundColor: 'rgba(40, 167, 69, 0.1)' 
-                }]
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.3, fill: true, backgroundColor: 'rgba(40, 167, 69, 0.1)' }]
             }
         });
     }
