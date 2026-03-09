@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Hub | Pro Portal</title>
+    <title>JEE Master Hub | Pro Community</title>
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -14,172 +14,166 @@
         :root { --blue: #003366; --red: #A0050D; --gold: #FFD700; --bg: #f0f2f5; --green: #28a745; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
         .container { max-width: 600px; margin: 0 auto; }
+        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
         
-        /* Dashboard Card */
-        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
-        
-        /* Doubt Input */
-        .input-area { background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* Input Styles */
         textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 14px; }
-        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; transition: 0.3s; }
-        .btn-post:hover { background: #002244; }
+        .upload-btn { background: #e4e6eb; padding: 8px 15px; border-radius: 8px; cursor: pointer; display: inline-block; margin: 10px 0; font-size: 13px; }
+        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
 
-        /* Community Doubt Card */
-        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: relative; border-left: 6px solid var(--blue); }
+        /* Doubt Card */
+        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; position: relative; border-left: 6px solid var(--blue); }
         .badge { background: var(--gold); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; position: absolute; top: 12px; right: 12px; }
-        .verified-icon { color: #1da1f2; margin-left: 5px; font-size: 14px; }
+        .q-img { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; }
         
-        /* Voting Bar */
-        .action-bar { display: flex; gap: 20px; margin-top: 15px; border-top: 1px dotted #ccc; padding-top: 10px; font-size: 0.85rem; color: #666; }
-        .vote-btn { cursor: pointer; color: var(--blue); font-weight: 500; }
-        .vote-btn:hover { color: var(--red); }
-
-        /* Loader */
-        #loader { text-align: center; color: var(--blue); font-weight: bold; padding: 20px; }
+        /* Reply Section */
+        .reply-box { margin-top: 15px; display: flex; gap: 5px; }
+        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
+        .btn-reply { background: var(--green); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h3 style="margin-top:0; color:var(--blue);"><i class="fas fa-chart-line"></i> Performance Graph</h3>
-        <canvas id="myChart" style="width:100%; height:180px;"></canvas>
+        <canvas id="myChart" style="height:150px"></canvas>
     </div>
 
-    <div class="input-area">
-        <h4 style="margin:0 0 10px 0; color:var(--blue);">Ask a Question</h4>
-        <textarea id="qBox" placeholder="Write your doubt (MathJax supported: $\frac{a}{b}$)..."></textarea>
-        <button class="btn-post" onclick="postDoubt()">Post to Community</button>
+    <div class="card">
+        <h4 style="margin:0 0 10px 0; color:var(--blue);">Ask Doubt</h4>
+        <textarea id="qBox" placeholder="Write doubt or paste formula..."></textarea>
+        
+        <label class="upload-btn">
+            <i class="fas fa-camera"></i> <span id="uploadStatus">Upload Image</span>
+            <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="uploadImage()">
+        </label>
+        
+        <input type="hidden" id="imgUrl" value=""> <button class="btn-post" id="postBtn" onclick="postDoubt()">Post to Community</button>
     </div>
 
-    <div style="background:linear-gradient(90deg, #003366, #0055aa); color:white; padding:12px; border-radius:12px; margin-bottom:20px; font-size:13px; display:flex; justify-content:space-between; align-items:center;">
-        <span><i class="fas fa-medal" style="color:var(--gold)"></i> Top Solver: <b>Aman</b></span>
-        <span style="font-size:11px;">Rank: #1 | 450 Pts</span>
-    </div>
-
-    <div id="loader">Fetching Community Doubts...</div>
-    <div id="doubtList"></div>
+    <div id="doubtList">Loading...</div>
 </div>
 
 <script>
-    // Aapka SheetDB API URL
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
+    const IMGBB_KEY = "7ec065660882e3895e796065691079d3"; // Aapki Image API Key
 
-    // --- Graph Logic (Old Feature) ---
-    function initChart() {
-        let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
-        if(history.length === 0) {
-            history = [{date: 'Today', score: 0}];
+    // 1. IMAGE UPLOAD FEATURE (ImgBB)
+    async function uploadImage() {
+        const fileInput = document.getElementById('imgInput');
+        const status = document.getElementById('uploadStatus');
+        if (!fileInput.files[0]) return;
+
+        status.innerText = "Uploading...";
+        const formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+
+        try {
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, {
+                method: "POST",
+                body: formData
+            });
+            const data = await res.json();
+            document.getElementById('imgUrl').value = data.data.url;
+            status.innerText = "✅ Photo Attached!";
+            status.style.color = "green";
+        } catch (e) {
+            alert("Image upload failed!");
+            status.innerText = "Upload Image";
         }
+    }
+
+    // 2. POST DOUBT (Saving all info)
+    async function postDoubt() {
+        const txt = document.getElementById('qBox').value.trim();
+        const img = document.getElementById('imgUrl').value;
+        if(!txt && !img) return alert("Kuch likho ya photo dalo!");
+
+        const btn = document.getElementById('postBtn');
+        btn.innerText = "Posting...";
+        btn.disabled = true;
+
+        // Formula Auto-Fix: \Delta ko $ ke beech daalna
+        let fixedTxt = txt.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow|N_2|O_2)/g, '$$$1$$');
+
+        const payload = {
+            "id": "ID_" + Date.now(),
+            "question": fixedTxt + (img ? ` <br><img src="${img}" class="q-img">` : ""),
+            "answer": "",
+            "votes": 0,
+            "badge": "Learner",
+            "verified": "no"
+        };
+
+        await fetch(API, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ data: [payload] })
+        });
+
+        location.reload();
+    }
+
+    // 3. LOAD DOUBTS & REPLIES
+    async function loadDoubts() {
+        const res = await fetch(API);
+        const data = await res.json();
+        const list = document.getElementById('doubtList');
+        list.innerHTML = "";
+
+        data.reverse().forEach(item => {
+            list.innerHTML += `
+                <div class="doubt-card">
+                    <span class="badge">${item.badge || 'Student'}</span>
+                    <div class="q-content"><b>Q:</b> ${item.question}</div>
+                    
+                    ${item.answer ? `
+                        <div style="margin-top:10px; padding:10px; background:#f0fdf4; border-radius:8px; border-left:4px solid var(--green);">
+                            <b>A:</b> ${item.answer}
+                        </div>
+                    ` : ''}
+
+                    <div class="reply-box">
+                        <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Solve this doubt...">
+                        <button class="btn-reply" onclick="postReply('${item.id}')">Reply</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    // 4. REPLY FEATURE (Updating Sheet)
+    async function postReply(id) {
+        const ans = document.getElementById('ans-' + id).value.trim();
+        if(!ans) return alert("Jawab likho!");
+
+        await fetch(`${API}/id/${id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ data: { "answer": ans } })
+        });
+        alert("Solution Posted!");
+        loadDoubts();
+    }
+
+    // Graph Progress
+    function initChart() {
+        let history = JSON.parse(localStorage.getItem('jee_score_history')) || [{date:'Start',score:0}];
         new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ 
-                    label: 'Score Progress', 
-                    data: history.map(h => h.score), 
-                    borderColor: '#28a745', 
-                    borderWidth: 3,
-                    tension: 0.4, 
-                    fill: true, 
-                    backgroundColor: 'rgba(40, 167, 69, 0.1)' 
-                }]
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: 'green', tension: 0.4, fill: true, backgroundColor: 'rgba(40,167,69,0.1)' }]
             },
             options: { plugins: { legend: { display: false } } }
         });
     }
 
-    // --- Post Doubt (Combined Feature) ---
-    async function postDoubt() {
-        const txt = document.getElementById('qBox').value.trim();
-        if(!txt) return alert("Kuch toh likho!");
-
-        const btn = document.querySelector('.btn-post');
-        btn.innerText = "Posting...";
-        btn.disabled = true;
-
-        const payload = {
-            "id": "ID_" + Date.now(),
-            "question": txt,
-            "answer": "",
-            "votes": 0,
-            "badge": "Student",
-            "verified": "no"
-        };
-
-        try {
-            await fetch(API, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [payload] })
-            });
-            alert("Doubt posted! Community will help you soon.");
-            document.getElementById('qBox').value = "";
-            loadDoubts();
-        } catch(e) { alert("Error!"); }
-        
-        btn.innerText = "Post to Community";
-        btn.disabled = false;
-    }
-
-    // --- Load Doubts (Gamified & Verified) ---
-    async function loadDoubts() {
-        try {
-            const res = await fetch(API);
-            const data = await res.json();
-            document.getElementById('loader').style.display = 'none';
-            const list = document.getElementById('doubtList');
-            list.innerHTML = "";
-
-            data.reverse().forEach(item => {
-                const tick = item.verified === "yes" ? '<i class="fas fa-check-circle verified-icon"></i>' : '';
-                
-                list.innerHTML += `
-                    <div class="doubt-card">
-                        <span class="badge">${item.badge || 'Learner'}</span>
-                        <div style="font-weight:600; color:var(--blue); margin-right:50px;">Q: ${item.question}</div>
-                        
-                        ${item.answer ? `
-                            <div style="margin-top:12px; padding:10px; background:#f9f9f9; border-radius:8px; border-left:4px solid var(--green);">
-                                <b style="color:var(--green)">Answer:</b> ${item.answer} ${tick}
-                            </div>
-                        ` : '<div style="margin-top:10px; color:gray; font-size:12px;"><i class="fas fa-clock"></i> Waiting for expert...</div>'}
-
-                        <div class="action-bar">
-                            <span class="vote-btn" onclick="upvote('${item.id}', ${item.votes || 0})">
-                                <i class="far fa-thumbs-up"></i> Helpful (${item.votes || 0})
-                            </span>
-                            <span><i class="far fa-comment"></i> Reply</span>
-                            <span><i class="fas fa-share-alt"></i> Share</span>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            if (window.MathJax) MathJax.typesetPromise();
-        } catch(e) { console.log("Load Error"); }
-    }
-
-    // --- Upvote Logic (Real-time Sheet Update) ---
-    async function upvote(docId, currentVotes) {
-        const newVotes = parseInt(currentVotes) + 1;
-        // Optimization: UI update immediately
-        alert("Thanks for upvoting!");
-        
-        await fetch(`${API}/id/${docId}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "votes": newVotes } })
-        });
-        loadDoubts();
-    }
-
-    // Initialize Everything
-    window.onload = () => {
-        initChart();
-        loadDoubts();
-    };
+    window.onload = () => { initChart(); loadDoubts(); };
 </script>
 
 </body>
 </html>
+
