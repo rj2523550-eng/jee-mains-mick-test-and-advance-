@@ -3,206 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Hub | Pro Community</title>
+    <title>Doubt Portal | JEE Master Hub</title>
     
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
-            options: { ignoreHtmlClass: 'no-mathjax', processHtmlClass: 'mathjax' }
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        :root { --blue: #003366; --red: #A0050D; --gold: #FFD700; --bg: #f0f2f5; --green: #28a745; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
+        :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; --green: #28a745; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
         .container { max-width: 600px; margin: 0 auto; }
-        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        
-        /* Input Styles */
-        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 14px; }
-        .upload-row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-        .file-label { background: #e4e6eb; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; }
-        .btn-post { background: var(--blue); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
-
-        /* Doubt Card */
-        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 6px solid var(--blue); text-align: left; position: relative; }
-        .badge { background: var(--gold); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; position: absolute; top: 12px; right: 12px; }
-        .q-img { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; }
-        
-        /* Actions/Like Buttons */
-        .action-bar { display: flex; gap: 15px; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 0.85rem; }
-        .like-btn { cursor: pointer; color: #65676b; font-weight: 500; transition: 0.2s; }
-        .like-btn:hover { color: var(--red); }
-        .like-btn.active { color: var(--red); }
-
-        /* Answer & Reply Section */
-        .ans-section { background: #f0fdf4; padding: 12px; border-radius: 10px; margin-top: 12px; border-left: 4px solid var(--green); position: relative; }
-        .reply-area { margin-top: 15px; display: flex; gap: 5px; }
-        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 13px; }
-        .btn-reply { background: var(--green); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h2 { color: var(--blue); font-size: 1.2rem; margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 16px; }
+        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        .doubt-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: left; }
+        .q-text { font-weight: bold; color: var(--blue); display: block; margin-bottom: 10px; font-size: 1.05rem; line-height: 1.6; }
+        .ans-box { background: #f0fdf4; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.95rem; border-left: 3px solid var(--green); color: #155724; }
+        .reply-group { display: flex; gap: 5px; margin-top: 12px; border-top: 1px solid #eee; padding-top: 10px; }
+        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        .btn-reply { background: var(--green); color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h4 style="margin:0 0 10px 0; color:var(--blue);"><i class="fas fa-chart-line"></i> Performance</h4>
-        <canvas id="myChart" style="height:150px"></canvas>
+        <h2>📈 Your Progress Graph</h2>
+        <canvas id="myChart" style="width: 100%; height: 200px;"></canvas>
     </div>
 
     <div class="card">
-        <textarea id="qBox" placeholder="Write your doubt... Formulae like \Delta U or N_2 will auto-fix!"></textarea>
-        <div class="upload-row">
-            <label class="file-label">
-                <i class="fas fa-camera"></i> <span id="status">Attach Image</span>
-                <input type="file" id="imgIn" accept="image/*" style="display:none" onchange="handleUpload()">
-            </label>
-            <input type="hidden" id="imgStore" value="">
-            <button class="btn-post" id="postBtn" onclick="postNewDoubt()">Post Doubt</button>
-        </div>
+        <h2>❓ Ask a Doubt</h2>
+        <textarea id="qBox" placeholder="Formulae ke liye $ use karein, jaise: $\Delta U$"></textarea>
+        <button class="btn-post" onclick="postDoubt()">Post to Community</button>
     </div>
 
-    <div id="doubtWall">Loading community doubts...</div>
+    <h2 style="color: var(--blue);">💬 Community Doubts</h2>
+    <div id="doubtList">Loading...</div>
 </div>
 
 <script>
-    const API_URL = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
-    const IMGBB_API_KEY = "7ec065660882e3895e796065691079d3";
+    const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
 
-    // 1. Image Upload Logic
-    async function handleUpload() {
-        const file = document.getElementById('imgIn').files[0];
-        const label = document.getElementById('status');
-        if (!file) return;
-
-        label.innerText = "Uploading...";
-        const body = new FormData();
-        body.append("image", file);
-
+    async function postDoubt() {
+        const txt = document.getElementById('qBox').value.trim();
+        if(!txt) return alert("Kuch toh likho!");
+        const payload = { "id": Date.now().toString(), "question": txt, "answer": "" };
         try {
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body });
-            const result = await res.json();
-            if(result.success) {
-                document.getElementById('imgStore').value = result.data.url;
-                label.innerText = "✅ Photo Ready!";
-                label.style.color = "green";
-            } else { throw new Error(); }
-        } catch (e) {
-            alert("Upload failed! Try a smaller image.");
-            label.innerText = "Attach Image";
-        }
+            const res = await fetch(API, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ data: [payload] })
+            });
+            if(res.ok) { alert("Doubt Saved!"); document.getElementById('qBox').value = ""; loadDoubts(); }
+        } catch(e) { alert("Error!"); }
     }
 
-    // 2. Post Doubt (Formula Fixer Included)
-    async function postNewDoubt() {
-        const text = document.getElementById('qBox').value.trim();
-        const img = document.getElementById('imgStore').value;
-        if(!text && !img) return alert("Kuch toh likho!");
-
-        const btn = document.getElementById('postBtn');
-        btn.disabled = true; btn.innerText = "Posting...";
-
-        // Auto-fix formulae for MathJax
-        const fixedText = text.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow|\\Delta U|N_2|O_2\^|C_2)/g, '$$$1$$');
-
-        const payload = {
-            "id": "D" + Date.now(),
-            "question": fixedText + (img ? `<br><img src="${img}" class="q-img">` : ""),
-            "answer": "",
-            "votes": 0,
-            "badge": "Learner",
-            "verified": "no"
-        };
-
-        await fetch(API_URL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: [payload] })
-        });
-        location.reload();
-    }
-
-    // 3. Load Doubts with Like Logos
-    async function loadWall() {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        const wall = document.getElementById('doubtWall');
-        wall.innerHTML = "";
-
-        data.reverse().forEach(item => {
-            wall.innerHTML += `
-                <div class="doubt-card">
-                    <span class="badge">${item.badge || 'Learner'}</span>
-                    <div class="mathjax"><b>Q:</b> ${item.question}</div>
-                    
-                    <div class="action-bar">
-                        <div class="like-btn" onclick="addVote('${item.id}', ${item.votes || 0})">
-                            <i class="fas fa-heart"></i> Helpful (${item.votes || 0})
+    async function loadDoubts() {
+        try {
+            const res = await fetch(API);
+            const data = await res.json();
+            const list = document.getElementById('doubtList');
+            list.innerHTML = "";
+            
+            data.reverse().forEach(item => {
+                let qText = item.question || item.Question || "No Text Found";
+                
+                // --- AUTO-FIX LOGIC: \Delta jaise words ko $ ke andar wrap karna ---
+                qText = qText.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow)/g, '$$$1$$');
+                
+                list.innerHTML += `
+                    <div class="doubt-item">
+                        <span class="q-text">Q: ${qText}</span>
+                        <div class="ans-box" style="display:${item.answer ? 'block' : 'none'}">
+                            <b>A:</b> ${item.answer}
                         </div>
-                        <div class="like-btn"><i class="fas fa-share"></i> Share</div>
-                    </div>
-
-                    ${item.answer ? `
-                        <div class="ans-section mathjax">
-                            <b><i class="fas fa-check-circle" style="color:var(--green)"></i> Solution:</b><br>
-                            ${item.answer}
+                        <div class="reply-group">
+                            <input type="text" id="in-${item.id}" class="reply-input" placeholder="Reply...">
+                            <button class="btn-reply" onclick="postAnswer('${item.id}')">Reply</button>
                         </div>
-                    ` : `
-                        <div class="reply-area">
-                            <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Write solution here...">
-                            <button class="btn-reply" onclick="submitReply('${item.id}')">Reply</button>
-                        </div>
-                    `}
-                </div>
-            `;
-        });
+                    </div>`;
+            });
 
-        if (window.MathJax) MathJax.typesetPromise();
+            if (window.MathJax) {
+                window.MathJax.typesetPromise();
+            }
+        } catch(e) { console.log("Load Error"); }
     }
 
-    // 4. Vote/Like Logic
-    async function addVote(id, current) {
-        alert("Thanks for the Like! 💖");
-        await fetch(`${API_URL}/id/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "votes": parseInt(current) + 1 } })
-        });
-        loadWall();
+    async function postAnswer(docId) {
+        const ansVal = document.getElementById('in-' + docId).value.trim();
+        if(!ansVal) return;
+        try {
+            const res = await fetch(`${API}/id/${docId}`, {
+                method: 'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ data: { "answer": ansVal } })
+            });
+            if(res.ok) { alert("Answer Saved!"); loadDoubts(); }
+        } catch(e) { alert("Reply Error!"); }
     }
 
-    // 5. Submit Reply
-    async function submitReply(id) {
-        const ans = document.getElementById('ans-' + id).value.trim();
-        if(!ans) return alert("Answer likho!");
-        
-        await fetch(`${API_URL}/id/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "answer": ans, "verified": "yes" } })
-        });
-        alert("Solution saved! Community helped. ✅");
-        loadWall();
-    }
-
-    // Graph
-    function drawChart() {
-        let history = JSON.parse(localStorage.getItem('jee_score_history')) || [{date:'Start',score:0}];
+    function initChart() {
+        let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
         new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.4, fill: true, backgroundColor: 'rgba(40,167,69,0.1)' }]
-            },
-            options: { plugins: { legend: { display: false } } }
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.3, fill: true, backgroundColor: 'rgba(40, 167, 69, 0.1)' }]
+            }
         });
     }
 
-    window.onload = () => { drawChart(); loadWall(); };
+    initChart();
+    loadDoubts();
 </script>
-
 </body>
 </html>
