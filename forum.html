@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Master Hub | Pro Community</title>
     
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+            options: { ignoreHtmlClass: 'no-mathjax', processHtmlClass: 'mathjax' }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,125 +23,139 @@
         
         /* Input Styles */
         textarea { width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; box-sizing: border-box; resize: none; font-size: 14px; }
-        .upload-btn { background: #e4e6eb; padding: 8px 15px; border-radius: 8px; cursor: pointer; display: inline-block; margin: 10px 0; font-size: 13px; }
-        .btn-post { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+        .upload-row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
+        .file-label { background: #e4e6eb; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; }
+        .btn-post { background: var(--blue); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
         /* Doubt Card */
-        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; position: relative; border-left: 6px solid var(--blue); }
+        .doubt-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 6px solid var(--blue); text-align: left; position: relative; }
         .badge { background: var(--gold); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; position: absolute; top: 12px; right: 12px; }
         .q-img { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; }
         
-        /* Reply Section */
-        .reply-box { margin-top: 15px; display: flex; gap: 5px; }
-        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
-        .btn-reply { background: var(--green); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+        /* Actions/Like Buttons */
+        .action-bar { display: flex; gap: 15px; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 0.85rem; }
+        .like-btn { cursor: pointer; color: #65676b; font-weight: 500; transition: 0.2s; }
+        .like-btn:hover { color: var(--red); }
+        .like-btn.active { color: var(--red); }
+
+        /* Answer & Reply Section */
+        .ans-section { background: #f0fdf4; padding: 12px; border-radius: 10px; margin-top: 12px; border-left: 4px solid var(--green); position: relative; }
+        .reply-area { margin-top: 15px; display: flex; gap: 5px; }
+        .reply-input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 13px; }
+        .btn-reply { background: var(--green); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
+        <h4 style="margin:0 0 10px 0; color:var(--blue);"><i class="fas fa-chart-line"></i> Performance</h4>
         <canvas id="myChart" style="height:150px"></canvas>
     </div>
 
     <div class="card">
-        <h4 style="margin:0 0 10px 0; color:var(--blue);">Ask Doubt</h4>
-        <textarea id="qBox" placeholder="Write doubt or paste formula..."></textarea>
-        
-        <label class="upload-btn">
-            <i class="fas fa-camera"></i> <span id="uploadStatus">Upload Image</span>
-            <input type="file" id="imgInput" accept="image/*" style="display:none" onchange="uploadImage()">
-        </label>
-        
-        <input type="hidden" id="imgUrl" value=""> <button class="btn-post" id="postBtn" onclick="postDoubt()">Post to Community</button>
+        <textarea id="qBox" placeholder="Write your doubt... Formulae like \Delta U or N_2 will auto-fix!"></textarea>
+        <div class="upload-row">
+            <label class="file-label">
+                <i class="fas fa-camera"></i> <span id="status">Attach Image</span>
+                <input type="file" id="imgIn" accept="image/*" style="display:none" onchange="handleUpload()">
+            </label>
+            <input type="hidden" id="imgStore" value="">
+            <button class="btn-post" id="postBtn" onclick="postNewDoubt()">Post Doubt</button>
+        </div>
     </div>
 
-    <div id="doubtList">Loading...</div>
+    <div id="doubtWall">Loading community doubts...</div>
 </div>
 
 <script>
-    const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
-    const IMGBB_KEY = "7ec065660882e3895e796065691079d3"; // Aapki Image API Key
+    const API_URL = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
+    const IMGBB_API_KEY = "7ec065660882e3895e796065691079d3";
 
-    // 1. IMAGE UPLOAD FEATURE (ImgBB)
-    async function uploadImage() {
-        const fileInput = document.getElementById('imgInput');
-        const status = document.getElementById('uploadStatus');
-        if (!fileInput.files[0]) return;
+    // 1. Image Upload Logic
+    async function handleUpload() {
+        const file = document.getElementById('imgIn').files[0];
+        const label = document.getElementById('status');
+        if (!file) return;
 
-        status.innerText = "Uploading...";
-        const formData = new FormData();
-        formData.append("image", fileInput.files[0]);
+        label.innerText = "Uploading...";
+        const body = new FormData();
+        body.append("image", file);
 
         try {
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, {
-                method: "POST",
-                body: formData
-            });
-            const data = await res.json();
-            document.getElementById('imgUrl').value = data.data.url;
-            status.innerText = "✅ Photo Attached!";
-            status.style.color = "green";
+            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body });
+            const result = await res.json();
+            if(result.success) {
+                document.getElementById('imgStore').value = result.data.url;
+                label.innerText = "✅ Photo Ready!";
+                label.style.color = "green";
+            } else { throw new Error(); }
         } catch (e) {
-            alert("Image upload failed!");
-            status.innerText = "Upload Image";
+            alert("Upload failed! Try a smaller image.");
+            label.innerText = "Attach Image";
         }
     }
 
-    // 2. POST DOUBT (Saving all info)
-    async function postDoubt() {
-        const txt = document.getElementById('qBox').value.trim();
-        const img = document.getElementById('imgUrl').value;
-        if(!txt && !img) return alert("Kuch likho ya photo dalo!");
+    // 2. Post Doubt (Formula Fixer Included)
+    async function postNewDoubt() {
+        const text = document.getElementById('qBox').value.trim();
+        const img = document.getElementById('imgStore').value;
+        if(!text && !img) return alert("Kuch toh likho!");
 
         const btn = document.getElementById('postBtn');
-        btn.innerText = "Posting...";
-        btn.disabled = true;
+        btn.disabled = true; btn.innerText = "Posting...";
 
-        // Formula Auto-Fix: \Delta ko $ ke beech daalna
-        let fixedTxt = txt.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow|N_2|O_2)/g, '$$$1$$');
+        // Auto-fix formulae for MathJax
+        const fixedText = text.replace(/(\\Delta|\\sqrt|\\alpha|\\beta|\\gamma|\\infty|\\rightarrow|\\Delta U|N_2|O_2\^|C_2)/g, '$$$1$$');
 
         const payload = {
-            "id": "ID_" + Date.now(),
-            "question": fixedTxt + (img ? ` <br><img src="${img}" class="q-img">` : ""),
+            "id": "D" + Date.now(),
+            "question": fixedText + (img ? `<br><img src="${img}" class="q-img">` : ""),
             "answer": "",
             "votes": 0,
             "badge": "Learner",
             "verified": "no"
         };
 
-        await fetch(API, {
+        await fetch(API_URL, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ data: [payload] })
         });
-
         location.reload();
     }
 
-    // 3. LOAD DOUBTS & REPLIES
-    async function loadDoubts() {
-        const res = await fetch(API);
+    // 3. Load Doubts with Like Logos
+    async function loadWall() {
+        const res = await fetch(API_URL);
         const data = await res.json();
-        const list = document.getElementById('doubtList');
-        list.innerHTML = "";
+        const wall = document.getElementById('doubtWall');
+        wall.innerHTML = "";
 
         data.reverse().forEach(item => {
-            list.innerHTML += `
+            wall.innerHTML += `
                 <div class="doubt-card">
-                    <span class="badge">${item.badge || 'Student'}</span>
-                    <div class="q-content"><b>Q:</b> ${item.question}</div>
+                    <span class="badge">${item.badge || 'Learner'}</span>
+                    <div class="mathjax"><b>Q:</b> ${item.question}</div>
                     
-                    ${item.answer ? `
-                        <div style="margin-top:10px; padding:10px; background:#f0fdf4; border-radius:8px; border-left:4px solid var(--green);">
-                            <b>A:</b> ${item.answer}
+                    <div class="action-bar">
+                        <div class="like-btn" onclick="addVote('${item.id}', ${item.votes || 0})">
+                            <i class="fas fa-heart"></i> Helpful (${item.votes || 0})
                         </div>
-                    ` : ''}
-
-                    <div class="reply-box">
-                        <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Solve this doubt...">
-                        <button class="btn-reply" onclick="postReply('${item.id}')">Reply</button>
+                        <div class="like-btn"><i class="fas fa-share"></i> Share</div>
                     </div>
+
+                    ${item.answer ? `
+                        <div class="ans-section mathjax">
+                            <b><i class="fas fa-check-circle" style="color:var(--green)"></i> Solution:</b><br>
+                            ${item.answer}
+                        </div>
+                    ` : `
+                        <div class="reply-area">
+                            <input type="text" id="ans-${item.id}" class="reply-input" placeholder="Write solution here...">
+                            <button class="btn-reply" onclick="submitReply('${item.id}')">Reply</button>
+                        </div>
+                    `}
                 </div>
             `;
         });
@@ -144,36 +163,46 @@
         if (window.MathJax) MathJax.typesetPromise();
     }
 
-    // 4. REPLY FEATURE (Updating Sheet)
-    async function postReply(id) {
-        const ans = document.getElementById('ans-' + id).value.trim();
-        if(!ans) return alert("Jawab likho!");
-
-        await fetch(`${API}/id/${id}`, {
+    // 4. Vote/Like Logic
+    async function addVote(id, current) {
+        alert("Thanks for the Like! 💖");
+        await fetch(`${API_URL}/id/${id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "answer": ans } })
+            body: JSON.stringify({ data: { "votes": parseInt(current) + 1 } })
         });
-        alert("Solution Posted!");
-        loadDoubts();
+        loadWall();
     }
 
-    // Graph Progress
-    function initChart() {
+    // 5. Submit Reply
+    async function submitReply(id) {
+        const ans = document.getElementById('ans-' + id).value.trim();
+        if(!ans) return alert("Answer likho!");
+        
+        await fetch(`${API_URL}/id/${id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ data: { "answer": ans, "verified": "yes" } })
+        });
+        alert("Solution saved! Community helped. ✅");
+        loadWall();
+    }
+
+    // Graph
+    function drawChart() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [{date:'Start',score:0}];
         new Chart(document.getElementById('myChart'), {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: 'green', tension: 0.4, fill: true, backgroundColor: 'rgba(40,167,69,0.1)' }]
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.4, fill: true, backgroundColor: 'rgba(40,167,69,0.1)' }]
             },
             options: { plugins: { legend: { display: false } } }
         });
     }
 
-    window.onload = () => { initChart(); loadDoubts(); };
+    window.onload = () => { drawChart(); loadWall(); };
 </script>
 
 </body>
 </html>
-
