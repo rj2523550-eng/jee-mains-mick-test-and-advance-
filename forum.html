@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doubt Portal | JEE Hub</title>
+    <title>JEE Master Doubt Portal</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; }
         body { font-family: sans-serif; background: var(--bg); padding: 15px; text-align: center; }
         .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; max-width: 500px; margin-inline: auto; }
-        textarea { width: 100%; height: 70px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; box-sizing: border-box; }
+        textarea { width: 100%; height: 70px; border-radius: 8px; border: 1px solid #ddd; padding: 10px; box-sizing: border-box; font-size: 16px; }
         .btn { background: var(--blue); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: bold; cursor: pointer; }
         .doubt-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid var(--red); text-align: left; max-width: 500px; margin-inline: auto; }
+        .ans-text { color: #28a745; margin-top: 8px; font-size: 0.9rem; background: #f0fdf4; padding: 5px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -23,11 +24,11 @@
 
     <div class="card">
         <h3>❓ Ask Doubt</h3>
-        <textarea id="qBox" placeholder="Yahan apna sawaal likhein..."></textarea>
+        <textarea id="qBox" placeholder="Apna sawaal yahan likhein..."></textarea>
         <button class="btn" onclick="postDoubt()">Send to Community</button>
     </div>
 
-    <div id="list">Loading...</div>
+    <div id="list">Loading Doubts...</div>
 
 <script>
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
@@ -35,53 +36,58 @@
     // 1. Sawaal Bhejna
     async function postDoubt() {
         const txt = document.getElementById('qBox').value.trim();
-        if(!txt) return alert("Kuch toh likho bhai!");
+        if(!txt) return alert("Kuch likho toh sahi!");
 
-        // Payload ko strict rakhna hai
-        const data = { "id": Date.now().toString(), "question": txt, "answer": "" };
+        const payload = { "id": Date.now().toString(), "question": txt, "answer": "" };
 
         try {
             const res = await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [data] })
+                body: JSON.stringify({ data: [payload] })
             });
             if(res.ok) {
-                alert("Sawaal chala gaya!");
+                alert("Sawaal Sheet mein chala gaya!");
                 document.getElementById('qBox').value = "";
                 loadDoubts();
             }
-        } catch(e) { alert("Error!"); }
+        } catch(e) { alert("Network Error!"); }
     }
 
-    // 2. Sawaal Dikhana
+    // 2. Sawaal Dikhana (Dono spelling check karega)
     async function loadDoubts() {
-        const res = await fetch(API);
-        const data = await res.json();
-        const div = document.getElementById('list');
-        div.innerHTML = "";
-        
-        data.reverse().forEach(item => {
-            // Agar question undefined hai toh purana data check karo
-            let qText = item.question || item.Question || "No Text in Sheet";
-            div.innerHTML += `
-                <div class="doubt-item">
-                    <b>Q: ${qText}</b>
-                    <div style="margin-top:5px; color:#28a745; display:${item.answer?'block':'none'}">
-                        <b>A:</b> ${item.answer}
-                    </div>
-                </div>`;
-        });
+        try {
+            const res = await fetch(API);
+            const data = await res.json();
+            const div = document.getElementById('list');
+            div.innerHTML = "";
+            
+            if(data.length === 0) { div.innerHTML = "Koi doubt nahi mila."; return; }
+
+            data.reverse().forEach(item => {
+                // Yeh line sabse zaruri hai - Yeh har tarah ki spelling pakad legi
+                let qText = item.question || item.Question || item.QUESTION || "No Text Found";
+                
+                div.innerHTML += `
+                    <div class="doubt-item">
+                        <b>Q: ${qText}</b>
+                        <div class="ans-text" style="display:${item.answer ? 'block' : 'none'}">
+                            <b>A:</b> ${item.answer}
+                        </div>
+                    </div>`;
+            });
+        } catch(e) { console.log("Load error"); }
     }
 
-    // 3. Graph (Pichle tests ka)
+    // 3. Graph
     function showChart() {
         let history = JSON.parse(localStorage.getItem('jee_score_history')) || [];
-        new Chart(document.getElementById('myChart'), {
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
             type: 'line',
             data: {
                 labels: history.map(h => h.date),
-                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: 'green', tension: 0.3 }]
+                datasets: [{ label: 'Score', data: history.map(h => h.score), borderColor: '#28a745', tension: 0.3, fill: true, backgroundColor: 'rgba(40, 167, 69, 0.1)' }]
             }
         });
     }
