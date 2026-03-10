@@ -3,122 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily DPP | JEE Master Hub</title>
+    <title>Add Daily DPP | JEE Master Hub</title>
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        :root { --blue: #003366; --red: #A0050D; --bg: #f4f7f9; --white: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
-        .container { max-width: 600px; margin: 0 auto; }
-        
-        /* Add Question Card */
-        .add-card { background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        textarea { width: 100%; height: 90px; border: 1px solid #ddd; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; font-size: 15px; margin-bottom: 10px; }
-        .btn-add { background: var(--blue); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
-        
-        /* DPP Question Card */
-        .dpp-card { background: var(--white); border-radius: 15px; padding: 20px; margin-bottom: 15px; text-align: left; border-left: 6px solid var(--blue); box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; }
-        .q-tag { background: #e1f5fe; color: #007bff; font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        
-        /* Like Dislike System */
-        .action-bar { display: flex; gap: 20px; margin-top: 15px; border-top: 1px solid #eee; padding-top: 12px; }
-        .vote-btn { cursor: pointer; color: #666; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
-        .vote-btn:hover { color: var(--blue); }
-        .like-active { color: #28a745 !important; }
-        .dislike-active { color: #dc3545 !important; }
+        :root { 
+            --primary: #003366; 
+            --accent: #00d2ff;
+            --bg: #f8f9fc; 
+            --white: #ffffff; 
+        }
 
-        #loader { padding: 20px; color: var(--blue); font-weight: bold; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100-vh;
+            padding: 20px;
+        }
+
+        .container { 
+            width: 100%;
+            max-width: 450px; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Glassmorphism Card Design */
+        .add-card { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 35px rgba(0, 51, 102, 0.1); 
+            text-align: center;
+            border: 1px solid rgba(0, 51, 102, 0.05);
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 30px;
+            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.2);
+        }
+
+        h2 { color: var(--primary); margin: 0 0 10px 0; font-size: 22px; }
+        p { color: #777; font-size: 14px; margin-bottom: 25px; }
+
+        textarea { 
+            width: 100%; 
+            height: 150px; 
+            border: 2px solid #eee; 
+            border-radius: 15px; 
+            padding: 15px; 
+            box-sizing: border-box; 
+            resize: none; 
+            font-size: 16px; 
+            outline: none;
+            transition: 0.3s;
+            background: #fafafa;
+        }
+
+        textarea:focus { 
+            border-color: var(--primary); 
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 51, 102, 0.05);
+        }
+
+        .btn-submit { 
+            background: linear-gradient(90deg, var(--primary), #0056b3); 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            font-size: 16px;
+            cursor: pointer; 
+            width: 100%; 
+            margin-top: 20px; 
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 51, 102, 0.2);
+        }
+
+        .btn-submit:active { transform: translateY(0); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Math Preview Tooltip */
+        .hint {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 8px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="color: var(--blue); margin-bottom: 5px;"><i class="fas fa-book-open"></i> Daily DPP</h2>
-    <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Apne JEE ke best questions yahan share karein!</p>
-
     <div class="add-card">
-        <textarea id="dppInput" placeholder="Write your JEE Question here... (Use $ for formulas)"></textarea>
-        <button class="btn-add" onclick="postDPP()">Add to Daily DPP</button>
-    </div>
+        <div class="icon-circle">
+            <i class="fas fa-plus"></i>
+        </div>
+        <h2>Create Daily DPP</h2>
+        <p>Apna JEE challenge yahan add karein</p>
 
-    <div id="loader">DPP Loading...</div>
-    <div id="dppList"></div>
+        <textarea id="dppText" placeholder="Example: Find the value of $\int e^x dx$ ..."></textarea>
+        
+        <div class="hint">
+            <i class="fas fa-info-circle"></i> Use <b>$ formula $</b> for better display.
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="sendDPP()">
+            <i class="fas fa-paper-plane"></i> Add Question
+        </button>
+    </div>
 </div>
 
 <script>
-    // Aap ek nayi SheetDB API bhi bana sakte hain DPP ke liye
-    const DPP_API = "https://sheetdb.io/api/v1/pqdhac1zdqmck"; 
+    const API_DPP = "https://sheetdb.io/api/v1/pqdhac1zdqmck"; 
 
-    // 1. Question Add Karna
-    async function postDPP() {
-        const text = document.getElementById('dppInput').value.trim();
-        if(!text) return alert("Pehle question toh likho!");
+    async function sendDPP() {
+        const qText = document.getElementById('dppText').value.trim();
+        const btn = document.getElementById('submitBtn');
 
-        const payload = {
+        if(!qText) {
+            alert("Bhai, kuch likho toh sahi!");
+            return;
+        }
+
+        // Visual feedback
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+
+        const data = {
             "id": "DPP_" + Date.now(),
-            "question": text,
-            "votes": 0, // Iska use hum like/dislike ke liye karenge
-            "badge": "Community DPP"
+            "question": qText,
+            "votes": 0,
+            "badge": "Community DPP",
+            "type": "DPP"
         };
 
         try {
-            const res = await fetch(DPP_API, {
+            const response = await fetch(API_DPP, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [payload] })
+                body: JSON.stringify({ data: [data] })
             });
-            if(res.ok) {
-                alert("DPP Question Added! ✅");
-                document.getElementById('dppInput').value = "";
-                loadDPP();
+
+            if(response.ok) {
+                alert("Zabardast! DPP add ho gaya. 🚀");
+                document.getElementById('dppText').value = "";
             }
-        } catch(e) { alert("Error!"); }
+        } catch(error) {
+            alert("Error: Network check karein!");
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Add Question';
     }
-
-    // 2. DPP Load Karna
-    async function loadDPP() {
-        try {
-            const res = await fetch(DPP_API);
-            const data = await res.json();
-            document.getElementById('loader').style.display = 'none';
-            const list = document.getElementById('dppList');
-            list.innerHTML = "";
-
-            data.reverse().forEach(item => {
-                // Sirf DPP wale questions filter karne ke liye (Optional)
-                list.innerHTML += `
-                    <div class="dpp-card">
-                        <span class="q-tag">#JEE_DPP</span>
-                        <div style="font-size: 16px; line-height: 1.6; color: #333;">${item.question}</div>
-                        
-                        <div class="action-bar">
-                            <div class="vote-btn" onclick="voteDPP('${item.id}', 1)">
-                                <i class="fas fa-thumbs-up"></i> Relevant (${item.votes || 0})
-                            </div>
-                            <div class="vote-btn" onclick="voteDPP('${item.id}', -1)">
-                                <i class="fas fa-thumbs-down"></i> Not for JEE
-                            </div>
-                            <div class="vote-btn"><i class="fas fa-share"></i></div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            if (window.MathJax) MathJax.typesetPromise();
-        } catch(e) { console.log("Load Error"); }
-    }
-
-    // 3. Like/Dislike System
-    async function voteDPP(id, val) {
-        // Sirf alert de rahe hain abhi real logic ke liye Sheet update karni hogi
-        alert(val > 0 ? "You liked this question! 👍" : "Marked as irrelevant.");
-        // Sheet update logic (Same as Upvote)
-    }
-
-    loadDPP();
 </script>
 
 <script src="chatbot.js"></script>
