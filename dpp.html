@@ -13,41 +13,37 @@
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
         .container { max-width: 500px; margin: 0 auto; }
         
-        /* Subject Tabs */
         .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { padding: 8px 15px; border-radius: 20px; border: none; background: #ddd; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; }
-        .active-tab { background: var(--p); color: white; }
+        .tab-btn { padding: 10px 18px; border-radius: 25px; border: none; background: #e0e0e0; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .active-tab { background: var(--p); color: white; box-shadow: 0 4px 10px rgba(0,51,102,0.2); }
 
-        .add-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 25px; }
-        textarea { width: 100%; height: 100px; border: 1px solid #ddd; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; margin-bottom: 10px; }
+        .add-card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        textarea { width: 100%; height: 110px; border: 2px solid #eee; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; margin-bottom: 12px; outline: none; transition: 0.3s; }
+        textarea:focus { border-color: var(--p); }
         
-        .btn-post { background: var(--p); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; }
+        .btn-post { background: var(--p); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; }
         
-        .q-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: left; border-left: 5px solid var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.05); animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .vote-bar { display: flex; gap: 15px; margin-top: 10px; font-size: 13px; color: #666; }
-        .vote-item { cursor: pointer; }
-        .vote-item:hover { color: var(--p); }
+        .q-card { background: white; border-radius: 18px; padding: 20px; margin-bottom: 15px; text-align: left; border-left: 6px solid var(--p); box-shadow: 0 5px 15px rgba(0,0,0,0.04); }
+        .subject-tag { font-size: 10px; text-transform: uppercase; color: var(--p); font-weight: bold; margin-bottom: 5px; display: block; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="color: var(--p);"><i class="fas fa-edit"></i> Daily DPP</h2>
+    <h2 style="color: var(--p);"><i class="fas fa-rocket"></i> Daily DPP Challenge</h2>
 
     <div class="tabs">
-        <button class="tab-btn active-tab" onclick="switchSubject('Physics', this)">Physics</button>
-        <button class="tab-btn" onclick="switchSubject('Chemistry', this)">Chemistry</button>
-        <button class="tab-btn" onclick="switchSubject('Maths', this)">Maths</button>
+        <button class="tab-btn active-tab" onclick="switchSub('Physics', this)">Physics</button>
+        <button class="tab-btn" onclick="switchSub('Chemistry', this)">Chemistry</button>
+        <button class="tab-btn" onclick="switchSub('Maths', this)">Maths</button>
     </div>
 
     <div class="add-card">
-        <textarea id="qInput" placeholder="Write Question for current subject..."></textarea>
-        <button class="btn-post" id="postBtn" onclick="handleDPP()">Add Question</button>
+        <textarea id="qInput" placeholder="Enter question for current subject..."></textarea>
+        <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to DPP</button>
     </div>
 
-    <div id="loader" style="color:var(--p)">Loading Questions...</div>
+    <div id="loader" style="margin: 20px;">Fetching latest questions...</div>
     <div id="displayArea"></div>
 </div>
 
@@ -55,39 +51,40 @@
     const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
     let currentSubject = "Physics";
 
-    function switchSubject(sub, btn) {
+    function switchSub(sub, btn) {
         currentSubject = sub;
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
         btn.classList.add('active-tab');
         loadDPP();
     }
 
-    async function handleDPP() {
+    async function saveDPP() {
         const text = document.getElementById('qInput').value.trim();
         const btn = document.getElementById('postBtn');
-        if(!text) return alert("Pehle question likho!");
+        if(!text) return alert("Bhai, sawal toh likho!");
 
         btn.disabled = true;
-        btn.innerText = "Processing...";
+        btn.innerText = "Adding...";
 
-        // 1. Pehle pura data fetch karo check karne ke liye
+        // 1. Pura data fetch karo
         const res = await fetch(API);
         let allData = await res.json();
         
-        // Is subject ke kitne questions hain?
-        let subjectData = allData.filter(item => item.subject === currentSubject);
+        // 2. Sirf DPP aur CURRENT SUBJECT wale filter karo
+        let subDPP = allData.filter(item => item.category === "DPP" && item.subject === currentSubject);
 
-        // 2. Agar 10 questions hain, toh sabse purana delete karo
-        if(subjectData.length >= 10) {
-            const oldId = subjectData[0].id;
+        // 3. 10 Question ki limit (Oldest delete)
+        if(subDPP.length >= 10) {
+            const oldId = subDPP[0].id; // Sabse purana
             await fetch(`${API}/id/${oldId}`, { method: 'DELETE' });
         }
 
-        // 3. Naya question add karo
+        // 4. Naya question add karo (CATEGORY "DPP" ke sath)
         const newData = {
             "id": "DPP_" + Date.now(),
             "question": text,
             "subject": currentSubject,
+            "category": "DPP", // Yeh filters ke liye zaruri hai
             "votes": 0
         };
 
@@ -97,10 +94,9 @@
             body: JSON.stringify({ data: [newData] })
         });
 
-        alert("Question Added!");
         document.getElementById('qInput').value = "";
         btn.disabled = false;
-        btn.innerText = "Add Question";
+        btn.innerText = "🚀 Add to DPP";
         loadDPP();
     }
 
@@ -114,26 +110,26 @@
             const data = await res.json();
             document.getElementById('loader').style.display = 'none';
 
-            // Sirf current subject ke dikhao
-            const filtered = data.filter(item => item.subject === currentSubject).reverse();
+            // SIRF DPP aur CURRENT SUBJECT wale dikhao
+            const filtered = data.filter(item => item.category === "DPP" && item.subject === currentSubject).reverse();
 
             filtered.forEach(item => {
                 area.innerHTML += `
                     <div class="q-card">
-                        <div style="font-size:15px; color:#333;">${item.question}</div>
-                        <div class="vote-bar">
-                            <span class="vote-item"><i class="far fa-thumbs-up"></i> Relevant</span>
-                            <span class="vote-item"><i class="far fa-thumbs-down"></i> Not for JEE</span>
+                        <span class="subject-tag">${item.subject}</span>
+                        <div class="mathjax-content">${item.question}</div>
+                        <div style="margin-top:12px; display:flex; gap:15px; font-size:12px; color:#888;">
+                            <span><i class="far fa-thumbs-up"></i> Relevant</span>
+                            <span><i class="far fa-thumbs-down"></i> Irrelevant</span>
                         </div>
                     </div>
                 `;
             });
 
             if (window.MathJax) MathJax.typesetPromise();
-        } catch(e) { console.log("Load error"); }
+        } catch(e) { area.innerHTML = "Error loading data."; }
     }
 
-    // Start
     loadDPP();
 </script>
 
