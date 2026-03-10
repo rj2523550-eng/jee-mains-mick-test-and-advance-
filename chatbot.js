@@ -6,7 +6,7 @@
 
     // --- CONFIGURATION ---
     // DHYAN DEIN: Ye key ab safe hai kyunki aapne Repo ko PRIVATE kar diya hai.
-    const CHAT_API_KEY = "AIzaSyD9mpQ9ulwg5JgO4YGB_xJgS-91YqyNbhY"; // Aapki Nayi Key
+    const CHAT_API_KEY = // Aapki Nayi Key
     const GEMINI_MODEL = "gemini-1.5-flash"; // Fast and efficient model
     const INITIAL_WELCOME_MSG = "Hello! Main aapka Jee Mains Master Hub mein swagat karta hoon. 🎓\n\nAap Physics, Chemistry ya Maths se juda koi bhi sawal puch sakte hain.";
 
