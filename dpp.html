@@ -12,9 +12,7 @@
                 displayMath: [['$$', '$$']],
                 processEscapes: true
             },
-            options: {
-                enableMenu: false
-            }
+            options: { enableMenu: false }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -24,156 +22,148 @@
         :root { --p: #003366; --bg: #f4f7f9; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; overflow-x: hidden; }
         
-        .container { width: 100%; max-width: 500px; margin: 0 auto; box-sizing: border-box; }
+        .container { width: 100%; max-width: 480px; margin: 0 auto; box-sizing: border-box; }
         
-        /* Header Section */
-        .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .info-text { font-size: 12px; margin-top: 10px; background: rgba(255,255,255,0.15); padding: 12px; border-radius: 12px; line-height: 1.5; text-align: left; }
+        /* Header Box */
+        .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 20px; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align: center; }
+        .info-text { font-size: 11px; margin-top: 8px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 10px; line-height: 1.4; text-align: left; }
 
-        /* Tabs */
-        .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .tab-btn { padding: 8px 16px; border-radius: 20px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        /* Subject Tabs */
+        .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .tab-btn { padding: 8px 15px; border-radius: 20px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .active-tab { background: var(--p); color: white; }
 
-        /* Input Area */
-        .add-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        textarea { width: 100%; height: 100px; border: 2px solid #eee; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; font-size: 14px; outline: none; display: block; }
-        .btn-post { background: var(--p); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; transition: 0.2s; }
+        /* Add Question Card */
+        .add-card { background: white; padding: 15px; border-radius: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
+        textarea { width: 100%; height: 90px; border: 2px solid #eee; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; font-size: 14px; outline: none; margin-bottom: 10px; display: block; }
+        .btn-post { background: var(--p); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
 
-        /* Question Cards (Crucial Fix for Stretching) */
+        /* DPP List Design (Fixed Stretching) */
         .q-card { 
             background: white; 
             border-radius: 15px; 
-            padding: 18px; 
+            padding: 15px; 
             margin-bottom: 15px; 
             text-align: left; 
             border-left: 5px solid var(--p); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             width: 100%;
             box-sizing: border-box;
-            word-wrap: break-word; /* Pehle jaisa question niche lane ke liye */
+            word-wrap: break-word; /* Text wraps to next line */
             overflow-wrap: break-word;
-            white-space: normal; /* Horizontal scroll rokne ke liye */
+            white-space: normal; /* No horizontal stretching */
+            display: block;
         }
         
-        .sub-badge { font-size: 9px; font-weight: bold; color: #fff; background: var(--p); padding: 2px 8px; border-radius: 5px; text-transform: uppercase; display: inline-block; margin-bottom: 8px; }
-        .q-body { font-size: 14px; color: #333; line-height: 1.6; display: block; }
+        .sub-tag { font-size: 10px; font-weight: bold; color: var(--p); text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .q-body { font-size: 14px; color: #333; line-height: 1.6; display: block; width: 100%; }
+        
+        .math-render { overflow-x: auto; max-width: 100%; }
 
-        .action-bar { display: flex; gap: 15px; margin-top: 12px; border-top: 1px solid #f0f0f0; padding-top: 10px; font-size: 12px; color: #777; }
-        .act-btn { cursor: pointer; display: flex; align-items: center; gap: 4px; }
-
-        #loader { font-size: 14px; color: var(--p); margin: 20px; font-weight: bold; }
+        #loader { font-size: 14px; color: var(--p); text-align: center; margin: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-box">
-        <h2 style="margin:0; font-size: 20px;"><i class="fas fa-book-reader"></i> Community DPP</h2>
+        <h2 style="margin:0; font-size: 18px;"><i class="fas fa-edit"></i> Community DPP</h2>
         <div class="info-text">
             <b>Student Power:</b> Aap khud 1 question DPP mein likh sakte hain jise saare students solve kar sakein. Aap hi dpp banaoge aur dusre solve karenge! 🚀
         </div>
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active-tab" onclick="switchSub('Physics', this)">Physics</button>
-        <button class="tab-btn" onclick="switchSub('Chemistry', this)">Chemistry</button>
-        <button class="tab-btn" onclick="switchSub('Maths', this)">Maths</button>
+        <button class="tab-btn active-tab" onclick="changeSub('Physics', this)">Physics</button>
+        <button class="tab-btn" onclick="changeSub('Chemistry', this)">Chemistry</button>
+        <button class="tab-btn" onclick="changeSub('Maths', this)">Maths</button>
     </div>
 
     <div class="add-card">
-        <textarea id="dppInput" placeholder="Yahan question likhein... (Phy/Chem ke symbols ke liye $ use karein)"></textarea>
-        <button class="btn-post" id="postBtn" onclick="sendToDPP()">🚀 Add Question</button>
+        <textarea id="dppInput" placeholder="Apna JEE question likhein... (Use $ for math symbols)"></textarea>
+        <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to Daily DPP</button>
     </div>
 
-    <div id="loader">Loading Questions...</div>
-    <div id="dppList"></div>
+    <div id="loader">Fetching Community DPP...</div>
+    <div id="dppDisplay"></div>
 </div>
 
 <script>
-    const API_URL = "https://sheetdb.io/api/v1/mtmmrqc4aq4bq";
-    let activeSub = "Physics";
+    const API = "https://sheetdb.io/api/v1/mtmmrqc4aq4bq"; 
+    let currentSub = "Physics";
 
-    function switchSub(s, b) {
-        activeSub = s;
+    function changeSub(s, b) {
+        currentSub = s;
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
         b.classList.add('active-tab');
-        fetchDPP();
+        loadDPP();
     }
 
-    async function sendToDPP() {
-        const txt = document.getElementById('dppInput').value.trim();
-        const b = document.getElementById('postBtn');
-        if(!txt) return;
+    async function saveDPP() {
+        const text = document.getElementById('dppInput').value.trim();
+        const btn = document.getElementById('postBtn');
+        if(!text) return alert("Bhai, sawal toh likho!");
 
-        b.disabled = true; b.innerText = "Adding...";
+        btn.disabled = true;
+        btn.innerText = "Adding...";
 
-        // Logic: Agar question mein math symbols hain, toh dollar wrapper check karein
-        let processedText = txt;
-        if ((txt.includes('\\') || txt.includes('_') || txt.includes('^')) && !txt.includes('$')) {
-            processedText = `$${txt}$`;
+        // Auto-fix symbols (\gamma, \text{Pa} etc)
+        let processedText = text;
+        if ((text.includes('\\') || text.includes('_') || text.includes('^')) && !text.includes('$')) {
+            processedText = `$${text}$`;
         }
 
         try {
-            const r = await fetch(API_URL);
-            const data = await r.json();
-            const subData = data.filter(i => i.subject === activeSub);
-
-            if(subData.length >= 10) {
-                await fetch(`${API_URL}/id/${subData[0].id}`, { method: 'DELETE' });
-            }
-
-            await fetch(API_URL, {
+            // CORS error se bachne ke liye direct post request
+            const response = await fetch(API, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [{ "id": "Q_"+Date.now(), "question": processedText, "subject": activeSub, "likes": 0 }] })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: [{ "id": "Q_"+Date.now(), "question": processedText, "subject": currentSub, "likes": 0 }] })
             });
 
-            document.getElementById('dppInput').value = "";
-            fetchDPP();
-        } catch(e) { alert("Error!"); }
-        b.disabled = false; b.innerText = "🚀 Add Question";
+            if(response.ok) {
+                document.getElementById('dppInput').value = "";
+                loadDPP();
+            } else {
+                throw new Error("API Limit reached");
+            }
+        } catch(e) {
+            alert("Error: SheetDB limit ya connection problem!");
+        }
+        btn.disabled = false;
+        btn.innerText = "🚀 Add to Daily DPP";
     }
 
-    async function fetchDPP() {
-        const list = document.getElementById('dppList');
+    async function loadDPP() {
+        const display = document.getElementById('dppDisplay');
         document.getElementById('loader').style.display = "block";
-        list.innerHTML = "";
+        display.innerHTML = "";
 
         try {
-            const r = await fetch(API_URL);
-            const data = await r.json();
+            const res = await fetch(API);
+            const data = await res.json();
             document.getElementById('loader').style.display = "none";
 
-            const filtered = data.filter(i => i.subject === activeSub).reverse();
+            const filtered = data.filter(i => i.subject === currentSub).reverse();
 
             filtered.forEach(item => {
-                list.innerHTML += `
+                display.innerHTML += `
                     <div class="q-card">
-                        <span class="sub-badge">${item.subject}</span>
-                        <div class="q-body"><b>Q:</b> ${item.question}</div>
-                        <div class="action-bar">
-                            <span class="act-btn" onclick="like('${item.id}', ${item.likes || 0})"><i class="far fa-thumbs-up"></i> Relevant (${item.likes || 0})</span>
-                            <span class="act-btn"><i class="far fa-comment-dots"></i> Solve</span>
-                        </div>
+                        <span class="sub-tag">${item.subject}</span>
+                        <div class="q-body math-render"><b>Q:</b> ${item.question}</div>
                     </div>
                 `;
             });
 
-            if (window.MathJax) MathJax.typesetPromise();
-        } catch(e) { list.innerHTML = "API Connection Error"; }
+            if (window.MathJax) {
+                MathJax.typesetPromise([display]).catch((err) => console.log(err));
+            }
+        } catch(e) {
+            display.innerHTML = "<p style='text-align:center'>API Connection Error!</p>";
+        }
     }
 
-    async function like(id, c) {
-        await fetch(`${API_URL}/id/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "likes": parseInt(c) + 1 } })
-        });
-        fetchDPP();
-    }
-
-    fetchDPP();
+    loadDPP();
 </script>
 
 <script src="chatbot.js"></script>
