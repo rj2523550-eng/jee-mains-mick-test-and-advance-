@@ -9,14 +9,11 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$']]
+                displayMath: [['$$', '$$']],
+                processEscapes: true
             },
-            startup: {
-                pageReady: () => {
-                    return MathJax.startup.defaultPageReady().then(() => {
-                        console.log('MathJax is ready');
-                    });
-                }
+            options: {
+                processHtmlClass: 'mathjax-render'
             }
         };
     </script>
@@ -30,20 +27,22 @@
         .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 25px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
         .tab-btn { padding: 10px 18px; border-radius: 25px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .active-tab { background: var(--p); color: white; }
+        .active-tab { background: var(--p); color: white; transform: scale(1.05); }
         .add-card { background: white; padding: 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; }
+        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; transition: 0.3s; }
+        textarea:focus { border-color: var(--p); }
         .btn-post { background: var(--p); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 16px; }
         .q-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; text-align: left; border-left: 6px solid var(--p); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .math-text { font-size: 16px; color: #333; line-height: 1.6; }
+        .sub-tag { font-size: 10px; font-weight: bold; color: var(--p); text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .mathjax-render { font-size: 16px; color: #333; line-height: 1.6; overflow-x: auto; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-box">
-        <h2 style="margin:0;"><i class="fas fa-graduation-cap"></i> Daily DPP</h2>
-        <p style="font-size:12px; opacity:0.9; margin-top:5px;">Study Smart: 10 Questions Limit</p>
+        <h2 style="margin:0;"><i class="fas fa-edit"></i> Daily DPP</h2>
+        <p style="font-size:12px; opacity:0.9; margin-top:5px;">Physics & Chemistry Formula Fixer Active</p>
     </div>
 
     <div class="tabs">
@@ -53,11 +52,11 @@
     </div>
 
     <div class="add-card">
-        <textarea id="dppInput" placeholder="Yahan sawal likhein... (Example: $\sqrt{x^2+y^2}$)"></textarea>
-        <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to DPP</button>
+        <textarea id="dppInput" placeholder="Sawal likhein... (Example: \gamma = C_p/C_v)"></textarea>
+        <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add Question</button>
     </div>
 
-    <div id="loader" style="font-weight:bold; color:var(--p);">Fetching Questions...</div>
+    <div id="loader" style="font-weight:bold; color:var(--p);">Updating DPP...</div>
     <div id="dppDisplay"></div>
 </div>
 
@@ -72,24 +71,38 @@
         loadDPP();
     }
 
+    // --- Formula Fixer Logic ---
+    function formatFormula(text) {
+        // Agar text mein math symbols hain aur $ nahi hai, toh automatic $ add kar do
+        if ((text.includes('\\') || text.includes('_') || text.includes('^')) && !text.includes('$')) {
+            return `$${text}$`;
+        }
+        return text;
+    }
+
     async function saveDPP() {
-        const text = document.getElementById('dppInput').value.trim();
+        const rawText = document.getElementById('dppInput').value.trim();
         const btn = document.getElementById('postBtn');
-        if(!text) return alert("Kuch likho!");
+        if(!rawText) return alert("Kuch toh likho!");
 
         btn.disabled = true;
-        btn.innerText = "Adding...";
+        btn.innerText = "Processing...";
+
+        // Step 1: Fix Formula before saving
+        const text = formatFormula(rawText);
 
         try {
             const res = await fetch(API);
             const allData = await res.json();
             const subData = allData.filter(i => i.subject === currentSub);
 
+            // 10 Question Limit
             if(subData.length >= 10) {
                 const oldestId = subData[0].id;
                 await fetch(`${API}/id/${oldestId}`, { method: 'DELETE' });
             }
 
+            // Post New Question
             await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -98,9 +111,9 @@
 
             document.getElementById('dppInput').value = "";
             loadDPP();
-        } catch(e) { alert("API Error!"); }
+        } catch(e) { alert("Error saving data!"); }
         btn.disabled = false;
-        btn.innerText = "🚀 Add to DPP";
+        btn.innerText = "🚀 Add Question";
     }
 
     async function loadDPP() {
@@ -118,17 +131,17 @@
             filtered.forEach(item => {
                 display.innerHTML += `
                     <div class="q-card">
-                        <div class="math-text">${item.question}</div>
+                        <span class="sub-tag">${item.subject}</span>
+                        <div class="mathjax-render">${item.question}</div>
                     </div>
                 `;
             });
 
-            // --- IMPORTANT FIX: MathJax ko refresh karna ---
+            // Re-render MathJax
             if (window.MathJax) {
                 MathJax.typesetPromise([display]).catch((err) => console.log(err));
             }
-
-        } catch(e) { display.innerHTML = "Error!"; }
+        } catch(e) { display.innerHTML = "Sheet API Error!"; }
     }
 
     loadDPP();
