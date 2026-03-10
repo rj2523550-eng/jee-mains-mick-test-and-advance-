@@ -4,7 +4,7 @@
 
 // --- CONFIGURATION ---
 // DHYAN DEIN: Ye API Key public code mein hai. Ise sirf testing ke liye use karein.
-const CHAT_API_KEY = "AIzaSyDV0tNxYoiancgLEYS7usI3U4txxL1Oj6g"; // Aapki di hui key
+const CHAT_API_KEY = // Aapki di hui key
 const INITIAL_WELCOME_MSG = "Hello! Main aapka Jee Mains Master Hub mein swagat karta hoon. Aap Physics, Chemistry ya Maths se juda koi bhi sawal puch sakte hain. 🎓";
 
 // --- HTML STRUCTURE & CSS (Attractive UI) ---
