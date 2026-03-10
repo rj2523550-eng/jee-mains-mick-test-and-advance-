@@ -1,0 +1,100 @@
+// ==========================================
+// 1. CONFIGURATION (Apni Key Yahan Dalein)
+// ==========================================
+const GEMINI_API_KEY = "PASTE_YOUR_API_KEY_HERE"; 
+
+// ==========================================
+// 2. CHATBOT HTML STRUCTURE
+// ==========================================
+const chatbotHTML = `
+<div id="ai-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div id="ai-chat-window" style="display: none; width: 320px; height: 450px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; margin-bottom: 10px; border: 1px solid #ddd;">
+        <div style="background: #003366; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fas fa-robot"></i> JEE Master AI</span>
+            <span onclick="toggleAIChat()" style="cursor: pointer; font-size: 20px;">&times;</span>
+        </div>
+        
+        <div id="ai-chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #e1f5fe; padding: 10px; border-radius: 10px; align-self: flex-start; font-size: 14px; max-width: 85%;">
+                Namaste! Main aapka JEE Assistant hoon. Physics, Chem ya Maths ka koi bhi doubt puchiye.
+            </div>
+        </div>
+
+        <div style="padding: 10px; border-top: 1px solid #eee; display: flex; background: white;">
+            <input type="text" id="ai-chat-input" placeholder="Yahan sawal likhein..." style="flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; font-size: 14px;">
+            <button onclick="handleAISend()" style="background: #003366; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; margin-left: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <div onclick="toggleAIChat()" style="width: 60px; height: 60px; background: #003366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); float: right;">
+        <i class="fas fa-comment-dots" style="font-size: 28px;"></i>
+    </div>
+</div>
+`;
+
+// HTML ko page mein inject karna
+document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+// ==========================================
+// 3. CHATBOT FUNCTIONS
+// ==========================================
+
+function toggleAIChat() {
+    const chatWin = document.getElementById('ai-chat-window');
+    chatWin.style.display = (chatWin.style.display === 'none' || chatWin.style.display === '') ? 'flex' : 'none';
+}
+
+async function handleAISend() {
+    const inputField = document.getElementById('ai-chat-input');
+    const msgContainer = document.getElementById('ai-chat-messages');
+    const userText = inputField.value.trim();
+
+    if (!userText) return;
+
+    // User Message Dikhana
+    msgContainer.innerHTML += `<div style="background: #003366; color: white; padding: 10px; border-radius: 10px; align-self: flex-end; font-size: 14px; max-width: 85%;">${userText}</div>`;
+    inputField.value = "";
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // AI "Thinking" Indicator
+    const tempId = "ai-loading-" + Date.now();
+    msgContainer.innerHTML += `<div id="${tempId}" style="background: #eee; padding: 10px; border-radius: 10px; align-self: flex-start; font-size: 14px; max-width: 85%;">AI soch raha hai... 🧠</div>`;
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+    // Check if API Key is provided
+    if (GEMINI_API_KEY === "PASTE_YOUR_API_KEY_HERE" || GEMINI_API_KEY === "") {
+        setTimeout(() => {
+            document.getElementById(tempId).innerHTML = "Bhai, Chatbot ka dimaag (API Key) connect nahi hai. Please Google AI Studio se key lekar code mein daalein!";
+        }, 1000);
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: "You are a helpful JEE exam expert. Answer the following question accurately in Hinglish: " + userText }] }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            const aiText = data.candidates[0].content.parts[0].text;
+            document.getElementById(tempId).innerHTML = aiText.replace(/\n/g, "<br>");
+        } else {
+            throw new Error("Invalid Response");
+        }
+    } catch (error) {
+        document.getElementById(tempId).innerHTML = "Error: API connection fail ho gayi. Key check karein!";
+    }
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// Enter key se send karne ke liye
+document.getElementById('ai-chat-input')?.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') handleAISend();
+});
