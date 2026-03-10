@@ -1,101 +1,181 @@
-// PW-Inspired Attractive Chatbot Design
-const CHAT_API_KEY = "YAHAN_APNI_KEY_DALEIN"; 
+// ==================================================
+// JEE MAINS MASTER HUB - AI CHATBOT (chatbot.js)
+// ==================================================
 
+// --- CONFIGURATION ---
+// DHYAN DEIN: Ye API Key public code mein hai. Ise sirf testing ke liye use karein.
+const CHAT_API_KEY = "AIzaSyDV0tNxYoiancgLEYS7usI3U4txxL1Oj6g"; // Aapki di hui key
+const INITIAL_WELCOME_MSG = "Hello! Main aapka Jee Mains Master Hub mein swagat karta hoon. Aap Physics, Chemistry ya Maths se juda koi bhi sawal puch sakte hain. 🎓";
+
+// --- HTML STRUCTURE & CSS (Attractive UI) ---
 const chatUI = `
-<div id="pw-chat-wrapper" style="position: fixed; bottom: 25px; right: 25px; z-index: 99999; font-family: 'Poppins', sans-serif;">
-    <div id="pw-chat-window" style="display: none; width: 350px; height: 500px; background: #fff; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15); flex-direction: column; overflow: hidden; margin-bottom: 15px; border: 1px solid #f0f0f0; transition: 0.3s ease-in-out;">
-        
-        <div style="background: linear-gradient(135deg, #00468c, #0072ff); color: white; padding: 20px; display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-robot" style="font-size: 20px;"></i>
-                </div>
-                <div>
-                    <div style="font-weight: bold; font-size: 16px;">JEE Master AI</div>
-                    <div style="font-size: 11px; opacity: 0.8;">● Online | 24x7 Help</div>
-                </div>
-            </div>
-            <i class="fas fa-times" onclick="toggleChat()" style="cursor:pointer; font-size: 20px; opacity: 0.8;"></i>
-        </div>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+  #jee-chat-container { font-family: 'Poppins', sans-serif; position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+  #jee-chat-window { width: 380px; height: 500px; background: #fff; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; }
+  /* Header Design */
+  .jee-chat-header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 15px; display: flex; align-items: center; justify-content: space-between; }
+  .jee-logo-area { display: flex; align-items: center; gap: 10px; }
+  .jee-logo-icon { font-size: 24px; } /* Graduation Cap Icon */
+  .jee-title { font-weight: 600; font-size: 16px; }
+  .jee-subtitle { font-size: 11px; opacity: 0.8; }
+  .jee-close-btn { cursor: pointer; font-size: 20px; opacity: 0.7; transition: 0.2s; }
+  .jee-close-btn:hover { opacity: 1; transform: scale(1.1); }
+  /* Message Area */
+  #jee-msg-box { flex: 1; padding: 15px; overflow-y: auto; background: #f4f7f6; scroll-behavior: smooth; }
+  .message { margin-bottom: 12px; max-width: 85%; padding: 10px 14px; border-radius: 15px; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
+  .bot-msg { background: #e1ecfc; color: #1e3c72; border-top-left-radius: 2px; align-self: flex-start; float: left; clear: both; }
+  .user-msg { background: #1e3c72; color: white; border-bottom-right-radius: 2px; align-self: flex-end; float: right; clear: both; }
+  /* Input Area */
+  .jee-input-area { padding: 10px; background: white; border-top: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+  #jee-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; transition: 0.3s; }
+  #jee-input:focus { border-color: #1e3c72; }
+  #jee-send-btn { width: 45px; height: 45px; background: #1e3c72; color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+  #jee-send-btn:hover { background: #2a5298; transform: scale(1.05); }
+  /* Toggle Button (Collapsed State) */
+  #jee-toggle-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: linear-gradient(135deg, #1e3c72, #2a5298); border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 28px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9998; transition: 0.3s; }
+  #jee-toggle-btn:hover { transform: scale(1.1); }
+  /* Typing Indicator */
+  .typing-indicator { display: flex; gap: 5px; padding: 10px 14px; background: #e1ecfc; border-radius: 15px; width: fit-content; border-top-left-radius: 2px; float: left; clear: both;}
+  .typing-dot { width: 8px; height: 8px; background: #90a4ae; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+  @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+</style>
 
-        <div id="pw-msg-box" style="flex: 1; padding: 20px; overflow-y: auto; background: #f8f9fc; display: flex; flex-direction: column; gap: 15px;">
-            <div style="background: #fff; color: #444; padding: 12px 16px; border-radius: 15px 15px 15px 0; align-self: flex-start; max-width: 80%; font-size: 14px; box-shadow: 0 3px 10px rgba(0,0,0,0.03); line-height: 1.5;">
-                Namaste student! 👋 <br>Main aapka AI Guru hoon. Physics, Chem ya Maths mein koi bhi doubt ho, bina dare puchiye!
-            </div>
+<div id="jee-chat-container">
+  <div id="jee-chat-window">
+    <div class="jee-chat-header">
+      <div class="jee-logo-area">
+        <span class="jee-logo-icon">🎓</span> <div>
+          <div class="jee-title">JEE Mains Master Hub</div>
+          <div class="jee-subtitle">AI Study Assistant • Online</div>
         </div>
-
-        <div style="padding: 15px; background: white; border-top: 1px solid #eee; display: flex; align-items: center; gap: 10px;">
-            <input type="text" id="pw-input" placeholder="Type your doubt here..." style="flex: 1; border: none; background: #f1f3f6; border-radius: 30px; padding: 12px 20px; outline: none; font-size: 14px; color: #333;">
-            <button onclick="sendToAI()" style="background: #0072ff; color: white; border: none; border-radius: 50%; width: 45px; height: 450x; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; box-shadow: 0 4px 10px rgba(0,114,255,0.3); transition: 0.2s;">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+      </div>
+      <i class="fas fa-times jee-close-btn" onclick="toggleJeeChat()"></i>
     </div>
 
-    <div id="pw-toggle-btn" onclick="toggleChat()" style="width: 65px; height: 65px; background: linear-gradient(135deg, #00468c, #0072ff); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 25px rgba(0,70,140,0.4); border: 3px solid #fff; transition: 0.3s transform;">
-        <i class="fas fa-comment-dots" style="font-size: 30px;"></i>
+    <div id="jee-msg-box"></div>
+
+    <div class="jee-input-area">
+      <input type="text" id="jee-input" placeholder="Apna doubt yahan puchein..." autocomplete="off" />
+      <button id="jee-send-btn" onclick="sendToJeeAI()"><i class="fas fa-paper-plane"></i></button>
     </div>
+  </div>
+</div>
+
+<div id="jee-toggle-btn" onclick="toggleJeeChat()">
+  <i class="fas fa-comment-dots"></i>
 </div>
 `;
 
+// Inject UI into the body
 document.body.insertAdjacentHTML('beforeend', chatUI);
 
-function toggleChat() {
-    const win = document.getElementById('pw-chat-window');
-    const btn = document.getElementById('pw-toggle-btn');
-    if(win.style.display === 'none' || win.style.display === '') {
-        win.style.display = 'flex';
-        btn.style.transform = 'scale(0.8) rotate(90deg)';
-    } else {
-        win.style.display = 'none';
-        btn.style.transform = 'scale(1) rotate(0deg)';
-    }
+// --- JAVASCRIPT LOGIC ---
+
+// Elements references
+const chatWindow = document.getElementById('jee-chat-window');
+const toggleBtn = document.getElementById('jee-toggle-btn');
+const msgBox = document.getElementById('jee-msg-box');
+const inputField = document.getElementById('jee-input');
+
+// Function to open/close chat
+function toggleJeeChat() {
+  if (chatWindow.style.display === 'none') {
+    chatWindow.style.display = 'flex';
+    toggleBtn.style.display = 'none';
+  } else {
+    chatWindow.style.display = 'none';
+    toggleBtn.style.display = 'flex';
+  }
 }
 
-async function sendToAI() {
-    const input = document.getElementById('pw-input');
-    const box = document.getElementById('pw-msg-box');
-    const txt = input.value.trim();
-    if(!txt) return;
+// Helper function to add messages to chat box
+function appendMessage(text, sender) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message', sender === 'user' ? 'user-msg' : 'bot-msg');
+    // Convert line breaks to <br> for cleaner output
+    msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+    msgBox.appendChild(msgDiv);
+    // Auto scroll to bottom
+    msgBox.scrollTop = msgBox.scrollHeight;
+}
 
-    // User Message Bubble
-    box.innerHTML += `
-        <div style="background: #0072ff; color: white; padding: 12px 16px; border-radius: 15px 15px 0 15px; align-self: flex-end; max-width: 80%; font-size: 14px; box-shadow: 0 4px 12px rgba(0,114,255,0.2);">
-            ${txt}
-        </div>
-    `;
-    input.value = "";
-    box.scrollTop = box.scrollHeight;
+// Helper function to show typing indicator
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    msgBox.appendChild(typingDiv);
+    msgBox.scrollTop = msgBox.scrollHeight;
+}
 
-    // Typing Animation / Thinking
-    const loaderId = "loader-" + Date.now();
-    box.innerHTML += `
-        <div id="${loaderId}" style="background: #eef2f7; color: #666; padding: 10px 15px; border-radius: 15px; align-self: flex-start; font-size: 13px;">
-            AI is thinking... 🧠
-        </div>
-    `;
+// Helper function to remove typing indicator
+function removeTypingIndicator() {
+    const typingDiv = document.getElementById('typing-indicator');
+    if (typingDiv) typingDiv.remove();
+}
 
-    if(CHAT_API_KEY === "YAHAN_APNI_KEY_DALEIN") {
-        setTimeout(() => {
-            document.getElementById(loaderId).innerHTML = "<b>Bhai, API Key connect nahi hai!</b><br>Google AI Studio se key lekar code ki pehli line mein daalein.";
-            document.getElementById(loaderId).style.background = "#ffebee";
-            document.getElementById(loaderId).style.color = "#c62828";
-        }, 1000);
-        return;
-    }
+// Main function to handle sending messages
+async function sendToJeeAI() {
+    const user Text = inputField.value.trim();
+    if (!userText) return;
+
+    // 1. Show User Message
+    appendMessage(userText, 'user');
+    inputField.value = '';
+    showTypingIndicator();
 
     try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CHAT_API_KEY}`, {
+        // 2. Call Gemini API (Using fetch for simplicity in a single file)
+        // Using gemini-1.5-flash model for faster responses
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CHAT_API_KEY}`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ contents: [{ parts: [{ text: "You are a JEE Expert. Answer: " + txt }] }] })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "contents": [{
+                    "parts": [{"text": userText}]
+                }],
+                // Optional: System instruction to keep it focused on JEE
+                "system_instruction": {
+                    "parts": [{"text": "You are an expert AI assistant for JEE Mains Master Hub. Your goal is to help students with Physics, Chemistry, and Mathematics questions in Hinglish. Be polite, encouraging, and accurate."}]
+                }
+            })
         });
-        const data = await res.json();
-        document.getElementById(loaderId).innerHTML = data.candidates[0].content.parts[0].text.replace(/\n/g, "<br>");
-        document.getElementById(loaderId).style.background = "#fff";
-        document.getElementById(loaderId).style.color = "#333";
-    } catch(e) {
-        document.getElementById(loaderId).innerText = "Connection failed! ⚠️";
+
+        const data = await response.json();
+        removeTypingIndicator();
+
+        // 3. Display AI Response
+        if (data.candidates && data.candidates[0].content) {
+            const aiText = data.candidates[0].content.parts[0].text;
+            appendMessage(aiText, 'bot');
+        } else {
+             appendMessage("Maaf kijiye, mujhe samajh nahi aaya. Kripya dobara puchein.", 'bot');
+        }
+
+    } catch (error) {
+        removeTypingIndicator();
+        console.error("Error connecting to Gemini:", error);
+        appendMessage("Internet connection error ya API issue. Thodi der baad try karein.", 'bot');
     }
-    box.scrollTop = box.scrollHeight;
 }
+
+// --- INITIALIZATION ---
+
+// 1. Enable "Enter" key to send
+inputField.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendToJeeAI();
+});
+
+// 2. Show Welcome Message Automatically on Load
+setTimeout(() => {
+    appendMessage(INITIAL_WELCOME_MSG, 'bot');
+}, 500); // Half-second delay for smooth appearance
+
+// Note: Chat window is OPEN by default in the CSS above.
+// If you want it closed by default, uncomment the next line:
+// toggleJeeChat(); 
+    
