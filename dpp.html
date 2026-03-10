@@ -3,190 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Daily DPP | JEE Master Hub</title>
-    
+    <title>Daily DPP | JEE Master Hub</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        :root { 
-            --primary: #003366; 
-            --accent: #00d2ff;
-            --bg: #f8f9fc; 
-            --white: #ffffff; 
-        }
+        :root { --p: #003366; --bg: #f4f7f9; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
+        .container { max-width: 500px; margin: 0 auto; }
+        
+        /* Subject Tabs */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 8px 15px; border-radius: 20px; border: none; background: #ddd; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; }
+        .active-tab { background: var(--p); color: white; }
 
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100-vh;
-            padding: 20px;
-        }
+        .add-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        textarea { width: 100%; height: 100px; border: 1px solid #ddd; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; margin-bottom: 10px; }
+        
+        .btn-post { background: var(--p); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; }
+        
+        .q-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; text-align: left; border-left: 5px solid var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.05); animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .container { 
-            width: 100%;
-            max-width: 450px; 
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        /* Glassmorphism Card Design */
-        .add-card { 
-            background: var(--white); 
-            padding: 30px; 
-            border-radius: 25px; 
-            box-shadow: 0 15px 35px rgba(0, 51, 102, 0.1); 
-            text-align: center;
-            border: 1px solid rgba(0, 51, 102, 0.05);
-        }
-
-        .icon-circle {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 30px;
-            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.2);
-        }
-
-        h2 { color: var(--primary); margin: 0 0 10px 0; font-size: 22px; }
-        p { color: #777; font-size: 14px; margin-bottom: 25px; }
-
-        textarea { 
-            width: 100%; 
-            height: 150px; 
-            border: 2px solid #eee; 
-            border-radius: 15px; 
-            padding: 15px; 
-            box-sizing: border-box; 
-            resize: none; 
-            font-size: 16px; 
-            outline: none;
-            transition: 0.3s;
-            background: #fafafa;
-        }
-
-        textarea:focus { 
-            border-color: var(--primary); 
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 51, 102, 0.05);
-        }
-
-        .btn-submit { 
-            background: linear-gradient(90deg, var(--primary), #0056b3); 
-            color: white; 
-            border: none; 
-            padding: 15px; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            font-size: 16px;
-            cursor: pointer; 
-            width: 100%; 
-            margin-top: 20px; 
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-submit:hover { 
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 51, 102, 0.2);
-        }
-
-        .btn-submit:active { transform: translateY(0); }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Math Preview Tooltip */
-        .hint {
-            font-size: 11px;
-            color: #aaa;
-            margin-top: 8px;
-            text-align: left;
-        }
+        .vote-bar { display: flex; gap: 15px; margin-top: 10px; font-size: 13px; color: #666; }
+        .vote-item { cursor: pointer; }
+        .vote-item:hover { color: var(--p); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="add-card">
-        <div class="icon-circle">
-            <i class="fas fa-plus"></i>
-        </div>
-        <h2>Create Daily DPP</h2>
-        <p>Apna JEE challenge yahan add karein</p>
+    <h2 style="color: var(--p);"><i class="fas fa-edit"></i> Daily DPP</h2>
 
-        <textarea id="dppText" placeholder="Example: Find the value of $\int e^x dx$ ..."></textarea>
-        
-        <div class="hint">
-            <i class="fas fa-info-circle"></i> Use <b>$ formula $</b> for better display.
-        </div>
-
-        <button class="btn-submit" id="submitBtn" onclick="sendDPP()">
-            <i class="fas fa-paper-plane"></i> Add Question
-        </button>
+    <div class="tabs">
+        <button class="tab-btn active-tab" onclick="switchSubject('Physics', this)">Physics</button>
+        <button class="tab-btn" onclick="switchSubject('Chemistry', this)">Chemistry</button>
+        <button class="tab-btn" onclick="switchSubject('Maths', this)">Maths</button>
     </div>
+
+    <div class="add-card">
+        <textarea id="qInput" placeholder="Write Question for current subject..."></textarea>
+        <button class="btn-post" id="postBtn" onclick="handleDPP()">Add Question</button>
+    </div>
+
+    <div id="loader" style="color:var(--p)">Loading Questions...</div>
+    <div id="displayArea"></div>
 </div>
 
 <script>
-    const API_DPP = "https://sheetdb.io/api/v1/pqdhac1zdqmck"; 
+    const API = "https://sheetdb.io/api/v1/pqdhac1zdqmck";
+    let currentSubject = "Physics";
 
-    async function sendDPP() {
-        const qText = document.getElementById('dppText').value.trim();
-        const btn = document.getElementById('submitBtn');
+    function switchSubject(sub, btn) {
+        currentSubject = sub;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+        btn.classList.add('active-tab');
+        loadDPP();
+    }
 
-        if(!qText) {
-            alert("Bhai, kuch likho toh sahi!");
-            return;
+    async function handleDPP() {
+        const text = document.getElementById('qInput').value.trim();
+        const btn = document.getElementById('postBtn');
+        if(!text) return alert("Pehle question likho!");
+
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+
+        // 1. Pehle pura data fetch karo check karne ke liye
+        const res = await fetch(API);
+        let allData = await res.json();
+        
+        // Is subject ke kitne questions hain?
+        let subjectData = allData.filter(item => item.subject === currentSubject);
+
+        // 2. Agar 10 questions hain, toh sabse purana delete karo
+        if(subjectData.length >= 10) {
+            const oldId = subjectData[0].id;
+            await fetch(`${API}/id/${oldId}`, { method: 'DELETE' });
         }
 
-        // Visual feedback
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
-
-        const data = {
+        // 3. Naya question add karo
+        const newData = {
             "id": "DPP_" + Date.now(),
-            "question": qText,
-            "votes": 0,
-            "badge": "Community DPP",
-            "type": "DPP"
+            "question": text,
+            "subject": currentSubject,
+            "votes": 0
         };
 
+        await fetch(API, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ data: [newData] })
+        });
+
+        alert("Question Added!");
+        document.getElementById('qInput').value = "";
+        btn.disabled = false;
+        btn.innerText = "Add Question";
+        loadDPP();
+    }
+
+    async function loadDPP() {
+        const area = document.getElementById('displayArea');
+        document.getElementById('loader').style.display = 'block';
+        area.innerHTML = "";
+
         try {
-            const response = await fetch(API_DPP, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [data] })
+            const res = await fetch(API);
+            const data = await res.json();
+            document.getElementById('loader').style.display = 'none';
+
+            // Sirf current subject ke dikhao
+            const filtered = data.filter(item => item.subject === currentSubject).reverse();
+
+            filtered.forEach(item => {
+                area.innerHTML += `
+                    <div class="q-card">
+                        <div style="font-size:15px; color:#333;">${item.question}</div>
+                        <div class="vote-bar">
+                            <span class="vote-item"><i class="far fa-thumbs-up"></i> Relevant</span>
+                            <span class="vote-item"><i class="far fa-thumbs-down"></i> Not for JEE</span>
+                        </div>
+                    </div>
+                `;
             });
 
-            if(response.ok) {
-                alert("Zabardast! DPP add ho gaya. 🚀");
-                document.getElementById('dppText').value = "";
-            }
-        } catch(error) {
-            alert("Error: Network check karein!");
-        }
-
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Add Question';
+            if (window.MathJax) MathJax.typesetPromise();
+        } catch(e) { console.log("Load error"); }
     }
+
+    // Start
+    loadDPP();
 </script>
 
 <script src="chatbot.js"></script>
-
 </body>
 </html>
