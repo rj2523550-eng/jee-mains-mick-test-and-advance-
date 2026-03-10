@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily DPP | JEE Master Hub</title>
-    
+
     <script>
         window.MathJax = {
             tex: {
@@ -21,55 +21,39 @@
     <style>
         :root { --p: #003366; --bg: #f4f7f9; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; overflow-x: hidden; }
-        
         .container { width: 100%; max-width: 480px; margin: 0 auto; box-sizing: border-box; }
-        
-        /* Header Box */
-        .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 20px; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align: center; }
-        .info-text { font-size: 11px; margin-top: 8px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 10px; line-height: 1.4; text-align: left; }
 
-        /* Subject Tabs */
+        /* Header */
+        .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 15px; }
+        .info-text { font-size: 11px; margin-top: 8px; background: rgba(255,255,255,0.15); padding: 8px; border-radius: 8px; }
+
+        /* Tabs */
         .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
-        .tab-btn { padding: 8px 15px; border-radius: 20px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: 600; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn { padding: 8px 15px; border-radius: 20px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: bold; transition: 0.3s; }
         .active-tab { background: var(--p); color: white; }
 
-        /* Add Question Card */
-        .add-card { background: white; padding: 15px; border-radius: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
-        textarea { width: 100%; height: 90px; border: 2px solid #eee; border-radius: 12px; padding: 12px; box-sizing: border-box; resize: none; font-size: 14px; outline: none; margin-bottom: 10px; display: block; }
-        .btn-post { background: var(--p); color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        /* Input Card */
+        .add-card { background: white; padding: 15px; border-radius: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        textarea { width: 100%; height: 90px; border: 2px solid #eee; border-radius: 12px; padding: 10px; box-sizing: border-box; resize: none; font-family: inherit; }
+        .btn-post { background: var(--p); color: white; border: none; border-radius: 10px; padding: 12px; width: 100%; margin-top: 10px; cursor: pointer; font-weight: bold; }
+        .btn-post:disabled { background: #ccc; }
 
-        /* DPP List Design (Fixed Stretching) */
-        .q-card { 
-            background: white; 
-            border-radius: 15px; 
-            padding: 15px; 
-            margin-bottom: 15px; 
-            text-align: left; 
-            border-left: 5px solid var(--p); 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            width: 100%;
-            box-sizing: border-box;
-            word-wrap: break-word; /* Text wraps to next line */
-            overflow-wrap: break-word;
-            white-space: normal; /* No horizontal stretching */
-            display: block;
-        }
+        /* Question Cards */
+        .q-card { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 5px solid var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        .sub-tag { font-size: 10px; font-weight: bold; color: var(--p); text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .q-body { font-size: 14px; color: #333; line-height: 1.6; word-wrap: break-word; }
         
-        .sub-tag { font-size: 10px; font-weight: bold; color: var(--p); text-transform: uppercase; display: block; margin-bottom: 6px; }
-        .q-body { font-size: 14px; color: #333; line-height: 1.6; display: block; width: 100%; }
-        
-        .math-render { overflow-x: auto; max-width: 100%; }
-
-        #loader { font-size: 14px; color: var(--p); text-align: center; margin: 20px; font-weight: bold; }
+        #loader { text-align: center; padding: 20px; color: var(--p); font-weight: bold; }
+        .error-msg { color: #d9534f; text-align: center; padding: 20px; background: #fdf2f2; border-radius: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-box">
-        <h2 style="margin:0; font-size: 18px;"><i class="fas fa-edit"></i> Community DPP</h2>
+        <h2 style="margin:0;"><i class="fas fa-edit"></i> Community DPP</h2>
         <div class="info-text">
-            <b>Student Power:</b> Aap khud 1 question DPP mein likh sakte hain jise saare students solve kar sakein. Aap hi dpp banaoge aur dusre solve karenge! 🚀
+            <b>Student Power:</b> Aap khud 1 question post kar sakte hain jo sab solve karenge! 🚀
         </div>
     </div>
 
@@ -84,88 +68,117 @@
         <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to Daily DPP</button>
     </div>
 
-    <div id="loader">Fetching Community DPP...</div>
+    <div id="loader">Fetching Questions...</div>
     <div id="dppDisplay"></div>
 </div>
 
 <script>
-    const API = "https://sheetdb.io/api/v1/mtmmrqc4aq4bq"; 
+    // APNI SHEETDB URL YAHAN DALYE
+    const API = "https://sheetdb.io/api/v1/mtwmrqc4sq4hq"; 
     let currentSub = "Physics";
 
-    function changeSub(s, b) {
-        currentSub = s;
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
-        b.classList.add('active-tab');
+    function changeSub(sub, btn) {
+        currentSub = sub;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+        btn.classList.add('active-tab');
         loadDPP();
     }
 
     async function saveDPP() {
         const text = document.getElementById('dppInput').value.trim();
         const btn = document.getElementById('postBtn');
-        if(!text) return alert("Bhai, sawal toh likho!");
+
+        if(!text) {
+            alert("Bhai, sawal toh likho!");
+            return;
+        }
 
         btn.disabled = true;
         btn.innerText = "Adding...";
 
-        // Auto-fix symbols (\gamma, \text{Pa} etc)
+        // Math symbols check
         let processedText = text;
         if ((text.includes('\\') || text.includes('_') || text.includes('^')) && !text.includes('$')) {
-            processedText = `$${text}$`;
+            processedText = `$$ ${text} $$`;
         }
 
         try {
-            // CORS error se bachne ke liye direct post request
             const response = await fetch(API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ data: [{ "id": "Q_"+Date.now(), "question": processedText, "subject": currentSub, "likes": 0 }] })
+                body: JSON.stringify({
+                    data: [{
+                        "id": "Q_" + Date.now(),
+                        "question": processedText,
+                        "subject": currentSub
+                    }]
+                })
             });
 
             if(response.ok) {
                 document.getElementById('dppInput').value = "";
                 loadDPP();
             } else {
-                throw new Error("API Limit reached");
+                const errData = await response.json();
+                throw new Error(errData.error || "API Limit Reached");
             }
-        } catch(e) {
-            alert("Error: SheetDB limit ya connection problem!");
+        } catch (e) {
+            alert("Error: " + e.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "🚀 Add to Daily DPP";
         }
-        btn.disabled = false;
-        btn.innerText = "🚀 Add to Daily DPP";
     }
 
     async function loadDPP() {
         const display = document.getElementById('dppDisplay');
-        document.getElementById('loader').style.display = "block";
+        const loader = document.getElementById('loader');
+        
+        loader.style.display = "block";
         display.innerHTML = "";
 
         try {
             const res = await fetch(API);
+            if (!res.ok) throw new Error("API Limit reached or Sheet not public");
+
             const data = await res.json();
-            document.getElementById('loader').style.display = "none";
+            loader.style.display = "none";
 
             const filtered = data.filter(i => i.subject === currentSub).reverse();
 
+            if(filtered.length === 0) {
+                display.innerHTML = "<p style='text-align:center;'>Is subject mein abhi koi sawal nahi hai.</p>";
+                return;
+            }
+
             filtered.forEach(item => {
-                display.innerHTML += `
-                    <div class="q-card">
-                        <span class="sub-tag">${item.subject}</span>
-                        <div class="q-body math-render"><b>Q:</b> ${item.question}</div>
-                    </div>
+                const card = document.createElement('div');
+                card.className = 'q-card';
+                card.innerHTML = `
+                    <span class="sub-tag">${item.subject}</span>
+                    <div class="q-body"><b>Q:</b> ${item.question}</div>
                 `;
+                display.appendChild(card);
             });
 
             if (window.MathJax) {
-                MathJax.typesetPromise([display]).catch((err) => console.log(err));
+                MathJax.typesetPromise([display]).catch(err => console.log(err));
             }
-        } catch(e) {
-            display.innerHTML = "<p style='text-align:center'>API Connection Error!</p>";
+
+        } catch (e) {
+            loader.style.display = "none";
+            display.innerHTML = `<div class="error-msg">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                <b>Connection Error!</b><br>
+                ${e.message}<br>
+                <small>Check if SheetDB monthly limit (500) is over.</small>
+            </div>`;
         }
     }
 
+    // Initial Load
     loadDPP();
 </script>
 
-<script src="chatbot.js"></script>
 </body>
 </html>
