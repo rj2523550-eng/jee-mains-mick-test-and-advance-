@@ -9,46 +9,33 @@
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
+                displayMath: [['$$', '$$']]
             },
-            options: {
-                ignoreHtmlClass: 'no-mathjax',
-                processHtmlClass: 'mathjax-content'
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        console.log('MathJax is ready');
+                    });
+                }
             }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root { --p: #003366; --bg: #f0f4f8; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
         .container { max-width: 500px; margin: 0 auto; text-align: center; }
-        
-        /* Attractive Header */
         .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 25px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        
-        /* Subject Tabs */
         .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
         .tab-btn { padding: 10px 18px; border-radius: 25px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .active-tab { background: var(--p); color: white; transform: scale(1.05); }
-
-        /* Input Area */
+        .active-tab { background: var(--p); color: white; }
         .add-card { background: white; padding: 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; transition: 0.3s; }
-        textarea:focus { border-color: var(--p); }
-        .btn-post { background: var(--p); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .btn-post:hover { background: #002244; }
-
-        /* DPP Cards */
-        .q-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; text-align: left; border-left: 6px solid var(--p); box-shadow: 0 5px 15px rgba(0,0,0,0.03); animation: slideUp 0.4s ease; }
-        .sub-tag { font-size: 10px; font-weight: bold; color: white; background: var(--p); padding: 3px 10px; border-radius: 10px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
-        .mathjax-content { font-size: 16px; color: #333; line-height: 1.6; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #loader { font-weight: bold; color: var(--p); margin: 20px; }
+        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; }
+        .btn-post { background: var(--p); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 16px; }
+        .q-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; text-align: left; border-left: 6px solid var(--p); box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .math-text { font-size: 16px; color: #333; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -56,7 +43,7 @@
 <div class="container">
     <div class="header-box">
         <h2 style="margin:0;"><i class="fas fa-graduation-cap"></i> Daily DPP</h2>
-        <p style="font-size:12px; opacity:0.9; margin-top:5px;">Study Smart: 10 Questions Limit per Subject</p>
+        <p style="font-size:12px; opacity:0.9; margin-top:5px;">Study Smart: 10 Questions Limit</p>
     </div>
 
     <div class="tabs">
@@ -66,11 +53,11 @@
     </div>
 
     <div class="add-card">
-        <textarea id="dppInput" placeholder="Yahan sawal likhein... (Math ke liye $ formula $ use karein)"></textarea>
+        <textarea id="dppInput" placeholder="Yahan sawal likhein... (Example: $\sqrt{x^2+y^2}$)"></textarea>
         <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to DPP</button>
     </div>
 
-    <div id="loader">Fetching Questions...</div>
+    <div id="loader" style="font-weight:bold; color:var(--p);">Fetching Questions...</div>
     <div id="dppDisplay"></div>
 </div>
 
@@ -78,7 +65,6 @@
     const API = "https://sheetdb.io/api/v1/mtmmrqc4aq4bq"; 
     let currentSub = "Physics";
 
-    // Subject badalne ka logic
     function changeSub(sub, btn) {
         currentSub = sub;
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
@@ -86,107 +72,68 @@
         loadDPP();
     }
 
-    // Question save karne ka logic (With 10 Limit & MathJax support)
     async function saveDPP() {
         const text = document.getElementById('dppInput').value.trim();
         const btn = document.getElementById('postBtn');
-        if(!text) return alert("Bhai, sawal toh likho!");
+        if(!text) return alert("Kuch likho!");
 
         btn.disabled = true;
-        btn.innerText = "Processing...";
+        btn.innerText = "Adding...";
 
         try {
-            // 1. Fetch current data
             const res = await fetch(API);
             const allData = await res.json();
-            
-            // 2. Is subject ke questions filter karo
             const subData = allData.filter(i => i.subject === currentSub);
 
-            // 3. Limit Logic: Agar 10 hain, toh sabse purana delete karo
             if(subData.length >= 10) {
                 const oldestId = subData[0].id;
                 await fetch(`${API}/id/${oldestId}`, { method: 'DELETE' });
             }
 
-            // 4. Naya question post karo
-            const payload = {
-                "id": "Q_" + Date.now(),
-                "question": text,
-                "subject": currentSub,
-                "likes": 0,
-                "dislikes": 0
-            };
-
             await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ data: [payload] })
+                body: JSON.stringify({ data: [{ "id": "Q_"+Date.now(), "question": text, "subject": currentSub, "likes": 0, "dislikes": 0 }] })
             });
 
             document.getElementById('dppInput').value = "";
-            alert("Sawal add ho gaya! ✅");
-        } catch(e) { alert("Error: API check karein!"); }
-
+            loadDPP();
+        } catch(e) { alert("API Error!"); }
         btn.disabled = false;
         btn.innerText = "🚀 Add to DPP";
-        loadDPP();
     }
 
-    // Questions dikhane ka logic
     async function loadDPP() {
         const display = document.getElementById('dppDisplay');
-        const loader = document.getElementById('loader');
-        loader.style.display = "block";
+        document.getElementById('loader').style.display = "block";
         display.innerHTML = "";
 
         try {
             const res = await fetch(API);
             const data = await res.json();
-            loader.style.display = "none";
+            document.getElementById('loader').style.display = "none";
 
-            // Sirf current subject ke sawal dikhao (Latest first)
             const filtered = data.filter(i => i.subject === currentSub).reverse();
 
             filtered.forEach(item => {
                 display.innerHTML += `
                     <div class="q-card">
-                        <span class="sub-tag">${item.subject}</span>
-                        <div class="mathjax-content">${item.question}</div>
-                        <div style="margin-top:15px; display:flex; gap:20px; font-size:13px; color:#666;">
-                            <span style="cursor:pointer;" onclick="vote('${item.id}', 'likes', ${item.likes || 0})"><i class="far fa-thumbs-up"></i> Relevant (${item.likes || 0})</span>
-                            <span style="cursor:pointer;" onclick="vote('${item.id}', 'dislikes', ${item.dislikes || 0})"><i class="far fa-thumbs-down"></i> Irrelevant</span>
-                        </div>
+                        <div class="math-text">${item.question}</div>
                     </div>
                 `;
             });
 
-            // MathJax ko refresh karna taaki formulae render hon
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise();
+            // --- IMPORTANT FIX: MathJax ko refresh karna ---
+            if (window.MathJax) {
+                MathJax.typesetPromise([display]).catch((err) => console.log(err));
             }
-        } catch(e) { display.innerHTML = "Network error!"; }
+
+        } catch(e) { display.innerHTML = "Error!"; }
     }
 
-    // Like system
-    async function vote(id, type, current) {
-        alert("Thanks for voting!");
-        const update = {};
-        update[type] = parseInt(current) + 1;
-
-        await fetch(`${API}/id/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: update })
-        });
-        loadDPP();
-    }
-
-    // Shuruat mein load karo
     loadDPP();
 </script>
 
 <script src="chatbot.js"></script>
-
 </body>
 </html>
