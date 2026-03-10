@@ -7,14 +7,8 @@
     
     <script>
         window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$']],
-                processEscapes: true
-            },
-            options: {
-                enableMenu: false
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], processEscapes: true },
+            options: { processHtmlClass: 'math-render' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -25,39 +19,29 @@
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 10px; }
         .container { max-width: 500px; margin: 0 auto; text-align: center; }
         
-        /* Attractive Header */
+        /* Professional Header */
         .header-box { background: linear-gradient(135deg, var(--p), #0056b3); color: white; padding: 25px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .info-text { font-size: 13px; margin-top: 10px; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; line-height: 1.5; }
 
-        /* Subject Tabs */
+        /* Tabs */
         .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
         .tab-btn { padding: 10px 20px; border-radius: 25px; border: none; background: white; color: var(--p); cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .active-tab { background: var(--p); color: white; }
 
         /* Input Card */
         .add-card { background: white; padding: 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; }
+        textarea { width: 100%; height: 110px; border: 2px solid #f0f0f0; border-radius: 15px; padding: 15px; box-sizing: border-box; resize: none; font-size: 15px; outline: none; transition: 0.3s; }
+        textarea:focus { border-color: var(--p); }
         .btn-post { background: var(--p); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; font-size: 16px; }
 
-        /* DPP Cards (The Professional Look) */
+        /* DPP Question Cards (Pehal jaisa professional look) */
         .q-card { 
-            background: white; 
-            border-radius: 15px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            text-align: left; 
-            border-left: 6px solid var(--p); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            width: 100%;
-            box-sizing: border-box;
-            word-wrap: break-word;
+            background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; 
+            text-align: left; border-left: 6px solid var(--p); box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 100%; box-sizing: border-box; word-wrap: break-word; overflow-wrap: break-word; display: block;
         }
         .sub-tag { font-size: 10px; font-weight: bold; color: var(--p); text-transform: uppercase; margin-bottom: 10px; display: block; }
         .math-render { font-size: 15px; color: #333; line-height: 1.7; display: block; }
-        
-        .vote-bar { display: flex; gap: 20px; margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 12px; font-size: 13px; color: #666; }
-        .vote-item { cursor: pointer; transition: 0.2s; }
-        .vote-item:hover { color: var(--p); }
 
         #loader { font-weight: bold; color: var(--p); margin: 20px; }
     </style>
@@ -66,7 +50,7 @@
 
 <div class="container">
     <div class="header-box">
-        <h2 style="margin:0;"><i class="fas fa-edit"></i> Daily DPP</h2>
+        <h2 style="margin:0;"><i class="fas fa-layer-group"></i> Daily Community DPP</h2>
         <div class="info-text">
             Aap khud 1 question DPP mein likh sakte hain jise saare students solve kar sakein. Aap hi DPP banaoge aur dusre solve karenge! 🚀
         </div>
@@ -79,7 +63,7 @@
     </div>
 
     <div class="add-card">
-        <textarea id="dppInput" placeholder="Apna JEE question likhein... (Math ke liye $ formula $ use karein)"></textarea>
+        <textarea id="dppInput" placeholder="Yahan question likhein... (Math/Phy symbols ke liye \ use karein)"></textarea>
         <button class="btn-post" id="postBtn" onclick="saveDPP()">🚀 Add to Daily DPP</button>
     </div>
 
@@ -88,9 +72,7 @@
 </div>
 
 <script>
-    // --- APNI SHEETDB API URL YAHAN DALEIN ---
     const API = "https://sheetdb.io/api/v1/mtmmrqc4aq4bq"; 
-    
     let currentSub = "Physics";
 
     function changeSub(sub, btn) {
@@ -108,24 +90,13 @@
         btn.disabled = true;
         btn.innerText = "Adding...";
 
-        // --- Formula Fixer Logic ---
+        // Formula Fixer: Automatically adds $ for MathJax
         let finalText = rawText;
         if ((finalText.includes('\\') || finalText.includes('_') || finalText.includes('^')) && !finalText.includes('$')) {
             finalText = `$${finalText}$`;
         }
 
         try {
-            // 1. Fetch current data
-            const res = await fetch(API);
-            const allData = await res.json();
-            const subData = allData.filter(i => i.subject === currentSub);
-
-            // 2. 10 Question Limit Logic
-            if(subData.length >= 10) {
-                await fetch(`${API}/id/${subData[0].id}`, { method: 'DELETE' });
-            }
-
-            // 3. Post New Question
             await fetch(API, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -134,7 +105,9 @@
 
             document.getElementById('dppInput').value = "";
             loadDPP();
-        } catch(e) { alert("Network Error! API check karein."); }
+        } catch(e) { 
+            alert("Error: SheetDB limit khatam ho sakti hai!"); 
+        }
         btn.disabled = false;
         btn.innerText = "🚀 Add to Daily DPP";
     }
@@ -149,6 +122,7 @@
             const data = await res.json();
             document.getElementById('loader').style.display = "none";
 
+            // Latest questions first
             const filtered = data.filter(i => i.subject === currentSub).reverse();
 
             filtered.forEach(item => {
@@ -156,10 +130,6 @@
                     <div class="q-card">
                         <span class="sub-tag">${item.subject}</span>
                         <div class="math-render"><b>Q:</b> ${item.question}</div>
-                        <div class="vote-bar">
-                            <span class="vote-item" onclick="vote('${item.id}', ${item.likes || 0})"><i class="far fa-thumbs-up"></i> Relevant (${item.likes || 0})</span>
-                            <span class="vote-item"><i class="far fa-comment"></i> Solve</span>
-                        </div>
                     </div>
                 `;
             });
@@ -168,23 +138,12 @@
             if (window.MathJax) {
                 MathJax.typesetPromise([display]).catch((err) => console.log(err));
             }
-        } catch(e) { display.innerHTML = "Sheet connect nahi ho rahi!"; }
-    }
-
-    async function vote(id, current) {
-        alert("Upvoted! 👍");
-        await fetch(`${API}/id/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ data: { "likes": parseInt(current) + 1 } })
-        });
-        loadDPP();
+        } catch(e) { display.innerHTML = "API Connection Error!"; }
     }
 
     loadDPP();
 </script>
 
 <script src="chatbot.js"></script>
-
 </body>
 </html>
