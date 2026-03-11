@@ -5,137 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Flashcards | Master Hub</title>
     
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$']]
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        :root { --p: #003366; --accent: #00d2ff; --bg: #f0f4f8; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 20px; text-align: center; }
+        :root { --p: #003366; --bg: #f4f7f9; --phy: #007bff; --chem: #28a745; --math: #dc3545; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
+        .container { max-width: 600px; margin: 0 auto; text-align: center; }
+
+        .header { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        .header { margin-bottom: 30px; }
-        .header h1 { color: var(--p); margin: 0; }
-        .header p { color: #666; font-size: 14px; }
+        /* Subject Tabs */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
+        .tab-btn { padding: 10px 15px; border-radius: 25px; border: none; background: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .active-phy { background: var(--phy) !important; color: white; }
+        .active-chem { background: var(--chem) !important; color: white; }
+        .active-math { background: var(--math) !important; color: white; }
 
-        /* Grid Layout */
-        .flashcard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        /* Flashcard Container */
+        .card-container { display: grid; grid-template-columns: 1fr; gap: 15px; }
 
-        /* Flashcard Flip Animation */
-        .flashcard {
-            background-color: transparent;
-            width: 100%;
-            height: 200px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 15px;
-        }
-
-        .flashcard.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
+        /* Flip Animation */
+        .flashcard { background: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .card-inner { transform: rotateY(180deg); }
 
         .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: 600;
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+            box-sizing: border-box; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            font-size: 16px; font-weight: 600; text-align: center;
         }
 
-        .card-front {
-            background: white;
-            color: var(--p);
-            border-bottom: 5px solid var(--accent);
-        }
+        .card-front { background: white; border-top: 5px solid var(--p); color: var(--p); }
+        .card-back { background: var(--p); color: white; transform: rotateY(180deg); font-weight: 400; }
 
-        .card-back {
-            background: var(--p);
-            color: white;
-            transform: rotateY(180deg);
-            font-size: 16px;
-            font-weight: 400;
-        }
+        /* Physics Theme */
+        .theme-Physics .card-front { border-top-color: var(--phy); }
+        .theme-Physics .card-back { background: var(--phy); }
 
-        .subject-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 10px;
-            background: #eee;
-            padding: 2px 8px;
-            border-radius: 10px;
-            color: #555;
-        }
+        /* Chemistry Theme */
+        .theme-Chemistry .card-front { border-top-color: var(--chem); }
+        .theme-Chemistry .card-back { background: var(--chem); }
+
+        /* Maths Theme */
+        .theme-Maths .card-front { border-top-color: var(--math); }
+        .theme-Maths .card-back { background: var(--math); }
+
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1><i class="fas fa-bolt"></i> Quick Flashcards</h1>
-    <p>Card par click karke answer dekhein</p>
-</div>
-
-<div class="flashcard-grid" id="flashcardContainer">
+<div class="container">
+    <div class="header">
+        <h2 style="color: var(--p); margin: 0;"><i class="fas fa-layer-group"></i> Revision Cards</h2>
+        <p style="font-size: 12px; color: #666;">Subject select karein aur card flip karke formula yaad karein</p>
     </div>
 
+    <div class="tabs">
+        <button class="tab-btn active-phy" id="btn-phy" onclick="filterCards('Physics', this)">Physics</button>
+        <button class="tab-btn" id="btn-chem" onclick="filterCards('Chemistry', this)">Chemistry</button>
+        <button class="tab-btn" id="btn-math" onclick="filterCards('Maths', this)">Maths</button>
+    </div>
+
+    <div class="card-container" id="cardList">
+        </div>
+</div>
+
 <script>
-    // Data: Aap yahan naye cards add kar sakte hain
-    const cardData = [
-        { sub: "Physics", q: "Work Energy Theorem?", a: "Work done by all forces = Change in Kinetic Energy ($W_{all} = \\Delta K$)" },
-        { sub: "Chemistry", q: "Ideal Gas Equation?", a: "$PV = nRT$" },
-        { sub: "Maths", q: "Differentiation of $\\tan x$?", a: "$\\sec^2 x$" },
-        { sub: "Physics", q: "Lens Maker Formula?", a: "$\\frac{1}{f} = (\\mu - 1) (\\frac{1}{R_1} - \\frac{1}{R_2})$" },
-        { sub: "Chemistry", q: "Bond Order of $O_2$?", a: "Bond Order = 2 (Paramagnetic)" },
-        { sub: "Maths", q: "Euler's Formula?", a: "$e^{i\\theta} = \\cos \\theta + i \\sin \\theta$" }
+    const allCards = [
+        // Physics Cards
+        { sub: "Physics", q: "Torque in terms of Moment of Inertia?", a: "$\\tau = I \\alpha$" },
+        { sub: "Physics", q: "Bernoulli's Equation?", a: "$P + \\frac{1}{2}\\rho v^2 + \\rho gh = \\text{constant}$" },
+        { sub: "Physics", q: "Gauss's Law?", a: "$\\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{in}}{\\epsilon_0}$" },
+
+        // Chemistry Cards
+        { sub: "Chemistry", q: "Arrhenius Equation?", a: "$k = A e^{-E_a/RT}$" },
+        { sub: "Chemistry", q: "Relationship between $K_p$ and $K_c$?", a: "$K_p = K_c (RT)^{\\Delta n_g}$" },
+        { sub: "Chemistry", q: "Specific Conductance?", a: "$\\kappa = \\frac{1}{\\rho} = \\frac{l}{RA}$" },
+
+        // Maths Cards
+        { sub: "Maths", q: "Integration of $\\frac{1}{x^2 + a^2}$?", a: "$\\frac{1}{a} \\tan^{-1}(\\frac{x}{a}) + C$" },
+        { sub: "Maths", q: "Sum of n terms in GP?", a: "$S_n = a\\frac{(r^n - 1)}{r - 1}$ where $r > 1$" },
+        { sub: "Maths", q: "Distance between point and line?", a: "$d = \\frac{|ax_1 + by_1 + c|}{\\sqrt{a^2 + b^2}}$" }
     ];
 
-    function createCards() {
-        const container = document.getElementById('flashcardContainer');
-        cardData.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'flashcard';
-            card.onclick = () => card.classList.toggle('flipped');
+    function filterCards(subject, btn) {
+        // Tab UI logic
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active-phy', 'active-chem', 'active-math');
+        });
+        
+        if(subject === 'Physics') btn.classList.add('active-phy');
+        if(subject === 'Chemistry') btn.classList.add('active-chem');
+        if(subject === 'Maths') btn.classList.add('active-math');
 
+        const list = document.getElementById('cardList');
+        list.innerHTML = "";
+
+        const filtered = allCards.filter(c => c.sub === subject);
+
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = `flashcard theme-${subject}`;
+            card.onclick = () => card.classList.toggle('flipped');
             card.innerHTML = `
-                <div class="flashcard-inner">
-                    <div class="card-front">
-                        <span class="subject-tag">${item.sub}</span>
-                        <div>${item.q}</div>
-                    </div>
-                    <div class="card-back">
-                        <div>${item.a}</div>
-                    </div>
+                <div class="card-inner">
+                    <div class="card-front"><div>${item.q}</div></div>
+                    <div class="card-back"><div>${item.a}</div></div>
                 </div>
             `;
-            container.appendChild(card);
+            list.appendChild(card);
         });
+
+        // MathJax Refresh
+        if (window.MathJax) MathJax.typesetPromise();
     }
 
-    createCards();
+    // Default load Physics
+    filterCards('Physics', document.getElementById('btn-phy'));
 </script>
 
 </body>
