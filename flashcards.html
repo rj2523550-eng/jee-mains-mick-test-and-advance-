@@ -3,63 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Flashcards</title>
+    <title>JEE Flashcards | Master Hub</title>
     
     <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$']],
-                processEscapes: true
-            }
-        };
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] } };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <script src="flash_data_phy.js"></script>
+    <script src="flash_data_chem.js"></script>
+    <script src="flash_data_math.js"></script>
+
     <style>
         :root { --p: #003366; --bg: #f4f7f9; --phy: #007bff; --chem: #28a745; --math: #dc3545; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
-        
-        /* Container width thodi badha di hai taaki 3 cards fit aa sakein */
         .container { max-width: 1000px; margin: 0 auto; text-align: center; }
-
         .header { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
         .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; }
-        .tab-btn { padding: 10px 18px; border-radius: 25px; border: none; background: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .tab-btn { padding: 10px 18px; border-radius: 25px; border: none; background: white; cursor: pointer; font-weight: bold; font-size: 13px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .active-phy { background: var(--phy) !important; color: white; }
         .active-chem { background: var(--chem) !important; color: white; }
         .active-math { background: var(--math) !important; color: white; }
 
-        /* --- 1 ROW MEIN 3 CARDS KA MAGIC YAHAN HAI --- */
-        .card-container { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* Har row mein 3 equal cards */
-            gap: 20px; 
-        }
+        .card-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 800px) { .card-container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) { .card-container { grid-template-columns: 1fr; } }
 
-        /* Mobile ke liye adjustment: Agar screen choti ho toh 1 ya 2 cards */
-        @media (max-width: 800px) {
-            .card-container { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 500px) {
-            .card-container { grid-template-columns: 1fr; }
-        }
-
-        .flashcard { background: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
+        .flashcard { background: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
         .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .card-inner { transform: rotateY(180deg); }
-
-        .card-front, .card-back {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            display: flex; align-items: center; justify-content: center; padding: 15px;
-            box-sizing: border-box; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); text-align: center; }
         .card-front { background: white; border-top: 5px solid #ccc; color: var(--p); font-size: 15px; font-weight: 600; }
-        .card-back { color: white; transform: rotateY(180deg); font-weight: 400; font-size: 13px; }
+        .card-back { color: white; transform: rotateY(180deg); font-weight: 400; font-size: 14px; }
 
         .theme-Physics .card-front { border-top-color: var(--phy); }
         .theme-Physics .card-back { background: var(--phy); }
@@ -73,41 +49,21 @@
 
 <div class="container">
     <div class="header">
-        <h2 style="margin:0;"><i class="fas fa-th"></i> JEE Master Flashcards</h2>
-        <p style="font-size: 12px; color: #666;">Har row mein 3 cards - Behtar revision ke liye!</p>
+        <h2 style="margin:0;"><i class="fas fa-layer-group"></i> Smart Flashcards</h2>
+        <p style="font-size: 12px; color: #666;">Separate files for easy editing!</p>
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active-phy" id="btn-phy" onclick="filterCards('Physics', this)">Physics</button>
-        <button class="tab-btn" id="btn-chem" onclick="filterCards('Chemistry', this)">Chemistry</button>
-        <button class="tab-btn" id="btn-math" onclick="filterCards('Maths', this)">Maths</button>
+        <button class="tab-btn active-phy" id="btn-phy" onclick="showCards('Physics', physicsCards, this)">Physics</button>
+        <button class="tab-btn" id="btn-chem" onclick="showCards('Chemistry', chemistryCards, this)">Chemistry</button>
+        <button class="tab-btn" id="btn-math" onclick="showCards('Maths', mathsCards, this)">Maths</button>
     </div>
 
     <div class="card-container" id="cardList"></div>
 </div>
 
 <script>
-    const allCards = [
-        // Physics
-        { sub: "Physics", q: "Work Energy Theorem?", a: "$W_{\\text{total}} = \\Delta K$" },
-        { sub: "Physics", q: "Power (Instantaneous)?", a: "$P = \\vec{F} \\cdot \\vec{v}$" },
-        { sub: "Physics", q: "Escaping Velocity?", a: "$v_e = \\sqrt{\\frac{2GM}{R}}$" },
-
-        // Chemistry
-        { sub: "Chemistry", q: "pH of a solution?", a: "$pH = -\\log[H^+]$" },
-        { sub: "Chemistry", q: "Rate Law Expression?", a: "Rate $= k[A]^x[B]^y$" },
-        { sub: "Chemistry", q: "Entropy Change?", a: "$\\Delta S = \\frac{q_{rev}}{T}$" },
-
-        // Maths (Coordinate + Algebra)
-        { sub: "Maths", q: "Quadratic Formula?", a: "$x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$" },
-        { sub: "Maths", q: "AP: Sum of n terms?", a: "$S_n = \\frac{n}{2}[2a+(n-1)d]$" },
-        { sub: "Maths", q: "Circle Radius?", a: "$r = \\sqrt{g^2+f^2-c}$" },
-        { sub: "Maths", q: "Centroid ($G$)?", a: "$(\\frac{x_1+x_2+x_3}{3}, \\frac{y_1+y_2+y_3}{3})$" },
-        { sub: "Maths", q: "Area of Circle?", a: "$\\pi r^2$" },
-        { sub: "Maths", q: "Pythagoras Theorem?", a: "$H^2 = P^2 + B^2$" }
-    ];
-
-    function filterCards(subject, btn) {
+    function showCards(subject, data, btn) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-phy', 'active-chem', 'active-math'));
         if(subject === 'Physics') btn.classList.add('active-phy');
         if(subject === 'Chemistry') btn.classList.add('active-chem');
@@ -115,9 +71,8 @@
 
         const list = document.getElementById('cardList');
         list.innerHTML = "";
-        const filtered = allCards.filter(c => c.sub === subject);
 
-        filtered.forEach(item => {
+        data.forEach(item => {
             const card = document.createElement('div');
             card.className = `flashcard theme-${subject}`;
             card.onclick = () => card.classList.toggle('flipped');
@@ -129,12 +84,13 @@
             `;
             list.appendChild(card);
         });
-
         if (window.MathJax) MathJax.typesetPromise();
     }
 
-    window.onload = () => filterCards('Physics', document.getElementById('btn-phy'));
+    // Default load Physics on start
+    window.onload = () => showCards('Physics', physicsCards, document.getElementById('btn-phy'));
 </script>
 
 </body>
 </html>
+
