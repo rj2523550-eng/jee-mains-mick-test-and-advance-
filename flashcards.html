@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Flashcards | Master Hub</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root { --p: #003366; --accent: #00d2ff; --bg: #f0f4f8; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 20px; text-align: center; }
+        
+        .header { margin-bottom: 30px; }
+        .header h1 { color: var(--p); margin: 0; }
+        .header p { color: #666; font-size: 14px; }
+
+        /* Grid Layout */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Flashcard Flip Animation */
+        .flashcard {
+            background-color: transparent;
+            width: 100%;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-front {
+            background: white;
+            color: var(--p);
+            border-bottom: 5px solid var(--accent);
+        }
+
+        .card-back {
+            background: var(--p);
+            color: white;
+            transform: rotateY(180deg);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .subject-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 10px;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-bolt"></i> Quick Flashcards</h1>
+    <p>Card par click karke answer dekhein</p>
+</div>
+
+<div class="flashcard-grid" id="flashcardContainer">
+    </div>
+
+<script>
+    // Data: Aap yahan naye cards add kar sakte hain
+    const cardData = [
+        { sub: "Physics", q: "Work Energy Theorem?", a: "Work done by all forces = Change in Kinetic Energy ($W_{all} = \\Delta K$)" },
+        { sub: "Chemistry", q: "Ideal Gas Equation?", a: "$PV = nRT$" },
+        { sub: "Maths", q: "Differentiation of $\\tan x$?", a: "$\\sec^2 x$" },
+        { sub: "Physics", q: "Lens Maker Formula?", a: "$\\frac{1}{f} = (\\mu - 1) (\\frac{1}{R_1} - \\frac{1}{R_2})$" },
+        { sub: "Chemistry", q: "Bond Order of $O_2$?", a: "Bond Order = 2 (Paramagnetic)" },
+        { sub: "Maths", q: "Euler's Formula?", a: "$e^{i\\theta} = \\cos \\theta + i \\sin \\theta$" }
+    ];
+
+    function createCards() {
+        const container = document.getElementById('flashcardContainer');
+        cardData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'flashcard';
+            card.onclick = () => card.classList.toggle('flipped');
+
+            card.innerHTML = `
+                <div class="flashcard-inner">
+                    <div class="card-front">
+                        <span class="subject-tag">${item.sub}</span>
+                        <div>${item.q}</div>
+                    </div>
+                    <div class="card-back">
+                        <div>${item.a}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    createCards();
+</script>
+
+</body>
+</html>
