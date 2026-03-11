@@ -23,17 +23,15 @@
 
         .header { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        /* Subject Tabs */
+        /* Tabs Styling */
         .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; }
         .tab-btn { padding: 10px 15px; border-radius: 25px; border: none; background: white; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .active-phy { background: var(--phy) !important; color: white; }
         .active-chem { background: var(--chem) !important; color: white; }
         .active-math { background: var(--math) !important; color: white; }
 
-        /* Flashcard Container */
+        /* Flashcard Animation */
         .card-container { display: grid; grid-template-columns: 1fr; gap: 15px; }
-
-        /* Flip Animation */
         .flashcard { background: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
         .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.flipped .card-inner { transform: rotateY(180deg); }
@@ -45,29 +43,24 @@
             font-size: 16px; font-weight: 600; text-align: center;
         }
 
-        .card-front { background: white; border-top: 5px solid var(--p); color: var(--p); }
-        .card-back { background: var(--p); color: white; transform: rotateY(180deg); font-weight: 400; }
+        .card-front { background: white; border-top: 5px solid #ccc; color: var(--p); }
+        .card-back { color: white; transform: rotateY(180deg); font-weight: 400; }
 
-        /* Physics Theme */
+        /* Subject Specific Themes */
         .theme-Physics .card-front { border-top-color: var(--phy); }
         .theme-Physics .card-back { background: var(--phy); }
-
-        /* Chemistry Theme */
         .theme-Chemistry .card-front { border-top-color: var(--chem); }
         .theme-Chemistry .card-back { background: var(--chem); }
-
-        /* Maths Theme */
         .theme-Maths .card-front { border-top-color: var(--math); }
         .theme-Maths .card-back { background: var(--math); }
-
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h2 style="color: var(--p); margin: 0;"><i class="fas fa-layer-group"></i> Revision Cards</h2>
-        <p style="font-size: 12px; color: #666;">Subject select karein aur card flip karke formula yaad karein</p>
+        <h2 style="color: var(--p); margin: 0;"><i class="fas fa-layer-group"></i> Revision Flashcards</h2>
+        <p style="font-size: 12px; color: #666;">Select Subject & Tap card to flip</p>
     </div>
 
     <div class="tabs">
@@ -76,52 +69,31 @@
         <button class="tab-btn" id="btn-math" onclick="filterCards('Maths', this)">Maths</button>
     </div>
 
-    <div class="card-container" id="cardList">
-        </div>
+    <div class="card-container" id="cardList"></div>
 </div>
 
 <script>
+    // Sabse important: All cards ka data ek hi array mein
     const allCards = [
-        // Physics Cards
-        { sub: "Physics", q: "Torque in terms of Moment of Inertia?", a: "$\\tau = I \\alpha$" },
-        { sub: "Physics", q: "Bernoulli's Equation?", a: "$P + \\frac{1}{2}\\rho v^2 + \\rho gh = \\text{constant}$" },
-        { sub: "Physics", q: "Gauss's Law?", a: "$\\oint \\vec{E} \\cdot d\\vec{A} = \\frac{q_{in}}{\\epsilon_0}$" },
+        // --- PHYSICS ---
+        { sub: "Physics", q: "Bernoulli's Equation?", a: "$P + \\frac{1}{2}\\rho v^2 + \\rho gh = \\text{const}$" },
+        { sub: "Physics", q: "Torque Formula?", a: "$\\vec{\\tau} = \\vec{r} \\times \\vec{F}$ or $\\tau = I\\alpha$" },
 
-        // Chemistry Cards
+        // --- CHEMISTRY ---
+        { sub: "Chemistry", q: "Ideal Gas Equation?", a: "$PV = nRT$" },
         { sub: "Chemistry", q: "Arrhenius Equation?", a: "$k = A e^{-E_a/RT}$" },
-        { sub: "Chemistry", q: "Relationship between $K_p$ and $K_c$?", a: "$K_p = K_c (RT)^{\\Delta n_g}$" },
-        { sub: "Chemistry", q: "Specific Conductance?", a: "$\\kappa = \\frac{1}{\\rho} = \\frac{l}{RA}$" },
 
-        // Maths Cards
-        { sub: "Maths", q: "Integration of $\\frac{1}{x^2 + a^2}$?", a: "$\\frac{1}{a} \\tan^{-1}(\\frac{x}{a}) + C$" },
-        { sub: "Maths", q: "Sum of n terms in GP?", a: "$S_n = a\\frac{(r^n - 1)}{r - 1}$ where $r > 1$" },
-        { sub: "Maths", q: "Cordinate Geometry $(x_1, y_1)$ and $(x_2, y_2)$?", 
-            a: "$$d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$$" 
-        
-            q:"Section Formula (Internal Division)?", 
-            a: "$$P(x, y) = \\left( \\frac{mx_2+nx_1}{m+n}, \\frac{my_2+ny_1}{m+n} \\right)$$" 
-        
-            
-            q: "Standard Equation of Circle & its Center?", 
-            a: "Equation: $x^2 + y^2 + 2gx + 2fy + c = 0$ <br> Center: $(-g, -f)$" 
-        
-        
-            q: "Radius of Circle $x^2 + y^2 + 2gx + 2fy + c = 0$?", 
-            a: "$$r = \\sqrt{g^2 + f^2 - c}$$" 
-        
-    
-        
-            q: "Eccentricity $(e)$ for Parabola, Ellipse & Hyperbola?", 
-            a: "Parabola: $e = 1$ <br> Ellipse: $e < 1$ <br> Hyperbola: $e > 1$" 
-        }
+        // --- MATHS (Coordinate Geometry Added) ---
+        { sub: "Maths", q: "Distance Formula?", a: "$$d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$$" },
+        { sub: "Maths", q: "Section Formula (Internal)?", a: "$$P(x, y) = \\left( \\frac{mx_2+nx_1}{m+n}, \\frac{my_2+ny_1}{m+n} \\right)$$" },
+        { sub: "Maths", q: "Standard Circle Equation?", a: "$x^2 + y^2 + 2gx + 2fy + c = 0$ <br> Center: $(-g, -f)$" },
+        { sub: "Maths", q: "Radius of Circle?", a: "$$r = \\sqrt{g^2 + f^2 - c}$$" },
+        { sub: "Maths", q: "Eccentricity (e) Conditions?", a: "Parabola: $e=1$, Ellipse: $e<1$, Hyperbola: $e>1$" }
     ];
 
     function filterCards(subject, btn) {
-        // Tab UI logic
-        document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('active-phy', 'active-chem', 'active-math');
-        });
-        
+        // UI Tabs Update
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-phy', 'active-chem', 'active-math'));
         if(subject === 'Physics') btn.classList.add('active-phy');
         if(subject === 'Chemistry') btn.classList.add('active-chem');
         if(subject === 'Maths') btn.classList.add('active-math');
@@ -129,6 +101,7 @@
         const list = document.getElementById('cardList');
         list.innerHTML = "";
 
+        // Filter data
         const filtered = allCards.filter(c => c.sub === subject);
 
         filtered.forEach(item => {
@@ -144,11 +117,11 @@
             list.appendChild(card);
         });
 
-        // MathJax Refresh
+        // MathJax Refresh: Naye cards aate hi unhe render karna
         if (window.MathJax) MathJax.typesetPromise();
     }
 
-    // Default load Physics
+    // Shuru mein Physics load karein
     filterCards('Physics', document.getElementById('btn-phy'));
 </script>
 
