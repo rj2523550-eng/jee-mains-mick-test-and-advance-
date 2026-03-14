@@ -1,76 +1,173 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mock Test - Master Hub</title>
+    <title>JEE Main 2025 Mock Test | Master Hub</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
-        :root { --bg: #0d1117; --panel: #161b22; --glow: #00ffcc; --text: #ffffff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; text-align: center; }
+        :root { --p: #003366; --green: #2ecc71; --red: #e74c3c; --gray: #bdc3c7; }
+        body { font-family: Arial, sans-serif; margin: 0; background: #f0f2f5; display: flex; flex-direction: column; height: 100vh; }
         
-        .test-container {
-            max-width: 900px; margin: 30px auto; background: var(--panel); 
-            padding: 30px; border-radius: 20px; border: 1px solid var(--glow);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-        }
+        /* Top Header */
+        .header { background: var(--p); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer { font-size: 20px; font-weight: bold; background: #fff; color: #000; padding: 5px 15px; border-radius: 5px; }
 
-        .timer { font-size: 24px; color: #ff4444; font-weight: bold; margin-bottom: 20px; }
-        
-        .subject-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; margin-top: 30px;
-        }
+        .main-body { display: flex; flex: 1; overflow: hidden; }
 
-        .test-card {
-            background: #0d1117; padding: 20px; border-radius: 12px;
-            border: 1px solid #333; transition: 0.3s; cursor: pointer;
-            text-decoration: none; color: white;
-        }
+        /* Left side: Questions */
+        .question-area { flex: 3; padding: 30px; overflow-y: auto; background: white; border-right: 2px solid #ddd; }
+        .q-header { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; font-weight: bold; }
+        .options { margin-top: 20px; }
+        .option-label { display: block; padding: 10px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .option-label:hover { background: #f9f9f9; }
+        input[type="radio"] { margin-right: 10px; }
 
-        .test-card:hover { border-color: var(--glow); transform: translateY(-5px); }
-        
-        .btn-start {
-            display: inline-block; margin-top: 15px; padding: 10px 20px;
-            background: var(--glow); color: black; font-weight: bold;
-            border-radius: 5px; text-decoration: none;
-        }
+        /* Right side: Palette */
+        .palette-area { flex: 1; background: #f8f9fa; padding: 20px; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 20px; }
+        .q-num { width: 35px; height: 35px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; border-radius: 50% 50% 0 0; cursor: pointer; font-size: 12px; }
+        .answered { background: var(--green); color: white; border-color: var(--green); }
+        .not-answered { background: var(--red); color: white; border-color: var(--red); }
 
-        .back-home { display: block; margin-bottom: 20px; color: var(--glow); text-decoration: none; }
+        /* Bottom Buttons */
+        .footer { background: white; padding: 15px; border-top: 2px solid #ddd; display: flex; justify-content: space-between; }
+        .btn { padding: 10px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-save { background: var(--green); color: white; }
+        .btn-clear { background: var(--gray); }
+        .btn-submit { background: var(--p); color: white; }
     </style>
 </head>
 <body>
 
-    <div class="test-container">
-        <a href="index.html" class="back-home">← Back to Dashboard</a>
-        <h1>📝 JEE Mains Mock Test Portal</h1>
-        <p>Apni taiyari ko check karein. Niche diye gaye subjects mein se test chunein.</p>
-        
-        <div class="timer" id="timeDisplay">Time Remaining: 60:00</div>
+<div class="header">
+    <div><b>JEE Main 2025 (22 Jan Shift 1) - Mock Test</b></div>
+    <div class="timer" id="timer">180:00</div>
+</div>
 
-        <div class="subject-grid">
-            <div class="test-card">
-                <h3 style="color: #00ffcc;">Mathematics</h3>
-                <p>30 Questions | 60 Mins</p>
-                <a href="#" class="btn-start">Start Test</a>
-            </div>
-
-            <div class="test-card">
-                <h3 style="color: #00ffcc;">Physics</h3>
-                <p>30 Questions | 60 Mins</p>
-                <a href="#" class="btn-start">Start Test</a>
-            </div>
-
-            <div class="test-card">
-                <h3 style="color: #00ffcc;">Chemistry</h3>
-                <p>30 Questions | 60 Mins</p>
-                <a href="#" class="btn-start">Start Test</a>
-            </div>
-        </div>
-
-        <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <p style="font-size: 14px; color: #8b949e;">⚠️ <b>Instructions:</b> yeh mock test jee mains ke session 2 exam se 20 din pehle shuru honge </p>
+<div class="main-body">
+    <div class="question-area">
+        <div id="questionContainer">
+            <div class="q-header" id="qSubject">Physics - Question 1</div>
+            <div id="qText" style="font-size: 18px; line-height: 1.6;">
+                </div>
+            <div class="options" id="optionsList">
+                </div>
         </div>
     </div>
+
+    <div class="palette-area">
+        <div style="font-weight: bold;">Question Palette</div>
+        <div class="grid" id="qGrid">
+            </div>
+        <br><hr>
+        <button class="btn btn-submit" style="width: 100%;" onclick="submitExam()">Final Submit</button>
+    </div>
+</div>
+
+<div class="footer">
+    <button class="btn btn-clear" onclick="clearOption()">Clear Response</button>
+    <div>
+        <button class="btn btn-save" onclick="nextQuestion()">Save & Next</button>
+    </div>
+</div>
+
+<script>
+    // Selected Questions from your uploaded image (JEE 2025 Jan 22)
+    const questions = [
+        {
+            sub: "Physics",
+            q: "Let $g$ be the acceleration due to gravity at Earth's surface. The weight of a body of mass $m$ at a height $h = R/2$ above the surface of Earth is:",
+            opt: ["$mg/4$", "$4mg/9$", "$mg/9$", "$2mg/3$"],
+            ans: 1 // Correct index (4mg/9)
+        },
+        {
+            sub: "Physics",
+            q: "Find the moment of inertia of the remaining part of the original disc about the axis given. A circular hole of radius $R/2$ is removed from a disc of radius $R$.",
+            opt: ["$\\frac{13}{32} MR^2$", "$\\frac{11}{32} MR^2$", "$\\frac{9}{32} MR^2$", "$\\frac{15}{32} MR^2$"],
+            ans: 0
+        },
+        {
+            sub: "Maths",
+            q: "Let $a_1, a_2, a_3...$ be a G.P. of increasing positive terms. If $a_1 a_3 = 25$ and $a_2 + a_4 = 30$, then $a_6$ is equal to:",
+            opt: ["625", "812", "526", "784"],
+            ans: 3
+        }
+        // Aap yahan 75 tak baaki questions bhi isi format mein add kar sakte hain
+    ];
+
+    let currentQ = 0;
+    let userAnswers = Array(questions.length).fill(null);
+
+    function loadQuestion(index) {
+        currentQ = index;
+        const q = questions[index];
+        document.getElementById('qSubject').innerText = `${q.sub} - Question ${index + 1}`;
+        document.getElementById('qText').innerHTML = q.q;
+        
+        let optHtml = "";
+        q.opt.forEach((o, i) => {
+            const checked = userAnswers[index] === i ? "checked" : "";
+            optHtml += `<label class="option-label"><input type="radio" name="opt" value="${i}" ${checked}> (Option ${i+1}) ${o}</label>`;
+        });
+        document.getElementById('optionsList').innerHTML = optHtml;
+        
+        // Refresh MathJax to render formulas
+        if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function nextQuestion() {
+        const selected = document.querySelector('input[name="opt"]:checked');
+        if (selected) {
+            userAnswers[currentQ] = parseInt(selected.value);
+            document.getElementById(`palette-${currentQ}`).classList.add('answered');
+        } else {
+            document.getElementById(`palette-${currentQ}`).classList.add('not-answered');
+        }
+        
+        if (currentQ < questions.length - 1) loadQuestion(currentQ + 1);
+    }
+
+    function clearOption() {
+        document.querySelectorAll('input[name="opt"]').forEach(i => i.checked = false);
+        userAnswers[currentQ] = null;
+        document.getElementById(`palette-${currentQ}`).classList.remove('answered');
+    }
+
+    // Palette Generation
+    const grid = document.getElementById('qGrid');
+    for (let i = 0; i < questions.length; i++) {
+        const div = document.createElement('div');
+        div.className = 'q-num';
+        div.id = `palette-${i}`;
+        div.innerText = i + 1;
+        div.onclick = () => loadQuestion(i);
+        grid.appendChild(div);
+    }
+
+    // Timer Logic
+    let time = 180 * 60;
+    setInterval(() => {
+        let mins = Math.floor(time / 60);
+        let secs = time % 60;
+        document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        if (time > 0) time--;
+    }, 1000);
+
+    function submitExam() {
+        let score = 0;
+        userAnswers.forEach((ans, i) => {
+            if (ans === questions[i].ans) score += 4;
+            else if (ans !== null) score -= 1;
+        });
+        alert(`Test Submitted!\nYour Score: ${score} / ${questions.length * 4}`);
+    }
+
+    loadQuestion(0);
+</script>
 
 </body>
 </html>
