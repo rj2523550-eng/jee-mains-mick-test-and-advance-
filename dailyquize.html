@@ -3,192 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Daily Quiz: Login & Rank System</title>
+    <title>JEE Daily Quiz: Global Leaderboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- PURANA THEME (NEON DARK) --- */
         :root {
             --bg-dark: #0a0a0a;
             --card-dark: #1a1a1a;
-            --text-light: #e0e0e0;
             --neon-cyan: #00e5ff;
             --neon-green: #00ff00;
-            --neon-red: #ff3333;
-            --accent-purple: #8a2be2;
+            --text-light: #e0e0e0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-light); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        body { background-color: var(--bg-dark); color: var(--text-light); padding: 20px; display: flex; justify-content: center; }
 
-        /* --- LOGIN MODAL STYLE --- */
-        #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .login-card {
-            background: var(--card-dark); padding: 30px; border-radius: 15px; border: 1px solid var(--neon-cyan);
-            width: 90%; max-width: 400px; text-align: center;
-        }
-        .login-card h2 { color: var(--neon-cyan); margin-bottom: 20px; }
-        .login-card input {
-            width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444;
-            color: white; border-radius: 8px; outline: none;
-        }
-        .login-card input:focus { border-color: var(--neon-cyan); }
+        /* --- LOGIN MODAL --- */
+        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 100; }
+        .login-card { background: var(--card-dark); padding: 30px; border-radius: 15px; border: 1px solid var(--neon-cyan); width: 90%; max-width: 400px; text-align: center; }
+        .login-card input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; border-radius: 8px; }
 
-        /* --- QUIZ & RESULT STYLES --- */
-        .quiz-container { background-color: var(--card-dark); padding: 30px; border-radius: 20px; width: 100%; max-width: 600px; border: 1px solid #333; display: none; }
-        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .timer-box { font-size: 1.2rem; font-weight: 700; color: var(--neon-cyan); border: 2px solid var(--neon-cyan); padding: 8px 15px; border-radius: 10px; }
-        .subject-tag { display: inline-block; font-size: 0.8rem; color: #000; background: var(--neon-cyan); padding: 4px 10px; border-radius: 5px; margin-bottom: 10px; font-weight: 600; }
-        .options-grid { display: grid; gap: 12px; }
-        .option-btn { background: #2a2a2a; color: white; border: 2px solid transparent; padding: 15px; border-radius: 12px; text-align: left; cursor: pointer; }
+        /* --- QUIZ CONTAINER --- */
+        .quiz-container { background: var(--card-dark); padding: 25px; border-radius: 20px; width: 100%; max-width: 500px; border: 1px solid #333; display: none; }
+        .option-btn { width: 100%; background: #2a2a2a; color: white; border: 2px solid transparent; padding: 15px; border-radius: 12px; text-align: left; cursor: pointer; margin-bottom: 10px; }
         .option-btn.selected { border-color: var(--neon-cyan); background: rgba(0, 229, 255, 0.1); }
-        .btn-primary { background: var(--neon-cyan); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 20px; }
-        
+        .btn-primary { background: var(--neon-cyan); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; }
+
+        /* --- LEADERBOARD STYLE --- */
+        .leaderboard-box { background: #111; padding: 15px; border-radius: 12px; margin-top: 20px; }
+        .leaderboard-item { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        .rank-1 { color: #ffd700; font-weight: bold; }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        /* --- SHARE BUTTON --- */
+        .btn-share { background: #25D366; color: white; margin-top: 10px; }
         .hidden { display: none; }
-        .rank-card { background: #222; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left; border-left: 4px solid var(--neon-green); }
-        .user-info-display { color: var(--neon-cyan); font-weight: bold; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
 <div id="login-overlay">
     <div class="login-card">
-        <h2>Student Details 📝</h2>
-        <p style="font-size: 0.8rem; margin-bottom: 15px;">Rank List mein aane ke liye details bharein</p>
-        <input type="text" id="user-name" placeholder="Apna Poora Naam" required>
-        <input type="text" id="user-state" placeholder="State (e.g. Maharashtra)" required>
-        <input type="text" id="user-district" placeholder="District (e.g. Pune)" required>
-        <button class="btn-primary" onclick="startQuizAfterLogin()">Start Daily Quiz 🔥</button>
+        <h2>Student Login 🎓</h2>
+        <input type="text" id="user-name" placeholder="Full Name">
+        <input type="text" id="user-state" placeholder="State">
+        <input type="text" id="user-district" placeholder="District">
+        <button class="btn-primary" onclick="startQuiz()">Start Quiz</button>
     </div>
 </div>
 
 <div class="quiz-container" id="main-container">
-    <div class="quiz-header">
-        <div id="display-user-name" style="color: var(--neon-green); font-weight: 600;">Welcome!</div>
-        <div class="timer-box" id="timer">05:00</div>
-    </div>
-
     <div id="quiz-area">
-        <span class="subject-tag" id="subject-tag">Subject</span>
-        <h2 id="question-text">Question loading...</h2>
-        <div class="options-grid" id="options-container"></div>
+        <h3 id="subject-tag" style="color:var(--neon-cyan)">Subject</h3>
+        <h2 id="question-text" style="margin: 15px 0;">Loading...</h2>
+        <div id="options-container"></div>
         <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next Question ›</button>
     </div>
 
     <div id="result-area" class="hidden">
-        <h1 style="text-align: center;">Quiz Results 🎉</h1>
+        <h1 style="text-align:center">Result 🎉</h1>
+        <p id="user-score-display" style="text-align:center; font-size: 1.5rem; color: var(--neon-green); margin: 10px 0;"></p>
         
-        <div class="rank-card">
-            <p>Aapka Rank Status:</p>
-            <div class="user-info-display" id="rank-display-name"></div>
-            <p id="rank-display-location" style="font-size: 0.9rem; color: #aaa;"></p>
-            <h2 style="margin-top: 10px; color: var(--neon-green);">Score: <span id="final-score"></span>/3</h2>
-        </div>
+        <button class="btn-primary btn-share" onclick="shareResult()">WhatsApp par Share karein 📲</button>
 
-        <div style="margin-top: 20px; background: #111; padding: 15px; border-radius: 10px;">
-            <h3 style="color: var(--neon-cyan); margin-bottom: 10px;">🏆 Global Top 10 Today</h3>
-            <div id="leaderboard-list">
-                </div>
+        <div class="leaderboard-box">
+            <h3 style="color: var(--neon-cyan); margin-bottom: 10px;">🏆 Top 10 Leaders</h3>
+            <div id="leaderboard-list"></div>
         </div>
+        <button class="btn-primary" style="background:#444; color:white" onclick="location.reload()">Back to Home</button>
     </div>
 </div>
 
 <script>
-    let userData = { name: "", state: "", district: "" };
-    let currentQuestionIndex = 0;
+    let userData = {};
+    let currentQ = 0;
     let score = 0;
-    let selectedOptionIndex = null;
-    let timeLeft = 300;
+    let selectedIdx = null;
+    let startTime;
 
     const questions = [
-        { subject: "Physics", question: "Si unit of Electric Current is?", options: ["Volt", "Ampere", "Ohm", "Watt"], correct: 1 },
-        { subject: "Chemistry", question: "Atomic number of Oxygen is?", options: ["6", "7", "8", "9"], correct: 2 },
-        { subject: "Maths", question: "Value of log(1) is?", options: ["1", "0", "Infinity", "Not defined"], correct: 1 }
+        { sub: "Physics", q: "Light year is a unit of?", opts: ["Time", "Distance", "Speed", "Intensity"], ans: 1 },
+        { sub: "Chemistry", q: "Chemical formula of Salt is?", opts: ["HCl", "NaOH", "NaCl", "KCl"], ans: 2 },
+        { sub: "Maths", q: "Value of sin(90°)?", opts: ["0", "1", "1/2", "Not defined"], ans: 1 }
     ];
 
-    // 1. START QUIZ AFTER LOGIN
-    function startQuizAfterLogin() {
+    function startQuiz() {
         userData.name = document.getElementById('user-name').value;
         userData.state = document.getElementById('user-state').value;
         userData.district = document.getElementById('user-district').value;
 
-        if(!userData.name || !userData.state || !userData.district) {
-            alert("Sabhi details bharna zaroori hai!");
-            return;
-        }
+        if(!userData.name || !userData.state) return alert("Details bhariye!");
 
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-container').style.display = 'block';
-        document.getElementById('display-user-name').textContent = "Aspirant: " + userData.name;
-        
-        loadQuestion();
-        startTimer();
+        startTime = Date.now();
+        loadQ();
     }
 
-    function startTimer() {
-        const timerInt = setInterval(() => {
-            timeLeft--;
-            let min = Math.floor(timeLeft/60);
-            let sec = timeLeft%60;
-            document.getElementById('timer').textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
-            if(timeLeft <= 0) { clearInterval(timerInt); showResults(); }
-        }, 1000);
-    }
+    function loadQ() {
+        const data = questions[currentQ];
+        document.getElementById('subject-tag').textContent = data.sub;
+        document.getElementById('question-text').textContent = data.q;
+        const optsDiv = document.getElementById('options-container');
+        optsDiv.innerHTML = '';
 
-    function loadQuestion() {
-        const q = questions[currentQuestionIndex];
-        document.getElementById('subject-tag').textContent = q.subject;
-        document.getElementById('question-text').textContent = q.question;
-        const container = document.getElementById('options-container');
-        container.innerHTML = '';
-        
-        q.options.forEach((opt, idx) => {
+        data.opts.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.textContent = opt;
             btn.onclick = () => {
                 document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
-                selectedOptionIndex = idx;
+                selectedIdx = i;
             };
-            container.appendChild(btn);
+            optsDiv.appendChild(btn);
         });
-        
-        if(currentQuestionIndex === questions.length - 1) document.getElementById('next-btn').textContent = "Submit Results 🏁";
     }
 
     function nextQuestion() {
-        if(selectedOptionIndex === null) { alert("Ek option chunein!"); return; }
-        if(selectedOptionIndex === questions[currentQuestionIndex].correct) score++;
+        if(selectedIdx === null) return alert("Select an option!");
+        if(selectedIdx === questions[currentQ].ans) score++;
         
-        selectedOptionIndex = null;
-        currentQuestionIndex++;
-        
-        if(currentQuestionIndex < questions.length) loadQuestion();
-        else showResults();
+        selectedIdx = null;
+        currentQ++;
+
+        if(currentQ < questions.length) loadQ();
+        else finalizeResults();
     }
 
-    // 2. SHOW DYNAMIC RANK & DETAILS
-    function showResults() {
+    function finalizeResults() {
+        const timeTaken = ((Date.now() - startTime) / 1000).toFixed(2);
         document.getElementById('quiz-area').classList.add('hidden');
         document.getElementById('result-area').classList.remove('hidden');
-        document.getElementById('final-score').textContent = score;
+        document.getElementById('user-score-display').textContent = `Score: ${score}/3 (${timeTaken}s)`;
 
-        // User ki info update karein
-        document.getElementById('rank-display-name').textContent = "👤 " + userData.name;
-        document.getElementById('rank-display-location').textContent = `📍 ${userData.district}, ${userData.state}`;
+        // --- DATABASE LOGIC (Local Browser Storage) ---
+        let allScores = JSON.parse(localStorage.getItem('jeeGlobalScores')) || [];
+        
+        // Naya result add karein
+        allScores.push({
+            name: userData.name,
+            location: `${userData.district}, ${userData.state}`,
+            score: score,
+            time: parseFloat(timeTaken)
+        });
 
-        // Leaderboard Logic (Dyanmic name injection)
-        const lb = document.getElementById('leaderboard-list');
-        lb.innerHTML = `
-            <div style="display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #333; color:gold;">
-                <span>1. ${userData.name} (YOU)</span>
-                <span>${userData.district}</span>
-            </div>
-            <p style="font-size:0.8rem; color:#666; margin-top:10px;">Baaki ranks quiz khatam hone ke baad update hongi...</p>
-        `;
+        // Sorting: Pehle Score (High to Low), phir Time (Low to High)
+        allScores.sort((a, b) => b.score - a.score || a.time - b.time);
+
+        // Top 10 rakhein
+        allScores = allScores.slice(0, 10);
+        localStorage.setItem('jeeGlobalScores', JSON.stringify(allScores));
+
+        displayLeaderboard(allScores);
+    }
+
+    function displayLeaderboard(list) {
+        const listDiv = document.getElementById('leaderboard-list');
+        listDiv.innerHTML = '';
+        list.forEach((item, idx) => {
+            const row = document.createElement('div');
+            row.className = `leaderboard-item rank-${idx+1}`;
+            row.innerHTML = `
+                <span>${idx+1}. ${item.name} (${item.location})</span>
+                <span>${item.score}/3 - ${item.time}s</span>
+            `;
+            listDiv.appendChild(row);
+        });
+    }
+
+    function shareResult() {
+        const text = `🔥 Maine JEE Daily Quiz mein ${score}/3 score kiya! \n📍 Location: ${userData.district}\n\nKya tum mujhse aage nikal sakte ho? Check here: ${window.location.href}`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 </script>
 
