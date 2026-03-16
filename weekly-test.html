@@ -1,204 +1,249 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Weekly Test - PYQ Special</title>
+    <title>JEE Weekly Test - NTA Pattern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1e40af;
-            --bg: #f8fafc;
-            --white: #ffffff;
-            --success: #16a34a;
-            --danger: #dc2626;
-            --text: #1e293b;
+            --nta-blue: #2c3e50;
+            --nta-gray: #f4f7f6;
+            --ans-green: #27ae60;
+            --not-ans-red: #e74c3c;
+            --visited-purple: #9b59b6;
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
-        .header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .timer { background: var(--danger); padding: 5px 15px; border-radius: 5px; font-weight: bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        body { background-color: var(--nta-gray); height: 100vh; overflow: hidden; }
 
-        .container { max-width: 1000px; margin: 30px auto; display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 0 15px; }
+        /* --- LOGIN MODAL --- */
+        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-card { background: white; padding: 30px; border-radius: 8px; width: 350px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .login-card h2 { margin-bottom: 20px; color: var(--nta-blue); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .login-card input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-start { background: #3498db; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; }
 
-        .question-box { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); min-height: 400px; }
-        .subject-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; margin-bottom: 15px; }
-        .phys { background: #dcfce7; color: #166534; }
-        .chem { background: #fef9c3; color: #854d0e; }
-        .math { background: #dbeafe; color: #1e40af; }
+        /* --- NTA HEADER --- */
+        header { background: white; border-bottom: 1px solid #ddd; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+        .timer { font-size: 1.2rem; font-weight: bold; color: #d35400; }
 
-        .option { display: block; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
-        .option:hover { background: #f1f5f9; border-color: var(--primary); }
-        .option.selected { background: #eff6ff; border-color: var(--primary); font-weight: bold; }
+        /* --- MAIN LAYOUT --- */
+        .container { display: flex; height: calc(100vh - 60px); }
 
-        .palette { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); height: fit-content; }
-        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .num-btn { width: 40px; height: 40px; border: 1px solid #cbd5e1; background: white; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
-        .num-btn.active { border: 2px solid var(--primary); color: var(--primary); }
-        .num-btn.answered { background: var(--success); color: white; border-color: var(--success); }
+        /* Left Section: Question Area */
+        .question-section { flex: 3; background: white; padding: 30px; overflow-y: auto; border-right: 1px solid #ddd; position: relative; }
+        .subject-bar { background: #34495e; color: white; padding: 5px 15px; border-radius: 3px; display: inline-block; margin-bottom: 15px; }
+        .question-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
+        .option { display: block; padding: 12px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background: #f0f0f0; }
+        .option.selected { background: #d6eaf8; border-color: #3498db; }
 
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; }
-        .btn-next { background: var(--primary); color: white; }
-        .btn-submit { background: var(--danger); color: white; width: 100%; }
+        /* Bottom Controls */
+        .controls { position: absolute; bottom: 0; left: 0; width: 100%; background: #eee; padding: 15px; display: flex; justify-content: space-between; border-top: 1px solid #ddd; }
+        .btn { padding: 8px 20px; border: none; cursor: pointer; border-radius: 3px; font-weight: bold; }
+        .btn-save { background: var(--ans-green); color: white; }
+        .btn-clear { background: #95a5a6; color: white; }
 
-        #result { display: none; text-align: center; background: white; padding: 40px; border-radius: 15px; max-width: 600px; margin: 50px auto; }
+        /* Right Section: Palette */
+        .palette-section { flex: 1; background: #f9f9f9; padding: 20px; overflow-y: auto; }
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+        .palette-num { height: 35px; width: 35px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; cursor: pointer; border-radius: 3px; background: white; }
+        .palette-num.answered { background: var(--ans-green); color: white; border: none; clip-path: polygon(0% 20%, 20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); }
+        .palette-num.not-answered { background: var(--not-ans-red); color: white; border: none; border-radius: 50% 50% 0 0; }
+        .palette-num.active { border: 2px solid #3498db; transform: scale(1.1); }
+
+        /* --- RESULT PAGE --- */
+        .result-overlay { position: fixed; inset: 0; background: white; z-index: 2000; padding: 40px; overflow-y: auto; display: none; }
+        .table-res { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table-res td, .table-res th { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .table-res th { background: var(--nta-blue); color: white; }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div><b>WEEKLY TEST: JEE ADVANCED/MAINS LEVEL</b></div>
-    <div class="timer" id="time-display">60:00</div>
-</div>
-
-<div class="container" id="quiz-ui">
-    <div class="question-box">
-        <div id="sub-tag" class="subject-badge">SUBJECT</div>
-        <h3 id="q-num">Question 1</h3>
-        <p id="q-text" style="font-size: 1.1rem; line-height: 1.6;">Loading...</p>
-        <div id="options"></div>
-        <button class="btn btn-next" onclick="nextQ()">Save & Next</button>
-    </div>
-
-    <div class="palette">
-        <h4>Palette</h4>
-        <div class="grid" id="palette-grid"></div>
-        <button class="btn btn-submit" onclick="showResults()">Submit Test</button>
+<div id="login-overlay">
+    <div class="login-card">
+        <h2>Weekly Test 📝</h2>
+        <input type="text" id="u-name" placeholder="Full Name">
+        <input type="text" id="u-state" placeholder="State">
+        <input type="text" id="u-dist" placeholder="District">
+        <button class="btn-start" onclick="initTest()">Start Weekly Test</button>
     </div>
 </div>
 
-<div id="result">
-    <h2>Test Summary</h2>
-    <div style="font-size: 3rem; color: var(--primary); margin: 20px 0;" id="total-score">0 / 60</div>
-    <p id="stats"></p>
-    <button class="btn btn-next" onclick="location.reload()">Restart Test</button>
+<header>
+    <div id="user-display" style="font-weight: bold;">NTA Mock Test</div>
+    <div class="timer" id="timer">60:00</div>
+</header>
+
+<div class="container" id="test-main" style="display: none;">
+    <div class="question-section">
+        <div class="subject-bar" id="sub-tag">Subject</div>
+        <div class="question-text" id="q-text">Loading question...</div>
+        <div id="options-container"></div>
+        
+        <div class="controls">
+            <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
+            <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+        </div>
+    </div>
+
+    <div class="palette-section">
+        <h3>Question Palette</h3>
+        <div class="palette-grid" id="palette-grid"></div>
+        <button class="btn-start" style="margin-top: 30px; background: var(--not-ans-red);" onclick="submitTest()">Submit Test</button>
+    </div>
+</div>
+
+<div class="result-overlay" id="result-page">
+    <h1>Test Summary</h1>
+    <p id="res-user-info"></p>
+    <h2 style="color: var(--ans-green); margin: 20px 0;">Final Score: <span id="final-score"></span>/120</h2>
+    
+    <h3>Leaderboard (Top 10)</h3>
+    <table class="table-res" id="leader-table">
+        <thead><tr><th>Rank</th><th>Name</th><th>Location</th><th>Score</th></tr></thead>
+        <tbody id="leader-body"></tbody>
+    </table>
+
+    <button class="btn-start" style="width: 200px; margin-top: 20px;" onclick="location.reload()">Back to Dashboard</button>
 </div>
 
 <script>
-const quizData = [
-    // PHYSICS
-    { sub: 'PHYSICS', class: 'phys', q: 'Momentum (P), Area (A), and Time (T) are fundamental quantities. Dimensional formula for Energy is:', opts: ['[P^1 A^{1/2} T^{-1}]', '[P^2 A^{-1} T^1]', '[P^1 A^{-1/2} T^0]', '[P^1 A^{1/2} T^1]'], ans: 0 },
-    { sub: 'PHYSICS', class: 'phys', q: 'Velocity varies with displacement as v = α√x. Average velocity for the first S distance is:', opts: ['(α√S)/2', 'α√S', '(α√S)/√2', '(2α√S)/3'], ans: 0 },
-    { sub: 'PHYSICS', class: 'phys', q: 'A solid sphere and a solid cylinder (same M, R) roll down an inclined plane. Ratio of accelerations a_sphere/a_cylinder is:', opts: ['14:15', '15:14', '5:4', '2:3'], ans: 1 },
-    { sub: 'PHYSICS', class: 'phys', q: 'Ideal gas PV^2 = constant. Initial T and V. Final T when volume becomes 2V?', opts: ['2T', 'T/2', 'T/4', '4T'], ans: 1 },
-    { sub: 'PHYSICS', class: 'phys', q: 'Charges +Q, q, +Q at 0, d/2, d. If net force on +Q at x=0 is zero, then q is:', opts: ['-Q/2', '-Q/4', '+Q/2', '+Q/4'], ans: 1 },
+    let questions = [];
+    let currentIdx = 0;
+    let answers = Array(30).fill(null);
+    let visited = Array(30).fill(false);
+    let userData = {};
+    let timeLeft = 3600; // 1 hour
 
-    // CHEMISTRY
-    { sub: 'CHEMISTRY', class: 'chem', q: 'For first-order reaction, time for 99% completion is x times the time for 90% completion. x is:', opts: ['1', '2', '3', '10'], ans: 1 },
-    { sub: 'CHEMISTRY', class: 'chem', q: 'Correct order of bond angle for BH3, NH3, PCl3, BF3 is:', opts: ['BF3 = BH3 > NH3 > PCl3', 'PCl3 > NH3 > BH3 > BF3', 'NH3 > PCl3 > BF3 = BH3', 'BF3 > BH3 > NH3 > PCl3'], ans: 0 },
-    { sub: 'CHEMISTRY', class: 'chem', q: 'Which compound will undergo Cannizzaro reaction?', opts: ['CH3CHO', 'C6H5CHO', 'CH3CH2CHO', 'CH3COCH3'], ans: 1 },
-    { sub: 'CHEMISTRY', class: 'chem', q: 'Spin-only magnetic moment of [Fe(H2O)6]2+ is approximately:', opts: ['5.92 BM', '4.90 BM', '3.87 BM', '1.73 BM'], ans: 1 },
-    { sub: 'CHEMISTRY', class: 'chem', q: 'Na2SO4 (5g) in 45g water, ΔTf = -3.82°C. Kf = 1.86. Van\'t Hoff factor i is:', opts: ['2.1', '2.6', '3.0', '1.5'], ans: 1 },
-
-    // MATHS
-    { sub: 'MATHS', class: 'math', q: 'If f(x) = ∫[0 to x] (t^2)/(1+t^4) dt, then f\'(1) is:', opts: ['1/2', '1', '0', '1/4'], ans: 0 },
-    { sub: 'MATHS', class: 'math', q: 'If complex number z satisfies |z-i| = |z+i|, then locus of z is:', opts: ['A circle', 'The x-axis', 'The y-axis', 'A parabola'], ans: 1 },
-    { sub: 'MATHS', class: 'math', q: 'Volume of parallelepiped with edges a=i+j, b=j+k, c=k+i is:', opts: ['1', '2', '0', '4'], ans: 1 },
-    { sub: 'MATHS', class: 'math', q: 'If A is 3x3 matrix and |A|=5, then |adj(adj A)| is:', opts: ['5^2', '5^4', '5^8', '5^9'], ans: 1 },
-    { sub: 'MATHS', class: 'math', q: 'Two dice thrown. Probability that the sum is a prime number?', opts: ['5/12', '7/36', '1/2', '15/36'], ans: 0 }
-];
-
-let currentIdx = 0;
-let userAnswers = new Array(15).fill(null);
-let timeLeft = 3600;
-
-function init() {
-    renderPalette();
-    showQuestion();
-    startTimer();
-}
-
-function showQuestion() {
-    const data = quizData[currentIdx];
-    document.getElementById('sub-tag').innerText = data.sub;
-    document.getElementById('sub-tag').className = `subject-badge ${data.class}`;
-    document.getElementById('q-num').innerText = `Question ${currentIdx + 1}`;
-    document.getElementById('q-text').innerText = data.q;
-    
-    const optionsDiv = document.getElementById('options');
-    optionsDiv.innerHTML = data.opts.map((opt, i) => `
-        <div class="option ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="selectOpt(${i})">${opt}</div>
-    `).join('');
-    
-    updatePalette();
-}
-
-function selectOpt(i) {
-    userAnswers[currentIdx] = i;
-    showQuestion();
-}
-
-function nextQ() {
-    if(currentIdx < 14) { currentIdx++; showQuestion(); }
-}
-
-function renderPalette() {
-    const grid = document.getElementById('palette-grid');
-    grid.innerHTML = quizData.map((_, i) => `
-        <button class="num-btn" id="btn-${i}" onclick="jumpTo(${i})">${i+1}</button>
-    `).join('');
-}
-
-function updatePalette() {
-    quizData.forEach((_, i) => {
-        const btn = document.getElementById(`btn-${i}`);
-        btn.className = 'num-btn';
-        if(i === currentIdx) btn.classList.add('active');
-        if(userAnswers[i] !== null) btn.classList.add('answered');
-    });
-}
-
-function jumpTo(i) { currentIdx = i; showQuestion(); }
-
-function startTimer() {
-    const timer = setInterval(() => {
-        timeLeft--;
-        let m = Math.floor(timeLeft/60);
-        let s = timeLeft%60;
-        document.getElementById('time-display').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-        if(timeLeft <= 0) { clearInterval(timer); showResults(); }
-    }, 1000);
-}
-
-function showResults() {
-    let score = 0, correct = 0, wrong = 0;
-    userAnswers.forEach((ans, i) => {
-        if(ans !== null) {
-            if(ans === quizData[i].ans) { score += 4; correct++; }
-            else { score -= 1; wrong++; }
+    // Dummy Question Generator (Aap yahan apne real 30 sawal daalein)
+    function generateDummyQuestions() {
+        for(let i=1; i<=30; i++) {
+            questions.push({
+                id: i,
+                sub: i <= 10 ? "Physics" : (i <= 20 ? "Chemistry" : "Maths"),
+                text: `Question Number ${i}: Sample JEE level question text goes here for ${i <= 10 ? "Physics" : (i <= 20 ? "Chemistry" : "Maths")}.`,
+                options: ["Option A", "Option B", "Option C", "Option D"],
+                ans: Math.floor(Math.random() * 4) // Demo purpose only
+            });
         }
-    });
+    }
 
-    document.getElementById('quiz-ui').style.display = 'none';
-    const resDiv = document.getElementById('result');
-    resDiv.style.display = 'block';
-    document.getElementById('total-score').innerText = `${score} / 60`;
-    document.getElementById('stats').innerText = `Correct: ${correct} | Incorrect: ${wrong} | Unattempted: ${15-(correct+wrong)}`;
-// --- NAYA DATA SAVING LOGIC (History ke liye) ---
+    function initTest() {
+        userData.name = document.getElementById('u-name').value;
+        userData.state = document.getElementById('u-state').value;
+        userData.dist = document.getElementById('u-dist').value;
+        if(!userData.name || !userData.state) return alert("Details bharo!");
 
-// 1. Student ka abhi ka score aur date
-let currentScore = score; // 'score' wahi variable hai jo upar calculate hua hai
-let todayStr = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }); // Jaise: "9 Mar"
+        generateDummyQuestions();
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('test-main').style.display = 'flex';
+        document.getElementById('user-display').textContent = `Candidate: ${userData.name}`;
+        
+        createPalette();
+        loadQuestion(0);
+        startTimer();
+    }
 
-// 2. Purani history nikalo (Agar pehle se hai toh)
-let scoreHistory = JSON.parse(localStorage.getItem('jee_score_history')) || [];
+    function createPalette() {
+        const grid = document.getElementById('palette-grid');
+        for(let i=0; i<30; i++) {
+            const div = document.createElement('div');
+            div.className = 'palette-num';
+            div.id = `pal-${i}`;
+            div.textContent = i+1;
+            div.onclick = () => loadQuestion(i);
+            grid.appendChild(div);
+        }
+    }
 
-// 3. Naya score aur date list mein jodo
-scoreHistory.push({ score: currentScore, date: todayStr });
+    function loadQuestion(idx) {
+        currentIdx = idx;
+        visited[idx] = true;
+        const q = questions[idx];
+        
+        document.getElementById('sub-tag').textContent = q.sub;
+        document.getElementById('q-text').textContent = q.text;
+        
+        const optDiv = document.getElementById('options-container');
+        optDiv.innerHTML = '';
+        q.options.forEach((opt, i) => {
+            const d = document.createElement('div');
+            d.className = `option ${answers[idx] === i ? 'selected' : ''}`;
+            d.textContent = opt;
+            d.onclick = () => selectOption(i, d);
+            optDiv.appendChild(d);
+        });
 
-// 4. Agar 30 se zyada test ho gaye, toh sabse purana wala hata do
-if (scoreHistory.length > 30) {
-    scoreHistory.shift(); // Pehla (sabse purana) item nikal do
-}
+        updatePaletteUI();
+    }
 
-// 5. Wapas phone ki memory mein save karo (String banakar)
-localStorage.setItem('jee_last_score', currentScore); // Latest wala alag se bhi rakhte hain
-localStorage.setItem('jee_score_history', JSON.stringify(scoreHistory));
+    function selectOption(i, el) {
+        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        answers[currentIdx] = i;
+    }
 
-console.log("History updated. Total tests saved:", scoreHistory.length);
-// --- LOGIC END ---
-}
+    function saveAndNext() {
+        if(currentIdx < 29) loadQuestion(currentIdx + 1);
+    }
 
-init();
+    function clearResponse() {
+        answers[currentIdx] = null;
+        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        updatePaletteUI();
+    }
+
+    function updatePaletteUI() {
+        for(let i=0; i<30; i++) {
+            const el = document.getElementById(`pal-${i}`);
+            el.classList.remove('active', 'answered', 'not-answered');
+            if(i === currentIdx) el.classList.add('active');
+            
+            if(answers[i] !== null) el.classList.add('answered');
+            else if(visited[i]) el.classList.add('not-answered');
+        }
+    }
+
+    function startTimer() {
+        setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft/60);
+            let s = timeLeft%60;
+            document.getElementById('timer').textContent = `${m}:${s < 10 ? '0'+s : s}`;
+            if(timeLeft <= 0) submitTest();
+        }, 1000);
+    }
+
+    function submitTest() {
+        let score = 0;
+        answers.forEach((ans, i) => {
+            if(ans === questions[i].ans) score += 4;
+            else if(ans !== null) score -= 1;
+        });
+
+        document.getElementById('result-page').style.display = 'block';
+        document.getElementById('final-score').textContent = score;
+        document.getElementById('res-user-info').textContent = `Name: ${userData.name} | Location: ${userData.dist}, ${userData.state}`;
+        
+        // Save to Leaderboard
+        let weeklyScores = JSON.parse(localStorage.getItem('jeeWeeklyScores')) || [];
+        weeklyScores.push({name: userData.name, loc: `${userData.dist}, ${userData.state}`, score: score});
+        weeklyScores.sort((a,b) => b.score - a.score);
+        weeklyScores = weeklyScores.slice(0, 10);
+        localStorage.setItem('jeeWeeklyScores', JSON.stringify(weeklyScores));
+
+        const body = document.getElementById('leader-body');
+        body.innerHTML = '';
+        weeklyScores.forEach((s, i) => {
+            body.innerHTML += `<tr><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`;
+        });
+    }
 </script>
+
 </body>
 </html>
