@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Daily Quiz: Global Leaderboard</title>
+    <title>JEE Daily Quiz: Smart Solutions & Rank</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,6 +11,7 @@
             --card-dark: #1a1a1a;
             --neon-cyan: #00e5ff;
             --neon-green: #00ff00;
+            --neon-purple: #bc13fe;
             --text-light: #e0e0e0;
         }
 
@@ -20,57 +21,60 @@
         /* --- LOGIN MODAL --- */
         #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 100; }
         .login-card { background: var(--card-dark); padding: 30px; border-radius: 15px; border: 1px solid var(--neon-cyan); width: 90%; max-width: 400px; text-align: center; }
-        .login-card input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; border-radius: 8px; }
+        .login-card input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
 
         /* --- QUIZ CONTAINER --- */
-        .quiz-container { background: var(--card-dark); padding: 25px; border-radius: 20px; width: 100%; max-width: 500px; border: 1px solid #333; display: none; }
-        .option-btn { width: 100%; background: #2a2a2a; color: white; border: 2px solid transparent; padding: 15px; border-radius: 12px; text-align: left; cursor: pointer; margin-bottom: 10px; }
+        .quiz-container { background: var(--card-dark); padding: 25px; border-radius: 20px; width: 100%; max-width: 550px; border: 1px solid #333; display: none; }
+        .subject-badge { display: inline-block; padding: 4px 12px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; background: var(--neon-cyan); color: #000; margin-bottom: 10px; }
+        .option-btn { width: 100%; background: #2a2a2a; color: white; border: 2px solid transparent; padding: 15px; border-radius: 12px; text-align: left; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; }
         .option-btn.selected { border-color: var(--neon-cyan); background: rgba(0, 229, 255, 0.1); }
-        .btn-primary { background: var(--neon-cyan); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn-primary { background: var(--neon-cyan); color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
 
-        /* --- LEADERBOARD STYLE --- */
-        .leaderboard-box { background: #111; padding: 15px; border-radius: 12px; margin-top: 20px; }
-        .leaderboard-item { display: flex; justify-content: space-between; padding: 10px 5px; border-bottom: 1px solid #222; font-size: 0.9rem; }
-        .rank-1 { color: #ffd700; font-weight: bold; }
-        .rank-2 { color: #c0c0c0; }
-        .rank-3 { color: #cd7f32; }
-
-        /* --- SHARE BUTTON --- */
-        .btn-share { background: #25D366; color: white; margin-top: 10px; }
+        /* --- RESULTS & SOLUTIONS --- */
+        .result-box { text-align: center; }
+        .leaderboard-box { background: #111; padding: 15px; border-radius: 12px; margin-top: 20px; text-align: left; }
+        .leaderboard-item { display: flex; justify-content: space-between; padding: 8px 5px; border-bottom: 1px solid #222; font-size: 0.85rem; }
+        .solution-card { background: #1a1a1a; border: 1px solid #333; padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; border-left: 4px solid var(--neon-purple); }
+        .btn-share { background: #25D366; color: white; margin-top: 15px; }
         .hidden { display: none; }
+        .correct-text { color: var(--neon-green); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div id="login-overlay">
     <div class="login-card">
-        <h2>Student Login 🎓</h2>
+        <h2 style="color: var(--neon-cyan)">Daily Quiz Challenge 🚀</h2>
         <input type="text" id="user-name" placeholder="Full Name">
         <input type="text" id="user-state" placeholder="State">
         <input type="text" id="user-district" placeholder="District">
-        <button class="btn-primary" onclick="startQuiz()">Start Quiz</button>
+        <button class="btn-primary" onclick="startQuiz()">Start Now</button>
     </div>
 </div>
 
 <div class="quiz-container" id="main-container">
     <div id="quiz-area">
-        <h3 id="subject-tag" style="color:var(--neon-cyan)">Subject</h3>
-        <h2 id="question-text" style="margin: 15px 0;">Loading...</h2>
+        <div id="subject-badge" class="subject-badge">Subject</div>
+        <h3 id="question-text" style="margin-bottom: 20px; line-height: 1.5;">Question?</h3>
         <div id="options-container"></div>
         <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next Question ›</button>
     </div>
 
-    <div id="result-area" class="hidden">
-        <h1 style="text-align:center">Result 🎉</h1>
-        <p id="user-score-display" style="text-align:center; font-size: 1.5rem; color: var(--neon-green); margin: 10px 0;"></p>
+    <div id="result-area" class="hidden result-box">
+        <h2 style="color: var(--neon-cyan)">Quiz Completed!</h2>
+        <p id="user-score-info" style="font-size: 1.2rem; margin: 10px 0;"></p>
         
-        <button class="btn-primary btn-share" onclick="shareResult()">WhatsApp par Share karein 📲</button>
+        <button class="btn-primary btn-share" onclick="shareOnWhatsApp()">WhatsApp par Share karein 📲</button>
 
         <div class="leaderboard-box">
-            <h3 style="color: var(--neon-cyan); margin-bottom: 10px;">🏆 Top 10 Leaders</h3>
+            <h4 style="margin-bottom: 10px;">🏆 Top 10 Today</h4>
             <div id="leaderboard-list"></div>
         </div>
-        <button class="btn-primary" style="background:#444; color:white" onclick="location.reload()">Back to Home</button>
+
+        <h3 style="margin-top: 25px; color: var(--neon-purple);">Detailed Solutions 💡</h3>
+        <div id="solutions-list"></div>
+
+        <button class="btn-primary" style="background:#444; color:white; margin-top:20px;" onclick="location.reload()">Take Quiz Again</button>
     </div>
 </div>
 
@@ -80,11 +84,30 @@
     let score = 0;
     let selectedIdx = null;
     let startTime;
+    let userAnswers = [];
 
     const questions = [
-        { sub: "Physics", q: "Light year is a unit of?", opts: ["Time", "Distance", "Speed", "Intensity"], ans: 1 },
-        { sub: "Chemistry", q: "Chemical formula of Salt is?", opts: ["HCl", "NaOH", "NaCl", "KCl"], ans: 2 },
-        { sub: "Maths", q: "Value of sin(90°)?", opts: ["0", "1", "1/2", "Not defined"], ans: 1 }
+        {
+            sub: "Physics (Electrostatics)",
+            q: "Do point charges +q aur -4q ek dusre se 'd' distance par rakhe hain. Teesra charge 'Q' kahan rakha jaye taaki pura system equilibrium mein rahe?",
+            opts: ["-q se d distance par, dono charges ke beech mein.", "-q se d distance par, +q ki baayi (left) taraf.", "-4q se 2d distance par, dono charges ke beech mein.", "+q se 2d distance par, +q ki baayi (left) taraf."],
+            ans: 1,
+            rationale: "Equilibrium ke liye net force zero honi chahiye. Chuki charges opposite sign ke hain, neutral point chote charge (+q) ke bahar ki taraf milega. Calculation se distance x = d nikalta hai."
+        },
+        {
+            sub: "Chemistry (Chemical Bonding)",
+            q: "Inme se kis molecule ka dipole moment (μ) zero nahi hai?",
+            opts: ["BF₃", "CCl₄", "NH₃", "CO₂"],
+            ans: 2,
+            rationale: "BF₃, CCl₄, aur CO₂ symmetrical molecules hain jinke bond moments ek dusre ko cancel kar dete hain. NH₃ mein ek lone pair hone ki wajah se uska net dipole moment zero nahi hota."
+        },
+        {
+            sub: "Mathematics (Sequences and Series)",
+            q: "Agar ek arithmetic progression (AP) ka pᵗʰ term 1/q hai aur qᵗʰ term 1/p hai, toh uske pehle (pq) terms ka sum kya hoga?",
+            opts: ["pq + 1", "½(pq + 1)", "½(pq - 1)", "pq - 1"],
+            ans: 1,
+            rationale: "Di gayi conditions se first term a = 1/pq aur common difference d = 1/pq nikalta hai. Sum formula Sₙ = n/2[2a + (n-1)d] mein values rakhne par result ½(pq+1) aata hai."
+        }
     ];
 
     function startQuiz() {
@@ -92,7 +115,7 @@
         userData.state = document.getElementById('user-state').value;
         userData.district = document.getElementById('user-district').value;
 
-        if(!userData.name || !userData.state) return alert("Details bhariye!");
+        if(!userData.name || !userData.state || !userData.district) return alert("Poori details bhariye!");
 
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-container').style.display = 'block';
@@ -102,7 +125,7 @@
 
     function loadQ() {
         const data = questions[currentQ];
-        document.getElementById('subject-tag').textContent = data.sub;
+        document.getElementById('subject-badge').textContent = data.sub;
         document.getElementById('question-text').textContent = data.q;
         const optsDiv = document.getElementById('options-container');
         optsDiv.innerHTML = '';
@@ -118,62 +141,66 @@
             };
             optsDiv.appendChild(btn);
         });
+
+        if(currentQ === questions.length - 1) document.getElementById('next-btn').textContent = "Submit Quiz 🏁";
     }
 
     function nextQuestion() {
-        if(selectedIdx === null) return alert("Select an option!");
+        if(selectedIdx === null) return alert("Ek option select karein!");
+        
+        userAnswers.push(selectedIdx);
         if(selectedIdx === questions[currentQ].ans) score++;
         
         selectedIdx = null;
         currentQ++;
 
         if(currentQ < questions.length) loadQ();
-        else finalizeResults();
+        else showFinalResults();
     }
 
-    function finalizeResults() {
+    function showFinalResults() {
         const timeTaken = ((Date.now() - startTime) / 1000).toFixed(2);
         document.getElementById('quiz-area').classList.add('hidden');
         document.getElementById('result-area').classList.remove('hidden');
-        document.getElementById('user-score-display').textContent = `Score: ${score}/3 (${timeTaken}s)`;
+        document.getElementById('user-score-info').innerHTML = `Aapka Score: <span class="correct-text">${score}/${questions.length}</span><br><span style="font-size:0.9rem; color:#aaa">Time: ${timeTaken} seconds</span>`;
 
-        // --- DATABASE LOGIC (Local Browser Storage) ---
+        // Database logic
         let allScores = JSON.parse(localStorage.getItem('jeeGlobalScores')) || [];
-        
-        // Naya result add karein
         allScores.push({
             name: userData.name,
-            location: `${userData.district}, ${userData.state}`,
+            loc: `${userData.district}, ${userData.state}`,
             score: score,
             time: parseFloat(timeTaken)
         });
-
-        // Sorting: Pehle Score (High to Low), phir Time (Low to High)
         allScores.sort((a, b) => b.score - a.score || a.time - b.time);
-
-        // Top 10 rakhein
         allScores = allScores.slice(0, 10);
         localStorage.setItem('jeeGlobalScores', JSON.stringify(allScores));
 
-        displayLeaderboard(allScores);
-    }
+        // Display Leaderboard
+        const lbList = document.getElementById('leaderboard-list');
+        lbList.innerHTML = '';
+        allScores.forEach((item, idx) => {
+            lbList.innerHTML += `<div class="leaderboard-item"><span>${idx+1}. ${item.name} (${item.loc})</span><span>${item.score}/3 - ${item.time}s</span></div>`;
+        });
 
-    function displayLeaderboard(list) {
-        const listDiv = document.getElementById('leaderboard-list');
-        listDiv.innerHTML = '';
-        list.forEach((item, idx) => {
-            const row = document.createElement('div');
-            row.className = `leaderboard-item rank-${idx+1}`;
-            row.innerHTML = `
-                <span>${idx+1}. ${item.name} (${item.location})</span>
-                <span>${item.score}/3 - ${item.time}s</span>
+        // Display Solutions
+        const solList = document.getElementById('solutions-list');
+        solList.innerHTML = '';
+        questions.forEach((q, i) => {
+            const isCorrect = userAnswers[i] === q.ans;
+            solList.innerHTML += `
+                <div class="solution-card">
+                    <p><strong>Q${i+1}.</strong> ${q.q}</p>
+                    <p style="margin-top:5px">Aapka Answer: <span style="color:${isCorrect ? 'var(--neon-green)' : 'red'}">${q.opts[userAnswers[i]]}</span></p>
+                    <p class="correct-text">Correct Option: (${String.fromCharCode(65 + q.ans)}) ${q.opts[q.ans]}</p>
+                    <p style="margin-top:10px; font-size:0.85rem; color:#bbb"><strong>Explanation:</strong> ${q.rationale}</p>
+                </div>
             `;
-            listDiv.appendChild(row);
         });
     }
 
-    function shareResult() {
-        const text = `🔥 Maine JEE Daily Quiz mein ${score}/3 score kiya! \n📍 Location: ${userData.district}\n\nKya tum mujhse aage nikal sakte ho? Check here: ${window.location.href}`;
+    function shareOnWhatsApp() {
+        const text = `🔥 Maine JEE Daily Quiz mein ${score}/3 score kiya! \n📍 Rank List mein mera naam check karo. \n\nKya tum mujhe hara sakte ho? Quiz link: ${window.location.href}`;
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 </script>
