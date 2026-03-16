@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Daily Quick-Fire Quiz 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME & BASE STYLES (Dark Neon Mode) --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --card-dark: #1a1a1a;
+            --text-light: #e0e0e0;
+            --neon-cyan: #00e5ff;
+            --neon-green: #00ff00;
+            --neon-red: #ff3333;
+            --accent-purple: #8a2be2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: var(--card-dark);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #333;
+        }
+
+        /* --- HEADER SECTION (Streak & Timer) --- */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .streak-badge {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
+        }
+
+        .timer-box {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            padding: 8px 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* --- QUESTION SECTION --- */
+        .question-box h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .subject-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--bg-dark);
+            background-color: var(--neon-cyan);
+            padding: 4px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background-color: #2a2a2a;
+            color: var(--text-light);
+            border: 2px solid transparent;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .option-btn:hover {
+            background-color: #333;
+            border-color: #555;
+        }
+
+        .option-btn.selected {
+            border-color: var(--neon-cyan);
+            background-color: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+        }
+
+        /* --- CONTROLS --- */
+        .controls {
+            margin-top: 25px;
+            text-align: right;
+        }
+
+        .btn-primary {
+            background-color: var(--neon-cyan);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.6);
+        }
+
+        /* --- RESULTS SECTION (Hidden initially) --- */
+        .hidden {
+            display: none;
+        }
+
+        .result-box {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            background: conic-gradient(var(--neon-green) 0%, var(--neon-green) 0%, #333 0%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: var(--card-dark);
+            border-radius: 50%;
+        }
+
+        .score-text {
+            position: relative;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .leaderboard-preview {
+            margin: 25px 0;
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .leaderboard-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+        .rank-1 { color: gold; }
+
+        /* --- SOLUTIONS SECTION --- */
+        .solution-item {
+            margin-top: 20px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+        .solution-concept {
+            background: rgba(138, 43, 226, 0.2); /* Purple tint */
+            padding: 10px;
+            border-left: 4px solid var(--accent-purple);
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .correct-ans { color: var(--neon-green); font-weight: bold;}
+        .wrong-ans { color: var(--neon-red); font-weight: bold;}
+
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <div class="streak-badge">Is hafte ki Streak: 🔥 <span id="streak-count">4</span> Days</div>
+        <div class="timer-box" id="timer">05:00</div>
+    </div>
+
+    <div id="quiz-area">
+        <div class="question-box">
+            <span class="subject-tag" id="subject-tag">Physics</span>
+            <h2 id="question-text">Question is loading...</h2>
+            <div class="options-grid" id="options-container">
+                </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next Question ›</button>
+        </div>
+    </div>
+
+    <div id="result-area" class="hidden result-box">
+        <h1>Quiz Completed! 🎉</h1>
+        <p>Great job attempting today's challenge.</p>
+        
+        <div class="score-circle" id="score-circle">
+            <span class="score-text" id="score-text">0/3</span>
+        </div>
+
+        <div class="leaderboard-preview">
+             <h3>🏆 Today's Top Champs</h3>
+             <div class="leaderboard-row rank-1"><span>1. Rahul K.</span> <span>Time: 2:10s</span></div>
+             <div class="leaderboard-row"><span>2. You</span> <span>Time: <span id="time-taken"></span></span></div>
+             <div class="leaderboard-row"><span>3. Priya S.</span> <span>Time: 3:45s</span></div>
+        </div>
+
+        <button class="btn-primary" style="background-color: var(--accent-purple); width: 100%;" onclick="toggleSolutions()">View Killer Concepts & Solutions 💡</button>
+        
+        <div id="solutions-container" class="hidden">
+            </div>
+    </div>
+
+</div>
+
+<script>
+    // --- 1. SETUP & DATA ---
+    // NOTE: Real website mein ye data database se aayega har roz naya.
+    // Abhi demo ke liye hardcoded hai.
+    const todaysQuestions = [
+        {
+            subject: "Physics",
+            question: "A particle moves in a circle of radius R with constant speed v. What is the magnitude of average acceleration after half a revolution?",
+            options: ["0", "v²/R", "2v²/πR", "2v/πR"],
+            correctIndex: 2,
+            concept: "Average Acceleration = Change in Velocity / Time taken. Half revolution mein velocity vector reverse ho jata hai (v se -v). So Δv = 2v. Time = πR/v."
+        },
+        {
+            subject: "Chemistry",
+            question: "Which of the following has the highest bond angle?",
+            options: ["NH₃", "H₂O", "CH₄", "SO₂"],
+            correctIndex: 2,
+            concept: "VSEPR Theory: CH₄ is perfect tetrahedral (109.5°). NH₃ has 1 lone pair (107°). H₂O has 2 lone pairs (104.5°). SO₂ is bent (<120°). Lone pairs repel more."
+        },
+        {
+            subject: "Maths",
+            question: "If A is a 3x3 non-singular matrix such that A' = A⁻¹, then find the value of |A|.",
+            options: ["0", "1", "-1", "Either 1 or -1"],
+            correctIndex: 3,
+            concept: "Given A' = A⁻¹. Taking determinant both sides: |A'| = |A⁻¹|. We know |A'|=|A| and |A⁻¹| = 1/|A|. So, |A| = 1/|A| => |A|² = 1 => |A| = ±1."
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userAnswers = [];
+    let timeLeft = 300; // 5 minutes in seconds
+    let timerInterval;
+    let streak = parseInt(localStorage.getItem('jeeStreak')) || 4; // Load from local storage
+
+    // DOM Elements
+    const questionText = document.getElementById('question-text');
+    const subjectTag = document.getElementById('subject-tag');
+    const optionsContainer = document.getElementById('options-container');
+    const nextBtn = document.getElementById('next-btn');
+    const timerDisplay = document.getElementById('timer');
+    const streakCountDisplay = document.getElementById('streak-count');
+    const quizArea = document.getElementById('quiz-area');
+    const resultArea = document.getElementById('result-area');
+
+    // --- 2. FUNCTIONS ---
+
+    function initQuiz() {
+        streakCountDisplay.textContent = streak;
+        loadQuestion();
+        startTimer();
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Color change warning
+            if(timeLeft < 60) timerDisplay.style.color = "var(--neon-red)";
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showResults(); // Auto submit
+            }
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const currentQ = todaysQuestions[currentQuestionIndex];
+        subjectTag.textContent = currentQ.subject;
+        // Change tag color based on subject (Optional flair)
+        if(currentQ.subject === 'Physics') subjectTag.style.backgroundColor = "#00e5ff";
+        if(currentQ.subject === 'Chemistry') subjectTag.style.backgroundColor = "#ff3333";
+        if(currentQ.subject === 'Maths') subjectTag.style.backgroundColor = "#e5ff00";
+
+        questionText.textContent = currentQ.question;
+        optionsContainer.innerHTML = ''; // Clear previous options
+
+        currentQ.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.classList.add('option-btn');
+            btn.textContent = option;
+            btn.onclick = () => selectOption(index, btn);
+            optionsContainer.appendChild(btn);
+        });
+
+        // Update button text for last question
+        if(currentQuestionIndex === todaysQuestions.length - 1) {
+            nextBtn.textContent = "Submit Quiz 🚀";
+        }
+    }
+
+    let selectedOptionIndex = null;
+
+    function selectOption(index, element) {
+        // Deselect others
+        const allOptions = document.querySelectorAll('.option-btn');
+        allOptions.forEach(btn => btn.classList.remove('selected'));
+        
+        // Select current
+        element.classList.add('selected');
+        selectedOptionIndex = index;
+    }
+
+    function nextQuestion() {
+        if (selectedOptionIndex === null) {
+            alert("Please select an option first!");
+            return;
+        }
+
+        // Check answer
+        userAnswers.push(selectedOptionIndex);
+        if (selectedOptionIndex === todaysQuestions[currentQuestionIndex].correctIndex) {
+            score++;
+        }
+
+        selectedOptionIndex = null; // Reset for next question
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < todaysQuestions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        clearInterval(timerInterval);
+        quizArea.classList.add('hidden');
+        resultArea.classList.remove('hidden');
+
+        // Calculate Score
+        const scoreText = document.getElementById('score-text');
+        scoreText.textContent = `${score}/${todaysQuestions.length}`;
+        
+        // Update Score Circle (Visual)
+        const percentage = (score / todaysQuestions.length) * 100;
+        document.getElementById('score-circle').style.background = `conic-gradient(var(--neon-green) ${percentage}%, #333 ${percentage}%)`;
+
+        // Update Time Taken
+        const timeTakenSec = 300 - timeLeft;
+        let takenMin = Math.floor(timeTakenSec / 60);
+        let takenSec = timeTakenSec % 60;
+        document.getElementById('time-taken').textContent = `${takenMin}:${takenSec.toString().padStart(2, '0')}s`;
+
+        // Update Streak (Simple logic for demo: increment if attempted)
+        streak++;
+        localStorage.setItem('jeeStreak', streak);
+        streakCountDisplay.textContent = streak;
+        
+        generateSolutions();
+    }
+
+    function generateSolutions() {
+        const container = document.getElementById('solutions-container');
+        let htmlString = "";
+        todaysQuestions.forEach((q, index) => {
+            const userAnsIndex = userAnswers[index];
+            const isCorrect = userAnsIndex === q.correctIndex;
+            
+            htmlString += `
+                <div class="solution-item">
+                    <p><strong>Q${index+1} (${q.subject}):</strong> ${q.question}</p>
+                    <p>Your Answer: <span class="${isCorrect ? 'correct-ans' : 'wrong-ans'}">${q.options[userAnsIndex] || 'Not Attempted'}</span></p>
+                    <p class="correct-ans">Correct Answer: ${q.options[q.correctIndex]}</p>
+                    <div class="solution-concept">
+                        <strong>💡 Killer Concept:</strong><br> ${q.concept}
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = htmlString;
+    }
+
+    function toggleSolutions() {
+        const sols = document.getElementById('solutions-container');
+        sols.classList.toggle('hidden');
+    }
+
+    // Start Quiz on Load
+    initQuiz();
+
+</script>
+</body>
+</html>
