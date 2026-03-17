@@ -11,54 +11,53 @@
             --nta-gray: #f4f7f6;
             --ans-green: #27ae60;
             --not-ans-red: #e74c3c;
-            --visited-purple: #9b59b6;
+            --not-visited: #ecf0f1;
+            --whatsapp: #25D366;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
         body { background-color: var(--nta-gray); height: 100vh; overflow: hidden; }
 
-        /* --- LOGIN MODAL --- */
-        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .login-card { background: white; padding: 30px; border-radius: 8px; width: 350px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-        .login-card h2 { margin-bottom: 20px; color: var(--nta-blue); border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .login-card input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        /* --- LOGIN --- */
+        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-card { background: white; padding: 30px; border-radius: 8px; width: 380px; text-align: center; }
+        .login-card input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
         .btn-start { background: #3498db; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; }
 
-        /* --- NTA HEADER --- */
-        header { background: white; border-bottom: 1px solid #ddd; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
-        .timer { font-size: 1.2rem; font-weight: bold; color: #d35400; }
+        /* --- HEADER --- */
+        header { background: white; border-bottom: 1px solid #ddd; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+        .timer { font-size: 1.2rem; font-weight: bold; color: #e67e22; background: #fff8f0; padding: 5px 15px; border-radius: 4px; border: 1px solid #f39c12; }
 
-        /* --- MAIN LAYOUT --- */
+        /* --- TEST LAYOUT --- */
         .container { display: flex; height: calc(100vh - 60px); }
+        .question-panel { flex: 3; background: white; padding: 40px; overflow-y: auto; position: relative; border-right: 1px solid #ddd; }
+        .subject-tag { background: var(--nta-blue); color: white; padding: 5px 15px; border-radius: 3px; font-size: 0.9rem; margin-bottom: 20px; display: inline-block; }
+        .q-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; color: #2c3e50; }
+        .option { display: block; padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .option:hover { background: #f8f9fa; }
+        .option.selected { background: #e1f5fe; border-color: #03a9f4; font-weight: bold; }
 
-        /* Left Section: Question Area */
-        .question-section { flex: 3; background: white; padding: 30px; overflow-y: auto; border-right: 1px solid #ddd; position: relative; }
-        .subject-bar { background: #34495e; color: white; padding: 5px 15px; border-radius: 3px; display: inline-block; margin-bottom: 15px; }
-        .question-text { font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
-        .option { display: block; padding: 12px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; cursor: pointer; transition: 0.2s; }
-        .option:hover { background: #f0f0f0; }
-        .option.selected { background: #d6eaf8; border-color: #3498db; }
-
-        /* Bottom Controls */
-        .controls { position: absolute; bottom: 0; left: 0; width: 100%; background: #eee; padding: 15px; display: flex; justify-content: space-between; border-top: 1px solid #ddd; }
-        .btn { padding: 8px 20px; border: none; cursor: pointer; border-radius: 3px; font-weight: bold; }
+        .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; background: #f8f9fa; padding: 15px 40px; display: flex; justify-content: space-between; border-top: 1px solid #ddd; }
+        .btn-nav { padding: 10px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-save { background: var(--ans-green); color: white; }
-        .btn-clear { background: #95a5a6; color: white; }
+        .btn-clear { background: #bdc3c7; }
 
-        /* Right Section: Palette */
-        .palette-section { flex: 1; background: #f9f9f9; padding: 20px; overflow-y: auto; }
+        /* --- SIDE PALETTE --- */
+        .side-panel { flex: 1; background: #fff; padding: 20px; overflow-y: auto; }
         .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
-        .palette-num { height: 35px; width: 35px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; cursor: pointer; border-radius: 3px; background: white; }
-        .palette-num.answered { background: var(--ans-green); color: white; border: none; clip-path: polygon(0% 20%, 20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); }
-        .palette-num.not-answered { background: var(--not-ans-red); color: white; border: none; border-radius: 50% 50% 0 0; }
-        .palette-num.active { border: 2px solid #3498db; transform: scale(1.1); }
+        .p-box { height: 40px; width: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; cursor: pointer; transition: 0.2s; background: var(--not-visited); }
+        
+        /* NTA Shapes */
+        .p-box.answered { background: var(--ans-green); color: white; border: none; clip-path: polygon(0% 20%, 20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); }
+        .p-box.not-answered { background: var(--not-ans-red); color: white; border: none; border-radius: 50% 50% 0 0; }
+        .p-box.active { border: 2px solid #3498db; transform: scale(1.1); }
 
-        /* --- RESULT PAGE --- */
+        /* --- RESULTS --- */
         .result-overlay { position: fixed; inset: 0; background: white; z-index: 2000; padding: 40px; overflow-y: auto; display: none; }
-        .table-res { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .table-res td, .table-res th { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        .table-res th { background: var(--nta-blue); color: white; }
-
+        .score-banner { background: #e8f5e9; padding: 25px; border-radius: 10px; text-align: center; border: 1px solid #c8e6c9; margin-bottom: 30px; }
+        .sol-card { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid var(--nta-blue); }
+        .btn-whatsapp { background: var(--whatsapp); color: white; padding: 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: bold; width: 100%; justify-content: center; margin-bottom: 20px; }
+        
         .hidden { display: none; }
     </style>
 </head>
@@ -66,182 +65,203 @@
 
 <div id="login-overlay">
     <div class="login-card">
-        <h2>Weekly Test 📝</h2>
-        <input type="text" id="u-name" placeholder="Full Name">
+        <h2 style="margin-bottom:15px; color:var(--nta-blue)">Weekly Test (30 Qs)</h2>
+        <input type="text" id="u-name" placeholder="Enter Full Name">
         <input type="text" id="u-state" placeholder="State">
         <input type="text" id="u-dist" placeholder="District">
-        <button class="btn-start" onclick="initTest()">Start Weekly Test</button>
+        <button class="btn-start" onclick="beginTest()">Start Test Now</button>
     </div>
 </div>
 
 <header>
-    <div id="user-display" style="font-weight: bold;">NTA Mock Test</div>
-    <div class="timer" id="timer">60:00</div>
+    <div id="user-info" style="font-weight:bold; color:var(--nta-blue)">JEE MAINS MOCK</div>
+    <div class="timer" id="timer-box">60:00</div>
 </header>
 
-<div class="container" id="test-main" style="display: none;">
-    <div class="question-section">
-        <div class="subject-bar" id="sub-tag">Subject</div>
-        <div class="question-text" id="q-text">Loading question...</div>
-        <div id="options-container"></div>
+<div class="container" id="test-view" style="display: none;">
+    <div class="question-panel">
+        <div class="subject-tag" id="sub-tag">Subject</div>
+        <div class="q-text" id="q-body">Loading...</div>
+        <div id="opt-container"></div>
         
-        <div class="controls">
-            <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
-            <button class="btn btn-save" onclick="saveAndNext()">Save & Next</button>
+        <div class="bottom-nav">
+            <button class="btn-nav btn-clear" onclick="clearAns()">Clear</button>
+            <button class="btn-nav btn-save" onclick="saveNext()">Save & Next</button>
         </div>
     </div>
 
-    <div class="palette-section">
-        <h3>Question Palette</h3>
-        <div class="palette-grid" id="palette-grid"></div>
-        <button class="btn-start" style="margin-top: 30px; background: var(--not-ans-red);" onclick="submitTest()">Submit Test</button>
+    <div class="side-panel">
+        <h4>Question Palette</h4>
+        <div class="palette-grid" id="p-grid"></div>
+        <button class="btn-start" style="margin-top: 40px; background: var(--not-ans-red);" onclick="submitConfirm()">Submit Test</button>
     </div>
 </div>
 
-<div class="result-overlay" id="result-page">
-    <h1>Test Summary</h1>
-    <p id="res-user-info"></p>
-    <h2 style="color: var(--ans-green); margin: 20px 0;">Final Score: <span id="final-score"></span>/120</h2>
-    
-    <h3>Leaderboard (Top 10)</h3>
-    <table class="table-res" id="leader-table">
-        <thead><tr><th>Rank</th><th>Name</th><th>Location</th><th>Score</th></tr></thead>
-        <tbody id="leader-body"></tbody>
-    </table>
+<div class="result-overlay" id="result-view">
+    <div class="score-banner">
+        <h1>Weekly Test Result</h1>
+        <h2 style="color:var(--ans-green); margin:10px 0;">Score: <span id="final-score">0</span> / 120</h2>
+        <p id="user-details"></p>
+    </div>
 
-    <button class="btn-start" style="width: 200px; margin-top: 20px;" onclick="location.reload()">Back to Dashboard</button>
+    <a href="javascript:void(0)" class="btn-whatsapp" onclick="shareTest()">Share Result on WhatsApp 📲</a>
+
+    <h3 style="margin-bottom: 15px;">Detailed Solutions & Explanations 💡</h3>
+    <div id="solutions-box"></div>
+
+    <button class="btn-start" style="background:#333; margin-top:20px" onclick="location.reload()">Back to Dashboard</button>
 </div>
 
 <script>
-    let questions = [];
-    let currentIdx = 0;
-    let answers = Array(30).fill(null);
-    let visited = Array(30).fill(false);
     let userData = {};
-    let timeLeft = 3600; // 1 hour
+    let questions = [
+        // PHYSICS (1-10)
+        { sub: "Physics", q: "If force (F), velocity (V), and time (T) are taken as fundamental units, then the dimensions of mass (M) are:", opts: ["[F V T⁻¹]", "[F V⁻¹ T⁻¹]", "[F V⁻¹ T]", "[F V⁻² T]"], ans: 2, exp: "Since F = ma = m(v/t), then m = F · t · v⁻¹. So, [M] = [F V⁻¹ T]." },
+        { sub: "Physics", q: "A ball is thrown vertically upwards with a velocity of 20 m/s from the top of a tower of height 25 m. After how many seconds will the ball hit the ground? (g = 10 m/s²)", opts: ["5 s", "3 s", "4 s", "6 s"], ans: 0, exp: "Using s = ut + ½at² with s = -25m, u = 20m/s, and a = -10m/s². Equation: t² - 4t - 5 = 0. Solving gives t = 5 s." },
+        { sub: "Physics", q: "A block of mass 5 kg is placed on a rough horizontal surface with μ = 0.6. If a horizontal force of 20 N is applied, the friction force acting is:", opts: ["30 N", "20 N", "10 N", "Zero"], ans: 1, exp: "Max static friction = μmg = 30 N. Since applied force (20 N) < max friction, static friction equals applied force (20 N)." },
+        { sub: "Physics", q: "A body of mass 2 kg moves such that x = t³/3. The work done by the force in the first 2 seconds is:", opts: ["16 J", "8 J", "4 J", "32 J"], ans: 0, exp: "v = dx/dt = t². At t=2, v=4 m/s. Work = ΔK.E = ½ * 2 * (16 - 0) = 16 J." },
+        { sub: "Physics", q: "Two rings of same mass/radius are perpendicular. Moment of inertia passing through center and perpendicular to plane of one ring is:", opts: ["MR²", "2MR²", "3/2 MR²", "1/2 MR²"], ans: 2, exp: "I = I₁ + I₂ = MR² + ½MR² = 3/2 MR²." },
+        { sub: "Physics", q: "If Earth shrinks by 1% (mass constant), 'g' on surface will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "g = GM/R². dg/g = -2dR/R. If R decreases by 1%, g increases by 2%." },
+        { sub: "Physics", q: "In adiabatic process, P is proportional to cube of T. γ (Cp/Cv) is:", opts: ["4/3", "5/3", "3/2", "2"], ans: 2, exp: "P ∝ T^(γ/γ-1). Given power is 3. Solving γ/(γ-1) = 3 gives γ = 3/2." },
+        { sub: "Physics", q: "Capacitor C charged to V is connected to uncharged 2C. Final potential difference is:", opts: ["V", "V/2", "V/3", "2V/3"], ans: 2, exp: "V' = Total Q / Total C = (CV + 0) / (C + 2C) = V/3." },
+        { sub: "Physics", q: "A wire of resistance R is stretched to double its length. New resistance is:", opts: ["2R", "4R", "R/2", "R/4"], ans: 1, exp: "Resistance R ∝ L²/Volume. If L doubles, R becomes 4 times." },
+        { sub: "Physics", q: "De Broglie wavelength of an electron accelerated through 100 Volts is approx:", opts: ["1.227 Å", "12.27 Å", "0.1227 Å", "122.7 Å"], ans: 0, exp: "λ = 12.27 / √V. For V=100, λ = 1.227 Å." },
 
-    // Dummy Question Generator (Aap yahan apne real 30 sawal daalein)
-    function generateDummyQuestions() {
-        for(let i=1; i<=30; i++) {
-            questions.push({
-                id: i,
-                sub: i <= 10 ? "Physics" : (i <= 20 ? "Chemistry" : "Maths"),
-                text: `Question Number ${i}: Sample JEE level question text goes here for ${i <= 10 ? "Physics" : (i <= 20 ? "Chemistry" : "Maths")}.`,
-                options: ["Option A", "Option B", "Option C", "Option D"],
-                ans: Math.floor(Math.random() * 4) // Demo purpose only
-            });
-        }
-    }
+        // CHEMISTRY (11-20)
+        { sub: "Chemistry", q: "De Broglie wavelength of 1g particle with velocity 100 m/s is:", opts: ["6.63 x 10⁻³³ m", "6.63 x 10⁻³⁵ m", "6.63 x 10⁻³¹ m", "6.63 x 10⁻³⁰ m"], ans: 0, exp: "λ = h/mv = (6.63e-34)/(1e-3 * 100) = 6.63 x 10⁻³³ m." },
+        { sub: "Chemistry", q: "Which species is diamagnetic?", opts: ["He₂⁺", "O₂", "N₂", "B₂"], ans: 2, exp: "N₂ (14 electrons) has all paired electrons in its molecular orbitals." },
+        { sub: "Chemistry", q: "Van't Hoff factor (i) for K₄[Fe(CN)₆] assuming 100% ionization is:", opts: ["2", "4", "5", "3"], ans: 2, exp: "Ionizes into 4K⁺ and 1 complex ion. Total = 5." },
+        { sub: "Chemistry", q: "First-order reaction: 50% completion in 20 min. Time for 75% completion is:", opts: ["30 min", "40 min", "60 min", "80 min"], ans: 1, exp: "t75% = 2 * t50% = 2 * 20 = 40 min." },
+        { sub: "Chemistry", q: "IUPAC name of [Co(NH₃)₅Cl]Cl₂ is:", opts: ["Pentaamminechloridocobalt(III) chloride", "Chloridopentaamminecobalt(III) chloride", "Pentaamminechloridocobalt(II) chloride", "Cobalt(III) pentaamminechloride"], ans: 0, exp: "Alphabetical order: ammine then chlorido. Co state is +3." },
+        { sub: "Chemistry", q: "Which oxoacid of Phosphorus contains a P-P bond?", opts: ["H₄P₂O₇", "H₄P₂O₆", "H₃PO₄", "H₃PO₂"], ans: 1, exp: "H₄P₂O₆ (Hypophosphoric acid) has a direct P-P bond." },
+        { sub: "Chemistry", q: "Major product of Propene + HBr in presence of peroxide is:", opts: ["2-Bromopropane", "1-Bromopropane", "1,2-Dibromopropane", "2-Bromopropene"], ans: 1, exp: "Peroxide causes Anti-Markovnikov addition (Br on terminal carbon)." },
+        { sub: "Chemistry", q: "For spontaneous process at all temperatures:", opts: ["ΔH > 0, ΔS > 0", "ΔH < 0, ΔS < 0", "ΔH < 0, ΔS > 0", "ΔH > 0, ΔS < 0"], ans: 2, exp: "ΔG = ΔH - TΔS. For ΔG to be always negative, ΔH < 0 and ΔS > 0." },
+        { sub: "Chemistry", q: "If Ksp of AgCl is 1.0 x 10⁻¹⁰, solubility is:", opts: ["1.0 x 10⁻⁵ mol/L", "1.0 x 10⁻¹⁰ mol/L", "0.5 x 10⁻⁵ mol/L", "1.0 x 10⁻⁷ mol/L"], ans: 0, exp: "s = √Ksp = √10⁻¹⁰ = 10⁻⁵ mol/L." },
+        { sub: "Chemistry", q: "Which is the most stable carbocation?", opts: ["CH₃⁺", "(CH₃)₂CH⁺", "(CH₃)₃C⁺", "CH₃CH₂⁺"], ans: 2, exp: "Tertiary carbocation is most stable due to +I and hyperconjugation." },
 
-    function initTest() {
+        // MATHS (21-30)
+        { sub: "Mathematics", q: "If f(x) = (x-1)/(x+1), then f(f(x)) is:", opts: ["x", "-1/x", "1/x", "-x"], ans: 1, exp: "Substituting f(x) into itself and simplifying gives -1/x." },
+        { sub: "Mathematics", q: "If ω is imaginary cube root of unity, then (1 + ω - ω²)⁷ is:", opts: ["128ω", "-128ω²", "128ω²", "-128ω"], ans: 1, exp: "(-ω² - ω²)⁷ = (-2ω²)⁷ = -128ω¹⁴ = -128ω²." },
+        { sub: "Mathematics", q: "If roots of x² - bx + c = 0 are consecutive integers, b² - 4c is:", opts: ["0", "1", "2", "3"], ans: 1, exp: "Difference of roots = 1. (√D)/a = 1. Squaring both sides, D = 1." },
+        { sub: "Mathematics", q: "If A is 3x3 and |A|=2, then |adj(adj A)| is:", opts: ["2⁴", "2⁸", "2¹⁶", "2²"], ans: 0, exp: "Formula: |A|^((n-1)²). Here 2^(2²) = 2⁴ = 16." },
+        { sub: "Mathematics", q: "Value of lim (x→0) (sin x - x)/x³ is:", opts: ["1/3", "-1/3", "1/6", "-1/6"], ans: 3, exp: "Using sin x expansion (x - x³/6), result is -1/6." },
+        { sub: "Mathematics", q: "Value of ∫[0 to π/2] √sin x / (√sin x + √cos x) dx is:", opts: ["π/2", "π/4", "π", "0"], ans: 1, exp: "Using property ∫f(x) = ∫f(a-x), 2I = π/2, so I = π/4." },
+        { sub: "Mathematics", q: "Length of tangent from (5,1) to x² + y² + 6x - 4y - 3 = 0 is:", opts: ["7", "√51", "8", "√49"], ans: 0, exp: "L = √S₁ = √ (25+1+30-4-3) = √49 = 7." },
+        { sub: "Mathematics", q: "If a = 2i-j+k and b = i+2j-3k are perpendicular, dot product is:", opts: ["1", "0", "-1", "5"], ans: 1, exp: "Perpendicular vectors always have a dot product of zero." },
+        { sub: "Mathematics", q: "Die thrown twice. Probability that sum is 8?", opts: ["5/36", "1/6", "4/36", "7/36"], ans: 0, exp: "Favorable: (2,6),(3,5),(4,4),(5,3),(6,2). Total 5/36." },
+        { sub: "Mathematics", q: "Order and degree of (d²y/dx²) + (dy/dx)^(1/3) + x^(1/4) = 0:", opts: ["2, 3", "3, 2", "2, 2", "2, 1"], ans: 0, exp: "Order is 2. Removing fractional power (1/3) makes power of d²y/dx² as 3." }
+    ];
+
+    let userAns = Array(30).fill(null);
+    let isVisited = Array(30).fill(false);
+    let currentQ = 0;
+    let timer;
+    let timeRem = 3600;
+
+    function beginTest() {
         userData.name = document.getElementById('u-name').value;
         userData.state = document.getElementById('u-state').value;
         userData.dist = document.getElementById('u-dist').value;
-        if(!userData.name || !userData.state) return alert("Details bharo!");
+        if(!userData.name || !userData.state) return alert("Fill all details!");
 
-        generateDummyQuestions();
         document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('test-main').style.display = 'flex';
-        document.getElementById('user-display').textContent = `Candidate: ${userData.name}`;
-        
-        createPalette();
-        loadQuestion(0);
+        document.getElementById('test-view').style.display = 'flex';
+        document.getElementById('user-info').textContent = "Candidate: " + userData.name;
+
+        genPalette();
+        showQ(0);
         startTimer();
     }
 
-    function createPalette() {
-        const grid = document.getElementById('palette-grid');
+    function genPalette() {
+        const grid = document.getElementById('p-grid');
         for(let i=0; i<30; i++) {
             const div = document.createElement('div');
-            div.className = 'palette-num';
-            div.id = `pal-${i}`;
+            div.className = 'p-box';
+            div.id = 'p-' + i;
             div.textContent = i+1;
-            div.onclick = () => loadQuestion(i);
+            div.onclick = () => showQ(i);
             grid.appendChild(div);
         }
     }
 
-    function loadQuestion(idx) {
-        currentIdx = idx;
-        visited[idx] = true;
+    function showQ(idx) {
+        currentQ = idx;
+        isVisited[idx] = true;
         const q = questions[idx];
-        
         document.getElementById('sub-tag').textContent = q.sub;
-        document.getElementById('q-text').textContent = q.text;
+        document.getElementById('q-body').textContent = q.q;
         
-        const optDiv = document.getElementById('options-container');
-        optDiv.innerHTML = '';
-        q.options.forEach((opt, i) => {
-            const d = document.createElement('div');
-            d.className = `option ${answers[idx] === i ? 'selected' : ''}`;
-            d.textContent = opt;
-            d.onclick = () => selectOption(i, d);
-            optDiv.appendChild(d);
+        const container = document.getElementById('opt-container');
+        container.innerHTML = '';
+        q.opts.forEach((opt, i) => {
+            const div = document.createElement('div');
+            div.className = "option " + (userAns[idx] === i ? 'selected' : '');
+            div.textContent = "(" + String.fromCharCode(65+i) + ") " + opt;
+            div.onclick = () => { userAns[idx] = i; showQ(idx); };
+            container.appendChild(div);
         });
-
-        updatePaletteUI();
+        updatePalette();
     }
 
-    function selectOption(i, el) {
-        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-        el.classList.add('selected');
-        answers[currentIdx] = i;
-    }
-
-    function saveAndNext() {
-        if(currentIdx < 29) loadQuestion(currentIdx + 1);
-    }
-
-    function clearResponse() {
-        answers[currentIdx] = null;
-        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-        updatePaletteUI();
-    }
-
-    function updatePaletteUI() {
+    function updatePalette() {
         for(let i=0; i<30; i++) {
-            const el = document.getElementById(`pal-${i}`);
+            const el = document.getElementById('p-' + i);
             el.classList.remove('active', 'answered', 'not-answered');
-            if(i === currentIdx) el.classList.add('active');
-            
-            if(answers[i] !== null) el.classList.add('answered');
-            else if(visited[i]) el.classList.add('not-answered');
+            if(i === currentQ) el.classList.add('active');
+            if(userAns[i] !== null) el.classList.add('answered');
+            else if(isVisited[i]) el.classList.add('not-answered');
         }
     }
 
+    function saveNext() { if(currentQ < 29) showQ(currentQ + 1); }
+    function clearAns() { userAns[currentQ] = null; showQ(currentQ); }
+
     function startTimer() {
-        setInterval(() => {
-            timeLeft--;
-            let m = Math.floor(timeLeft/60);
-            let s = timeLeft%60;
-            document.getElementById('timer').textContent = `${m}:${s < 10 ? '0'+s : s}`;
-            if(timeLeft <= 0) submitTest();
+        timer = setInterval(() => {
+            timeRem--;
+            let m = Math.floor(timeRem/60);
+            let s = timeRem%60;
+            document.getElementById('timer-box').textContent = `${m}:${s<10?'0'+s:s}`;
+            if(timeRem <= 0) finalize();
         }, 1000);
     }
 
-    function submitTest() {
+    function submitConfirm() { if(confirm("Submit Weekly Test?")) finalize(); }
+
+    function finalize() {
+        clearInterval(timer);
         let score = 0;
-        answers.forEach((ans, i) => {
-            if(ans === questions[i].ans) score += 4;
-            else if(ans !== null) score -= 1;
+        userAns.forEach((a, i) => {
+            if(a === questions[i].ans) score += 4;
+            else if(a !== null) score -= 1;
         });
 
-        document.getElementById('result-page').style.display = 'block';
+        document.getElementById('test-view').style.display = 'none';
+        document.getElementById('result-view').style.display = 'block';
         document.getElementById('final-score').textContent = score;
-        document.getElementById('res-user-info').textContent = `Name: ${userData.name} | Location: ${userData.dist}, ${userData.state}`;
-        
-        // Save to Leaderboard
-        let weeklyScores = JSON.parse(localStorage.getItem('jeeWeeklyScores')) || [];
-        weeklyScores.push({name: userData.name, loc: `${userData.dist}, ${userData.state}`, score: score});
-        weeklyScores.sort((a,b) => b.score - a.score);
-        weeklyScores = weeklyScores.slice(0, 10);
-        localStorage.setItem('jeeWeeklyScores', JSON.stringify(weeklyScores));
+        document.getElementById('user-details').textContent = `${userData.name} | ${userData.dist}, ${userData.state}`;
 
-        const body = document.getElementById('leader-body');
-        body.innerHTML = '';
-        weeklyScores.forEach((s, i) => {
-            body.innerHTML += `<tr><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`;
+        // Solutions
+        const solBox = document.getElementById('solutions-box');
+        questions.forEach((q, i) => {
+            const card = document.createElement('div');
+            card.className = 'sol-card';
+            const isCorrect = userAns[i] === q.ans;
+            card.innerHTML = `
+                <p><strong>Q${i+1} (${q.sub}):</strong> ${q.q}</p>
+                <p style="color:${isCorrect?'green':'red'}">Your Answer: ${userAns[i]!==null ? q.opts[userAns[i]] : 'Skipped'}</p>
+                <p style="color:green"><strong>Correct Answer:</strong> ${q.opts[q.ans]}</p>
+                <p style="margin-top:10px; font-size:0.9rem; color:#555"><strong>Rationale:</strong> ${q.exp}</p>
+            `;
+            solBox.appendChild(card);
         });
+    }
+
+    function shareTest() {
+        const score = document.getElementById('final-score').textContent;
+        const msg = `🚀 JEE Weekly Mock Test Update!\nName: ${userData.name}\nScore: ${score}/120\nDistrict: ${userData.dist}\n\nKya tum mujhse zyada score kar sakte ho? Test Link: ${window.location.href}`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 
