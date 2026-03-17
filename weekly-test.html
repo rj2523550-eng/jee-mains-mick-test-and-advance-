@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Weekly Master Test - NTA Pattern</title>
+    <title>JEE Weekly Test - NTA Pattern Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -40,14 +40,13 @@
         .container { display: flex; height: calc(100vh - 60px); }
         .question-panel { flex: 3; background: white; padding: 30px; overflow-y: auto; border-right: 1px solid #ddd; position: relative; }
         .subject-tag { background: var(--nta-blue); color: white; padding: 5px 15px; border-radius: 3px; font-size: 0.85rem; margin-bottom: 15px; display: inline-block; }
-        .q-text { font-size: 1.1rem; line-height: 1.5; margin-bottom: 20px; color: #2c3e50; min-height: 80px; }
+        .q-text { font-size: 1.1rem; line-height: 1.5; margin-bottom: 20px; color: #2c3e50; min-height: 50px; }
         
         .option { display: block; padding: 12px; border: 1px solid #eee; margin-bottom: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
         .option:hover { background: #f8f9fa; }
         .option.selected { background: #e1f5fe; border-color: #03a9f4; font-weight: bold; }
 
-        /* Navigation Buttons Right Under Options */
-        .inline-nav { margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee; display: flex; gap: 15px; }
+        .inline-nav { margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; display: flex; gap: 15px; }
         .btn-nav { padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; flex: 1; }
         .btn-save { background: var(--ans-green); color: white; }
         .btn-clear { background: #bdc3c7; color: #333; }
@@ -67,13 +66,10 @@
         .sol-card { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid var(--nta-blue); }
         .btn-whatsapp { background: var(--whatsapp); color: white; padding: 15px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: bold; justify-content: center; margin-bottom: 20px; }
         
-        /* Leaderboard Table */
         .leader-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
         .leader-table th, .leader-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         .leader-table th { background: var(--nta-blue); color: white; }
         .rank-high { background: #fff9c4; font-weight: bold; }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -81,14 +77,10 @@
 <div id="login-overlay">
     <div class="login-card">
         <h2 style="margin-bottom:10px; color:var(--nta-blue)">Weekly Test (30 Qs)</h2>
-        
-        <div class="desktop-notice">
-            ⚠️ <b>Notice:</b> Mobile users behtar experience ke liye <b>"Desktop Site"</b> mode on karein.
-        </div>
-
-        <input type="text" id="u-name" placeholder="Full Name" required>
-        <input type="text" id="u-state" placeholder="State (e.g. Maharashtra)" required>
-        <input type="text" id="u-dist" placeholder="District" required>
+        <div class="desktop-notice">⚠️ <b>Notice:</b> Mobile users behtar experience ke liye <b>"Desktop Site"</b> mode on karein.</div>
+        <input type="text" id="u-name" placeholder="Full Name">
+        <input type="text" id="u-state" placeholder="State">
+        <input type="text" id="u-dist" placeholder="District">
         <button class="btn-start" onclick="beginTest()">Start Weekly Test 🔥</button>
     </div>
 </div>
@@ -104,13 +96,11 @@
         <div class="subject-tag" id="sub-tag">Subject</div>
         <div class="q-text" id="q-body">Question loading...</div>
         <div id="opt-container"></div>
-        
         <div class="inline-nav">
             <button class="btn-nav btn-clear" onclick="clearAns()">Clear Response</button>
             <button class="btn-nav btn-save" onclick="saveNext()">Save & Next</button>
         </div>
     </div>
-
     <div class="side-panel">
         <h4 style="color:#555">Question Palette</h4>
         <div class="palette-grid" id="p-grid"></div>
@@ -121,62 +111,58 @@
 <div class="result-overlay" id="result-view">
     <div class="score-banner">
         <h1>Weekly Test Summary</h1>
-        <h2 style="color:var(--ans-green); margin:10px 0;">Your Score: <span id="final-score">0</span> / 120</h2>
+        <h2 style="color:var(--ans-green); margin:10px 0;">Score: <span id="final-score">0</span> / 120</h2>
         <p id="user-details-res" style="color:#666"></p>
     </div>
-
     <a href="javascript:void(0)" class="btn-whatsapp" onclick="shareTest()">Share Result on WhatsApp 📲</a>
-
-    <h3>🏆 Top 10 Leaderboard Today</h3>
+    <h3>🏆 Top 10 Leaderboard</h3>
     <table class="leader-table">
         <thead><tr><th>Rank</th><th>Name</th><th>Location</th><th>Score</th></tr></thead>
         <tbody id="leader-body"></tbody>
     </table>
-
-    <h3 style="margin-top:30px; margin-bottom:15px; border-bottom: 2px solid var(--nta-blue);">Detailed Solutions 💡</h3>
+    <h3 style="margin-top:30px; border-bottom: 2px solid var(--nta-blue);">Detailed Solutions 💡</h3>
     <div id="solutions-box"></div>
-
     <button class="btn-start" style="background:#333; margin-top:20px" onclick="location.reload()">Back to Dashboard</button>
 </div>
 
 <script>
     let userData = {};
     let questions = [
-        // PHYSICS
-        { sub: "Physics", q: "If force (F), velocity (V), and time (T) are taken as fundamental units, then the dimensions of mass (M) are:", opts: ["[F V T⁻¹]", "[F V⁻¹ T⁻¹]", "[F V⁻¹ T]", "[F V⁻² T]"], ans: 2, exp: "F = m*a => m = F/a = F/(v/t) = Fv⁻¹t. Dimension [F V⁻¹ T]." },
-        { sub: "Physics", q: "A ball is thrown vertically upwards with 20 m/s from 25 m tower. After how many seconds hit the ground? (g=10)", opts: ["5 s", "3 s", "4 s", "6 s"], ans: 0, exp: "s = ut + ½at² => -25 = 20t - 5t². t² - 4t - 5 = 0 => (t-5)(t+1)=0. t=5s." },
-        { sub: "Physics", q: "Mass 5kg, μ=0.6. Horizontal force 20N applied. Friction force is:", opts: ["30 N", "20 N", "10 N", "Zero"], ans: 1, exp: "Max friction = 0.6*5*10 = 30N. Applied 20N < 30N, so static friction = 20N." },
-        { sub: "Physics", q: "Mass 2kg, x = t³/3. Work done in first 2 seconds is:", opts: ["16 J", "8 J", "4 J", "32 J"], ans: 0, exp: "v = t². At t=2, v=4. Work = ΔK.E = ½*2*(16-0) = 16J." },
-        { sub: "Physics", q: "Two rings perpendicular, same center. Moment of inertia about axis through center and perp to one plane:", opts: ["MR²", "2MR²", "3/2 MR²", "1/2 MR²"], ans: 2, exp: "I = MR² (perp) + ½MR² (diameter) = 3/2 MR²." },
-        { sub: "Physics", q: "Earth shrinks by 1% (mass constant), 'g' will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "g ∝ 1/R². dg/g = -2 dR/R. R shrinks 1% => g increases 2%." },
-        { sub: "Physics", q: "Adiabatic process, P ∝ T³. Ratio of specific heats γ is:", opts: ["4/3", "5/3", "3/2", "2"], ans: 2, exp: "P ∝ T^(γ/γ-1). 3 = γ/(γ-1) => 3γ - 3 = γ => 2γ = 3 => γ = 1.5." },
-        { sub: "Physics", q: "Capacitor C charged to V, connected to uncharged 2C in parallel. Final V is:", opts: ["V", "V/2", "V/3", "2V/3"], ans: 2, exp: "V' = Total Q / Total C = CV / (C+2C) = V/3." },
-        { sub: "Physics", q: "Wire resistance R stretched to double length. New resistance is:", opts: ["2R", "4R", "R/2", "R/4"], ans: 1, exp: "R ∝ L². Length doubles => R becomes 4 times." },
-        { sub: "Physics", q: "De Broglie wavelength of electron at 100V is approx:", opts: ["1.227 Å", "12.27 Å", "0.1227 Å", "122.7 Å"], ans: 0, exp: "λ = 12.27 / √V = 12.27/10 = 1.227 Å." },
-        
-        // CHEMISTRY
-        { sub: "Chemistry", q: "De Broglie wavelength of 1g particle at 100m/s:", opts: ["6.63e-33 m", "6.63e-35 m", "6.63e-31 m", "6.63e-30 m"], ans: 0, exp: "λ = h/mv = 6.63e-34 / (1e-3 * 100) = 6.63e-33 m." },
-        { sub: "Chemistry", q: "Which species is diamagnetic?", opts: ["He₂⁺", "O₂", "N₂", "B₂"], ans: 2, exp: "N₂ (14e⁻) has all electrons paired." },
-        { sub: "Chemistry", q: "Van't Hoff factor (i) for K₄[Fe(CN)₆] (100% ionisation):", opts: ["2", "4", "5", "3"], ans: 2, exp: "Ionises into 4K⁺ and 1 complex ion = 5 particles." },
-        { sub: "Chemistry", q: "1st order: 50% in 20 min. 75% in how many minutes?", opts: ["30", "40", "60", "80"], ans: 1, exp: "t75% = 2 * t50% = 40 min." },
-        { sub: "Chemistry", q: "IUPAC name [Co(NH₃)₅Cl]Cl₂:", opts: ["Pentaamminechloridocobalt(III) chloride", "Chloridopentaamminecobalt(III) chloride", "Pentaamminechloridocobalt(II) chloride", "Cobalt(III) pentaamminechloride"], ans: 0, exp: "Alphabetical order ligands, Co oxidation state is +3." },
-        { sub: "Chemistry", q: "Oxoacid of Phosphorus with P-P bond:", opts: ["H₄P₂O₇", "H₄P₂O₆", "H₃PO₄", "H₃PO₂"], ans: 1, exp: "Hypophosphoric acid (H₄P₂O₆) has P-P bond." },
-        { sub: "Chemistry", q: "Propene + HBr + Peroxide major product:", opts: ["2-Bromopropane", "1-Bromopropane", "1,2-Dibromopropane", "2-Bromopropene"], ans: 1, exp: "Anti-Markovnikov addition via Peroxide effect." },
-        { sub: "Chemistry", q: "Spontaneous process at ALL temperatures:", opts: ["ΔH>0, ΔS>0", "ΔH<0, ΔS<0", "ΔH<0, ΔS>0", "ΔH>0, ΔS<0"], ans: 2, exp: "ΔG = ΔH - TΔS. Negative ΔH and positive ΔS ensures negative ΔG." },
-        { sub: "Chemistry", q: "Ksp AgCl is 1e-10, solubility is:", opts: ["1e-5", "1e-10", "0.5e-5", "1e-7"], ans: 0, exp: "s = √Ksp = 1e-5 mol/L." },
-        { sub: "Chemistry", q: "Most stable carbocation:", opts: ["CH₃⁺", "(CH₃)₂CH⁺", "(CH₃)₃C⁺", "CH₃CH₂⁺"], ans: 2, exp: "Tertiary (3°) carbocation is most stable." },
-        
-        // MATHS
-        { sub: "Maths", q: "f(x) = (x-1)/(x+1), f(f(x)) is:", opts: ["x", "-1/x", "1/x", "-x"], ans: 1, exp: "f(f(x)) = [(x-1/x+1)-1]/[(x-1/x+1)+1] = -2/2x = -1/x." },
-        { sub: "Maths", q: "If ω is cube root of unity, (1 + ω - ω²)⁷ is:", opts: ["128ω", "-128ω²", "128ω²", "-128ω"], ans: 1, exp: "(-2ω²)⁷ = -128ω¹⁴ = -128ω²." },
-        { sub: "Maths", q: "Roots of x²-bx+c=0 are consecutive integers, b²-4c is:", opts: ["0", "1", "2", "3"], ans: 1, exp: "Difference of roots = 1. √D/a = 1 => D = 1." },
-        { sub: "Maths", q: "A is 3x3, |A|=2, |adj(adj A)| is:", opts: ["2⁴", "2⁸", "2¹⁶", "2²"], ans: 0, exp: "|A|^((n-1)²) = 2^(2²) = 2⁴ = 16." },
-        { sub: "Maths", q: "lim (x→0) (sin x - x)/x³ is:", opts: ["1/3", "-1/3", "1/6", "-1/6"], ans: 3, exp: "By expansion: (x - x³/6 - x)/x³ = -1/6." },
-        { sub: "Maths", q: "∫[0 to π/2] √sin x / (√sin x + √cos x) dx is:", opts: ["π/2", "π/4", "π", "0"], ans: 1, exp: "By property, 2I = π/2 => I = π/4." },
-        { sub: "Maths", q: "Tangent length from (5,1) to x²+y²+6x-4y-3=0 is:", opts: ["7", "√51", "8", "√49"], ans: 0, exp: "√S₁ = √(25+1+30-4-3) = √49 = 7." },
-        { sub: "Maths", q: "a = 2i-j+k and b = i+2j-3k are perp, dot product is:", opts: ["1", "0", "-1", "5"], ans: 1, exp: "Perp vectors dot product = 0." },
-        { sub: "Maths", q: "Die thrown twice. P(sum=8) is:", opts: ["5/36", "1/6", "4/36", "7/36"], ans: 0, exp: "Pairs: (2,6),(6,2),(3,5),(5,3),(4,4) = 5/36." },
-        { sub: "Maths", q: "Order/Degree of d²y/dx² + (dy/dx)^(1/3) + x^(1/4) = 0:", opts: ["2, 3", "3, 2", "2, 2", "2, 1"], ans: 0, exp: "Order=2, power becomes 3 after cubing to remove fraction." }
+        // PHYSICS (1-10)
+        { sub: "Physics", q: "If force (F), velocity (V), and time (T) are taken as fundamental units, then the dimensions of mass (M) are:", opts: ["[F V T⁻¹]", "[F V⁻¹ T⁻¹]", "[F V⁻¹ T]", "[F V⁻² T]"], ans: 2, exp: "[M] = [F V⁻¹ T]." },
+        { sub: "Physics", q: "A ball is thrown vertically upwards with 20 m/s from 25 m tower. Time to hit ground? (g=10)", opts: ["5 s", "3 s", "4 s", "6 s"], ans: 0, exp: "t = 5 s." },
+        { sub: "Physics", q: "Mass 5kg, μ=0.6. Force 20N applied. Friction is:", opts: ["30 N", "20 N", "10 N", "Zero"], ans: 1, exp: "Static friction = 20N." },
+        { sub: "Physics", q: "Mass 2kg, x = t³/3. Work done in first 2s is:", opts: ["16 J", "8 J", "4 J", "32 J"], ans: 0, exp: "Work = 16 J." },
+        { sub: "Physics", q: "Two rings perp, same center. Moment of inertia axis perp to one plane:", opts: ["MR²", "2MR²", "3/2 MR²", "1/2 MR²"], ans: 2, exp: "I = 3/2 MR²." },
+        { sub: "Physics", q: "Earth shrinks by 1% (mass const), 'g' will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "Increase by 2%." },
+        { sub: "Physics", q: "Adiabatic process, P ∝ T³. γ is:", opts: ["4/3", "5/3", "3/2", "2"], ans: 2, exp: "γ = 3/2." },
+        { sub: "Physics", q: "Capacitor C at V, connected to uncharged 2C in parallel. Final V:", opts: ["V", "V/2", "V/3", "2V/3"], ans: 2, exp: "V' = V/3." },
+        { sub: "Physics", q: "Wire R stretched to double length. New R:", opts: ["2R", "4R", "R/2", "R/4"], ans: 1, exp: "New R = 4R." },
+        { sub: "Physics", q: "De Broglie λ of electron at 100V is approx:", opts: ["1.227 Å", "12.27 Å", "0.1227 Å", "122.7 Å"], ans: 0, exp: "λ = 1.227 Å." },
+
+        // CHEMISTRY (11-20)
+        { sub: "Chemistry", q: "λ of 1g particle at 100m/s:", opts: ["6.63e-33 m", "6.63e-35 m", "6.63e-31 m", "6.63e-30 m"], ans: 0, exp: "6.63e-33 m." },
+        { sub: "Chemistry", q: "Which species is diamagnetic?", opts: ["He₂⁺", "O₂", "N₂", "B₂"], ans: 2, exp: "N₂." },
+        { sub: "Chemistry", q: "Van't Hoff i for K₄[Fe(CN)₆] (100% ionisation):", opts: ["2", "4", "5", "3"], ans: 2, exp: "i = 5." },
+        { sub: "Chemistry", q: "1st order: 50% in 20 min. 75% in:", opts: ["30 min", "40 min", "60 min", "80 min"], ans: 1, exp: "40 min." },
+        { sub: "Chemistry", q: "IUPAC [Co(NH₃)₅Cl]Cl₂:", opts: ["Pentaamminechloridocobalt(III) chloride", "Chloridopentaamminecobalt(III) chloride", "Pentaamminechloridocobalt(II) chloride", "Cobalt(III) pentaamminechloride"], ans: 0, exp: "Co state is +3." },
+        { sub: "Chemistry", q: "Oxoacid of P with P-P bond:", opts: ["H₄P₂O₇", "H₄P₂O₆", "H₃PO₄", "H₃PO₂"], ans: 1, exp: "H₄P₂O₆." },
+        { sub: "Chemistry", q: "Propene + HBr + Peroxide product:", opts: ["2-Bromopropane", "1-Bromopropane", "1,2-Dibromopropane", "2-Bromopropene"], ans: 1, exp: "1-Bromopropane." },
+        { sub: "Chemistry", q: "Spontaneous at all temperatures:", opts: ["ΔH>0, ΔS>0", "ΔH<0, ΔS<0", "ΔH<0, ΔS>0", "ΔH>0, ΔS<0"], ans: 2, exp: "ΔH < 0, ΔS > 0." },
+        { sub: "Chemistry", q: "Ksp AgCl = 1e-10, solubility:", opts: ["1e-5", "1e-10", "0.5e-5", "1e-7"], ans: 0, exp: "1e-5 mol/L." },
+        { sub: "Chemistry", q: "Most stable carbocation:", opts: ["CH₃⁺", "(CH₃)₂CH⁺", "(CH₃)₃C⁺", "CH₃CH₂⁺"], ans: 2, exp: "Tertiary (3°)." },
+
+        // MATHS (21-30)
+        { sub: "Maths", q: "f(x) = (x-1)/(x+1), f(f(x)) is:", opts: ["x", "-1/x", "1/x", "-x"], ans: 1, exp: "-1/x." },
+        { sub: "Maths", q: "ω root of unity, (1 + ω - ω²)⁷ is:", opts: ["128ω", "-128ω²", "128ω²", "-128ω"], ans: 1, exp: "-128ω²." },
+        { sub: "Maths", q: "Roots of x²-bx+c=0 consecutive integers, b²-4c:", opts: ["0", "1", "2", "3"], ans: 1, exp: "1." },
+        { sub: "Maths", q: "A 3x3, |A|=2, |adj(adj A)| is:", opts: ["2⁴", "2⁸", "2¹⁶", "2²"], ans: 0, exp: "16." },
+        { sub: "Maths", q: "lim (x→0) (sin x - x)/x³ is:", opts: ["1/3", "-1/3", "1/6", "-1/6"], ans: 3, exp: "-1/6." },
+        { sub: "Maths", q: "∫[0, π/2] √sin x / (√sin x + √cos x) dx:", opts: ["π/2", "π/4", "π", "0"], ans: 1, exp: "π/4." },
+        { sub: "Maths", q: "Tangent length from (5,1) to x²+y²+6x-4y-3=0:", opts: ["7", "√51", "8", "√49"], ans: 0, exp: "7." },
+        { sub: "Maths", q: "a perp b, dot product is:", opts: ["1", "0", "-1", "5"], ans: 1, exp: "0." },
+        { sub: "Maths", q: "Die twice. P(sum=8) is:", opts: ["5/36", "1/6", "4/36", "7/36"], ans: 0, exp: "5/36." },
+        { sub: "Maths", q: "Order/Degree d²y/dx² + (dy/dx)^(1/3) + x^(1/4) = 0:", opts: ["2, 3", "3, 2", "2, 2", "2, 1"], ans: 0, exp: "Order 2, Degree 3." }
     ];
 
     let userAnswers = Array(30).fill(null);
@@ -185,26 +171,23 @@
     let timerRef;
     let timeRem = 3600;
 
-    // --- FUNCTION TO START TEST ---
     function beginTest() {
-        const nameInput = document.getElementById('u-name').value.trim();
-        const stateInput = document.getElementById('u-state').value.trim();
-        const distInput = document.getElementById('u-dist').value.trim();
+        const name = document.getElementById('u-name').value.trim();
+        const state = document.getElementById('u-state').value.trim();
+        const dist = document.getElementById('u-dist').value.trim();
 
-        if (nameInput === "" || stateInput === "" || distInput === "") {
-            alert("⚠️ Please fill all details to start!");
+        if (!name || !state || !dist) {
+            alert("⚠️ Please fill all details!");
             return;
         }
 
-        userData = { name: nameInput, state: stateInput, dist: distInput };
-        
-        // Hide Login, Show Test
+        userData = { name, state, dist };
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('test-view').style.display = 'flex';
-        document.getElementById('user-info-header').textContent = "Candidate: " + userData.name;
+        document.getElementById('user-info-header').textContent = "Candidate: " + name;
 
-        // Initialize Streak
-        let streak = parseInt(localStorage.getItem('jeeStreak')) || 0;
+        // Streak init
+        const streak = parseInt(localStorage.getItem('jeeStreak')) || 0;
         document.getElementById('streak-val').textContent = streak;
 
         genPalette();
@@ -216,30 +199,26 @@
         const grid = document.getElementById('p-grid');
         grid.innerHTML = "";
         for(let i=0; i<30; i++) {
-            const div = document.createElement('div');
-            div.className = 'p-box';
-            div.id = 'p-' + i;
-            div.textContent = i+1;
-            div.onclick = () => renderQ(i);
-            grid.appendChild(div);
+            const d = document.createElement('div');
+            d.className = 'p-box';
+            d.id = 'p-' + i; d.textContent = i+1;
+            d.onclick = () => renderQ(i);
+            grid.appendChild(d);
         }
     }
 
     function renderQ(idx) {
-        currentIdx = idx;
-        visitedArr[idx] = true;
+        currentIdx = idx; visitedArr[idx] = true;
         const q = questions[idx];
         document.getElementById('sub-tag').textContent = q.sub;
         document.getElementById('q-body').textContent = q.q;
-        
-        const optBox = document.getElementById('opt-container');
-        optBox.innerHTML = '';
-        q.opts.forEach((opt, i) => {
-            const div = document.createElement('div');
-            div.className = "option " + (userAnswers[idx] === i ? 'selected' : '');
-            div.textContent = "(" + String.fromCharCode(65+i) + ") " + opt;
-            div.onclick = () => { userAnswers[idx] = i; renderQ(idx); };
-            optBox.appendChild(div);
+        const box = document.getElementById('opt-container'); box.innerHTML = '';
+        q.opts.forEach((o, i) => {
+            const d = document.createElement('div');
+            d.className = "option " + (userAnswers[idx] === i ? 'selected' : '');
+            d.textContent = "(" + String.fromCharCode(65+i) + ") " + o;
+            d.onclick = () => { userAnswers[idx] = i; renderQ(idx); };
+            box.appendChild(d);
         });
         updatePalette();
     }
@@ -255,80 +234,38 @@
         }
     }
 
-    function saveNext() { 
-        if(currentIdx < 29) renderQ(currentIdx + 1); 
-        else alert("Final Question. Click Submit to finish."); 
-    }
-    
+    function saveNext() { if(currentIdx < 29) renderQ(currentIdx + 1); }
     function clearAns() { userAnswers[currentIdx] = null; renderQ(currentIdx); }
+    function startTimer() { timerRef = setInterval(() => { timeRem--; let m = Math.floor(timeRem/60); let s = timeRem%60; document.getElementById('timer-box').textContent = `${m}:${s<10?'0'+s:s}`; if(timeRem<=0) finalize(); }, 1000); }
+    function submitConfirm() { if(confirm("Submit Test?")) finalize(); }
 
-    function startTimer() {
-        timerRef = setInterval(() => {
-            timeRem--;
-            let m = Math.floor(timeRem/60);
-            let s = timeRem%60;
-            document.getElementById('timer-box').textContent = `${m}:${s<10?'0'+s:s}`;
-            if(timeRem <= 0) finalizeTest();
-        }, 1000);
-    }
-
-    function submitConfirm() { if(confirm("Confirm Submission?")) finalizeTest(); }
-
-    function finalizeTest() {
+    function finalize() {
         clearInterval(timerRef);
         let score = 0;
-        userAnswers.forEach((a, i) => {
-            if(a === questions[i].ans) score += 4;
-            else if(a !== null) score -= 1;
-        });
-
+        userAnswers.forEach((a, i) => { if(a === questions[i].ans) score += 4; else if(a !== null) score -= 1; });
         document.getElementById('test-view').style.display = 'none';
         document.getElementById('result-view').style.display = 'block';
         document.getElementById('final-score').textContent = score;
         document.getElementById('user-details-res').textContent = `${userData.name} | ${userData.dist}, ${userData.state}`;
 
-        // Leaderboard & Streak Logic
-        syncData(score);
-
-        // Display Solutions
-        const solBox = document.getElementById('solutions-box');
-        solBox.innerHTML = "";
-        questions.forEach((q, i) => {
-            const card = document.createElement('div');
-            card.className = 'sol-card';
-            const correct = userAnswers[i] === q.ans;
-            card.innerHTML = `
-                <p><strong>Q${i+1}:</strong> ${q.q}</p>
-                <p style="color:${correct?'green':'red'}">Your Answer: ${userAnswers[i]!==null ? q.opts[userAnswers[i]] : 'Skipped'}</p>
-                <p style="color:green"><strong>Correct:</strong> ${q.opts[q.ans]}</p>
-                <p style="margin-top:8px; font-size:0.85rem; color:#555"><strong>Explanation:</strong> ${q.exp}</p>
-            `;
-            solBox.appendChild(card);
-        });
-    }
-
-    function syncData(score) {
-        // Streak update
-        let streak = parseInt(localStorage.getItem('jeeStreak')) || 0;
-        streak++;
+        // DB & Leaderboard
+        let streak = (parseInt(localStorage.getItem('jeeStreak')) || 0) + 1;
         localStorage.setItem('jeeStreak', streak);
-
-        // Leaderboard Update
         let scores = JSON.parse(localStorage.getItem('weeklyJEEData')) || [];
         scores.push({name: userData.name, loc: `${userData.dist}, ${userData.state}`, score: score});
-        scores.sort((a,b) => b.score - a.score);
-        scores = scores.slice(0, 10);
+        scores.sort((a,b) => b.score - a.score); scores = scores.slice(0, 10);
         localStorage.setItem('weeklyJEEData', JSON.stringify(scores));
 
-        // Render Leaderboard
-        const body = document.getElementById('leader-body');
-        body.innerHTML = '';
-        scores.forEach((s, i) => {
-            const row = `<tr class="${s.name === userData.name ? 'rank-high' : ''}"><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`;
-            body.innerHTML += row;
-        });
+        const body = document.getElementById('leader-body'); body.innerHTML = '';
+        scores.forEach((s, i) => { body.innerHTML += `<tr class="${s.name === userData.name ? 'rank-high' : ''}"><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`; });
+
+        // Sols
+        const solBox = document.getElementById('solutions-box'); solBox.innerHTML = "";
+        questions.forEach((q, i) => { const card = document.createElement('div'); card.className = 'sol-card'; const correct = userAnswers[i] === q.ans; card.innerHTML = `<p><strong>Q${i+1}:</strong> ${q.q}</p><p style="color:${correct?'green':'red'}">Your Answer: ${userAnswers[i]!==null ? q.opts[userAnswers[i]] : 'Skipped'}</p><p style="color:green"><strong>Correct:</strong> ${q.opts[q.ans]}</p><p style="margin-top:8px; font-size:0.85rem; color:#555"><strong>Explanation:</strong> ${q.exp}</p>`; solBox.appendChild(card); });
     }
 
-    function shareTest() {
-        const score = document.getElementById('final-score').textContent;
-        const msg = `🚀 JEE Weekly Mock Test Sco
+    function shareTest() { const score = document.getElementById('final-score').textContent; const msg = `🚀 JEE Weekly Test Score: ${score}/120\nCandidate: ${userData.name}\nDistrict: ${userData.dist}\nLink: ${window.location.href}`; window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank'); }
+</script>
+
+</body>
+</html>
