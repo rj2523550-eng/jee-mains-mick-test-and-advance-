@@ -114,7 +114,9 @@
         <h2 style="color:var(--ans-green); margin:10px 0;">Score: <span id="final-score">0</span> / 120</h2>
         <p id="user-details-res" style="color:#666"></p>
     </div>
-    <a href="javascript:void(0)" class="btn-whatsapp" onclick="shareTest()">Share Result on WhatsApp 📲</a>
+    
+    <a href="javascript:void(0)" class="btn-whatsapp" onclick="shareTest()">WhatsApp par Share karein 📲</a>
+
     <h3>🏆 Top 10 Leaderboard</h3>
     <table class="leader-table">
         <thead><tr><th>Rank</th><th>Name</th><th>Location</th><th>Score</th></tr></thead>
@@ -128,19 +130,18 @@
 <script>
     let userData = {};
     let questions = [
-        // PHYSICS (1-10)
+        // [Wahi 30 Questions yahan aayenge]
         { sub: "Physics", q: "If force (F), velocity (V), and time (T) are taken as fundamental units, then the dimensions of mass (M) are:", opts: ["[F V T⁻¹]", "[F V⁻¹ T⁻¹]", "[F V⁻¹ T]", "[F V⁻² T]"], ans: 2, exp: "[M] = [F V⁻¹ T]." },
         { sub: "Physics", q: "A ball is thrown vertically upwards with 20 m/s from 25 m tower. Time to hit ground? (g=10)", opts: ["5 s", "3 s", "4 s", "6 s"], ans: 0, exp: "t = 5 s." },
         { sub: "Physics", q: "Mass 5kg, μ=0.6. Force 20N applied. Friction is:", opts: ["30 N", "20 N", "10 N", "Zero"], ans: 1, exp: "Static friction = 20N." },
         { sub: "Physics", q: "Mass 2kg, x = t³/3. Work done in first 2s is:", opts: ["16 J", "8 J", "4 J", "32 J"], ans: 0, exp: "Work = 16 J." },
         { sub: "Physics", q: "Two rings perp, same center. Moment of inertia axis perp to one plane:", opts: ["MR²", "2MR²", "3/2 MR²", "1/2 MR²"], ans: 2, exp: "I = 3/2 MR²." },
-        { sub: "Physics", q: "Earth shrinks by 1% (mass const), 'g' will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "Increase by 2%." },
+        { sub: "Physics", q: "If Earth shrinks by 1% (mass const), 'g' will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "Increase by 2%." },
         { sub: "Physics", q: "Adiabatic process, P ∝ T³. γ is:", opts: ["4/3", "5/3", "3/2", "2"], ans: 2, exp: "γ = 3/2." },
         { sub: "Physics", q: "Capacitor C at V, connected to uncharged 2C in parallel. Final V:", opts: ["V", "V/2", "V/3", "2V/3"], ans: 2, exp: "V' = V/3." },
         { sub: "Physics", q: "Wire R stretched to double length. New R:", opts: ["2R", "4R", "R/2", "R/4"], ans: 1, exp: "New R = 4R." },
         { sub: "Physics", q: "De Broglie λ of electron at 100V is approx:", opts: ["1.227 Å", "12.27 Å", "0.1227 Å", "122.7 Å"], ans: 0, exp: "λ = 1.227 Å." },
 
-        // CHEMISTRY (11-20)
         { sub: "Chemistry", q: "λ of 1g particle at 100m/s:", opts: ["6.63e-33 m", "6.63e-35 m", "6.63e-31 m", "6.63e-30 m"], ans: 0, exp: "6.63e-33 m." },
         { sub: "Chemistry", q: "Which species is diamagnetic?", opts: ["He₂⁺", "O₂", "N₂", "B₂"], ans: 2, exp: "N₂." },
         { sub: "Chemistry", q: "Van't Hoff i for K₄[Fe(CN)₆] (100% ionisation):", opts: ["2", "4", "5", "3"], ans: 2, exp: "i = 5." },
@@ -152,7 +153,6 @@
         { sub: "Chemistry", q: "Ksp AgCl = 1e-10, solubility:", opts: ["1e-5", "1e-10", "0.5e-5", "1e-7"], ans: 0, exp: "1e-5 mol/L." },
         { sub: "Chemistry", q: "Most stable carbocation:", opts: ["CH₃⁺", "(CH₃)₂CH⁺", "(CH₃)₃C⁺", "CH₃CH₂⁺"], ans: 2, exp: "Tertiary (3°)." },
 
-        // MATHS (21-30)
         { sub: "Maths", q: "f(x) = (x-1)/(x+1), f(f(x)) is:", opts: ["x", "-1/x", "1/x", "-x"], ans: 1, exp: "-1/x." },
         { sub: "Maths", q: "ω root of unity, (1 + ω - ω²)⁷ is:", opts: ["128ω", "-128ω²", "128ω²", "-128ω"], ans: 1, exp: "-128ω²." },
         { sub: "Maths", q: "Roots of x²-bx+c=0 consecutive integers, b²-4c:", opts: ["0", "1", "2", "3"], ans: 1, exp: "1." },
@@ -172,61 +172,43 @@
     let timeRem = 3600;
 
     function beginTest() {
-        const name = document.getElementById('u-name').value.trim();
-        const state = document.getElementById('u-state').value.trim();
-        const dist = document.getElementById('u-dist').value.trim();
-
-        if (!name || !state || !dist) {
-            alert("⚠️ Please fill all details!");
-            return;
-        }
-
-        userData = { name, state, dist };
+        const nameInput = document.getElementById('u-name').value.trim();
+        const stateInput = document.getElementById('u-state').value.trim();
+        const distInput = document.getElementById('u-dist').value.trim();
+        if (!nameInput || !stateInput || !distInput) { alert("⚠️ Please fill all details!"); return; }
+        userData = { name: nameInput, state: stateInput, dist: distInput };
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('test-view').style.display = 'flex';
-        document.getElementById('user-info-header').textContent = "Candidate: " + name;
-
-        // Streak init
+        document.getElementById('user-info-header').textContent = "Candidate: " + nameInput;
         const streak = parseInt(localStorage.getItem('jeeStreak')) || 0;
         document.getElementById('streak-val').textContent = streak;
-
-        genPalette();
-        renderQ(0);
-        startTimer();
+        genPalette(); renderQ(0); startTimer();
     }
 
     function genPalette() {
-        const grid = document.getElementById('p-grid');
-        grid.innerHTML = "";
+        const grid = document.getElementById('p-grid'); grid.innerHTML = "";
         for(let i=0; i<30; i++) {
-            const d = document.createElement('div');
-            d.className = 'p-box';
-            d.id = 'p-' + i; d.textContent = i+1;
-            d.onclick = () => renderQ(i);
-            grid.appendChild(d);
+            const d = document.createElement('div'); d.className = 'p-box'; d.id = 'p-' + i;
+            d.textContent = i+1; d.onclick = () => renderQ(i); grid.appendChild(d);
         }
     }
 
     function renderQ(idx) {
-        currentIdx = idx; visitedArr[idx] = true;
-        const q = questions[idx];
+        currentIdx = idx; visitedArr[idx] = true; const q = questions[idx];
         document.getElementById('sub-tag').textContent = q.sub;
         document.getElementById('q-body').textContent = q.q;
         const box = document.getElementById('opt-container'); box.innerHTML = '';
         q.opts.forEach((o, i) => {
-            const d = document.createElement('div');
-            d.className = "option " + (userAnswers[idx] === i ? 'selected' : '');
+            const d = document.createElement('div'); d.className = "option " + (userAnswers[idx] === i ? 'selected' : '');
             d.textContent = "(" + String.fromCharCode(65+i) + ") " + o;
-            d.onclick = () => { userAnswers[idx] = i; renderQ(idx); };
-            box.appendChild(d);
+            d.onclick = () => { userAnswers[idx] = i; renderQ(idx); }; box.appendChild(d);
         });
         updatePalette();
     }
 
     function updatePalette() {
         for(let i=0; i<30; i++) {
-            const el = document.getElementById('p-' + i);
-            if(!el) continue;
+            const el = document.getElementById('p-' + i); if(!el) continue;
             el.classList.remove('active', 'answered', 'not-answered');
             if(i === currentIdx) el.classList.add('active');
             if(userAnswers[i] !== null) el.classList.add('answered');
@@ -240,15 +222,14 @@
     function submitConfirm() { if(confirm("Submit Test?")) finalize(); }
 
     function finalize() {
-        clearInterval(timerRef);
-        let score = 0;
+        clearInterval(timerRef); let score = 0;
         userAnswers.forEach((a, i) => { if(a === questions[i].ans) score += 4; else if(a !== null) score -= 1; });
         document.getElementById('test-view').style.display = 'none';
         document.getElementById('result-view').style.display = 'block';
         document.getElementById('final-score').textContent = score;
         document.getElementById('user-details-res').textContent = `${userData.name} | ${userData.dist}, ${userData.state}`;
 
-        // DB & Leaderboard
+        // DB Logic
         let streak = (parseInt(localStorage.getItem('jeeStreak')) || 0) + 1;
         localStorage.setItem('jeeStreak', streak);
         let scores = JSON.parse(localStorage.getItem('weeklyJEEData')) || [];
@@ -259,12 +240,16 @@
         const body = document.getElementById('leader-body'); body.innerHTML = '';
         scores.forEach((s, i) => { body.innerHTML += `<tr class="${s.name === userData.name ? 'rank-high' : ''}"><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`; });
 
-        // Sols
+        // Solutions
         const solBox = document.getElementById('solutions-box'); solBox.innerHTML = "";
         questions.forEach((q, i) => { const card = document.createElement('div'); card.className = 'sol-card'; const correct = userAnswers[i] === q.ans; card.innerHTML = `<p><strong>Q${i+1}:</strong> ${q.q}</p><p style="color:${correct?'green':'red'}">Your Answer: ${userAnswers[i]!==null ? q.opts[userAnswers[i]] : 'Skipped'}</p><p style="color:green"><strong>Correct:</strong> ${q.opts[q.ans]}</p><p style="margin-top:8px; font-size:0.85rem; color:#555"><strong>Explanation:</strong> ${q.exp}</p>`; solBox.appendChild(card); });
     }
 
-    function shareTest() { const score = document.getElementById('final-score').textContent; const msg = `🚀 JEE Weekly Test Score: ${score}/120\nCandidate: ${userData.name}\nDistrict: ${userData.dist}\nLink: ${window.location.href}`; window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank'); }
+    function shareTest() {
+        const score = document.getElementById('final-score').textContent;
+        const msg = `🚀 JEE Weekly Mock Test Update!\n\nName: ${userData.name}\nScore: ${score}/120\nDistrict: ${userData.dist}\n\nKya tum mujhse zyada score kar sakte ho? Test Link: ${window.location.href}`;
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    }
 </script>
 
 </body>
