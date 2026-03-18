@@ -1,0 +1,65 @@
+/* Share Section Styling */
+.universal-share-section {
+    text-align: center;
+    margin: 40px auto;
+    padding: 25px;
+    background: #0f172a;
+    border: 2px solid #00e5ff;
+    border-radius: 20px;
+    max-width: 450px;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.universal-share-section p {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-size: 1rem;
+}
+
+/* WhatsApp Logo & Color */
+.whatsapp-bg {
+    background-color: #25D366;
+}
+
+.whatsapp-icon {
+    width: 22px;
+    height: 22px;
+    fill: white;
+}
+
+/* Copy Button Color */
+.copy-bg {
+    background-color: #334155;
+}
+
+.share-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.share-btn:active {
+    transform: scale(0.98);
+}
