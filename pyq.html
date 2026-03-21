@@ -3,97 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains 2026 PYQ Hub</title>
+    <title>JEE Mains 2026 PYQ Portal</title>
     <style>
-        :root { --yt-red: #ff0000; --success: #27ae60; --dark: #2c3e50; --glass: rgba(255, 255, 255, 0.95); }
-        body { font-family: 'Poppins', sans-serif; background: #eef2f3; margin: 0; padding: 20px; }
+        :root { --yt-red: #ff0000; --success: #27ae60; --dark: #2c3e50; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
         .container { max-width: 700px; margin: auto; }
         
-        /* Lock Screen Style */
+        /* Lock Screen */
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center; z-index: 999;
         }
-        .lock-card { background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 85%; }
+        .lock-card { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 90%; max-width: 400px; }
 
-        /* Main Content Style */
+        /* Main Content */
         #main-content { display: none; }
-        .year-section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .shift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .year-section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .shift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
         
         /* Buttons */
-        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.3s; }
-        .btn-yt { background: var(--yt-red); color: white; width: 100%; font-size: 16px; }
-        .btn-dl { background: #f1f1f1; color: var(--dark); border: 1px solid #ddd; font-size: 13px; text-align: center; }
-        .btn-dl:hover { background: var(--success); color: white; }
-        .btn-share { background: #3498db; color: white; width: 100%; margin-top: 20px; font-size: 18px; }
+        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.3s; text-align: center; }
+        .btn-yt { background: var(--yt-red); color: white; width: 100%; font-size: 16px; margin-bottom: 10px; }
+        .btn-dl { background: #f8f9fa; color: var(--dark); border: 1px solid #ddd; font-size: 13px; }
+        .btn-dl:hover { background: var(--success); color: white; border-color: var(--success); }
+        .btn-share { background: #3498db; color: white; width: 100%; font-size: 18px; margin-top: 10px; }
 
+        .support-text { font-size: 13px; color: #555; font-style: italic; line-height: 1.4; margin-top: 10px; }
         .hidden { display: none !important; }
-        h2 { color: var(--dark); border-left: 5px solid var(--yt-red); padding-left: 10px; }
     </style>
 </head>
 <body>
 
 <div id="lock-screen">
     <div class="lock-card">
-        <h1 style="margin-top:0;">🔓 Unlock 2026 PYQs</h1>
-        <p>In sabhi papers ko access karne ke liye niche button par click karke support karein.</p>
-        <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="btn btn-yt" onclick="unlockAccess()">SUBSCRIBE TO UNLOCK ALL PAPERS</a>
-        <p style="font-size: 12px; color: #888; margin-top: 15px;">Ek baar unlock hone ke baad ye hamesha ke liye khul jayega.</p>
+        <h2 style="margin-top:0;">🔒 Content Locked!</h2>
+        <p>JEE Mains 2026 ke sabhi papers ko unlock karne ke liye Subscribe karein.</p>
+        
+        <a href="https://youtube.com/@jeemasterhub?si=_2bg1cxBpqiuVEDU" target="_blank" class="btn btn-yt" onclick="unlockAccess()">SUBSCRIBE TO UNLOCK</a>
+        
+        <p class="support-text">"Humne ye study material aapke liye free banaya hai. Hume is help ke badle aapka chhota sa support chahiye."</p>
     </div>
 </div>
 
 <div id="main-content" class="container">
-    <h1 style="text-align:center; color: #1e3c72;">🚀 JEE Mains PYQ Portal</h1>
+    <h1 style="text-align:center; color: #2c3e50;">🚀 JEE Mains 2026 PYQ Hub</h1>
 
     <div class="year-section">
-        <h2>Session 1: Jan 2026</h2>
+        <h3 style="border-left: 4px solid var(--yt-red); padding-left: 10px;">Session 1 (January 2026)</h3>
         <div class="shift-grid">
-            <a href="link1.pdf" class="btn btn-dl" download>24 Jan (Shift 1)</a>
-            <a href="link2.pdf" class="btn btn-dl" download>24 Jan (Shift 2)</a>
-            <a href="link3.pdf" class="btn btn-dl" download>27 Jan (Shift 1)</a>
-            <a href="link4.pdf" class="btn btn-dl" download>27 Jan (Shift 2)</a>
-            <a href="link5.pdf" class="btn btn-dl" download>29 Jan (Shift 1)</a>
-            <a href="link6.pdf" class="btn btn-dl" download>29 Jan (Shift 2)</a>
+            <a href="PAPER_LINK_1.pdf" class="btn btn-dl" download>24 Jan - Shift 1</a>
+            <a href="PAPER_LINK_2.pdf" class="btn btn-dl" download>24 Jan - Shift 2</a>
+            <a href="PAPER_LINK_3.pdf" class="btn btn-dl" download>27 Jan - Shift 1</a>
+            <a href="PAPER_LINK_4.pdf" class="btn btn-dl" download>27 Jan - Shift 2</a>
+            <a href="PAPER_LINK_5.pdf" class="btn btn-dl" download>29 Jan - Shift 1</a>
+            <a href="PAPER_LINK_6.pdf" class="btn btn-dl" download>29 Jan - Shift 2</a>
         </div>
     </div>
 
-    <button class="btn btn-share" onclick="shareWebsite()">📢 Share with IITians (Win Rewards)</button>
+    <div class="year-section">
+        <p style="text-align:center; font-weight:bold;">Is useful resource ko apne doston ke saath share karein!</p>
+        <button class="btn btn-share" onclick="shareNow()">📢 SHARE ON WHATSAPP</button>
+    </div>
 </div>
 
 <script>
-    // Check if already subscribed in LocalStorage
+    // Pehle se subscribe hai ya nahi check karein
     window.onload = function() {
-        if (localStorage.getItem("isSubscribed") === "true") {
-            showContent();
+        if (localStorage.getItem("jee_unlocked") === "true") {
+            showPage();
         }
     };
 
     function unlockAccess() {
-        // User ko batana ki processing ho rahi hai
+        // 3 second ka delay taaki user YouTube par ja sake
         setTimeout(() => {
-            localStorage.setItem("isSubscribed", "true");
-            showContent();
-        }, 3000); // 3 sec delay verification ke liye
+            localStorage.setItem("jee_unlocked", "true");
+            showPage();
+        }, 3000);
     }
 
-    function showContent() {
+    function showPage() {
         document.getElementById('lock-screen').classList.add('hidden');
         document.getElementById('main-content').style.display = 'block';
     }
 
-    function shareWebsite() {
-        const shareData = {
-            title: 'JEE Mains 2026 PYQ Leak!',
-            text: '🔥 Bhaiya/Didi! Maine abhi JEE Mains 2026 ke saare shifts ke original papers download kiye hain is site se. 😱 \n\nDirect Download Link yahan hai, jaldi check karo isse pehle link expire ho jaye! 👇',
-            url: window.location.href
-        };
+    function shareNow() {
+        const text = "🔥 *Bhaiya/Didi Suno!* \n\nJEE Mains 2026 ke saare shifts ke original question papers mil gaye hain! Maine yahan se download kiye, aap bhi jaldi karlo link delete hone se pehle! 👇\n\n";
+        const url = window.location.href;
 
         if (navigator.share) {
-            navigator.share(shareData);
+            navigator.share({ title: 'JEE Mains 2026 PYQ', text: text, url: url });
         } else {
-            alert("Link copy karein aur WhatsApp par doston ko bhejein!");
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`, '_blank');
         }
     }
 </script>
