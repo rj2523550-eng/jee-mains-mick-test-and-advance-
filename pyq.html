@@ -3,116 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains PYQ Portal</title>
+    <title>JEE Mains 2026 PYQ Hub</title>
     <style>
-        :root { --primary: #ff0000; --secondary: #27ae60; --dark: #2c3e50; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        :root { --yt-red: #ff0000; --success: #27ae60; --dark: #2c3e50; --glass: rgba(255, 255, 255, 0.95); }
+        body { font-family: 'Poppins', sans-serif; background: #eef2f3; margin: 0; padding: 20px; }
         .container { max-width: 700px; margin: auto; }
         
         /* Lock Screen Style */
-        .lock-card { background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        /* PDF List Style */
-        #pdf-section { display: none; } /* Shuru me hidden */
-        .year-block { margin-bottom: 25px; }
-        .year-title { background: var(--dark); color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
-        .paper-item { background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        #lock-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex; justify-content: center; align-items: center; z-index: 999;
+        }
+        .lock-card { background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 85%; }
+
+        /* Main Content Style */
+        #main-content { display: none; }
+        .year-section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .shift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         
         /* Buttons */
-        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; }
-        .btn-sub { background: var(--primary); color: white; font-size: 18px; }
-        .btn-dl { background: var(--secondary); color: white; font-size: 14px; }
-        
-        /* Timer */
-        #timer-box { display: none; margin-top: 20px; font-weight: bold; color: var(--primary); }
+        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .btn-yt { background: var(--yt-red); color: white; width: 100%; font-size: 16px; }
+        .btn-dl { background: #f1f1f1; color: var(--dark); border: 1px solid #ddd; font-size: 13px; text-align: center; }
+        .btn-dl:hover { background: var(--success); color: white; }
+        .btn-share { background: #3498db; color: white; width: 100%; margin-top: 20px; font-size: 18px; }
+
         .hidden { display: none !important; }
+        h2 { color: var(--dark); border-left: 5px solid var(--yt-red); padding-left: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 style="text-align: center; color: var(--dark);">JEE Mains PYQ Library</h1>
-
-    <div id="lock-screen" class="lock-card">
-        <span style="font-size: 50px;">🔒</span>
-        <h2>Content Locked</h2>
-        <p>Sare Question Papers access karne ke liye niche button par click karke hume support karein.</p>
-        
-        <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="btn btn-sub" id="main-sub-btn" onclick="startVerification()">
-            SUBSCRIBE TO UNLOCK ALL PAPERS
-        </a>
-
-        <div id="timer-box">
-            Verifying Subscription... <span id="count">10</span>s
-        </div>
-    </div>
-
-    <div id="pdf-section">
-        <p style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; text-align: center;">
-            ✅ Welcome Back! All papers are unlocked.
-        </p>
-
-        <div class="year-block">
-            <div class="year-title">JEE Mains 2024</div>
-            <div class="paper-item">
-                <span>27 Jan - Shift 1 (PCM)</span>
-                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
-            </div>
-            <div class="paper-item">
-                <span>29 Jan - Shift 2 (PCM)</span>
-                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
-            </div>
-        </div>
-
-        <div class="year-block">
-            <div class="year-title">JEE Mains 2023</div>
-            <div class="paper-item">
-                <span>April Session - All Shifts</span>
-                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
-            </div>
-        </div>
-        
-        <button onclick="resetAccess()" style="margin-top:20px; font-size: 10px; opacity: 0.5;">Reset Access (For Testing)</button>
+<div id="lock-screen">
+    <div class="lock-card">
+        <h1 style="margin-top:0;">🔓 Unlock 2026 PYQs</h1>
+        <p>In sabhi papers ko access karne ke liye niche button par click karke support karein.</p>
+        <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="btn btn-yt" onclick="unlockAccess()">SUBSCRIBE TO UNLOCK ALL PAPERS</a>
+        <p style="font-size: 12px; color: #888; margin-top: 15px;">Ek baar unlock hone ke baad ye hamesha ke liye khul jayega.</p>
     </div>
 </div>
 
+<div id="main-content" class="container">
+    <h1 style="text-align:center; color: #1e3c72;">🚀 JEE Mains PYQ Portal</h1>
+
+    <div class="year-section">
+        <h2>Session 1: Jan 2026</h2>
+        <div class="shift-grid">
+            <a href="link1.pdf" class="btn btn-dl" download>24 Jan (Shift 1)</a>
+            <a href="link2.pdf" class="btn btn-dl" download>24 Jan (Shift 2)</a>
+            <a href="link3.pdf" class="btn btn-dl" download>27 Jan (Shift 1)</a>
+            <a href="link4.pdf" class="btn btn-dl" download>27 Jan (Shift 2)</a>
+            <a href="link5.pdf" class="btn btn-dl" download>29 Jan (Shift 1)</a>
+            <a href="link6.pdf" class="btn btn-dl" download>29 Jan (Shift 2)</a>
+        </div>
+    </div>
+
+    <button class="btn btn-share" onclick="shareWebsite()">📢 Share with IITians (Win Rewards)</button>
+</div>
+
 <script>
-    // Page load hote hi check karo ki kya user pehle subscribe kar chuka hai
+    // Check if already subscribed in LocalStorage
     window.onload = function() {
         if (localStorage.getItem("isSubscribed") === "true") {
-            showPapers();
+            showContent();
         }
     };
 
-    function startVerification() {
-        const timerBox = document.getElementById('timer-box');
-        const countSpan = document.getElementById('count');
-        let timeLeft = 10;
-
-        timerBox.style.display = "block";
-        
-        const timer = setInterval(() => {
-            timeLeft--;
-            countSpan.innerText = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                // LocalStorage mein save karlo
-                localStorage.setItem("isSubscribed", "true");
-                showPapers();
-            }
-        }, 1000);
+    function unlockAccess() {
+        // User ko batana ki processing ho rahi hai
+        setTimeout(() => {
+            localStorage.setItem("isSubscribed", "true");
+            showContent();
+        }, 3000); // 3 sec delay verification ke liye
     }
 
-    function showPapers() {
+    function showContent() {
         document.getElementById('lock-screen').classList.add('hidden');
-        document.getElementById('pdf-section').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
     }
 
-    // Testing ke liye function (Agar aapko fir se lock dekhna ho)
-    function resetAccess() {
-        localStorage.removeItem("isSubscribed");
-        location.reload();
+    function shareWebsite() {
+        const shareData = {
+            title: 'JEE Mains 2026 PYQ Leak!',
+            text: '🔥 Bhaiya/Didi! Maine abhi JEE Mains 2026 ke saare shifts ke original papers download kiye hain is site se. 😱 \n\nDirect Download Link yahan hai, jaldi check karo isse pehle link expire ho jaye! 👇',
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData);
+        } else {
+            alert("Link copy karein aur WhatsApp par doston ko bhejein!");
+        }
     }
 </script>
 
