@@ -3,86 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains PYQ - Support to Unlock</title>
+    <title>JEE Mains PYQ Portal</title>
     <style>
-        :root { --primary: #ff0000; --secondary: #2ecc71; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        :root { --primary: #ff0000; --secondary: #27ae60; --dark: #2c3e50; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 700px; margin: auto; }
         
-        .unlock-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        /* Lock Screen Style */
+        .lock-card { background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         
-        .header-icon { font-size: 40px; margin-bottom: 10px; }
-        h2 { margin: 10px 0; color: #333; }
-        p { color: #666; font-size: 14px; line-height: 1.5; }
-
-        .action-area { margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
+        /* PDF List Style */
+        #pdf-section { display: none; } /* Shuru me hidden */
+        .year-block { margin-bottom: 25px; }
+        .year-title { background: var(--dark); color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
+        .paper-item { background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
         /* Buttons */
-        .btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; transition: 0.3s; }
-        .btn-yt { background: var(--primary); color: white; }
-        .btn-yt:hover { background: #cc0000; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; }
+        .btn-sub { background: var(--primary); color: white; font-size: 18px; }
+        .btn-dl { background: var(--secondary); color: white; font-size: 14px; }
         
-        .btn-dl { background: var(--secondary); color: white; display: none; animation: fadeIn 0.5s; }
-        
-        /* Timer & Progress */
-        #timer-box { display: none; margin: 15px 0; }
-        .progress-bar { width: 100%; background: #eee; height: 8px; border-radius: 5px; overflow: hidden; margin-top: 8px; }
-        .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: 1s linear; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Timer */
+        #timer-box { display: none; margin-top: 20px; font-weight: bold; color: var(--primary); }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="unlock-card">
-    <div class="header-icon">📚</div>
-    <h2>JEE Mains 2024 PYQ</h2>
-    <p>Humne ye study material aapke liye free banaya hai. Hume support karne ke liye niche button par click karein.</p>
+<div class="container">
+    <h1 style="text-align: center; color: var(--dark);">JEE Mains PYQ Library</h1>
 
-    <div class="action-area">
-        <a href="https://youtube.com/@jeemasterhub?si=Lp2W-a4qb-SpNQLM" target="_blank" class="btn btn-yt" id="sub-btn" onclick="startUnlock()">
-            1. SUBSCRIBE TO SUPPORT
+    <div id="lock-screen" class="lock-card">
+        <span style="font-size: 50px;">🔒</span>
+        <h2>Content Locked</h2>
+        <p>Sare Question Papers access karne ke liye niche button par click karke hume support karein.</p>
+        
+        <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="btn btn-sub" id="main-sub-btn" onclick="startVerification()">
+            SUBSCRIBE TO UNLOCK ALL PAPERS
         </a>
 
         <div id="timer-box">
-            <p>Verifying Support... <span id="seconds">10</span>s</p>
-            <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+            Verifying Subscription... <span id="count">10</span>s
+        </div>
+    </div>
+
+    <div id="pdf-section">
+        <p style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; text-align: center;">
+            ✅ Welcome Back! All papers are unlocked.
+        </p>
+
+        <div class="year-block">
+            <div class="year-title">JEE Mains 2024</div>
+            <div class="paper-item">
+                <span>27 Jan - Shift 1 (PCM)</span>
+                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
+            </div>
+            <div class="paper-item">
+                <span>29 Jan - Shift 2 (PCM)</span>
+                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
+            </div>
         </div>
 
-        <a href="https://drive.google.com/file/d/1oYJ3iaU3yvP2PxwHAhE44iD5ki5H6ER3/view?usp=drivesdk.pdf" class="btn btn-dl" id="dl-btn" download>
-            2. DOWNLOAD QUESTION PAPER (PDF)
-        </a>
+        <div class="year-block">
+            <div class="year-title">JEE Mains 2023</div>
+            <div class="paper-item">
+                <span>April Session - All Shifts</span>
+                <a href="LINK_TO_PDF" class="btn btn-dl">Download</a>
+            </div>
+        </div>
+        
+        <button onclick="resetAccess()" style="margin-top:20px; font-size: 10px; opacity: 0.5;">Reset Access (For Testing)</button>
     </div>
 </div>
 
 <script>
-    function startUnlock() {
-        // Elements show/hide
-        const subBtn = document.getElementById('sub-btn');
+    // Page load hote hi check karo ki kya user pehle subscribe kar chuka hai
+    window.onload = function() {
+        if (localStorage.getItem("isSubscribed") === "true") {
+            showPapers();
+        }
+    };
+
+    function startVerification() {
         const timerBox = document.getElementById('timer-box');
-        const dlBtn = document.getElementById('dl-btn');
-        const secondsText = document.getElementById('seconds');
-        const progressFill = document.getElementById('fill');
+        const countSpan = document.getElementById('count');
+        let timeLeft = 10;
 
-        subBtn.innerText = "Processing...";
         timerBox.style.display = "block";
-
-        let timeLeft = 10; // 10 second ka wait
-        let width = 0;
-
-        const interval = setInterval(() => {
+        
+        const timer = setInterval(() => {
             timeLeft--;
-            width += 10; // Progress bar increase
-            
-            secondsText.innerText = timeLeft;
-            progressFill.style.width = width + "%";
+            countSpan.innerText = timeLeft;
 
             if (timeLeft <= 0) {
-                clearInterval(interval);
-                timerBox.style.display = "none";
-                subBtn.style.display = "none"; // Subscribe button hat jayega
-                dlBtn.style.display = "block"; // Download button aa jayega
+                clearInterval(timer);
+                // LocalStorage mein save karlo
+                localStorage.setItem("isSubscribed", "true");
+                showPapers();
             }
         }, 1000);
+    }
+
+    function showPapers() {
+        document.getElementById('lock-screen').classList.add('hidden');
+        document.getElementById('pdf-section').style.display = 'block';
+    }
+
+    // Testing ke liye function (Agar aapko fir se lock dekhna ho)
+    function resetAccess() {
+        localStorage.removeItem("isSubscribed");
+        location.reload();
     }
 </script>
 
