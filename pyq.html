@@ -3,54 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains PYQs</title>
+    <title>JEE Mains PYQ - Support to Unlock</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        .card { background: white; border-radius: 8px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-        .info h3 { margin: 0; color: #333; }
-        .info p { margin: 5px 0; color: #666; }
-        .buttons { display: flex; gap: 10px; }
-        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; font-size: 14px; }
-        .btn-download { background-color: #2ecc71; color: white; }
-        .btn-share { background-color: #3498db; color: white; }
-        .btn:hover { opacity: 0.9; }
+        :root { --primary: #ff0000; --secondary: #2ecc71; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        
+        .unlock-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        
+        .header-icon { font-size: 40px; margin-bottom: 10px; }
+        h2 { margin: 10px 0; color: #333; }
+        p { color: #666; font-size: 14px; line-height: 1.5; }
+
+        .action-area { margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
+        
+        /* Buttons */
+        .btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; transition: 0.3s; }
+        .btn-yt { background: var(--primary); color: white; }
+        .btn-yt:hover { background: #cc0000; }
+        
+        .btn-dl { background: var(--secondary); color: white; display: none; animation: fadeIn 0.5s; }
+        
+        /* Timer & Progress */
+        #timer-box { display: none; margin: 15px 0; }
+        .progress-bar { width: 100%; background: #eee; height: 8px; border-radius: 5px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: 1s linear; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 style="text-align: center;">JEE Mains Previous Year Papers</h2>
+<div class="unlock-card">
+    <div class="header-icon">📚</div>
+    <h2>JEE Mains 2024 PYQ</h2>
+    <p>Humne ye study material aapke liye free banaya hai. Hume support karne ke liye niche button par click karein.</p>
 
-    <div class="card">
-        <div class="info">
-            <h3>JEE Mains 2024 (Session 1)</h3>
-            <p>Date: 27 Jan | Shift 1</p>
-        </div>
-        <div class="buttons">
-            <a href="YOUR_PDF_LINK_HERE.pdf" class="btn btn-download" download>Download</a>
-            <button class="btn btn-share" onclick="sharePaper('JEE Mains 2024 27 Jan Shift 1', 'YOUR_PDF_LINK_HERE.pdf')">Share</button>
-        </div>
-    </div>
+    <div class="action-area">
+        <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank" class="btn btn-yt" id="sub-btn" onclick="startUnlock()">
+            1. SUBSCRIBE TO SUPPORT
+        </a>
 
+        <div id="timer-box">
+            <p>Verifying Support... <span id="seconds">10</span>s</p>
+            <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+        </div>
+
+        <a href="YOUR_PDF_LINK.pdf" class="btn btn-dl" id="dl-btn" download>
+            2. DOWNLOAD QUESTION PAPER (PDF)
+        </a>
     </div>
+</div>
 
 <script>
-    function sharePaper(title, url) {
-        if (navigator.share) {
-            navigator.share({
-                title: title,
-                text: 'Dost! Dekho ye JEE Mains ka paper hai: ' + title,
-                url: url
-            }).then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing', error));
-        } else {
-            // Agar browser share support nahi karta (jaise desktop)
-            alert("Share feature mobile devices par best kaam karta hai. Link copy karein: " + url);
-        }
+    function startUnlock() {
+        // Elements show/hide
+        const subBtn = document.getElementById('sub-btn');
+        const timerBox = document.getElementById('timer-box');
+        const dlBtn = document.getElementById('dl-btn');
+        const secondsText = document.getElementById('seconds');
+        const progressFill = document.getElementById('fill');
+
+        subBtn.innerText = "Processing...";
+        timerBox.style.display = "block";
+
+        let timeLeft = 10; // 10 second ka wait
+        let width = 0;
+
+        const interval = setInterval(() => {
+            timeLeft--;
+            width += 10; // Progress bar increase
+            
+            secondsText.innerText = timeLeft;
+            progressFill.style.width = width + "%";
+
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                timerBox.style.display = "none";
+                subBtn.style.display = "none"; // Subscribe button hat jayega
+                dlBtn.style.display = "block"; // Download button aa jayega
+            }
+        }, 1000);
     }
 </script>
 
 </body>
 </html>
-
