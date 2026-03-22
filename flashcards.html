@@ -94,7 +94,10 @@
                 <div class="card-inner">
                     <div class="card-front"><div>${item.q}</div></div>
                     <div class="card-back"><div>${item.a}</div></div>
-                </div>
+                            <div>${item.q}</div>
+            <i class="fas fa-share-alt share-icon" onclick="shareCard(event, '${item.q}')"></i>
+        </div>
+         </div>
             `;
             list.appendChild(card);
         });
