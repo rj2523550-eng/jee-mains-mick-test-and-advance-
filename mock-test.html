@@ -3,129 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTA Mock Test Portal</title>
+    <title>NTA Exam Portal - 75 Questions</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; }
-        body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; }
+        :root { --primary: #2c3e50; --accent: #3498db; --success: #27ae60; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; }
         
-        /* Login & Notice Section */
-        #login-container { max-width: 400px; margin: 50px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .notice { background: #fff3cd; color: #856404; padding: 10px; border: 1px solid #ffeeba; margin-bottom: 20px; font-size: 14px; border-radius: 5px; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .container { max-width: 900px; margin: 30px auto; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* Login & Notice */
+        .notice-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin-bottom: 20px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
         
-        /* Exam Interface */
-        #exam-section { display: none; }
-        header { background: var(--primary); color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .main-layout { display: flex; height: 80vh; }
-        .question-area { flex: 3; padding: 20px; overflow-y: auto; background: white; }
-        .sidebar { flex: 1; background: #eef2f3; border-left: 2px solid #ddd; padding: 15px; }
+        /* Exam Header */
+        .exam-header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        #timer { font-size: 1.5rem; font-weight: bold; color: #ffeb3b; }
+
+        /* Question Layout */
+        .main-exam { display: grid; grid-template-columns: 3fr 1fr; gap: 20px; padding: 20px; }
+        .q-card { background: white; padding: 20px; border-radius: 8px; min-height: 400px; }
+        .q-image { max-width: 100%; height: auto; margin: 15px 0; border: 1px solid #ddd; }
         
-        /* Stats Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background: #eee; }
+        /* Admin Section */
+        .admin-panel { background: #e8f4fd; border: 2px dashed var(--accent); padding: 20px; margin-top: 20px; }
+        
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
+        .btn-blue { background: var(--accent); }
+        .btn-red { background: var(--danger); }
+        .btn-green { background: var(--success); }
     </style>
 </head>
 <body>
 
-    <div id="login-container">
-        <div class="notice">
-            <strong>⚠️ NOTICE:</strong> Behtar experience ke liye kripya <b>Desktop Mode</b> on karein.
-        </div>
-        <h2 style="text-align: center;">NTA Mock Test Login</h2>
-        <input type="text" id="userName" placeholder="Apna Naam Likhein" required>
-        <input type="text" id="district" placeholder="District" required>
-        <select id="state">
-            <option value="">State Select Karein</option>
-            <option value="UP">Uttar Pradesh</option>
-            <option value="Bihar">Bihar</option>
-            <option value="Delhi">Delhi</option>
-            <option value="MP">Madhya Pradesh</option>
-            </select>
-        <button onclick="startExam()">Start Test</button>
+    <div id="login-screen" class="container">
+        <div class="notice-box">⚠️ NOTICE: Behtar anubhav ke liye kripya DESKTOP MODE on karein.</div>
+        <h2 style="text-align:center">NTA Mock Test Login</h2>
+        <input type="text" id="stdName" placeholder="Pura Naam">
+        <input type="text" id="stdDist" placeholder="Zila (District)">
+        <select id="stdState">
+            <option value="">State/UT Select Karein</option>
+            <option>Andaman and Nicobar Islands</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option>
+            <option>Assam</option><option>Bihar</option><option>Chandigarh</option><option>Chhattisgarh</option>
+            <option>Dadra and Nagar Haveli and Daman and Diu</option><option>Delhi</option><option>Goa</option>
+            <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option><option>Jammu and Kashmir</option>
+            <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Ladakh</option>
+            <option>Lakshadweep</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+            <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option>
+            <option>Puducherry</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option>
+            <option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option>
+            <option>Uttarakhand</option><option>West Bengal</option>
+        </select>
+        <button class="btn btn-blue" style="width:100%" onclick="initExam()">Start Examination</button>
+
+        <hr>
+        <h4>Aapke Pichle 10 Tests:</h4>
+        <div id="historyLog">No records found.</div>
         
-        <h3>Pichle 10 Tests ka Record:</h3>
-        <table id="resultsTable">
-            <thead>
-                <tr><th>Date</th><th>Score</th></tr>
-            </thead>
-            <tbody id="resultsBody"></tbody>
-        </table>
+        <button class="btn btn-red" style="margin-top:20px; font-size:10px" onclick="toggleAdmin()">Admin: Add Questions</button>
     </div>
 
-    <div id="exam-section">
-        <header>
-            <div id="student-info"></div>
-            <div id="timer">Time Left: 10:00</div>
-            <button onclick="submitTest()" style="width: auto; background: #e74c3c;">Submit Test</button>
-        </header>
+    <div id="admin-panel" class="container hidden">
+        <h3>Admin: Add Question (Total: <span id="qCount">0</span>/75)</h3>
+        <textarea id="admQ" style="width:100%; height:60px" placeholder="Sawal Likhein..."></textarea>
+        <input type="text" id="admImg" placeholder="Image URL (Optionally, agar image dalni ho toh link yahan dalein)">
+        <input type="text" id="admOpt1" placeholder="Option A">
+        <input type="text" id="admOpt2" placeholder="Option B">
+        <input type="text" id="admOpt3" placeholder="Option C">
+        <input type="text" id="admOpt4" placeholder="Option D">
+        <input type="text" id="admAns" placeholder="Sahi Answer (e.g. A, B, C or D)">
+        <button class="btn btn-green" onclick="saveQuestion()">Save Question</button>
+        <button class="btn btn-red" onclick="clearAllData()">Clear All Questions</button>
+        <button class="btn btn-blue" onclick="toggleAdmin()">Back to Login</button>
+    </div>
 
-        <div class="main-layout">
-            <div class="question-area">
-                <h3 id="q-text">Q1: Bharat ki Rajdhani kya hai?</h3>
-                <label><input type="radio" name="ans" value="Delhi"> Delhi</label><br>
-                <label><input type="radio" name="ans" value="Mumbai"> Mumbai</label><br>
-                <label><input type="radio" name="ans" value="Kolkata"> Kolkata</label><br>
-            </div>
-            <div class="sidebar">
-                <h4>Question Palette</h4>
-                <div style="display: flex; gap: 5px;">
-                    <div style="background: green; color:white; padding: 5px;">1</div>
-                    <div style="background: gray; color:white; padding: 5px;">2</div>
+    <div id="exam-screen" class="hidden">
+        <div class="exam-header">
+            <div id="user-display"></div>
+            <div id="timer">03:00:00</div>
+            <button class="btn btn-red" onclick="finishTest()">Submit Exam</button>
+        </div>
+        <div class="main-exam">
+            <div class="q-card" id="question-display">
                 </div>
+            <div style="background:#ddd; padding:10px; border-radius:5px">
+                <h4>Questions Palette</h4>
+                <p>Total: 75 Questions</p>
+                <div id="palette" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:5px"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Load Previous History
-        window.onload = function() {
-            displayResults();
-        };
+        let questions = JSON.parse(localStorage.getItem('ntaQuestions')) || [];
+        let timeLeft = 3 * 60 * 60; // 3 Hours in seconds
+        let timerInterval;
 
-        function startExam() {
-            const name = document.getElementById('userName').value;
-            const dist = document.getElementById('district').value;
-            const state = document.getElementById('state').value;
-
-            if(!name || !dist || !state) {
-                alert("Kripya saari jankari bharein!");
-                return;
-            }
-
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('exam-section').style.display = 'block';
-            document.getElementById('student-info').innerHTML = `Candidate: <b>${name}</b> | ${dist}, ${state}`;
+        // --- ADMIN FUNCTIONS ---
+        function toggleAdmin() {
+            document.getElementById('login-screen').classList.toggle('hidden');
+            document.getElementById('admin-panel').classList.toggle('hidden');
+            updateQCount();
         }
 
-        function submitTest() {
-            let score = Math.floor(Math.random() * 100); // Dummy Score Calculation
-            alert("Aapka Score: " + score);
+        function saveQuestion() {
+            if(questions.length >= 75) return alert("75 questions pure ho chuke hain!");
+            const newQ = {
+                text: document.getElementById('admQ').value,
+                img: document.getElementById('admImg').value,
+                options: [document.getElementById('admOpt1').value, document.getElementById('admOpt2').value, document.getElementById('admOpt3').value, document.getElementById('admOpt4').value],
+                ans: document.getElementById('admAns').value
+            };
+            questions.push(newQ);
+            localStorage.setItem('ntaQuestions', JSON.stringify(questions));
+            alert("Question Saved!");
+            updateQCount();
+        }
+
+        function updateQCount() { document.getElementById('qCount').innerText = questions.length; }
+        function clearAllData() { localStorage.removeItem('ntaQuestions'); questions = []; updateQCount(); }
+
+        // --- EXAM FUNCTIONS ---
+        function initExam() {
+            if(questions.length === 0) return alert("Pehle Admin panel mein sawal add karein!");
+            const name = document.getElementById('stdName').value;
+            if(!name) return alert("Naam likhna zaroori hai");
+
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('exam-screen').classList.remove('hidden');
+            document.getElementById('user-display').innerText = `Candidate: ${name}`;
+            
+            startTimer();
+            showQuestion(0);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                let h = Math.floor(timeLeft / 3600);
+                let m = Math.floor((timeLeft % 3600) / 60);
+                let s = timeLeft % 60;
+                document.getElementById('timer').innerText = 
+                    `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(timeLeft <= 0) finishTest();
+                timeLeft--;
+            }, 1000);
+        }
+
+        function showQuestion(index) {
+            const q = questions[index];
+            let html = `<h3>Question ${index + 1}</h3><p>${q.text}</p>`;
+            if(q.img) html += `<img src="${q.img}" class="q-image">`;
+            q.options.forEach((opt, i) => {
+                html += `<br><label><input type="radio" name="q-opt"> ${opt}</label>`;
+            });
+            document.getElementById('question-display').innerHTML = html;
+        }
+
+        function finishTest() {
+            clearInterval(timerInterval);
+            let score = Math.floor(Math.random() * 100); // For demo, random score
             saveResult(score);
-            location.reload(); // Reset to login
+            alert("Test Submitted! Score: " + score);
+            location.reload();
         }
 
         function saveResult(score) {
-            let history = JSON.parse(localStorage.getItem('mockTestHistory')) || [];
-            let date = new Date().toLocaleDateString();
-            
-            // Naya record add karna
-            history.unshift({ date: date, score: score });
+            let history = JSON.parse(localStorage.getItem('examHistory')) || [];
+            history.unshift({ date: new Date().toLocaleString(), score: score });
+            if(history.length > 10) history.pop();
+            localStorage.setItem('examHistory', JSON.stringify(history));
+        }
 
-            // Agar 10 se zyada ho jayein, toh sabse purana (last) delete kar do
-            if(history.length > 10) {
-                history.pop();
+        // --- HISTORY DISPLAY ---
+        (function showHistory() {
+            let history = JSON.parse(localStorage.getItem('examHistory')) || [];
+            if(history.length > 0) {
+                document.getElementById('historyLog').innerHTML = history.map(h => `<div style="border-bottom:1px solid #ccc; padding:5px">${h.date} - <b>Score: ${h.score}</b></div>`).join('');
             }
-
-            localStorage.setItem('mockTestHistory', JSON.stringify(history));
-        }
-
-        function displayResults() {
-            let history = JSON.parse(localStorage.getItem('mockTestHistory')) || [];
-            let tbody = document.getElementById('resultsBody');
-            tbody.innerHTML = history.map(res => `<tr><td>${res.date}</td><td>${res.score}%</td></tr>`).join('');
-        }
+        })();
     </script>
 </body>
 </html>
