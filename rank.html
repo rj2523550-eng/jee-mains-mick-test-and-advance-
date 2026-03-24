@@ -3,119 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Progress Graph | JEE Master Hub</title>
+    <title>Rank Prediction Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --blue: #003366; --red: #A0050D; --green: #28a745; --light: #f4f7f9; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 95%; max-width: 600px; margin-bottom: 20px; }
-        h2 { color: var(--blue); margin: 0 0 15px 0; font-size: 1.4rem; }
-        .latest-stat { display: flex; justify-content: space-between; margin-bottom: 20px; }
-        .stat-box { text-align: center; }
-        .stat-val { font-size: 1.8rem; font-weight: bold; color: var(--blue); }
-        .stat-label { color: #666; font-size: 0.9rem; }
-        /* Graph Container */
-        .chart-container { position: relative; height: 300px; width: 100%; }
-        .btn { background: var(--blue); color: white; padding: 12px 25px; text-decoration: none; border-radius: 30px; font-weight: bold; display: inline-block; margin-top: 10px; transition: 0.3s; }
-        .btn:hover { background: var(--red); transform: translateY(-2px); }
-        #no-data-msg { display: none; color: var(--red); font-weight: bold; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f9; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        .input-section { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; background: #eee; padding: 15px; border-radius: 8px; }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #218838; }
+        .chart-container { position: relative; height: 400px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h2>📈 Your Performance Graph (Last 30 Tests)</h2>
-        
-        <div class="latest-stat" id="stats-section">
-            <div class="stat-box">
-                <div class="stat-val" id="latest-score">--</div>
-                <div class="stat-label">Latest Score</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-val" id="avg-score" style="color: var(--green);">--</div>
-                <div class="stat-label">Average Score</div>
-            </div>
-        </div>
-
-        <p id="no-data-msg">Abhi tak koi data nahi hai. Pehla test dein!</p>
-
-        <div class="chart-container">
-            <canvas id="progressChart"></canvas>
-        </div>
+<div class="container">
+    <h2>📈 Test Rank Analytics (Market View)</h2>
+    
+    <div class="input-section">
+        <input type="date" id="testDate" required>
+        <input type="number" id="testRank" placeholder="Apni Rank Likho" required>
+        <button onclick="addData()">Test Add Karein</button>
     </div>
 
-    <a href="index.html" class="btn">Take Another Test</a>
+    <div class="chart-container">
+        <canvas id="rankChart"></canvas>
+    </div>
 
-    <script>
-        // 1. Phone memory se history nikalna
-        let historyData = JSON.parse(localStorage.getItem('jee_score_history')) || [];
+    <p style="font-size: 0.9em; color: #666; text-align: center;">
+        * Sirf last 30 tests ka data dikhega. Naya test aane par purana delete ho jayega.
+    </p>
+</div>
 
-        if (historyData.length > 0) {
-            // Data hai, toh graph banao
-            document.getElementById('stats-section').style.display = 'flex';
-            
-            // Graph ke liye data taiyar karna
-            const dates = historyData.map(item => item.date); // X-axis ke liye dates
-            const scores = historyData.map(item => item.score); // Y-axis ke liye scores
+<script>
+    let myChart;
+    const MAX_DATA_POINTS = 30;
 
-            // Latest aur Average calculate karna
-            const latest = scores[scores.length - 1];
-            const sum = scores.reduce((a, b) => a + b, 0);
-            const avg = (sum / scores.length).toFixed(0);
+    // 1. Local Storage se data uthana
+    function getStoredData() {
+        const data = localStorage.getItem('rankData');
+        return data ? JSON.parse(data) : [];
+    }
 
-            document.getElementById('latest-score').innerText = latest + "/300";
-            document.getElementById('avg-score').innerText = avg + "/300";
+    // 2. Data save karna aur 30 ki limit lagana
+    function addData() {
+        const dateInput = document.getElementById('testDate').value;
+        const rankInput = document.getElementById('testRank').value;
 
-            // --- CHART.JS CONFIGURATION (Share Market Style) ---
-            const ctx = document.getElementById('progressChart').getContext('2d');
-            
-            // Gradient Color banana (Share market jaisa green effect)
-            let gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(40, 167, 69, 0.5)'); // Upar Green
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)'); // Niche White Fade
+        if (!dateInput || !rankInput) {
+            alert("Please date aur rank dono bharein!");
+            return;
+        }
 
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: dates, // Dates niche aayengi
-                    datasets: [{
-                        label: 'Test Score',
-                        data: scores, // Scores ka graph banega
-                        borderColor: '#28a745', // Green Line color
-                        backgroundColor: gradient, // Niche ka fill color
-                        borderWidth: 3,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#28a745',
-                        pointRadius: 4,
-                        tension: 0.3, // Thoda curve (0.0 matlab ekdam seedhi line)
-                        fill: true // Line ke niche color bharna hai
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 300, // Maximum marks 300 hain
-                            grid: { color: '#eee' }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
+        let history = getStoredData();
+
+        // Naya data object
+        const newEntry = {
+            date: dateInput,
+            rank: parseInt(rankInput)
+        };
+
+        history.push(newEntry);
+
+        // Agar 30 se zyada ho jaye, toh sabse purana (index 0) hata do
+        if (history.length > MAX_DATA_POINTS) {
+            history.shift(); 
+        }
+
+        localStorage.setItem('rankData', JSON.stringify(history));
+        updateChart();
+        
+        // Reset inputs
+        document.getElementById('testRank').value = '';
+    }
+
+    // 3. Chart Update Function (Share Market Style)
+    function updateChart() {
+        const history = getStoredData();
+        const labels = history.map(item => item.date);
+        const ranks = history.map(item => item.rank);
+
+        const ctx = document.getElementById('rankChart').getContext('2d');
+
+        if (myChart) {
+            myChart.destroy(); // Purane chart ko khatam karke naya banayein
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'line', // 'line' chart market trend dikhane ke liye best hai
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Rank Position',
+                    data: ranks,
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.3, // Curve smoothness
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#007bff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        reverse: true, // Rank mein hamesha 1 upar hota hai, isliye reverse
+                        beginAtZero: false,
+                        title: { display: true, text: 'Rank' }
                     },
-                    plugins: {
-                        legend: { display: false } // Upar ka label chupana
+                    x: {
+                        title: { display: true, text: 'Test Date' }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
                     }
                 }
-            });
+            }
+        });
+    }
 
-        } else {
-            // Data nahi hai
-            document.getElementById('stats-section').style.display = 'none';
-            document.getElementById('no-data-msg').style.display = 'block';
-            document.getElementById('progressChart').style.display = 'none';
-        }
-    </script>
+    // Page load hone par chart dikhayein
+    window.onload = updateChart;
+</script>
+
 </body>
 </html>
