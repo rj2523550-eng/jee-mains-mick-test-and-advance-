@@ -3,127 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains Mock Test - NTA Style</title>
+    <title>JEE Mains Mock Test - Professional Edition</title>
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; }
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f7f9; }
+        :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; --bg-light: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg-light); }
         
         /* Login Section */
         #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; background: #e3f2fd; }
-        .login-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 350px; }
-        .login-box input, .login-box select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 380px; }
+        .login-box h2 { color: #1565c0; margin-bottom: 20px; }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
         
         /* Main Interface */
-        #test-interface { display: none; grid-template-columns: 1fr 300px; height: 100vh; }
+        #test-interface { display: none; grid-template-columns: 1fr 320px; height: 100vh; }
         
-        /* Header */
-        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid #ddd; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid #2196F3; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
         /* Question Area */
-        .question-container { padding: 20px; overflow-y: auto; background: white; }
-        .question-text { font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; }
-        .options { margin-bottom: 30px; }
-        .option-item { display: block; padding: 10px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 5px; cursor: pointer; }
-        .option-item:hover { background: #f0f0f0; }
+        .question-container { padding: 30px; overflow-y: auto; background: white; border-right: 1px solid #eee; }
+        .question-text { font-size: 1.25rem; margin-bottom: 25px; line-height: 1.6; color: #333; min-height: 100px; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .option-item { padding: 15px; border: 1.5px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; }
+        .option-item:hover { background: #f1f8ff; border-color: var(--nta-blue); }
+        .option-item input { margin-right: 15px; transform: scale(1.2); }
         
-        /* Buttons right under options */
-        .action-buttons { display: flex; gap: 10px; margin-top: 20px; }
-        button { padding: 10px 25px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        /* Next Button (Placed right under options) */
+        .action-buttons { display: flex; gap: 15px; padding-top: 20px; border-top: 1px solid #eee; }
+        button { padding: 12px 28px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1rem; }
         .btn-next { background: var(--nta-blue); color: white; }
-        .btn-clear { background: #eee; color: #333; }
+        .btn-clear { background: #f5f5f5; color: #555; }
 
         /* Sidebar */
-        .sidebar { background: #fff; border-left: 1px solid #ddd; padding: 15px; display: flex; flex-direction: column; }
-        .timer-box { font-size: 1.5rem; text-align: center; font-weight: bold; color: var(--nta-red); margin-bottom: 20px; }
-        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-        .q-num { width: 40px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; cursor: pointer; border-radius: 0 0 10px 10px; }
-        .answered { background: var(--nta-green); color: white; }
-        .not-answered { background: var(--nta-red); color: white; }
+        .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; box-shadow: -2px 0 10px rgba(0,0,0,0.03); }
+        .timer-box { font-size: 1.8rem; text-align: center; font-weight: bold; color: var(--nta-red); background: #fff1f1; padding: 15px; border-radius: 8px; border: 1px solid #ffcdd2; margin-bottom: 25px; }
+        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 400px; overflow-y: auto; padding: 5px; }
+        .q-num { width: 45px; height: 45px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .answered { background: var(--nta-green) !important; color: white; border-color: var(--nta-green); }
+        .not-answered { background: var(--nta-red) !important; color: white; border-color: var(--nta-red); }
+        .current { border: 2px solid #2196F3; font-weight: bold; }
 
-        /* Results */
-        #result-screen { display: none; padding: 50px; text-align: center; }
-        .score-history { margin-top: 30px; max-width: 500px; margin-inline: auto; }
+        /* Result Screen */
+        #result-screen { display: none; padding: 60px 20px; text-align: center; background: white; min-height: 100vh; }
+        .score-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; min-width: 300px; }
+        .history-table { margin: 40px auto; width: 100%; max-width: 600px; border-collapse: collapse; }
+        .history-table th, .history-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
+        .history-table th { background: #f2f2f2; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
         <div class="login-box">
-            <h2 style="text-align:center">Candidate Login</h2>
-            <input type="text" id="stuName" placeholder="Full Name" required>
+            <h2 style="text-align:center">Student Portal</h2>
+            <input type="text" id="stuName" placeholder="Full Name (As per Admit Card)" required>
             <input type="text" id="stuDist" placeholder="District" required>
             <input type="text" id="stuState" placeholder="State" required>
-            <button onclick="startTest()" style="width: 100%; background: #2e7d32; color: white;">Start Test</button>
+            <button onclick="startTest()" style="width: 100%; background: #2e7d32; color: white; margin-top: 15px;">Login & Start Test</button>
         </div>
     </div>
 
     <div id="test-interface">
         <div class="header">
-            <h3 id="display-name">Candidate Name</h3>
-            <div>JEE MAINS MOCK TEST 2026</div>
+            <h3 id="display-info" style="margin:0; font-size: 1rem; color: #555;">Candidate: -</h3>
+            <div style="font-weight: bold; color: #1565c0;">JEE MAINS: FULL MOCK TEST (75 Qs)</div>
         </div>
 
         <div class="question-container">
             <div id="question-area">
-                <p>Wait, loading questions...</p>
                 </div>
             <div class="action-buttons">
-                <button class="btn-clear" onclick="clearOption()">Clear Selection</button>
+                <button class="btn-clear" onclick="clearOption()">Clear Response</button>
                 <button class="btn-next" onclick="nextQuestion()">Save & Next</button>
             </div>
         </div>
 
         <div class="sidebar">
             <div class="timer-box" id="timer">03:00:00</div>
-            <h4>Question Palette:</h4>
-            <div class="question-grid" id="q-palette">
-                </div>
-            <hr>
-            <button onclick="submitTest()" style="background: var(--nta-red); color:white; width: 100%;">Final Submit</button>
+            <div style="margin-bottom: 10px; font-weight: bold; color: #666;">Question Palette:</div>
+            <div class="question-grid" id="q-palette"></div>
+            <div style="flex-grow: 1;"></div> <button onclick="confirmSubmit()" style="background: var(--nta-red); color:white; width: 100%; margin-top: 20px;">Submit Test</button>
         </div>
     </div>
 
     <div id="result-screen">
-        <h1>Test Completed!</h1>
-        <h2 id="final-score-display">Your Score: 0 / 300</h2>
-        <button onclick="shareOnWhatsApp()" style="background: #25D366; color: white;">Share Score on WhatsApp</button>
+        <div class="score-card">
+            <h1 style="color: var(--nta-green)">Test Completed!</h1>
+            <h2 id="final-score" style="font-size: 3rem; margin: 10px 0;">0</h2>
+            <p style="color: #666;">Out of 300 Marks</p>
+            <button onclick="shareOnWhatsApp()" style="background: #25D366; color: white; margin-top: 20px;">Share Score on WhatsApp</button>
+        </div>
         
         <div class="score-history">
-            <h3>Recent 10 Test Scores</h3>
-            <ul id="history-list" style="list-style: none; padding: 0;"></ul>
+            <h3>Last 10 Performance Records</h3>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Attempt Date</th>
+                        <th>Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="history-body"></tbody>
+            </table>
+            <button onclick="location.reload()" style="background: #555; color: white;">Restart New Test</button>
         </div>
-        <button onclick="location.reload()" style="margin-top:20px;">Take Another Test</button>
     </div>
 
-    <script>
-        // DATA: Yahan apne 75 Questions add karein
-        const questions = [
-            {
-                q: "What is the derivative of $$f(x) = \sin(x^2)$$?",
-                options: ["$$2x \cos(x^2)$$ ", "$$\cos(x^2)$$ ", "$$2x \sin(x)$$ ", "$$-2x \cos(x^2)$$"],
-                correct: 0
-            },
-            {
-                q: "Chemistry: Which gas is known as Laughing Gas?",
-                options: ["$$N_2O$$", "$$NO_2$$", "$$NH_3$$", "$$CO_2$$"],
-                correct: 0
-            },
-            // JAGA CHODI GAYI HAI: Yahan 75 tak questions copy-paste karein
-        ];
+    <script src="questions.js"></script>
 
+    <script>
         let currentIdx = 0;
-        let userAnswers = new Array(questions.length).fill(null);
-        let timeLeft = 3 * 60 * 60; // 3 hours
+        let userAnswers = []; 
+        let timeLeft = 3 * 60 * 60; // 3 Hours
+        let timerInterval;
 
         function startTest() {
             const name = document.getElementById('stuName').value;
-            if(!name) return alert("Please enter your name");
+            const dist = document.getElementById('stuDist').value;
+            if(!name || !dist) return alert("Please fill all details!");
+
+            // Initialize answers array based on loaded questions
+            userAnswers = new Array(questions.length).fill(null);
             
-            document.getElementById('display-name').innerText = "Candidate: " + name;
+            document.getElementById('display-info').innerText = `Candidate: ${name} | ${dist}`;
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('test-interface').style.display = 'grid';
             
@@ -134,6 +140,7 @@
 
         function initPalette() {
             const palette = document.getElementById('q-palette');
+            palette.innerHTML = '';
             for(let i=0; i<questions.length; i++) {
                 let div = document.createElement('div');
                 div.className = 'q-num';
@@ -148,33 +155,34 @@
             const area = document.getElementById('question-area');
             const q = questions[currentIdx];
             
-            let html = `<div class="question-text">Question ${currentIdx + 1}: <br> ${q.q}</div>`;
+            // Update Palette Active Class
+            document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
+            document.getElementById(`pal-${currentIdx}`).classList.add('current');
+
+            let html = `<div class="question-text"><b>Question ${currentIdx + 1}:</b><br>${q.q}</div>`;
             html += `<div class="options">`;
             q.options.forEach((opt, i) => {
                 let checked = userAnswers[currentIdx] === i ? 'checked' : '';
                 html += `
                     <label class="option-item">
-                        <input type="radio" name="opt" value="${i}" ${checked}> ${opt}
+                        <input type="radio" name="jee-opt" value="${i}" ${checked}> ${opt}
                     </label>
                 `;
             });
             html += `</div>`;
             
             area.innerHTML = html;
-            
-            // Re-render MathJax
-            if (window.MathJax) {
-                MathJax.typesetPromise();
-            }
+            if (window.MathJax) MathJax.typesetPromise();
         }
 
         function nextQuestion() {
-            const selected = document.querySelector('input[name="opt"]:checked');
+            const selected = document.querySelector('input[name="jee-opt"]:checked');
             const palBtn = document.getElementById(`pal-${currentIdx}`);
             
             if(selected) {
                 userAnswers[currentIdx] = parseInt(selected.value);
                 palBtn.classList.add('answered');
+                palBtn.classList.remove('not-answered');
             } else {
                 palBtn.classList.add('not-answered');
             }
@@ -187,65 +195,72 @@
 
         function clearOption() {
             userAnswers[currentIdx] = null;
-            renderQuestion();
             document.getElementById(`pal-${currentIdx}`).classList.remove('answered');
+            renderQuestion();
         }
 
         function startTimer() {
-            const timerEl = document.getElementById('timer');
-            const interval = setInterval(() => {
+            timerInterval = setInterval(() => {
                 let h = Math.floor(timeLeft / 3600);
                 let m = Math.floor((timeLeft % 3600) / 60);
                 let s = timeLeft % 60;
-                
-                timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                
-                if(timeLeft <= 0) {
-                    clearInterval(interval);
-                    submitTest();
-                }
+                document.getElementById('timer').innerText = 
+                    `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
                 timeLeft--;
             }, 1000);
         }
 
+        function confirmSubmit() {
+            if(confirm("Are you sure you want to submit the test?")) submitTest();
+        }
+
         function submitTest() {
+            clearInterval(timerInterval);
             let score = 0;
             userAnswers.forEach((ans, i) => {
                 if(ans === questions[i].correct) score += 4;
                 else if(ans !== null) score -= 1;
             });
 
-            saveScore(score);
-            showResults(score);
+            saveScoreToLocal(score);
+            displayFinalResults(score);
         }
 
-        function saveScore(newScore) {
-            let history = JSON.parse(localStorage.getItem('jee_scores')) || [];
-            history.unshift({
+        function saveScoreToLocal(newScore) {
+            let history = JSON.parse(localStorage.getItem('jee_history')) || [];
+            const newEntry = {
                 score: newScore,
-                date: new Date().toLocaleDateString()
-            });
+                date: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+            };
             
-            // Keep only last 10
-            if(history.length > 10) history.pop();
-            
-            localStorage.setItem('jee_scores', JSON.stringify(history));
+            history.unshift(newEntry); // Add to start
+            if(history.length > 10) history.pop(); // Remove 11th item
+            localStorage.setItem('jee_history', JSON.stringify(history));
         }
 
-        function showResults(score) {
+        function displayFinalResults(score) {
             document.getElementById('test-interface').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('final-score-display').innerText = `Your Score: ${score} / 300`;
+            document.getElementById('final-score').innerText = score;
             
-            const list = document.getElementById('history-list');
-            const history = JSON.parse(localStorage.getItem('jee_scores')) || [];
-            list.innerHTML = history.map(h => `<li>Date: ${h.date} - <b>Score: ${h.score}</b></li>`).join('');
+            const historyBody = document.getElementById('history-body');
+            const history = JSON.parse(localStorage.getItem('jee_history')) || [];
+            
+            historyBody.innerHTML = history.map(item => `
+                <tr>
+                    <td>${item.date}</td>
+                    <td><b>${item.score}</b></td>
+                    <td style="color:${item.score > 150 ? 'green' : 'orange'}">${item.score > 150 ? 'Excellent' : 'Keep Practicing'}</td>
+                </tr>
+            `).join('');
         }
 
         function shareOnWhatsApp() {
-            const score = document.getElementById('final-score-display').innerText;
-            const text = `Hey! I just completed my JEE Mock Test. ${score}. Target: IIT Bombay!`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+            const score = document.getElementById('final-score').innerText;
+            const name = document.getElementById('stuName').value;
+            const msg = `🎯 *JEE Mock Test Result*%0A👤 Name: ${name}%0A📊 Score: ${score}/300%0AKeep grinding! 🚀`;
+            window.open(`https://wa.me/?text=${msg}`);
         }
     </script>
 </body>
