@@ -236,7 +236,31 @@
         scores.push({name: userData.name, loc: `${userData.dist}, ${userData.state}`, score: score});
         scores.sort((a,b) => b.score - a.score); scores = scores.slice(0, 10);
         localStorage.setItem('weeklyJEEData', JSON.stringify(scores));
+// --- Rank Prediction Logic Start ---
+const MAX_DATA_POINTS = 30;
+const today = new Date().toLocaleDateString(); // Aaj ki date
 
+// 1. Purana analytics data uthayein
+let rankHistory = JSON.parse(localStorage.getItem('rankData')) || [];
+
+// 2. Naya entry banayein (Yahan score ko hi hum graph mein dikhayenge)
+const newEntry = {
+    date: today,
+    rank: score // Aapka final score graph mein dikhega
+};
+
+// 3. History mein add karein
+rankHistory.push(newEntry);
+
+// 4. Agar 30 se zyada ho toh purana delete karein
+if (rankHistory.length > MAX_DATA_POINTS) {
+    rankHistory.shift();
+}
+
+// 5. Save karein
+localStorage.setItem('rankData', JSON.stringify(rankHistory));
+// --- Rank Prediction Logic End ---
+        
         const body = document.getElementById('leader-body'); body.innerHTML = '';
         scores.forEach((s, i) => { body.innerHTML += `<tr class="${s.name === userData.name ? 'rank-high' : ''}"><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`; });
 
