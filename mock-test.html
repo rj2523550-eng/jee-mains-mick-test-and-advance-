@@ -257,19 +257,20 @@
         }
 
        function shareOnWhatsApp() {
-    const score = document.getElementById('final-score').innerText; // Example: "Score: 240/300"
+    const score = document.getElementById('final-score').innerText; 
     const name = document.getElementById('stuName') ? document.getElementById('stuName').value : "Student";
     
     // Yahan apni website ka sahi link dalein
-    const websiteLink = "https://www.aapki-website.com/mock-test"; 
+    const websiteLink = "https://jeemasterhub.in/mock-test"; 
     
-    // Ek majedar aur challenging message jo dusron ko test dene par majbur kare
+    // Har line ke baad %0A lagana zaroori hai new line ke liye
     const message = `🔥 *JEE MAINS CHALLENGE* 🔥%0A%0A` +
                     `👤 *Name:* ${name}%0A` +
-                    `📊 *My Score:* ${score}%0A%0A` +
+                    `📊 *My Score:* ${score}/300%0A%0A` +
                     `Kya tum mujhse zyada score kar sakte ho? NTA ke naye pattern par based ye mock test sabse tough hai! 😎%0A%0A` +
                     `🚀 *Apni Rank Check Karo Yahan:*%0A${jeemasterhub.in}%0A%0A` +
                     `#JEE2026 #IITJEE #MockTest`;
 
     window.open(`https://wa.me/?text=${message}`);
        }
+        
