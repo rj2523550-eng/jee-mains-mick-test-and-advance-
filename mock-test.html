@@ -255,21 +255,31 @@
                 </tr>
             `).join('');
         }
- function shareOnWhatsApp() {
-    const score = document.getElementById('final-score').innerText; 
-    const name = document.getElementById('stuName') ? document.getElementById('stuName').value : "Student";
-    
-    // Yahan apni website ka sahi link dalein
-    const websiteLink = "https://jeemasterhub.in/mock-test"; 
-    
-    // Har line ke baad %0A lagana zaroori hai new line ke liye
-    const message = `🔥 *JEE MAINS CHALLENGE* 🔥%0A%0A` +
-                    `👤 *Name:* ${name}%0A` +
-                    `📊 *My Score:* ${score}/300%0A%0A` +
-                    `Kya tum mujhse zyada score kar sakte ho? NTA ke naye pattern par based ye mock test sabse tough hai! 😎%0A%0A` +
-                    `🚀 *Apni Rank Check Karo Yahan:*%0A${https://jeemasterhub.in/mock-test.html}%0A%0A` +
-                    `#JEE2026 #IITJEE #MockTest`;
 
-    window.open(`https://wa.me/?text=${message}`);
-       }
+        function shareOnWhatsApp() {
+    // 1. Score aur Name nikalna
+    const scoreVal = document.getElementById('final-score').innerText; 
+    const nameVal = document.getElementById('stuName') ? document.getElementById('stuName').value : "Student";
+    
+    // 2. Aapki Website ka link
+    const websiteLink = "https://jeemasterhub.in"; 
+
+    // 3. Score ke hisab se ek chhota "Status" (Optional)
+    let status = scoreVal > 150 ? "IIT Bombay Loading... 🚀" : "Abhi aur mehnat baki hai! 💪";
+
+    // 4. Sabse Important: %0A ka use karein (New Line ke liye)
+    // Isse message WhatsApp par alag-alag lines mein dikhega
+    const message = "*🔥 JEE MAINS CHALLENGE 🔥*" + "%0A%0A" +
+                    "*👤 Name:* " + nameVal + "%0A" +
+                    "*📊 My Score:* " + scoreVal + "/300" + "%0A" +
+                    "*Status:* " + status + "%0A%0A" +
+                    "NTA ke naye pattern par based ye mock test sabse tough hai. Kya tum mujhse zyada score kar sakte ho? 😎" + "%0A%0A" +
+                    "👉 *Apni Rank Check Karo Yahan:*%0A" + websiteLink + "%0A%0A" +
+                    "#JEE2026 #IITJEE #MockTest";
+
+    // Final WhatsApp URL
+    const finalUrl = "https://jeemasterhub.in?text=" + message;
+    
+    window.open(finalUrl, '_blank');
+        }
         
