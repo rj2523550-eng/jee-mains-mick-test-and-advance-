@@ -245,6 +245,48 @@
         const text = `Maine JEE Master Hub Mock Test mein ${score}/120 score kiya! 🎯\nCheck your rank here: https://jeemasterhub.in`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
+
+function updateChart() {
+    const ctx = document.getElementById('rankChart');
+    if (!ctx) return; // Agar canvas nahi mila toh error na aaye
+
+    const data = JSON.parse(localStorage.getItem('rankPrediction')) || [];
+    
+    // Agar chart pehle se bana hai toh use destroy karein taaki naya data dikhe
+    if (window.myChartInstance) {
+        window.myChartInstance.destroy();
+    }
+
+    window.myChartInstance = new Chart(ctx.getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: data.map(i => i.date),
+            datasets: [{
+                label: 'Score Trend',
+                data: data.map(i => i.score),
+                borderColor: '#2ecc71', // Share market green
+                backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                fill: true,
+                tension: 0.4, // Smooth curve (market look)
+                borderWidth: 3,
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { 
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: { 
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}  
 </script>
 </body>
 </html>
