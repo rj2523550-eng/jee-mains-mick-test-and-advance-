@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains Mock Test - Professional Edition</title>
+    <title>JEE Mains Mock Test - jeemasterhub.in</title>
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; --bg-light: #f8f9fa; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg-light); }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg-light); }
         
         /* Login Section */
         #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; background: #e3f2fd; }
         .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 380px; }
-        .login-box h2 { color: #1565c0; margin-bottom: 20px; }
+        .login-box h2 { color: #1565c0; text-align: center; margin-bottom: 20px; }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
         
         /* Main Interface */
         #test-interface { display: none; grid-template-columns: 1fr 320px; height: 100vh; }
-        
         .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid #2196F3; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         
         /* Question Area */
@@ -31,45 +30,45 @@
         .option-item:hover { background: #f1f8ff; border-color: var(--nta-blue); }
         .option-item input { margin-right: 15px; transform: scale(1.2); }
         
-        /* Next Button (Placed right under options) */
+        /* Navigation Buttons */
         .action-buttons { display: flex; gap: 15px; padding-top: 20px; border-top: 1px solid #eee; }
         button { padding: 12px 28px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1rem; }
         .btn-next { background: var(--nta-blue); color: white; }
         .btn-clear { background: #f5f5f5; color: #555; }
 
         /* Sidebar */
-        .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; box-shadow: -2px 0 10px rgba(0,0,0,0.03); }
+        .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; }
         .timer-box { font-size: 1.8rem; text-align: center; font-weight: bold; color: var(--nta-red); background: #fff1f1; padding: 15px; border-radius: 8px; border: 1px solid #ffcdd2; margin-bottom: 25px; }
-        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 400px; overflow-y: auto; padding: 5px; }
-        .q-num { width: 45px; height: 45px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; border-radius: 4px; transition: 0.3s; }
-        .answered { background: var(--nta-green) !important; color: white; border-color: var(--nta-green); }
-        .not-answered { background: var(--nta-red) !important; color: white; border-color: var(--nta-red); }
-        .current { border: 2px solid #2196F3; font-weight: bold; }
+        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 400px; overflow-y: auto; }
+        .q-num { width: 45px; height: 45px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; border-radius: 4px; }
+        .answered { background: var(--nta-green) !important; color: white; }
+        .not-answered { background: var(--nta-red) !important; color: white; }
+        .current { border: 2.5px solid #2196F3; font-weight: bold; }
 
         /* Result Screen */
         #result-screen { display: none; padding: 60px 20px; text-align: center; background: white; min-height: 100vh; }
-        .score-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; min-width: 300px; }
+        .score-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; min-width: 320px; }
         .history-table { margin: 40px auto; width: 100%; max-width: 600px; border-collapse: collapse; }
         .history-table th, .history-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
-        .history-table th { background: #f2f2f2; }
+        .btn-whatsapp { background: #25D366; color: white; margin-top: 20px; padding: 15px 30px; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
         <div class="login-box">
-            <h2 style="text-align:center">Student Portal</h2>
-            <input type="text" id="stuName" placeholder="Full Name (As per Admit Card)" required>
+            <h2>Candidate Login</h2>
+            <input type="text" id="stuName" placeholder="Full Name" required>
             <input type="text" id="stuDist" placeholder="District" required>
             <input type="text" id="stuState" placeholder="State" required>
-            <button onclick="startTest()" style="width: 100%; background: #2e7d32; color: white; margin-top: 15px;">Login & Start Test</button>
+            <button onclick="startTest()" style="width: 100%; background: var(--nta-blue); color: white; margin-top: 15px;">Start Mock Test</button>
         </div>
     </div>
 
     <div id="test-interface">
         <div class="header">
             <h3 id="display-info" style="margin:0; font-size: 1rem; color: #555;">Candidate: -</h3>
-            <div style="font-weight: bold; color: #1565c0;">JEE MAINS: FULL MOCK TEST (75 Qs)</div>
+            <div style="font-weight: bold; color: #1565c0;">JEE MAINS FULL MOCK TEST</div>
         </div>
 
         <div class="question-container">
@@ -85,31 +84,28 @@
             <div class="timer-box" id="timer">03:00:00</div>
             <div style="margin-bottom: 10px; font-weight: bold; color: #666;">Question Palette:</div>
             <div class="question-grid" id="q-palette"></div>
-            <div style="flex-grow: 1;"></div> <button onclick="confirmSubmit()" style="background: var(--nta-red); color:white; width: 100%; margin-top: 20px;">Submit Test</button>
+            <div style="flex-grow: 1;"></div>
+            <button onclick="confirmSubmit()" style="background: var(--nta-red); color:white; width: 100%; margin-top: 20px;">Submit Test</button>
         </div>
     </div>
 
     <div id="result-screen">
         <div class="score-card">
             <h1 style="color: var(--nta-green)">Test Completed!</h1>
-            <h2 id="final-score" style="font-size: 3rem; margin: 10px 0;">0</h2>
-            <p style="color: #666;">Out of 300 Marks</p>
-            <button onclick="shareOnWhatsApp()" style="background: #25D366; color: white; margin-top: 20px;">Share Score on WhatsApp</button>
+            <h2 id="final-score-val" style="font-size: 3.5rem; margin: 10px 0;">0</h2>
+            <p style="color: #666;">Total Score out of 300</p>
+            <button class="btn-whatsapp" onclick="shareOnWhatsApp()">Share Result on WhatsApp 🚀</button>
         </div>
         
         <div class="score-history">
-            <h3>Last 10 Performance Records</h3>
+            <h3>Your Last 10 Scores</h3>
             <table class="history-table">
                 <thead>
-                    <tr>
-                        <th>Attempt Date</th>
-                        <th>Score</th>
-                        <th>Status</th>
-                    </tr>
+                    <tr><th>Attempt Date</th><th>Score</th></tr>
                 </thead>
                 <tbody id="history-body"></tbody>
             </table>
-            <button onclick="location.reload()" style="background: #555; color: white;">Restart New Test</button>
+            <button onclick="location.reload()" style="background: #555; color: white;">Try Again</button>
         </div>
     </div>
 
@@ -118,18 +114,15 @@
     <script>
         let currentIdx = 0;
         let userAnswers = []; 
-        let timeLeft = 3 * 60 * 60; // 3 Hours
+        let timeLeft = 3 * 60 * 60; 
         let timerInterval;
 
         function startTest() {
             const name = document.getElementById('stuName').value;
-            const dist = document.getElementById('stuDist').value;
-            if(!name || !dist) return alert("Please fill all details!");
+            if(!name) return alert("Please enter your name!");
 
-            // Initialize answers array based on loaded questions
             userAnswers = new Array(questions.length).fill(null);
-            
-            document.getElementById('display-info').innerText = `Candidate: ${name} | ${dist}`;
+            document.getElementById('display-info').innerText = `Candidate: ${name}`;
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('test-interface').style.display = 'grid';
             
@@ -155,7 +148,6 @@
             const area = document.getElementById('question-area');
             const q = questions[currentIdx];
             
-            // Update Palette Active Class
             document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
             document.getElementById(`pal-${currentIdx}`).classList.add('current');
 
@@ -163,11 +155,7 @@
             html += `<div class="options">`;
             q.options.forEach((opt, i) => {
                 let checked = userAnswers[currentIdx] === i ? 'checked' : '';
-                html += `
-                    <label class="option-item">
-                        <input type="radio" name="jee-opt" value="${i}" ${checked}> ${opt}
-                    </label>
-                `;
+                html += `<label class="option-item"><input type="radio" name="jee-opt" value="${i}" ${checked}> ${opt}</label>`;
             });
             html += `</div>`;
             
@@ -182,7 +170,6 @@
             if(selected) {
                 userAnswers[currentIdx] = parseInt(selected.value);
                 palBtn.classList.add('answered');
-                palBtn.classList.remove('not-answered');
             } else {
                 palBtn.classList.add('not-answered');
             }
@@ -206,13 +193,13 @@
                 let s = timeLeft % 60;
                 document.getElementById('timer').innerText = 
                     `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                if(timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
+                if(timeLeft <= 0) submitTest();
                 timeLeft--;
             }, 1000);
         }
 
         function confirmSubmit() {
-            if(confirm("Are you sure you want to submit the test?")) submitTest();
+            if(confirm("Are you sure you want to submit?")) submitTest();
         }
 
         function submitTest() {
@@ -223,63 +210,43 @@
                 else if(ans !== null) score -= 1;
             });
 
-            saveScoreToLocal(score);
-            displayFinalResults(score);
+            saveScore(score);
+            showResult(score);
         }
 
-        function saveScoreToLocal(newScore) {
+        function saveScore(score) {
             let history = JSON.parse(localStorage.getItem('jee_history')) || [];
-            const newEntry = {
-                score: newScore,
-                date: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
-            };
-            
-            history.unshift(newEntry); // Add to start
-            if(history.length > 10) history.pop(); // Remove 11th item
+            history.unshift({ score: score, date: new Date().toLocaleDateString() });
+            if(history.length > 10) history.pop();
             localStorage.setItem('jee_history', JSON.stringify(history));
         }
 
-        function displayFinalResults(score) {
+        function showResult(score) {
             document.getElementById('test-interface').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-score-val').innerText = score;
             
-            const historyBody = document.getElementById('history-body');
             const history = JSON.parse(localStorage.getItem('jee_history')) || [];
-            
-            historyBody.innerHTML = history.map(item => `
-                <tr>
-                    <td>${item.date}</td>
-                    <td><b>${item.score}</b></td>
-                    <td style="color:${item.score > 150 ? 'green' : 'orange'}">${item.score > 150 ? 'Excellent' : 'Keep Practicing'}</td>
-                </tr>
-            `).join('');
+            document.getElementById('history-body').innerHTML = history.map(h => 
+                `<tr><td>${h.date}</td><td><b>${h.score}</b></td></tr>`
+            ).join('');
         }
 
         function shareOnWhatsApp() {
-    // 1. Score aur Name nikalna
-    const scoreVal = document.getElementById('final-score').innerText; 
-    const nameVal = document.getElementById('stuName') ? document.getElementById('stuName').value : "Student";
-    
-    // 2. Aapki Website ka link
-    const websiteLink = "https://jeemasterhub.in"; 
+            const score = document.getElementById('final-score-val').innerText;
+            const name = document.getElementById('stuName').value || "Student";
+            const websiteLink = "https://jeemasterhub.in/mock-test"; // Aapka final link
+            
+            const message = `🔥 *JEE MAINS CHALLENGE* 🔥%0A%0A` +
+                            `👤 *Name:* ${name}%0A` +
+                            `📊 *Score:* ${score}/300%0A%0A` +
+                            `NTA ke bilkul naye pattern par ye mock test maine *jeemasterhub.in* par diya. %0A%0A` +
+                            `Dum hai toh mujhse zyada score karke dikhao! 💪%0A%0A` +
+                            `🚀 *Abhi test do yahan:*%0A${websiteLink}%0A%0A` +
+                            `#JEE2026 #IITJEE #MockTest`;
 
-    // 3. Score ke hisab se ek chhota "Status" (Optional)
-    let status = scoreVal > 150 ? "IIT Bombay Loading... 🚀" : "Abhi aur mehnat baki hai! 💪";
-
-    // 4. Sabse Important: %0A ka use karein (New Line ke liye)
-    // Isse message WhatsApp par alag-alag lines mein dikhega
-    const message = "*🔥 JEE MAINS CHALLENGE 🔥*" + "%0A%0A" +
-                    "*👤 Name:* " + nameVal + "%0A" +
-                    "*📊 My Score:* " + scoreVal + "/300" + "%0A" +
-                    "*Status:* " + status + "%0A%0A" +
-                    "NTA ke naye pattern par based ye mock test sabse tough hai. Kya tum mujhse zyada score kar sakte ho? 😎" + "%0A%0A" +
-                    "👉 *Apni Rank Check Karo Yahan:*%0A" + websiteLink + "%0A%0A" +
-                    "#JEE2026 #IITJEE #MockTest";
-
-    // Final WhatsApp URL
-    const finalUrl = "https://jeemasterhub.in?text=" + message;
-    
-    window.open(finalUrl, '_blank');
+            window.open(`https://wa.me/?text=${message}`);
         }
-        
+    </script>
+</body>
+</html>
