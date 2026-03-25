@@ -25,7 +25,7 @@
         
         .notice { color: #e67e22; font-weight: bold; font-size: 0.9em; margin-bottom: 15px; }
         .hidden { display: none; }
-    </style>
+    </style> 
 </head>
 <body>
 
@@ -135,11 +135,34 @@
         loadQuestion();
     }
 
-    function finishTest() {
-        document.getElementById('exam-area').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
-        document.getElementById('final-score').innerText = `Your Score: ${score} / ${allQuestions.length * 4}`;
-        saveToLocal();
+    function endTest() {
+    document.getElementById('exam-area').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    
+    // Result Heading
+    document.getElementById('score-text').innerText = `Final Score: ${score} / 120`;
+
+    const container = document.getElementById('review-container');
+    container.innerHTML = ""; // Purana clear karne ke liye
+
+    allQ.forEach((q, i) => {
+        const userAnsIndex = userChoices[i];
+        const isCorrect = userAnsIndex === q.correct;
+        const statusClass = isCorrect ? "status-correct" : (userAnsIndex === null ? "status-skipped" : "status-wrong");
+
+        container.innerHTML += `
+            <div class="review-item" style="border-left: 5px solid ${isCorrect ? '#27ae60' : '#e74c3c'}; padding-left: 15px; margin-bottom: 25px;">
+                <p><strong>Q${i+1}:</strong> ${q.q}</p>
+                <p><strong>Aapka Jawab:</strong> ${userAnsIndex !== null ? q.options[userAnsIndex] : '<span style="color:gray;">Nahi diya</span>'}</p>
+                <p style="color:#27ae60;"><strong>Sahi Jawab:</strong> ${q.options[q.correct]}</p>
+                
+                <div style="background: #fdf2f2; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                    <strong style="color: #2c3e50;">Step-by-Step Solution:</strong><br>
+                    <span style="font-style: italic; font-size: 0.95em;">${q.solution}</span>
+                </div>
+            </div>
+        `;
+    });
     }
 
     function saveToLocal() {
