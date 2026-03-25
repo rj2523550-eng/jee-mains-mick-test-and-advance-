@@ -3,278 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Weekly Test - NTA Pattern Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>JEE Master Hub - Weekly Test</title>
     <style>
-        :root {
-            --nta-blue: #2c3e50;
-            --nta-gray: #f4f7f6;
-            --ans-green: #27ae60;
-            --not-ans-red: #e74c3c;
-            --not-visited: #ecf0f1;
-            --whatsapp: #25D366;
-            --notice-yellow: #fff3cd;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-        body { background-color: var(--nta-gray); height: 100vh; overflow: hidden; }
-
-        /* --- LOGIN MODAL --- */
-        #login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .login-card { background: white; padding: 30px; border-radius: 8px; width: 380px; text-align: center; border-top: 5px solid var(--nta-blue); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .login-card input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; outline: none; }
+        :root { --primary: #2c3e50; --accent: #3498db; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; }
         
-        .desktop-notice { 
-            background: var(--notice-yellow); color: #856404; padding: 10px; border-radius: 5px; 
-            margin-bottom: 15px; font-size: 0.85rem; border: 1px solid #ffeeba; font-weight: 500;
-        }
-
-        .btn-start { background: #3498db; color: white; border: none; padding: 12px; width: 100%; cursor: pointer; font-weight: bold; border-radius: 4px; font-size: 1rem; }
-
-        /* --- HEADER --- */
-        header { background: white; border-bottom: 1px solid #ddd; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
-        .timer { font-size: 1.2rem; font-weight: bold; color: #e67e22; background: #fff8f0; padding: 5px 15px; border-radius: 4px; border: 1px solid #f39c12; }
-        .streak-info { color: #e74c3c; font-weight: bold; font-size: 0.9rem; }
-
-        /* --- TEST LAYOUT --- */
-        .container { display: flex; height: calc(100vh - 60px); }
-        .question-panel { flex: 3; background: white; padding: 30px; overflow-y: auto; border-right: 1px solid #ddd; position: relative; }
-        .subject-tag { background: var(--nta-blue); color: white; padding: 5px 15px; border-radius: 3px; font-size: 0.85rem; margin-bottom: 15px; display: inline-block; }
-        .q-text { font-size: 1.1rem; line-height: 1.5; margin-bottom: 20px; color: #2c3e50; min-height: 50px; }
+        /* Login Overlay */
+        #login-screen { position: fixed; inset: 0; background: white; z-index: 100; display: flex; justify-content: center; align-items: center; }
+        .login-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px; }
         
-        .option { display: block; padding: 12px; border: 1px solid #eee; margin-bottom: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
-        .option:hover { background: #f8f9fa; }
-        .option.selected { background: #e1f5fe; border-color: #03a9f4; font-weight: bold; }
-
-        .inline-nav { margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; display: flex; gap: 15px; }
-        .btn-nav { padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; flex: 1; }
-        .btn-save { background: var(--ans-green); color: white; }
-        .btn-clear { background: #bdc3c7; color: #333; }
-
-        /* --- SIDE PALETTE --- */
-        .side-panel { flex: 1; background: #fff; padding: 20px; overflow-y: auto; }
-        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .p-box { height: 38px; width: 38px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; cursor: pointer; background: var(--not-visited); }
+        /* Exam Interface */
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; background: var(--primary); color: white; padding: 15px; border-radius: 8px; }
+        .question-box { background: white; padding: 30px; margin-top: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         
-        .p-box.answered { background: var(--ans-green); color: white; border: none; clip-path: polygon(0% 20%, 20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%); }
-        .p-box.not-answered { background: var(--not-ans-red); color: white; border: none; border-radius: 50% 50% 0 0; }
-        .p-box.active { border: 2px solid #3498db; box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); }
-
-        /* --- RESULTS --- */
-        .result-overlay { position: fixed; inset: 0; background: white; z-index: 2000; padding: 40px; overflow-y: auto; display: none; }
-        .score-banner { background: #e8f5e9; padding: 25px; border-radius: 10px; text-align: center; border: 1px solid #c8e6c9; margin-bottom: 25px; }
-        .sol-card { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid var(--nta-blue); }
-        .btn-whatsapp { background: var(--whatsapp); color: white; padding: 15px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-weight: bold; justify-content: center; margin-bottom: 20px; }
+        /* NTA Style - Options near Question */
+        .options-container { margin-top: 20px; }
+        .opt-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; text-align: left; }
+        .opt-btn:hover { background: #eef2f3; }
+        .nav-controls { margin-top: 20px; display: flex; gap: 10px; }
         
-        .leader-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
-        .leader-table th, .leader-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        .leader-table th { background: var(--nta-blue); color: white; }
-        .rank-high { background: #fff9c4; font-weight: bold; }
+        .notice { color: #e67e22; font-weight: bold; font-size: 0.9em; margin-bottom: 15px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div id="login-overlay">
+<div id="login-screen">
     <div class="login-card">
-        <h2 style="margin-bottom:10px; color:var(--nta-blue)">Weekly Test (30 Qs)</h2>
-        <div class="desktop-notice">⚠️ <b>Notice:</b> Mobile users behtar experience ke liye <b>"Desktop Site"</b> mode on karein.</div>
-        <input type="text" id="u-name" placeholder="Full Name">
-        <input type="text" id="u-state" placeholder="State">
-        <input type="text" id="u-dist" placeholder="District">
-        <button class="btn-start" onclick="beginTest()">Start Weekly Test 🔥</button>
+        <h2>Student Login</h2>
+        <p class="notice">NOTICE: Behtar anubhav ke liye Desktop Mode on karein.</p>
+        <input type="text" id="stdName" placeholder="Full Name" style="width:100%; margin-bottom:10px; padding:8px;">
+        <input type="text" id="stdDistrict" placeholder="District" style="width:100%; margin-bottom:10px; padding:8px;">
+        <input type="text" id="stdState" placeholder="State" style="width:100%; margin-bottom:15px; padding:8px;">
+        <button onclick="startTest()" style="width:100%; padding:10px; background:var(--accent); color:white; border:none; cursor:pointer;">Start Test</button>
     </div>
 </div>
 
-<header>
-    <div id="user-info-header" style="font-weight:bold; color:var(--nta-blue)">JEE MASTER HUB</div>
-    <div class="streak-info">Streak: 🔥 <span id="streak-val">0</span> Days</div>
-    <div class="timer" id="timer-box">60:00</div>
-</header>
+<div id="exam-area" class="hidden">
+    <div class="container">
+        <div class="header">
+            <div><span id="display-name"></span> | <span id="display-loc"></span></div>
+            <div id="timer" style="font-size: 1.2em; font-weight: bold;">60:00</div>
+        </div>
 
-<div class="container" id="test-view" style="display: none;">
-    <div class="question-panel">
-        <div class="subject-tag" id="sub-tag">Subject</div>
-        <div class="q-text" id="q-body">Question loading...</div>
-        <div id="opt-container"></div>
-        <div class="inline-nav">
-            <button class="btn-nav btn-clear" onclick="clearAns()">Clear Response</button>
-            <button class="btn-nav btn-save" onclick="saveNext()">Save & Next</button>
+        <div class="question-box">
+            <h3 id="q-text">Loading Question...</h3>
+            <div id="options-area" class="options-container"></div>
+            <div class="nav-controls">
+                <button onclick="nextQuestion()" style="padding:10px 25px; background:#27ae60; color:white; border:none; border-radius:4px; cursor:pointer;">Next Question</button>
+            </div>
         </div>
     </div>
-    <div class="side-panel">
-        <h4 style="color:#555">Question Palette</h4>
-        <div class="palette-grid" id="p-grid"></div>
-        <button class="btn-start" style="margin-top: 30px; background: var(--not-ans-red);" onclick="submitConfirm()">Submit Test</button>
-    </div>
 </div>
 
-<div class="result-overlay" id="result-view">
-    <div class="score-banner">
-        <h1>Weekly Test Summary</h1>
-        <h2 style="color:var(--ans-green); margin:10px 0;">Score: <span id="final-score">0</span> / 120</h2>
-        <p id="user-details-res" style="color:#666"></p>
-    </div>
-    
-    <a href="javascript:void(0)" class="btn-whatsapp" onclick="shareTest()">WhatsApp par Share karein 📲</a>
-
-    <h3>🏆 Top 10 Leaderboard</h3>
-    <table class="leader-table">
-        <thead><tr><th>Rank</th><th>Name</th><th>Location</th><th>Score</th></tr></thead>
-        <tbody id="leader-body"></tbody>
-    </table>
-    <h3 style="margin-top:30px; border-bottom: 2px solid var(--nta-blue);">Detailed Solutions 💡</h3>
-    <div id="solutions-box"></div>
-    <button class="btn-start" style="background:#333; margin-top:20px" onclick="location.reload()">Back to Dashboard</button>
+<div id="result-screen" class="hidden" style="text-align:center; padding:50px;">
+    <h1>Test Completed!</h1>
+    <h2 id="final-score"></h2>
+    <p>Apne doston ke saath result share karein!</p>
+    <button onclick="shareResult()" style="padding:10px; background:#34b7f1; color:white; border:none; border-radius:5px;">Share Result</button>
 </div>
+
+<script src="questions.js"></script>
 
 <script>
-    let userData = {};
-    let questions = [
-        // [Wahi 30 Questions yahan aayenge]
-        { sub: "Physics", q: "If force (F), velocity (V), and time (T) are taken as fundamental units, then the dimensions of mass (M) are:", opts: ["[F V T⁻¹]", "[F V⁻¹ T⁻¹]", "[F V⁻¹ T]", "[F V⁻² T]"], ans: 2, exp: "[M] = [F V⁻¹ T]." },
-        { sub: "Physics", q: "A ball is thrown vertically upwards with 20 m/s from 25 m tower. Time to hit ground? (g=10)", opts: ["5 s", "3 s", "4 s", "6 s"], ans: 0, exp: "t = 5 s." },
-        { sub: "Physics", q: "Mass 5kg, μ=0.6. Force 20N applied. Friction is:", opts: ["30 N", "20 N", "10 N", "Zero"], ans: 1, exp: "Static friction = 20N." },
-        { sub: "Physics", q: "Mass 2kg, x = t³/3. Work done in first 2s is:", opts: ["16 J", "8 J", "4 J", "32 J"], ans: 0, exp: "Work = 16 J." },
-        { sub: "Physics", q: "Two rings perp, same center. Moment of inertia axis perp to one plane:", opts: ["MR²", "2MR²", "3/2 MR²", "1/2 MR²"], ans: 2, exp: "I = 3/2 MR²." },
-        { sub: "Physics", q: "If Earth shrinks by 1% (mass const), 'g' will:", opts: ["Increase by 1%", "Decrease by 1%", "Increase by 2%", "Decrease by 2%"], ans: 2, exp: "Increase by 2%." },
-        { sub: "Physics", q: "Adiabatic process, P ∝ T³. γ is:", opts: ["4/3", "5/3", "3/2", "2"], ans: 2, exp: "γ = 3/2." },
-        { sub: "Physics", q: "Capacitor C at V, connected to uncharged 2C in parallel. Final V:", opts: ["V", "V/2", "V/3", "2V/3"], ans: 2, exp: "V' = V/3." },
-        { sub: "Physics", q: "Wire R stretched to double length. New R:", opts: ["2R", "4R", "R/2", "R/4"], ans: 1, exp: "New R = 4R." },
-        { sub: "Physics", q: "De Broglie λ of electron at 100V is approx:", opts: ["1.227 Å", "12.27 Å", "0.1227 Å", "122.7 Å"], ans: 0, exp: "λ = 1.227 Å." },
+    let currentQ = 0;
+    let score = 0;
+    let timeLeft = 3600; // 60 minutes
+    let userAnswers = [];
+    let studentData = {};
 
-        { sub: "Chemistry", q: "λ of 1g particle at 100m/s:", opts: ["6.63e-33 m", "6.63e-35 m", "6.63e-31 m", "6.63e-30 m"], ans: 0, exp: "6.63e-33 m." },
-        { sub: "Chemistry", q: "Which species is diamagnetic?", opts: ["He₂⁺", "O₂", "N₂", "B₂"], ans: 2, exp: "N₂." },
-        { sub: "Chemistry", q: "Van't Hoff i for K₄[Fe(CN)₆] (100% ionisation):", opts: ["2", "4", "5", "3"], ans: 2, exp: "i = 5." },
-        { sub: "Chemistry", q: "1st order: 50% in 20 min. 75% in:", opts: ["30 min", "40 min", "60 min", "80 min"], ans: 1, exp: "40 min." },
-        { sub: "Chemistry", q: "IUPAC [Co(NH₃)₅Cl]Cl₂:", opts: ["Pentaamminechloridocobalt(III) chloride", "Chloridopentaamminecobalt(III) chloride", "Pentaamminechloridocobalt(II) chloride", "Cobalt(III) pentaamminechloride"], ans: 0, exp: "Co state is +3." },
-        { sub: "Chemistry", q: "Oxoacid of P with P-P bond:", opts: ["H₄P₂O₇", "H₄P₂O₆", "H₃PO₄", "H₃PO₂"], ans: 1, exp: "H₄P₂O₆." },
-        { sub: "Chemistry", q: "Propene + HBr + Peroxide product:", opts: ["2-Bromopropane", "1-Bromopropane", "1,2-Dibromopropane", "2-Bromopropene"], ans: 1, exp: "1-Bromopropane." },
-        { sub: "Chemistry", q: "Spontaneous at all temperatures:", opts: ["ΔH>0, ΔS>0", "ΔH<0, ΔS<0", "ΔH<0, ΔS>0", "ΔH>0, ΔS<0"], ans: 2, exp: "ΔH < 0, ΔS > 0." },
-        { sub: "Chemistry", q: "Ksp AgCl = 1e-10, solubility:", opts: ["1e-5", "1e-10", "0.5e-5", "1e-7"], ans: 0, exp: "1e-5 mol/L." },
-        { sub: "Chemistry", q: "Most stable carbocation:", opts: ["CH₃⁺", "(CH₃)₂CH⁺", "(CH₃)₃C⁺", "CH₃CH₂⁺"], ans: 2, exp: "Tertiary (3°)." },
-
-        { sub: "Maths", q: "f(x) = (x-1)/(x+1), f(f(x)) is:", opts: ["x", "-1/x", "1/x", "-x"], ans: 1, exp: "-1/x." },
-        { sub: "Maths", q: "ω root of unity, (1 + ω - ω²)⁷ is:", opts: ["128ω", "-128ω²", "128ω²", "-128ω"], ans: 1, exp: "-128ω²." },
-        { sub: "Maths", q: "Roots of x²-bx+c=0 consecutive integers, b²-4c:", opts: ["0", "1", "2", "3"], ans: 1, exp: "1." },
-        { sub: "Maths", q: "A 3x3, |A|=2, |adj(adj A)| is:", opts: ["2⁴", "2⁸", "2¹⁶", "2²"], ans: 0, exp: "16." },
-        { sub: "Maths", q: "lim (x→0) (sin x - x)/x³ is:", opts: ["1/3", "-1/3", "1/6", "-1/6"], ans: 3, exp: "-1/6." },
-        { sub: "Maths", q: "∫[0, π/2] √sin x / (√sin x + √cos x) dx:", opts: ["π/2", "π/4", "π", "0"], ans: 1, exp: "π/4." },
-        { sub: "Maths", q: "Tangent length from (5,1) to x²+y²+6x-4y-3=0:", opts: ["7", "√51", "8", "√49"], ans: 0, exp: "7." },
-        { sub: "Maths", q: "a perp b, dot product is:", opts: ["1", "0", "-1", "5"], ans: 1, exp: "0." },
-        { sub: "Maths", q: "Die twice. P(sum=8) is:", opts: ["5/36", "1/6", "4/36", "7/36"], ans: 0, exp: "5/36." },
-        { sub: "Maths", q: "Order/Degree d²y/dx² + (dy/dx)^(1/3) + x^(1/4) = 0:", opts: ["2, 3", "3, 2", "2, 2", "2, 1"], ans: 0, exp: "Order 2, Degree 3." }
-    ];
-
-    let userAnswers = Array(30).fill(null);
-    let visitedArr = Array(30).fill(false);
-    let currentIdx = 0;
-    let timerRef;
-    let timeRem = 3600;
-
-    function beginTest() {
-        const nameInput = document.getElementById('u-name').value.trim();
-        const stateInput = document.getElementById('u-state').value.trim();
-        const distInput = document.getElementById('u-dist').value.trim();
-        if (!nameInput || !stateInput || !distInput) { alert("⚠️ Please fill all details!"); return; }
-        userData = { name: nameInput, state: stateInput, dist: distInput };
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('test-view').style.display = 'flex';
-        document.getElementById('user-info-header').textContent = "Candidate: " + nameInput;
-        const streak = parseInt(localStorage.getItem('jeeStreak')) || 0;
-        document.getElementById('streak-val').textContent = streak;
-        genPalette(); renderQ(0); startTimer();
-    }
-
-    function genPalette() {
-        const grid = document.getElementById('p-grid'); grid.innerHTML = "";
-        for(let i=0; i<30; i++) {
-            const d = document.createElement('div'); d.className = 'p-box'; d.id = 'p-' + i;
-            d.textContent = i+1; d.onclick = () => renderQ(i); grid.appendChild(d);
-        }
-    }
-
-    function renderQ(idx) {
-        currentIdx = idx; visitedArr[idx] = true; const q = questions[idx];
-        document.getElementById('sub-tag').textContent = q.sub;
-        document.getElementById('q-body').textContent = q.q;
-        const box = document.getElementById('opt-container'); box.innerHTML = '';
-        q.opts.forEach((o, i) => {
-            const d = document.createElement('div'); d.className = "option " + (userAnswers[idx] === i ? 'selected' : '');
-            d.textContent = "(" + String.fromCharCode(65+i) + ") " + o;
-            d.onclick = () => { userAnswers[idx] = i; renderQ(idx); }; box.appendChild(d);
-        });
-        updatePalette();
-    }
-
-    function updatePalette() {
-        for(let i=0; i<30; i++) {
-            const el = document.getElementById('p-' + i); if(!el) continue;
-            el.classList.remove('active', 'answered', 'not-answered');
-            if(i === currentIdx) el.classList.add('active');
-            if(userAnswers[i] !== null) el.classList.add('answered');
-            else if(visitedArr[i]) el.classList.add('not-answered');
-        }
-    }
-
-    function saveNext() { if(currentIdx < 29) renderQ(currentIdx + 1); }
-    function clearAns() { userAnswers[currentIdx] = null; renderQ(currentIdx); }
-    function startTimer() { timerRef = setInterval(() => { timeRem--; let m = Math.floor(timeRem/60); let s = timeRem%60; document.getElementById('timer-box').textContent = `${m}:${s<10?'0'+s:s}`; if(timeRem<=0) finalize(); }, 1000); }
-    function submitConfirm() { if(confirm("Submit Test?")) finalize(); }
-
-    function finalize() {
-        clearInterval(timerRef); let score = 0;
-        userAnswers.forEach((a, i) => { if(a === questions[i].ans) score += 4; else if(a !== null) score -= 1; });
-        document.getElementById('test-view').style.display = 'none';
-        document.getElementById('result-view').style.display = 'block';
-        document.getElementById('final-score').textContent = score;
-        document.getElementById('user-details-res').textContent = `${userData.name} | ${userData.dist}, ${userData.state}`;
-
-        // DB Logic
-        let streak = (parseInt(localStorage.getItem('jeeStreak')) || 0) + 1;
-        localStorage.setItem('jeeStreak', streak);
-        let scores = JSON.parse(localStorage.getItem('weeklyJEEData')) || [];
-        scores.push({name: userData.name, loc: `${userData.dist}, ${userData.state}`, score: score});
-        scores.sort((a,b) => b.score - a.score); scores = scores.slice(0, 10);
-        localStorage.setItem('weeklyJEEData', JSON.stringify(scores));
-// --- Rank Prediction Logic Start ---
-const MAX_DATA_POINTS = 30;
-const today = new Date().toLocaleDateString(); // Aaj ki date
-
-// 1. Purana analytics data uthayein
-let rankHistory = JSON.parse(localStorage.getItem('rankData')) || [];
-
-// 2. Naya entry banayein (Yahan score ko hi hum graph mein dikhayenge)
-const newEntry = {
-    date: today,
-    rank: score // Aapka final score graph mein dikhega
-};
-
-// 3. History mein add karein
-rankHistory.push(newEntry);
-
-// 4. Agar 30 se zyada ho toh purana delete karein
-if (rankHistory.length > MAX_DATA_POINTS) {
-    rankHistory.shift();
-}
-
-// 5. Save karein
-localStorage.setItem('rankData', JSON.stringify(rankHistory));
-// --- Rank Prediction Logic End ---
+    function startTest() {
+        const name = document.getElementById('stdName').value;
+        if(!name) return alert("Please enter name");
         
-        const body = document.getElementById('leader-body'); body.innerHTML = '';
-        scores.forEach((s, i) => { body.innerHTML += `<tr class="${s.name === userData.name ? 'rank-high' : ''}"><td>${i+1}</td><td>${s.name}</td><td>${s.loc}</td><td>${s.score}</td></tr>`; });
+        studentData = {
+            name: name,
+            dist: document.getElementById('stdDistrict').value,
+            state: document.getElementById('stdState').value,
+            date: new Date().toLocaleDateString()
+        };
 
-        // Solutions
-        const solBox = document.getElementById('solutions-box'); solBox.innerHTML = "";
-        questions.forEach((q, i) => { const card = document.createElement('div'); card.className = 'sol-card'; const correct = userAnswers[i] === q.ans; card.innerHTML = `<p><strong>Q${i+1}:</strong> ${q.q}</p><p style="color:${correct?'green':'red'}">Your Answer: ${userAnswers[i]!==null ? q.opts[userAnswers[i]] : 'Skipped'}</p><p style="color:green"><strong>Correct:</strong> ${q.opts[q.ans]}</p><p style="margin-top:8px; font-size:0.85rem; color:#555"><strong>Explanation:</strong> ${q.exp}</p>`; solBox.appendChild(card); });
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('exam-area').classList.remove('hidden');
+        document.getElementById('display-name').innerText = name;
+        document.getElementById('display-loc').innerText = studentData.dist;
+        
+        startTimer();
+        loadQuestion();
     }
 
-    function shareTest() {
-        const score = document.getElementById('final-score').textContent;
-        const msg = `🚀 JEE Weekly Mock Test Update!\n\nName: ${userData.name}\nScore: ${score}/120\nDistrict: ${userData.dist}\n\nKya tum mujhse zyada score kar sakte ho? Test Link: ${window.location.href}`;
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    function startTimer() {
+        const timerElement = document.getElementById('timer');
+        const interval = setInterval(() => {
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            timerElement.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if(timeLeft <= 0) { clearInterval(interval); finishTest(); }
+            timeLeft--;
+        }, 1000);
+    }
+
+    // Combine all questions for easier iteration
+    const allQuestions = [...examQuestions.physics, ...examQuestions.chemistry, ...examQuestions.maths];
+
+    function loadQuestion() {
+        if(currentQ >= allQuestions.length) { finishTest(); return; }
+        
+        const q = allQuestions[currentQ];
+        document.getElementById('q-text').innerText = `Q${currentQ+1}. ${q.q}`;
+        const optArea = document.getElementById('options-area');
+        optArea.innerHTML = '';
+        
+        q.options.forEach((opt, index) => {
+            optArea.innerHTML += `<button class="opt-btn" onclick="selectOption(${index})">${opt}</button>`;
+        });
+    }
+
+    let selectedIdx = null;
+    function selectOption(idx) {
+        selectedIdx = idx;
+        const btns = document.querySelectorAll('.opt-btn');
+        btns.forEach(b => b.style.border = "1px solid #ddd");
+        btns[idx].style.border = "2px solid #3498db";
+    }
+
+    function nextQuestion() {
+        if(selectedIdx === allQuestions[currentQ].correct) score += 4; // JEE Marking
+        currentQ++;
+        selectedIdx = null;
+        loadQuestion();
+    }
+
+    function finishTest() {
+        document.getElementById('exam-area').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        document.getElementById('final-score').innerText = `Your Score: ${score} / ${allQuestions.length * 4}`;
+        saveToLocal();
+    }
+
+    function saveToLocal() {
+        let history = JSON.parse(localStorage.getItem('testHistory') || '[]');
+        history.unshift({ score: score, date: studentData.date });
+        if(history.length > 10) history.pop(); // Remove 11th record
+        localStorage.setItem('testHistory', JSON.stringify(history));
+    }
+
+    function shareResult() {
+        const text = `I scored ${score} in the Weekly JEE Mock Test on JEE Master Hub! Can you beat me? Check here: https://jeemasterhub.in`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 </script>
-
 </body>
 </html>
