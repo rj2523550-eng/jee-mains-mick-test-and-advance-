@@ -1,8 +1,3 @@
-/**
- * JEE Master Hub - Mock Test Question Bank
- * Questions: 10 Physics, 10 Chemistry, 10 Maths
- */
-
 const examQuestions = {
     physics: [
         {
