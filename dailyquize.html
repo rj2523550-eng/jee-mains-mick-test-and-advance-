@@ -5,165 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jee Master Hub - Daily Quiz</title>
     <style>
-        :root { --primary: #2563eb; --danger: #dc2626; --success: #16a34a; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background: white; width: 100%; max-width: 600px; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; }
+        :root { --primary: #2563eb; --danger: #dc2626; --success: #16a34a; --bg: #f3f4f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 15px; display: flex; justify-content: center; }
+        .container { background: white; width: 100%; max-width: 700px; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); margin: 0; font-size: 28px; }
+        .sub-title { text-align: center; color: #666; margin-bottom: 25px; font-weight: 500; }
         .hidden { display: none; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        
+        /* Form Styling */
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; outline: none; }
+        input:focus { border-color: var(--primary); }
+        
+        /* Button Styling */
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; margin-top: 10px; }
         .btn-start { background: var(--primary); color: white; }
-        .btn-submit { background: var(--success); color: white; margin-top: 20px; }
-        .timer { text-align: right; font-weight: bold; color: var(--danger); font-size: 1.2rem; }
-        .question { margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .options label { display: block; padding: 10px; background: #f9fafb; margin: 5px 0; border-radius: 6px; cursor: pointer; border: 1px solid #eee; }
-        .options input { width: auto; margin-right: 10px; }
-        .history-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-        .history-table th, .history-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-        .solution { background: #e0f2fe; padding: 10px; border-radius: 6px; margin-top: 10px; font-size: 0.9rem; }
-        .share-box { background: #fff7ed; border: 2px dashed #ed8936; padding: 15px; margin-top: 20px; text-align: center; border-radius: 8px; }
+        .btn-submit { background: var(--success); color: white; }
+        .btn-share { background: #25d366; color: white; margin-top: 15px; }
+
+        /* Quiz UI */
+        .timer-box { position: sticky; top: 0; background: white; padding: 10px; border-bottom: 2px solid #eee; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        .timer { color: var(--danger); font-size: 20px; font-weight: 800; }
+        .question-card { margin-bottom: 30px; padding: 15px; border-bottom: 1px solid #f0f0f0; }
+        .question-text { font-size: 18px; font-weight: 600; margin-bottom: 15px; line-height: 1.5; }
+        .options label { display: block; padding: 12px; background: #f8fafc; margin: 8px 0; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .options label:hover { background: #eff6ff; border-color: var(--primary); }
+        
+        /* Result & History */
+        .result-header { text-align: center; padding: 20px; background: #f0fdf4; border-radius: 10px; margin-bottom: 20px; }
+        .sol-box { padding: 15px; border-radius: 8px; margin-top: 10px; font-size: 14px; line-height: 1.6; }
+        .sol-correct { border-left: 5px solid var(--success); background: #f0fdf4; }
+        .sol-wrong { border-left: 5px solid var(--danger); background: #fef2f2; }
+        .history-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .history-table th, .history-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        
+        .share-card { background: #fff7ed; border: 2px dashed #f97316; padding: 20px; border-radius: 12px; text-align: center; margin-top: 30px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Jee Master Hub</h1>
-    <p style="text-align: center; margin-bottom: 20px;">Target JEE 2026 🚀</p>
+    <p class="sub-title">Daily Practice Quiz (JEE Pattern)</p>
 
     <div id="login-section">
-        <h3>User Details</h3>
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="text" id="district" placeholder="District" required>
-        <select id="state">
-            <option value="">Select State</option>
-            <option value="UP">Uttar Pradesh</option>
-            <option value="Bihar">Bihar</option>
-            <option value="Maharashtra">Maharashtra</option>
-            </select>
-        <button class="btn btn-start" onclick="startQuiz()">Start Test</button>
+        <input type="text" id="userName" placeholder="Apna Poora Naam Likhein" required>
+        <input type="text" id="district" placeholder="District ka Naam">
+        <input type="text" id="state" placeholder="State ka Naam">
+        <button class="btn btn-start" onclick="startQuiz()">Test Shuru Karein</button>
         
-        <div id="history-section" class="hidden">
-            <h4>Last 10 Tests History</h4>
-            <table class="history-table" id="history-table">
-                <thead><tr><th>No.</th><th>Score</th><th>Date</th></tr></thead>
+        <div id="history-container" class="hidden" style="margin-top: 30px;">
+            <h4 style="margin-bottom:10px;">Pichle 10 Tests ka Record:</h4>
+            <table class="history-table">
+                <thead><tr style="background:#eee;"><th>Test No.</th><th>Score</th><th>Date</th></tr></thead>
                 <tbody id="history-body"></tbody>
             </table>
         </div>
     </div>
 
     <div id="quiz-section" class="hidden">
-        <div class="timer" id="timer">10:00</div>
-        <div id="questions-container"></div>
-        <button class="btn btn-submit" onclick="submitQuiz()">Submit Test</button>
+        <div class="timer-box">
+            <span>JEE Exam Window</span>
+            <div class="timer" id="timerDisplay">10:00</div>
+        </div>
+        <div id="questions-list"></div>
+        <button class="btn btn-submit" onclick="submitQuiz()">Submit Test Now</button>
     </div>
 
     <div id="result-section" class="hidden">
-        <h2 id="final-score"></h2>
-        <div id="solutions-container"></div>
-        
-        <div class="share-box">
-            <p><strong>🔥 Ye Result Dekhkar Log Hairan Reh Jayenge!</strong></p>
-            <p id="share-text"></p>
-            <button class="btn btn-start" style="background: #25d366;" onclick="shareResult()">WhatsApp par Share Karein</button>
+        <div class="result-header">
+            <h2 id="finalScoreDisplay" style="margin:0; color: var(--success);"></h2>
+            <p id="userNameDisplay" style="margin:5px 0 0 0; font-weight:bold;"></p>
         </div>
-        <button class="btn btn-submit" onclick="location.reload()" style="background: #6b7280;">Restart</button>
+        
+        <div id="detailed-solutions"></div>
+
+        <div class="share-card">
+            <h3 style="color:#c2410c; margin-top:0;">⚠️ Warning: Don't Share Your Rank!</h3>
+            <p id="share-msg">Mera JEE ka score dekh kar mere teachers bhi hairan reh gaye! Kya tum mujhse behtar kar sakte ho? Himmat hai toh challenge accept karo!</p>
+            <button class="btn btn-share" onclick="shareOnWhatsapp()">WhatsApp par Challenge Karein 🚀</button>
+        </div>
+        
+        <button class="btn" onclick="location.reload()" style="background:#64748b; color:white;">Dobara Test Karein</button>
     </div>
 </div>
 
 <script>
-    const quizData = [
-        { q: "1. Unit of Force is?", a: "Newton", o: ["Newton", "Joule", "Watt", "Pascal"], s: "Newton (N) is the SI unit of force." },
-        { q: "2. Value of g on Earth surface?", a: "9.8 m/s²", o: ["8.8 m/s²", "9.8 m/s²", "10.8 m/s²", "11.8 m/s²"], s: "Standard gravity is 9.80665 m/s²." },
-        { q: "3. Purest form of Carbon?", a: "Diamond", o: ["Coal", "Graphite", "Diamond", "Charcoal"], s: "Diamond is the purest crystalline allotrope of carbon." },
-        { q: "4. Square root of 144?", a: "12", o: ["10", "11", "12", "13"], s: "12 x 12 = 144." },
-        { q: "5. Chemical formula of Water?", a: "H2O", o: ["H2O", "CO2", "O2", "NaCl"], s: "Dihydrogen Monoxide is H2O." },
-        { q: "6. Smallest Prime Number?", a: "2", o: ["0", "1", "2", "3"], s: "2 is the only even prime number." }
+    const questions = [
+        {
+            q: "The stopping potential for electrons emitted from a photosensitive surface illuminated by light of wavelength 400 nm is 1.2 V. When the incident wavelength is changed to 300 nm, the stopping potential will be:",
+            options: ["2.25 V", "0.7 V", "1.8 V", "1.2 V"],
+            correct: "2.25 V",
+            sol: "Using Einstein’s equation: eV₀ = hc/λ - φ. Case 1: 1.2 = 1240/400 - φ/e ⇒ φ/e = 1.9 V. Case 2: V₀' = 1240/300 - 1.9 = 4.13 - 1.9 = 2.23 V. Approx 2.25 V."
+        },
+        {
+            q: "A capacitor of capacitance C is charged to a potential V. The flux of the electric field through a closed surface enclosing the capacitor is:",
+            options: ["CV/ε₀", "2CV/ε₀", "Zero", "CV/2ε₀"],
+            correct: "Zero",
+            sol: "According to Gauss's Law, total flux Φ = Q_enclosed/ε₀. In a capacitor, plates have +Q and -Q. Q_net = 0, so flux is Zero."
+        },
+        {
+            q: "The spin-only magnetic moment of [Fe(H₂O)₆]²⁺ is:",
+            options: ["5.92 BM", "4.90 BM", "2.84 BM", "0 BM"],
+            correct: "4.90 BM",
+            sol: "Fe²⁺ = [Ar] 3d⁶. H₂O is a Weak Field Ligand, so 4 unpaired electrons. μ = √(4(4+2)) = √24 ≈ 4.90 BM."
+        },
+        {
+            q: "For a first-order reaction, if the time taken for 50% completion is 20 minutes, the time taken for 75% completion will be:",
+            options: ["30 min", "60 min", "40 min", "10 min"],
+            correct: "40 min",
+            sol: "For first-order: t₇₅% = 2 × t₅₀%. So, 2 × 20 = 40 minutes."
+        },
+        {
+            q: "The value of ∫ eˣ (1/x - 1/x²) dx is:",
+            options: ["eˣ/x² + C", "-eˣ/x + C", "eˣ/x + C", "eˣ log x + C"],
+            correct: "eˣ/x + C",
+            sol: "Using ∫ eˣ [f(x) + f'(x)] dx = eˣ f(x) + C. Here f(x) = 1/x and f'(x) = -1/x²."
+        },
+        {
+            q: "The area of the region bounded by the parabola y² = 4x and the line y = x is:",
+            options: ["8/3", "4/3", "2/3", "1/3"],
+            correct: "8/3",
+            sol: "Intersection points are (0,0) and (4,4). Area = ∫₀⁴ (2√x - x) dx = [4/3 x³/² - x²/2]₀⁴ = 32/3 - 8 = 8/3."
+        }
     ];
 
     let timer;
-    let timeLeft = 600;
+    let secondsLeft = 600;
 
-    window.onload = () => {
-        showHistory();
-    };
+    window.onload = loadHistory;
 
     function startQuiz() {
-        if(!document.getElementById('name').value) return alert("Please enter name");
+        const name = document.getElementById('userName').value;
+        if (!name) { alert("Pehle apna naam bhariye!"); return; }
+
         document.getElementById('login-section').classList.add('hidden');
         document.getElementById('quiz-section').classList.remove('hidden');
-        
-        const container = document.getElementById('questions-container');
-        quizData.forEach((data, index) => {
-            container.innerHTML += `
-                <div class="question">
-                    <p><strong>Q${index+1}:</strong> ${data.q}</p>
+
+        const quizList = document.getElementById('questions-list');
+        questions.forEach((q, i) => {
+            quizList.innerHTML += `
+                <div class="question-card">
+                    <p class="question-text">Q${i+1}. ${q.q}</p>
                     <div class="options">
-                        ${data.o.map(opt => `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>`).join('')}
+                        ${q.options.map(opt => `
+                            <label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label>
+                        `).join('')}
                     </div>
                 </div>
             `;
         });
 
-        timer = setInterval(() => {
-            timeLeft--;
-            let min = Math.floor(timeLeft / 60);
-            let sec = timeLeft % 60;
-            document.getElementById('timer').innerText = `${min}:${sec < 10 ? '0' : ''}${sec}`;
-            if(timeLeft <= 0) submitQuiz();
-        }, 1000);
+        timer = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        let mins = Math.floor(secondsLeft / 60);
+        let secs = secondsLeft % 60;
+        document.getElementById('timerDisplay').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        if (secondsLeft <= 0) submitQuiz();
+        secondsLeft--;
     }
 
     function submitQuiz() {
         clearInterval(timer);
         let score = 0;
-        let resultsHTML = '<h3>Detailed Solutions:</h3>';
-        
-        quizData.forEach((data, index) => {
-            const selected = document.querySelector(`input[name="q${index}"]:checked`);
-            const isCorrect = selected && selected.value === data.a;
-            
-            if(isCorrect) score += 4;
-            else if(selected) score -= 1;
+        const solDiv = document.getElementById('detailed-solutions');
+        solDiv.innerHTML = "<h3>Review & Solutions:</h3>";
 
-            resultsHTML += `
-                <div class="question">
-                    <p><strong>Q${index+1}:</strong> ${data.q}</p>
-                    <p style="color:${isCorrect ? 'green' : 'red'}">Your Answer: ${selected ? selected.value : 'Not Attempted'}</p>
-                    <p style="color:green">Correct Answer: ${data.a}</p>
-                    <div class="solution"><strong>Solution:</strong> ${data.s}</div>
+        questions.forEach((q, i) => {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const val = selected ? selected.value : "Nahi diya";
+            const isCorrect = val === q.correct;
+            
+            if (isCorrect) score += 4;
+            else if (selected) score -= 1;
+
+            solDiv.innerHTML += `
+                <div class="sol-box ${isCorrect ? 'sol-correct' : 'sol-wrong'}">
+                    <strong>Q${i+1}: ${isCorrect ? '✅ Sahi' : '❌ Galat'}</strong><br>
+                    <span>Aapka Answer: ${val}</span><br>
+                    <span style="color:var(--success)">Sahi Answer: ${q.correct}</span>
+                    <p style="margin-top:10px; border-top:1px solid #ddd; padding-top:5px;"><strong>Solution:</strong> ${q.sol}</p>
                 </div>
             `;
         });
 
-        saveScore(score);
         document.getElementById('quiz-section').classList.add('hidden');
         document.getElementById('result-section').classList.remove('hidden');
-        document.getElementById('final-score').innerText = `Your Score: ${score} / 24`;
-        document.getElementById('solutions-container').innerHTML = resultsHTML;
-
-        const name = document.getElementById('name').value;
-        document.getElementById('share-text').innerText = `😱 Kya aap jante hain ${name} ne Jee Master Hub ke test me kitna score kiya? Isse dekh kar aapke hosh udd jayenge! Click karke apna score check karein!`;
+        document.getElementById('finalScoreDisplay').innerText = `Final Score: ${score} / 24`;
+        document.getElementById('userNameDisplay').innerText = `Name: ${document.getElementById('userName').value}`;
+        
+        saveToHistory(score);
     }
 
-    function saveScore(score) {
-        let history = JSON.parse(localStorage.getItem('jee_history') || '[]');
-        history.unshift({ score: score, date: new Date().toLocaleDateString() });
-        if(history.length > 10) history.pop();
-        localStorage.setItem('jee_history', JSON.stringify(history));
+    function saveToHistory(score) {
+        let history = JSON.parse(localStorage.getItem('jee_quiz_history') || '[]');
+        const entry = { score: score, date: new Date().toLocaleDateString() };
+        history.unshift(entry);
+        if (history.length > 10) history.pop();
+        localStorage.setItem('jee_quiz_history', JSON.stringify(history));
     }
 
-    function showHistory() {
-        let history = JSON.parse(localStorage.getItem('jee_history') || '[]');
-        if(history.length > 0) {
-            document.getElementById('history-section').classList.remove('hidden');
-            const body = document.getElementById('history-body');
-            body.innerHTML = history.map((h, i) => `<tr><td>${i+1}</td><td>${h.score}</td><td>${h.date}</td></tr>`).join('');
+    function loadHistory() {
+        let history = JSON.parse(localStorage.getItem('jee_quiz_history') || '[]');
+        if (history.length > 0) {
+            document.getElementById('history-container').classList.remove('hidden');
+            const tbody = document.getElementById('history-body');
+            tbody.innerHTML = history.map((h, i) => `<tr><td>${i+1}</td><td>${h.score}</td><td>${h.date}</td></tr>`).join('');
         }
     }
 
-    function shareResult() {
-        const text = encodeURIComponent(document.getElementById('share-text').innerText + "\n\nTest Link: " + window.location.href);
-        window.open(`https://api.whatsapp.com/send?text=${text}`);
+    function shareOnWhatsapp() {
+        const name = document.getElementById('userName').value;
+        const score = document.getElementById('finalScoreDisplay').innerText;
+        const msg = encodeURIComponent(`🔥 Challenge Alert! 🚀\n\nJee Master Hub par mera score ${score} hai! \n${name} ne ye test crack kar liya, kya tumhare andar dum hai isse todne ka? \n\nAbhi click karo aur apna dum dikhao: ${window.location.href}`);
+        window.open(`https://api.whatsapp.com/send?text=${msg}`);
     }
 </script>
 
