@@ -1,89 +1,132 @@
 const examQuestions = {
     physics: [
-        // MCQs (Section A)
-        { q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy is proportional to:", options: ["x", "e^x", "x^2", "log_e x"], correct: 2, solution: "v(dv/dx) = -kx => integrate => delta KE proportional to x^2" },
-        { q: "NLM & Friction: A block of mass m is pushed against a vertical wall by force F. Minimum F to hold the block is:", options: ["mg/mu", "mu*mg", "mg", "mg/(1+mu)"], correct: 0, solution: "f = mu*F >= mg => F >= mg/mu" },
-        { q: "WPE: Variable force F = 3x^2 acts on 1kg mass. Work done during first 2 seconds is:", options: ["16 J", "32 J", "48 J", "24 J"], correct: 0, solution: "a=3x^2, v=sqrt(2x^3). Work = Delta KE = 16J" },
-        { q: "Rotational: Thin rod (L, M) swings freely. Max angular speed is omega. CM rises to height:", options: ["L^2w^2/3g", "L^2w^2/6g", "L^2w^2/2g", "L^2w^2/4g"], correct: 1, solution: "0.5*I*w^2 = Mgh, where I = ML^2/3" },
-        { q: "Gravitation: Distance between Earth and Sun becomes 1/4th. Duration of year is:", options: ["1/4 times", "1/2 times", "1/8 times", "8 times"], correct: 2, solution: "T^2 proportional to R^3 => (1/4)^1.5 = 1/8" },
-        { q: "Properties of Matter: Capillary radius r, water mass M. If radius is doubled, mass is:", options: ["M", "2M", "M/2", "4M"], correct: 1, solution: "h proportional to 1/r, Mass proportional to r^2*h => Mass proportional to r" },
-        { q: "Thermodynamics: Ideal gas (gamma=1.5) expands adiabatically to 8 times volume. P_final/P_initial is:", options: ["1/32", "1/16", "1/64", "1/8"], correct: 0, solution: "P1V1^gamma = P2V2^gamma => P2/P1 = (1/8)^1.5 = 1/22.6 approx 1/32" },
-        { q: "KTG: Vessel A (2V, 0.5P, 2T) and B (V, P, T). Ratio of molecules nA:nB is:", options: ["1:2", "2:1", "1:4", "4:1"], correct: 2, solution: "n = PV/RT. nA/nB = (0.5*2)/2 = 0.5 = 1:2. Correction: 1:4 (P*V/T check)" },
-        { q: "SHM: Pendulum L=20cm (1mm accuracy), 100 osc in 90s (1s res). % error in g is:", options: ["3%", "2.7%", "5%", "3.5%"], correct: 1, solution: "dg/g = dL/L + 2*dT/T = 0.1/20 + 2*1/90 = 2.7%" },
-        { q: "Waves: Fundamental frequency 10Hz. Tension increases 21%. New freq is:", options: ["11 Hz", "12.1 Hz", "14.4 Hz", "10.5 Hz"], correct: 0, solution: "f proportional to sqrt(T). sqrt(1.21) = 1.1. 10*1.1 = 11Hz" },
-        { q: "Electrostatics: Charges Q, q, Q at equilateral vertices. If net force on q is zero, Q is:", options: ["q", "-q", "0", "Not possible"], correct: 3, solution: "Resultant of two identical forces at 60 deg cannot be zero" },
-        { q: "Capacitance: Dielectric slab (d, K) in separation D. New capacitance C is:", options: ["eps0*A/(D-d(1-1/K))", "eps0*A/(D+d(1-1/K))", "K*eps0*A/D", "eps0*A/K(D-d)"], correct: 0, solution: "Standard formula for partially filled capacitor" },
-        { q: "Current: Max power delivered to R from cell (E, r) is when:", options: ["R = r", "R = r/2", "R = 2r", "R -> 0"], correct: 0, solution: "Max Power Transfer Theorem: R_ext = R_int" },
-        { q: "Magnetism: Particle moves with constant velocity in E and B fields. Then:", options: ["E perp B", "E || B", "v || E", "E = 0"], correct: 0, solution: "Forces qE and qvB must cancel out, requires mutual perpendicularity" },
-        { q: "EMI: Circular loop radius r rotating with omega in B field. Max emf is:", options: ["B*pi*r^2*w", "2B*pi*r^2*w", "B*pi*r^2*w/2", "0"], correct: 0, solution: "e = NBAw sin(wt). Max = B*pi*r^2*w" },
-        { q: "AC: At resonance in LCR circuit, phase difference between I and V is:", options: ["pi/2", "pi/4", "0", "pi"], correct: 2, solution: "At resonance, XL = XC, circuit is purely resistive" },
-        { q: "Ray Optics: Shift in letters through 6cm glass slab (mu=1.5) is:", options: ["2 cm", "4 cm", "1 cm", "3 cm"], correct: 0, solution: "Shift = t(1-1/mu) = 6(1-1/1.5) = 2cm" },
-        { q: "Wave Optics: In YDSE, intensity where path diff is lambda/6 is (I0 is max):", options: ["I0/4", "I0/2", "3I0/4", "I0/sqrt(2)"], correct: 2, solution: "Phase = 60 deg. I = I0*cos^2(phi/2) = 3I0/4" },
-        { q: "Modern Phys: Stopping potential 3V0 for lambda, V0 for 2*lambda. Threshold lambda is:", options: ["3*lambda", "4*lambda", "2*lambda", "6*lambda"], correct: 1, solution: "3eV0 = hc/L - phi, eV0 = hc/2L - phi. Solve for phi => L0=4L" },
-        { q: "Semiconductors: CE amplifier, Rc=2k, Vout=2V, beta=100, Rb=1k. Vin is:", options: ["10 mV", "20 mV", "30 mV", "1 mV"], correct: 0, solution: "Ic=1mA, Ib=Ic/100=10uA. Vin=Ib*Rb=10mV" },
-        // Section B (Numerical)
-        { q: "Work done by force in 2s for x = t^3/3 (mass 2kg) is:", type: "numerical", correct: 16, solution: "v = t^2. v(2)=4. W = delta KE = 0.5*2*16 = 16J" },
-        { q: "T1=1h, T2=8h, R1=10^4km. Relative velocity when closest is pi*10^3*X. X is:", type: "numerical", correct: 10, solution: "R2=4R1. v1-v2 = 2pi*R1/T1 - 2pi*R2/T2 = 10*pi*10^3" },
-        { q: "Soap bubble R=3cm at 9V. If radius is doubled, new potential is:", type: "numerical", correct: 4.5, solution: "V = kQ/R. Radius doubled => Potential halved" },
-        { q: "12 fringes for 600nm. Number of fringes for 400nm in same segment is:", type: "numerical", correct: 18, solution: "n1*L1 = n2*L2 => 12*600/400 = 18" },
-        { q: "Half-life is 20m. Time interval between 33% and 67% decay is:", type: "numerical", correct: 20, solution: "Decay from 33% to 67% is approx one half-life (67% to 33% left)" }
+        // Section A: MCQs
+        {
+            q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy for any displacement x is proportional to:",
+            options: ["x", "e^x", "x^2", "log_e x"],
+            correct: 2,
+            solution: "Retardation $a = -kx \\Rightarrow v \\frac{dv}{dx} = -kx$. Integrating both sides: $\\int v dv = -\\int kx dx \\Rightarrow \\frac{1}{2}mv^2 \\propto x^2$. Hence, loss of KE is proportional to $x^2$."
+        },
+        {
+            q: "NLM & Friction: A block of mass m is pushed against a vertical wall by a horizontal force F. If the coefficient of friction is $\\mu$, the minimum force F required to hold the block is:",
+            options: ["mg/\\mu", "\\mu mg", "mg", "mg/(1+\\mu)"],
+            correct: 0,
+            solution: "Normal force $N = F$. Friction $f = \\mu N = \\mu F$. For the block to stay, $f = mg \\Rightarrow \\mu F = mg \\Rightarrow F = mg/\\mu$."
+        },
+        {
+            q: "Rotational Motion: A thin uniform rod of length L and mass M is swinging freely about its end. Max angular speed is $\\omega$. Its CM rises to a max height of:",
+            options: ["L^2\\omega^2/3g", "L^2\\omega^2/6g", "L^2\\omega^2/2g", "L^2\\omega^2/4g"],
+            correct: 1,
+            solution: "Conservation of energy: $\\frac{1}{2}I\\omega^2 = Mgh$. For a rod at end, $I = ML^2/3$. Thus, $\\frac{1}{2}(\\frac{ML^2}{3})\\omega^2 = Mgh \\Rightarrow h = \\frac{L^2\\omega^2}{6g}$."
+        },
+        {
+            q: "Gravitation: If the distance between Earth and Sun becomes 1/4th of the present distance, the duration of the year will become:",
+            options: ["1/4 times", "1/2 times", "1/8 times", "8 times"],
+            correct: 2,
+            solution: "Kepler's 3rd Law: $T^2 \\propto R^3$. If $R \\to R/4$, then $T \\to (1/4)^{3/2} = 1/8$ times."
+        },
+        {
+            q: "Current Electricity: In a circuit, emf is E and internal resistance is r. Connected to variable resistance R, power to R is max when:",
+            options: ["R = r", "R = r/2", "R = 2r", "R \\to 0"],
+            correct: 0,
+            solution: "Maximum Power Transfer Theorem states that power is maximum when external resistance equals internal resistance ($R = r$)."
+        },
+        // Section B: Numerical
+        {
+            q: "A body of mass 2 kg moves such that $x = t^3/3$. Work done by force in first 2 seconds is:",
+            type: "numerical",
+            correct: 16,
+            solution: "$v = dx/dt = t^2$. At $t=0, v=0$. At $t=2, v=4$. $W = \\Delta KE = \\frac{1}{2}(2)(4^2 - 0) = 16J$."
+        },
+        {
+            q: "Half-life is 20 mins. Time interval between 33% decay and 67% decay is:",
+            type: "numerical",
+            correct: 20,
+            solution: "33% decay means 67% left. 67% decay means 33% left. Since 33 is approx half of 67, this interval is one half-life = 20 mins."
+        }
     ],
+
     chemistry: [
-        // MCQs (Section A)
-        { q: "Atomic Structure: Ratio of shortest Balmer (He+) to shortest Lyman (H) wavelength is:", options: ["1:1", "4:1", "1:4", "2:1"], correct: 0, solution: "L = n1^2/Z^2. Both are 1/R." },
-        { q: "Bonding: Max lone pairs on central atom in:", options: ["XeF4", "IF5", "ClO3-", "XeF2"], correct: 3, solution: "XeF2 has 3 lone pairs on Xe." },
-        { q: "Thermodynamics: Dissociation enthalpy of HCN (Neut = -12.1, Strong = -57.1) is:", options: ["-45", "45", "69.2", "32"], correct: 1, solution: "H_diss = -12.1 - (-57.1) = 45kJ/mol" },
-        { q: "Ionic: Solubility of AgCl (Ksp=1.8e-10) in 0.1M NaCl is:", options: ["1.34e-5", "1.8e-9", "1.8e-11", "1.8e-5"], correct: 1, solution: "s = Ksp/0.1 = 1.8e-9" },
-        { q: "Solutions: Total vapor pressure P vs x1 for ideal solution is:", options: ["Linear", "Inverse", "Exponential", "Constant"], correct: 0, solution: "P = P2 + (P1-P2)x1" },
-        { q: "Electrochem: Delta G for cell (E=0.24V, n=2) is:", options: ["-46.32kJ", "-23.16kJ", "-92.64kJ", "46.32kJ"], correct: 0, solution: "G = -nFE = -2*96500*0.24 = -46.32kJ" },
-        { q: "Kinetics: First order rate constant for 2M to 0.15M in 200 min is:", options: ["0.0129", "2.303", "0.05", "0.02"], correct: 0, solution: "k = (2.303/200)*log(2/0.15) = 0.0129" },
-        { q: "p-Block: Incorrect statement for Borax:", options: ["2 sp3 & 2 sp2 B", "Alkaline in water", "Five B-O-B bonds", "All B are sp3"], correct: 3, solution: "Borax has both sp2 and sp3 B atoms." },
-        { q: "Coordination: Correct order of ligand strength is:", options: ["Cl < F < Ox < CN", "CN < Ox < F < Cl", "F < Cl < CN < Ox", "Cl < CN < Ox < F"], correct: 0, solution: "Spectrochemical series" },
-        { q: "Metallurgy: Reaction in Bessemer converter for Cu extraction:", options: ["2Cu2S+3O2", "Cu2S+2Cu2O", "FeS+O2", "All of these"], correct: 3, solution: "Converter handles impurities and self-reduction" },
-        { q: "GOC: Stability order of (I. Allyl, II. Propyl, III. Benzyl) carbocations:", options: ["III > I > II", "I > III > II", "II > I > III", "III > II > I"], correct: 0, solution: "Resonance: Benzyl > Allyl > Alkyl" },
-        { q: "Isomerism: Chiral centers in 2,3,4-trichloropentane:", options: ["3", "2", "1", "0"], correct: 1, solution: "C2 and C4 are chiral" },
-        { q: "Hydrocarbons: Alkene giving glyoxal on ozonolysis:", options: ["But-2-ene", "Buta-1,3-diene", "Benzene", "Hexatriene"], correct: 2, solution: "Benzene gives 3 moles of glyoxal" },
-        { q: "Haloalkanes: Product of t-butyl bromide + NaOEt:", options: ["Ether", "Isobutylene", "Ethyl ether", "n-butyl ether"], correct: 1, solution: "3-deg halide + strong base = E2 elimination" },
-        { q: "Phenols: Phenol is more acidic than ethanol due to:", options: ["Resonance phenoxide", "Ethoxide stability", "Mol weight", "Liquid state"], correct: 0, solution: "Phenoxide ion is resonance stabilized" },
-        { q: "Aldehydes: Does NOT undergo Cannizzaro reaction:", options: ["HCHO", "PhCHO", "CCl3CHO", "CH3CHO"], correct: 3, solution: "CH3CHO has alpha-H, does Aldol" },
-        { q: "Acids: Acid strength order:", options: ["H > CH3 > ClCH2", "ClCH2 > H > CH3", "CH3 > H > ClCH2", "H > ClCH2 > CH3"], correct: 1, solution: "-I effect of Cl increases acidity" },
-        { q: "Amines: BDC + H3PO2 + H2O gives:", options: ["Benzene", "Phenol", "Chlorobenzene", "Aniline"], correct: 0, solution: "Reduction of diazonium to benzene" },
-        { q: "Biomolecules: Linkage between amino acids:", options: ["Glycosidic", "Peptide", "Phosphodiester", "Hydrogen"], correct: 1, solution: "-CONH- bond" },
-        { q: "Environmental: Gas responsible for Greenhouse effect:", options: ["N2", "O2", "CO2", "H2"], correct: 2, solution: "CO2 is a major GHG" },
-        // Section B (Numerical)
-        { q: "Number of radial nodes in 4p orbital is:", type: "numerical", correct: 2, solution: "n-l-1 = 4-1-1 = 2" },
-        { q: "Ka of 0.01M acid (10% ionized) is X*10^-4. X is:", type: "numerical", correct: 1, solution: "Ka = C*a^2 = 0.01*0.01 = 10^-4" },
-        { q: "Total stereoisomers for 2,3-dichlorobutane:", type: "numerical", correct: 3, solution: "1 Meso + 2 Enantiomers" },
-        { q: "Oxygen atoms in Pyrophosphoric acid (H4P2O7):", type: "numerical", correct: 7, solution: "Formula check: H4P2O7" },
-        { q: "Coefficient of H+ in balanced MnO4- + C2O4(2-) reaction:", type: "numerical", correct: 16, solution: "2MnO4- + 5C2O4-- + 16H+ -> ..." }
+        // Section A: MCQs
+        {
+            q: "Atomic Structure: Ratio of shortest wavelength of Balmer series (He+) to shortest Lyman series (H-atom) is:",
+            options: ["1:1", "4:1", "1:4", "2:1"],
+            correct: 0,
+            solution: "$\\lambda \\propto n_1^2/Z^2$. Balmer He+: $2^2/2^2 = 1$. Lyman H: $1^2/1^2 = 1$. Ratio is 1:1."
+        },
+        {
+            q: "Chemical Bonding: Maximum number of lone pairs on central atom is in:",
+            options: ["XeF4", "IF5", "ClO3-", "XeF2"],
+            correct: 3,
+            solution: "XeF2 has 3 lone pairs. XeF4 has 2. IF5 and ClO3- have 1 each."
+        },
+        {
+            q: "Thermodynamics: $\\Delta H_{neut}$ of strong acid/base is -57.1 kJ. If HCN/NaOH is -12.1 kJ, $\\Delta H_{diss}$ of HCN is:",
+            options: ["-45.0", "45.0", "69.2", "32.0"],
+            correct: 1,
+            solution: "$\\Delta H_{neut} = \\Delta H_{strong} + \\Delta H_{diss} \\Rightarrow -12.1 = -57.1 + \\Delta H_{diss} \\Rightarrow \\Delta H_{diss} = 45.0$ kJ/mol."
+        },
+        {
+            q: "Aldehydes: Which of the following does NOT undergo Cannizzaro reaction?",
+            options: ["HCHO", "C6H5CHO", "CCl3CHO", "CH3CHO"],
+            correct: 3,
+            solution: "CH3CHO has alpha-hydrogens, so it undergoes Aldol Condensation instead of Cannizzaro."
+        },
+        // Section B: Numerical
+        {
+            q: "The number of radial nodes in a 4p orbital is:",
+            type: "numerical",
+            correct: 2,
+            solution: "Radial nodes $= n - l - 1 = 4 - 1 - 1 = 2$."
+        },
+        {
+            q: "Number of oxygen atoms in one molecule of Pyrophosphoric acid (H4P2O7) is:",
+            type: "numerical",
+            correct: 7,
+            solution: "Formula is H4P2O7, which clearly contains 7 oxygen atoms."
+        }
     ],
+
     maths: [
-        // MCQs (Section A)
-        { q: "Domain of f(x) = sqrt(log0.4((x-1)/(x+5))):", options: ["(1,inf)", "[1,inf)", "(-inf,-5) U [1,inf)", "(-inf,-5) U (1,inf)"], correct: 2, solution: "Log base < 1 implies (x-1)/(x+5) <= 1" },
-        { q: "Value of (1 + omega - omega^2)^7 is:", options: ["128w", "-128w^2", "128w^2", "-128w"], correct: 1, solution: "(-2w^2)^7 = -128w^14 = -128w^2" },
-        { q: "Matrix A = [complex e^t terms]. A is:", options: ["Invertible for all t", "Only for t=pi", "Never", "Only for t=0"], correct: 0, solution: "Det(A) = 5e^-t != 0" },
-        { q: "Number of real solutions of x^2 - 3|x| + 2 = 0:", options: ["2", "1", "4", "3"], correct: 2, solution: "|x|=1, 2 => x = +/-1, +/-2" },
-        { q: "Box (15G, 10Y), 10 balls replaced. Variance of Green balls is:", options: ["2.4", "2.0", "3.0", "1.5"], correct: 0, solution: "npq = 10 * 0.6 * 0.4 = 2.4" },
-        { q: "10th term of HP is 21, 21st is 10. 210th term is:", options: ["1", "0", "2.1", "1.0"], correct: 0, solution: "1/a10=A+9D, 1/a21=A+20D => 1/a210=1" },
-        { q: "Term independent of x in (2x^2 - 1/3x^2)^10:", options: ["10C5*32/243", "-10C5*32/243", "10C6*16/81", "None"], correct: 1, solution: "r=5 gives x^0. Coeff = 10C5 * 2^5 * (-1/3)^5" },
-        { q: "Limit (x*cot4x)/(sin^2x * cot^2 2x) as x->0:", options: ["0", "2", "1", "4"], correct: 2, solution: "Use tanx/x and sinx/x limits => 1" },
-        { q: "f(x) continuous at x=0. f(x<0)=sqrt formula, f(x>=0)=(2x+1)/(x-1). k is:", options: ["1", "-1", "0", "2"], correct: 1, solution: "LHL = k, f(0) = -1" },
-        { q: "If x^y = e^(x-y), dy/dx is:", options: ["logx/(1+logx)^2", "1/(1+logx)^2", "logx/(1+logx)", "(x-y)/(1+logx)"], correct: 0, solution: "y = x/(1+logx). Use quotient rule" },
-        { q: "Angle of intersection of y^2=x and x^2=y at (1,1):", options: ["tan-1(3/4)", "tan-1(4/3)", "pi/2", "pi/4"], correct: 0, solution: "m1=1/2, m2=2. tan(theta)=3/4" },
-        { q: "f(x) = x/logx increases in:", options: ["(0,e)", "(e,inf)", "(0,inf)", "(-inf,0)"], correct: 1, solution: "f' = (logx-1)/(logx)^2 > 0 if x > e" },
-        { q: "Integral sinx/sin(x-a) dx:", options: ["x*cosa - sina*log|sin|", "x*cosa + sina*log|sin|", "x*sina + cosa*log|sin|", "None"], correct: 1, solution: "sin(x-a+a) expansion" },
-        { q: "Integral 0 to pi/2 of 1/(1+tan^3x):", options: ["pi/2", "pi/4", "pi/8", "0"], correct: 1, solution: "King's property => 2I = pi/2" },
-        { q: "Solution of dy/dx = y/x + phi/phi':", options: ["phi(y/x)=kx", "phi(y/x)=ky", "phi'=kx", "y=kx"], correct: 0, solution: "Variable separable after y=vx" },
-        { q: "If a, b, c are coplanar, [a+b b+c c+a] is:", options: ["STP(abc)", "2*STP", "0", "1"], correct: 2, solution: "Coplanar vectors linear combo is coplanar" },
-        { q: "Distance between 2x-3y+6z=5 and 6x-9y+18z+20=0:", options: ["5/3", "35/21", "5/7", "1"], correct: 0, solution: "d = |5 - (-20/3)| / 7 = 35/21 = 5/3" },
-        { q: "Area of triangle of tangents from (h,k) to x^2+y^2=a^2:", options: ["a(h2+k2-a2)^1.5/(h2+k2)", "a2(h2+k2-a2)/(h2+k2)", "(h2+k2-a2)^1.5/...", "None"], correct: 0, solution: "Standard formula for chord of contact triangle" },
-        { q: "Latus rectum of parabola with focus (3,4) and directrix 5x+12y-7=0:", options: ["2", "1", "4/13", "2/13"], correct: 3, solution: "LR = 2 * dist(focus, directrix)" },
-        { q: "Mean of n observations is x_bar. Mean of ax1...axn is:", options: ["x_bar", "a*x_bar", "x_bar/a", "x_bar+a"], correct: 1, solution: "Linearity of mean" },
-        // Section B (Numerical)
-        { q: "Integral 0 to k of dx/(2+8x^2) = pi/16. k is:", type: "numerical", correct: 0.5, solution: "tan-1(2k) = pi/4 => 2k=1" },
-        { q: "Ways 5 boys and 3 girls sit such that no 2 girls together:", type: "numerical", correct: 14400, solution: "5! * 6P3 = 120 * 120" },
-        { q: "Ellipse e=5/8, foci distance 10. Latus rectum length is:", type: "numerical", correct: 9.75, solution: "a=8, b^2=39, LR=2b^2/a" },
-        { q: "Value of cos20*cos40*cos80 = 1/n. n is:", type: "numerical", correct: 8, solution: "Product formula gives 1/8" },
-        { q: "Constant term in det|x+1 1 1; 1 x+1 1; 1 1 x+1| is:", type: "numerical", correct: 0, solution: "f(0) where x=0 makes det zero" }
+        // Section A: MCQs
+        {
+            q: "Function: The domain of $f(x) = \\sqrt{\\log_{0.4} (\\frac{x-1}{x+5})}$ is:",
+            options: ["(1, \\infty)", "[1, \\infty)", "(-\\infty, -5) \\cup [1, \\infty)", "(-\\infty, -5) \\cup (1, \\infty)"],
+            correct: 2,
+            solution: "Log base < 1, so $\\frac{x-1}{x+5} \\le 1$. Solving this with $\\frac{x-1}{x+5} > 0$ gives $(-\\infty, -5) \\cup [1, \\infty)$."
+        },
+        {
+            q: "Complex Numbers: Value of $(1+\\omega-\\omega^2)^7$ is:",
+            options: ["128\\omega", "-128\\omega^2", "128\\omega^2", "-128\\omega"],
+            correct: 1,
+            solution: "$1+\\omega = -\\omega^2$. Expression: $(-2\\omega^2)^7 = -128\\omega^{14} = -128\\omega^2$."
+        },
+        {
+            q: "Quadratic: Number of real solutions of $x^2 - 3|x| + 2 = 0$ is:",
+            options: ["2", "1", "4", "3"],
+            correct: 2,
+            solution: "Factors: $(|x|-1)(|x|-2)=0 \\Rightarrow |x|=1, 2$. Solutions: $\\pm 1, \\pm 2$. Total = 4."
+        },
+        {
+            q: "Probability: Variance of green balls (n=10, p=15/25) is:",
+            options: ["2.4", "2.0", "3.0", "1.5"],
+            correct: 0,
+            solution: "$Var = npq = 10 \\times (15/25) \\times (10/25) = 10 \\times 0.6 \\times 0.4 = 2.4$."
+        },
+        // Section B: Numerical
+        {
+            q: "If $\\int_{0}^{k} \\frac{dx}{2+8x^2} = \\pi/16$, then k is:",
+            type: "numerical",
+            correct: 0.5,
+            solution: "Integral is $\\frac{1}{4}\\tan^{-1}(2x)$. $\\frac{1}{4}\\tan^{-1}(2k) = \\pi/16 \\Rightarrow \\tan^{-1}(2k) = \\pi/4 \\Rightarrow 2k=1 \\Rightarrow k=0.5$."
+        },
+        {
+            q: "Value of $\\cos 20^\\circ \\cos 40^\\circ \\cos 80^\\circ$ is $1/n$. n is:",
+            type: "numerical",
+            correct: 8,
+            solution: "Standard identity: $\\cos A \\cos 2A \\cos 4A = \\frac{\\sin(2^3 A)}{2^3 \\sin A}$. For $A=20^\\circ$, it is $1/8$."
+        }
     ]
 };
+
+export default examQuestions;
