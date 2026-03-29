@@ -3,219 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains Mock Test - MasterHub</title>
+    <title>JEE Master Hub - Weekly Test</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <style>
         :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; --bg-light: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg-light); }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg-light); }
         
         /* Login Screen */
-        #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; background: #e3f2fd; }
-        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; }
-        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .announcement { color: var(--nta-red); font-weight: bold; text-align: center; margin-bottom: 15px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
         
         /* Test Interface */
         #test-interface { display: none; grid-template-columns: 1fr 320px; height: 100vh; }
-        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid var(--nta-blue); padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; }
+        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid var(--nta-blue); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .subject-tabs { background: #eee; padding: 5px; display: flex; gap: 5px; grid-column: 1/3; }
+        .tab-btn { padding: 8px 15px; border: none; cursor: pointer; background: #ddd; }
+        .tab-btn.active { background: var(--nta-blue); color: white; }
+        
         .question-container { padding: 30px; overflow-y: auto; background: white; border-right: 1px solid #eee; }
-        .options-item { padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
+        .options-item { display: block; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; cursor: pointer; }
         .options-item:hover { background: #f1f8ff; }
 
-        /* Sidebar & Palette */
-        .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; }
+        /* Palette & Sidebar */
+        .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; }
         .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .q-num { width: 40px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; border-radius: 4px; }
+        .q-num { width: 40px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; font-size: 14px; }
         .answered { background: var(--nta-green) !important; color: white; border: none; }
         .current { border: 2.5px solid var(--nta-blue); font-weight: bold; }
 
-        /* Result Screen */
+        /* Result & Solution */
         #result-screen { display: none; padding: 40px 20px; text-align: center; background: white; min-height: 100vh; }
-        .btn-whatsapp { background: #25D366; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+        .solution-box { text-align: left; max-width: 800px; margin: 20px auto; padding: 15px; border-bottom: 1px solid #ddd; }
 
         @media (max-width: 768px) {
             #test-interface { grid-template-columns: 1fr; }
-            .sidebar { display: none; } /* Mobile par palette hide kar sakte hain ya niche shift */
+            .sidebar { display: none; } /* Mobile par palette hide kar di hai */
         }
     </style>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-box">
-        <h2 style="text-align:center; color: var(--nta-blue);">Students Login</h2>
-        <input type="text" id="stuName" placeholder="Full Name" required>
-        <input type="text" id="stuDist" placeholder="District" required>
-        <input type="text" id="stuState" placeholder="State" required>
-        <button onclick="startTest()" style="width:100%; padding:12px; background: var(--nta-blue); color:white; border:none; border-radius:6px; cursor:pointer;">Login & Start Test</button>
-    </div>
-</div>
-
-<div id="test-interface">
-    <div class="header">
-        <h3 id="display-info" style="margin:0; font-size: 1rem; color: #555;">Candidate: -</h3>
-        <div id="timer" style="font-weight:bold; color: var(--nta-red); font-size: 1.2rem;">03:00:00</div>
-    </div>
-    
-    <div class="question-container">
-        <div id="question-area"></div>
-        <div style="margin-top:20px; border-top: 1px solid #eee; padding-top:20px;">
-            <button onclick="clearOption()" style="padding:10px 20px; background:#f5f5f5; border:1px solid #ccc; cursor:pointer;">Clear Response</button>
-            <button onclick="nextQuestion()" style="padding:10px 20px; background:var(--nta-blue); color:white; border:none; cursor:pointer; float:right;">Save & Next</button>
+    <div id="login-screen">
+        <div class="login-box">
+            <h2 style="text-align:center; color: var(--nta-blue);">JEE Master Hub</h2>
+            <p class="announcement">📢 Every Sunday Test Hoga!</p>
+            <input type="text" id="stuName" placeholder="Full Name" required>
+            <input type="text" id="stuDist" placeholder="District" required>
+            <input type="text" id="stuState" placeholder="State" required>
+            <button onclick="startTest()" style="width:100%; padding:12px; background: var(--nta-blue); color:white; border:none; border-radius:6px; cursor:pointer; margin-top:10px;">Start Weekly Test</button>
+            
+            <div id="history-box" style="margin-top:20px; font-size: 14px;">
+                <p><b>Last 10 Tests:</b></p>
+                <ul id="history-list" style="padding-left:20px;"></ul>
+            </div>
         </div>
     </div>
 
-    <div class="sidebar">
-        <div style="font-weight:bold; margin-bottom:10px;">Question Palette:</div>
-        <div class="question-grid" id="q-palette"></div>
-        <button onclick="confirmSubmit()" style="margin-top: auto; padding:15px; background: var(--nta-red); color:white; border:none; cursor:pointer; font-weight:bold;">SUBMIT TEST</button>
+    <div id="test-interface">
+        <div class="header">
+            <div id="display-info">Candidate: Name</div>
+            <h4 style="margin:0;">JEE Master Hub Weekly Test</h4>
+            <div id="timer" style="color: var(--nta-red); font-weight:bold;">01:00:00</div>
+        </div>
+
+        <div class="subject-tabs">
+            <button class="tab-btn active" onclick="switchSubject('physics')">Physics</button>
+            <button class="tab-btn" onclick="switchSubject('chemistry')">Chemistry</button>
+            <button class="tab-btn" onclick="switchSubject('mathematics')">Maths</button>
+        </div>
+
+        <div class="question-container">
+            <div id="question-area"></div>
+            <div style="margin-top:20px; border-top: 1px solid #eee; padding-top:20px;">
+                <button onclick="clearOption()" style="padding:10px 20px; background:#f5f5f5; border:1px solid #ccc; cursor:pointer;">Clear Response</button>
+                <button onclick="nextQuestion()" style="padding:10px 20px; background:var(--nta-blue); color:white; border:none; cursor:pointer; float:right;">Save & Next</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <b>Question Palette</b>
+            <div class="question-grid" id="q-palette"></div>
+            <button onclick="confirmSubmit()" style="margin-top: auto; padding:15px; background: var(--nta-red); color:white; border:none; cursor:pointer; border-radius:5px;">Submit Test</button>
+        </div>
     </div>
-</div>
 
-<div id="result-screen">
-    <h1>Test Completed!</h1>
-    <h2 id="final-score-val" style="font-size: 3rem; color: var(--nta-green);">0</h2>
-    <p>Total Score Out of 300</p>
-    <button class="btn-whatsapp" onclick="shareOnWhatsApp()">Share Result on WhatsApp 🚀</button>
-    <br><br>
-    <button onclick="location.reload()" style="background:#666; color:white; border:none; padding:10px 20px; cursor:pointer;">Try Again</button>
-</div>
-        
-</script/>"question.js"</script/>
+    <div id="result-screen">
+        <h1>Test Completed!</h1>
+        <h2 id="final-score-val" style="font-size: 3rem; color: var(--nta-green);">0</h2>
+        <p>Total Score Out of 300</p>
+        <button onclick="shareOnWhatsApp()" style="background:#25D366; color:white; padding:15px 30px; border:none; border-radius:5px; cursor:pointer;">Share Result on WhatsApp 🚀</button>
+        <div id="solutions-area"></div>
+        <button onclick="location.reload()" style="margin-top:20px; padding:10px; cursor:pointer;">Back to Home</button>
+    </div>
+
+    <script src="equation.js"></script>
+
     <script>
-    let currentIdx = 0;
-    let userAnswers = [];
-    let timeLeft = 3 * 60 * 60; 
-    let timerInterval;
+        let currentSubject = 'physics';
+        let currentIdx = 0;
+        let userAnswers = {};
+        let timeLeft = 60 * 60; // 60 minutes
+        let timerInterval;
+        let questions = [];
 
-function startTest() {
-    const name = document.getElementById('stuName').value;
-    const state = document.getElementById('stuState').value;
-    
-    if(!name || !state) return alert("Please enter Name and State!");
+        // Load History
+        window.onload = () => {
+            const history = JSON.parse(localStorage.getItem('jee_history') || '[]');
+            const list = document.getElementById('history-list');
+            history.slice(-10).reverse().forEach(test => {
+                let li = document.createElement('li');
+                li.innerText = `${test.date}: Score ${test.score}/300`;
+                list.appendChild(li);
+            });
+        };
 
-    // 1. Important Fix: Check karein ki file load hui ya nahi
-    if (typeof examQuestions === 'undefined') {
-        alert("Error: questions.js file load nahi hui. Check karein ki dono files ek hi folder mein hain!");
-        return;
-    }
+        function startTest() {
+            const name = document.getElementById('stuName').value;
+            if(!name) return alert("Please enter your name");
 
-    // 2. Variable set karein (examQuestions.physics aapki file ka structure hai)
-    questions = [...examQuestions.physics]; 
+            if(typeof examQuestions === 'undefined') {
+                alert("Error: equation.js file load nahi hui!");
+                return;
+            }
 
-    // 3. Purana data clear karein
-    localStorage.removeItem('jee_history');
-    userAnswers = new Array(questions.length).fill(null);
-    
-    // UI Updates
-    document.getElementById('display-info').innerText = `Candidate: ${name} | State: ${state}`;
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('test-interface').style.display = 'grid';
+            document.getElementById('display-info').innerText = `Candidate: ${name}`;
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('test-interface').style.display = 'grid';
+            
+            switchSubject('physics');
+            startTimer();
+        }
 
-    initPalette();
-    renderQuestion();
-    startTimer();
-}
+        function switchSubject(sub) {
+            currentSubject = sub;
+            questions = examQuestions[sub];
+            currentIdx = 0;
+            
+            // Update Tab UI
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(sub.substring(0,3)));
+            });
 
-    function initPalette() {
-        const palette = document.getElementById('q-palette');
-        palette.innerHTML = '';
-        questions.forEach((_, i) => {
-            const div = document.createElement('div');
-            div.className = 'q-num';
-            div.id = `pal-${i}`;
-            div.innerText = i + 1;
-            div.onclick = () => { currentIdx = i; renderQuestion(); };
-            palette.appendChild(div);
-        });
-    }
-
-    function renderQuestion() {
-        const area = document.getElementById('question-area');
-        const q = questions[currentIdx];
-        
-        document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
-        document.getElementById(`pal-${currentIdx}`).classList.add('current');
-
-        let html = `<div style="font-size:1.2rem; margin-bottom:20px;"><b>Question ${currentIdx + 1}:</b><br>${q.q}</div>`;
-        q.options.forEach((opt, i) => {
-            const checked = userAnswers[currentIdx] === i ? 'checked' : '';
-            html += `
-                <label class="options-item">
-                    <input type="radio" name="jee-opt" value="${i}" ${checked} onchange="saveAnswer(${i})"> ${opt}
-                </label><br>
-            `;
-        });
-        area.innerHTML = html;
-        if(window.MathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, area]);
-    }
-
-    function saveAnswer(val) {
-        userAnswers[currentIdx] = val;
-        document.getElementById(`pal-${currentIdx}`).classList.add('answered');
-    }
-
-    function nextQuestion() {
-        if(currentIdx < questions.length - 1) {
-            currentIdx++;
+            initPalette();
             renderQuestion();
         }
-    }
 
-    function clearOption() {
-        userAnswers[currentIdx] = null;
-        document.getElementById(`pal-${currentIdx}`).classList.remove('answered');
-        renderQuestion();
-    }
+        function initPalette() {
+            const palette = document.getElementById('q-palette');
+            palette.innerHTML = '';
+            questions.forEach((_, i) => {
+                const div = document.createElement('div');
+                div.className = `q-num ${userAnswers[currentSubject + i] !== undefined ? 'answered' : ''}`;
+                div.id = `pal-${i}`;
+                div.innerText = i + 1;
+                div.onclick = () => { currentIdx = i; renderQuestion(); };
+                palette.appendChild(div);
+            });
+        }
 
-    function startTimer() {
-        timerInterval = setInterval(() => {
-            let h = Math.floor(timeLeft / 3600);
-            let m = Math.floor((timeLeft % 3600) / 60);
-            let s = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            if(timeLeft <= 0) submitTest();
-            timeLeft--;
-        }, 1000);
-    }
+        function renderQuestion() {
+            const area = document.getElementById('question-area');
+            const q = questions[currentIdx];
+            
+            document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
+            document.getElementById(`pal-${currentIdx}`).classList.add('current');
 
-    function confirmSubmit() {
-        if(confirm("Kya aap test submit karna chahte hain?")) submitTest();
-    }
+            let html = `<div style="font-size:1.2rem; margin-bottom:20px;"><b>Question ${currentIdx + 1}:</b><br>${q.q}</div>`;
+            q.options.forEach((opt, i) => {
+                const checked = userAnswers[currentSubject + currentIdx] === i ? 'checked' : '';
+                html += `
+                    <label class="options-item">
+                        <input type="radio" name="jee-opt" value="${i}" ${checked} onchange="saveAnswer(${i})"> ${opt}
+                    </label>
+                `;
+            });
+            area.innerHTML = html;
+            if(window.MathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, area]);
+        }
 
-    function submitTest() {
-        clearInterval(timerInterval);
-        let score = 0;
-        userAnswers.forEach((ans, i) => {
-            if(ans === questions[i].correct) score += 4;
-            else if(ans !== null) score -= 1;
-        });
+        function saveAnswer(val) {
+            userAnswers[currentSubject + currentIdx] = val;
+            document.getElementById(`pal-${currentIdx}`).classList.add('answered');
+        }
 
-        document.getElementById('test-interface').style.display = 'none';
-        document.getElementById('result-screen').style.display = 'block';
-        document.getElementById('final-score-val').innerText = score;
-    }
+        function nextQuestion() {
+            if(currentIdx < questions.length - 1) {
+                currentIdx++;
+                renderQuestion();
+            }
+        }
 
-    function shareOnWhatsApp() {
-    const score = document.getElementById('final-score-val').innerText;
-    const name = document.getElementById('stuName').value;
-    const state = document.getElementById('stuState').value;
-    
-    // Website link (ise apni website ke URL se badal dein)
-    const testLink = "https://jeemasterhub.in/mock-test"; 
+        function clearOption() {
+            delete userAnswers[currentSubject + currentIdx];
+            document.getElementById(`pal-${currentIdx}`).classList.remove('answered');
+            renderQuestion();
+        }
 
-    const msg = `*🔥 JEE MAINS CHALLENGE 2026 🔥*%0A%0A` +
-                `👋 Namaste! Maine abhi NTA pattern par Mock Test diya hai.%0A%0A` +
-                `👤 *Candidate:* ${name}%0A` +
-                `📍 *State:* ${state}%0A` +
-                `📊 *My Score:* ${score}/300%0A%0A` +
-                `Kya aap mujhse zyada score kar sakte hain? 😎%0A` +
-                `Apni taiyari check karne ke liye niche di gayi link par click karein aur free test dein! 👇%0A%0A` +
-                `🚀 *Test Link:* ${testLink}%0A%0A` +
-                `#JEE2026 #IITJEE #MockTest #StudyHard`;
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById('timer').innerText = 
+                    `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(timeLeft <= 0) submitTest();
+                timeLeft--;
+            }, 1000);
+        }
 
-    window.open(`https://wa.me/?text=${msg}`, '_blank');
-    }
-</script>
+        function confirmSubmit() {
+            if(confirm("Kya aap test submit karna chahte hain?")) submitTest();
+        }
+
+        function submitTest() {
+            clearInterval(timerInterval);
+            let score = 0;
+            
+            // Calculate Score for all subjects
+            ['physics', 'chemistry', 'mathematics'].forEach(sub => {
+                examQuestions[sub].forEach((q, i) => {
+                    const ans = userAnswers[sub + i];
+                    if(ans !== undefined) {
+                        if(ans === q.correct) score += 4;
+                        else score -= 1;
+                    }
+                });
+            });
+
+            // Save to LocalStorage
+            let history = JSON.parse(localStorage.getItem('jee_history') || '[]');
+            history.push({ date: new Date().toLocaleDateString(), score: score });
+            localStorage.setItem('jee_history', JSON.stringify(history));
+
+            document.getElementById('test-interface').style.display = "none";
+            document.getElementById('result-screen').style.display = "block";
+            document.getElementById('final-score-val').innerText = score;
+
+            showSolutions();
+        }
+
+        function showSolutions() {
+            let solHTML = "<h3>Detailed Solutions</h3>";
+            ['physics', 'chemistry', 'mathematics'].forEach(sub => {
+                solHTML += `<h2 style="background:#eee; padding:10px;">${sub.toUpperCase()}</h2>`;
+                examQuestions[sub].forEach((q, i) => {
+                    const userAns = userAnswers[sub + i];
+                    solHTML += `
+                        <div class="solution-box">
+                            <p><b>Q${i+1}:</b> ${q.q}</p>
+                            <p>Your Answer: <span style="color:${userAns === q.correct ? 'green' : 'red'}">${userAns !== undefined ? q.options[userAns] : 'Not Attempted'}</span></p>
+                            <p style="color:green">Correct: ${q.options[q.correct]}</p>
+                            <p><i>Solution: ${q.solution}</i></p>
+                        </div>
+                    `;
+                });
+            });
+            document.getElementById('solutions-area').innerHTML = solHTML;
+        }
+
+        function shareOnWhatsApp() {
+            const score = document.getElementById('final-score-val').innerText;
+            const name = document.getElementById('stuName').value;
+            const link = "https://jeemasterhub.in/mock-test"; // Isse apni link se badlein
+            const msg = `🔥 JEE MAINS CHALLENGE 2026 🔥%0A%0AHello! Maine abhi JEE Master Hub par mock test diya.%0A👤 Candidate: ${name}%0A📊 My Score: ${score}/300%0A%0AKya aap mujhse zyada score kar sakte hain?%0AJoin Here: ${link}`;
+            window.open(`https://wa.me/?text=${msg}`, '_blank');
+        }
+    </script>
 </body>
 </html>
