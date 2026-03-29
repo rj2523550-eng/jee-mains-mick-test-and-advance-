@@ -18,36 +18,31 @@
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
         .container { max-width: 800px; margin: auto; padding: 15px; }
         
-        /* Header & Login */
         .header-box { text-align: center; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border-top: 5px solid var(--accent); }
         .sunday-notice { color: var(--danger); font-weight: bold; font-size: 0.9em; margin-top: 10px; }
         .login-form input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
         
-        /* Test UI */
-        #test-section { display: none; }
+        #test-section, #result-section { display: none; }
         .timer-bar { position: sticky; top: 0; background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .question-card { background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-height: 200px; }
+        .question-card { background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .options-grid { display: grid; gap: 10px; margin-top: 20px; }
         .option-btn { padding: 15px; border: 1px solid #dfe6e9; background: #fff; text-align: left; cursor: pointer; border-radius: 8px; font-size: 16px; transition: 0.2s; }
         .option-btn.selected { background: var(--accent); color: white; border-color: var(--accent); font-weight: bold; }
         
-        /* Controls */
         .controls { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; flex: 1; }
+        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; flex: 1; text-align: center; text-decoration: none; }
         .btn-next { background: var(--accent); color: white; }
         .btn-prev { background: #95a5a6; color: white; }
         .btn-submit { background: var(--success); color: white; width: 100%; margin-top: 20px; font-size: 18px; padding: 15px; border-radius: 10px; }
 
-        /* Results & Solution Section */
-        #result-section { display: none; }
-        .score-display { font-size: 24px; font-weight: bold; color: var(--primary); margin: 15px 0; }
         .sol-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 6px solid #ccc; text-align: left; }
         .sol-correct { border-left-color: var(--success); }
         .sol-wrong { border-left-color: var(--danger); }
-        .solution-text { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 15px; border-top: 1px solid #eee; font-style: italic; color: #555; }
-        .ans-meta { font-weight: bold; margin: 5px 0; }
+        .solution-text { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; border-top: 1px solid #eee; font-style: italic; color: #555; }
         
-        @media (max-width: 600px) { .container { padding: 10px; } .btn { padding: 10px 15px; } }
+        .history-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 8px; overflow: hidden; }
+        .history-table th, .history-table td { padding: 12px; border: 1px solid #eee; text-align: center; font-size: 14px; }
+        .history-table th { background: #f8f9fa; }
     </style>
 </head>
 <body>
@@ -55,22 +50,32 @@
 <div class="container">
     <div class="header-box">
         <h1 style="margin:0;">Jee Master Hub</h1>
-        <p style="margin:5px 0; font-weight:600; color:#666;">Weekly Test Series</p>
+        <p style="margin:5px 0;">Weekly Test Series</p>
         <div class="sunday-notice">📢 Every Sunday Test will be Live!</div>
     </div>
 
-    <div id="login-section" class="header-box">
-        <div class="login-form">
-            <input type="text" id="userName" placeholder="Enter Full Name" required>
-            <input type="text" id="userDistrict" placeholder="District">
-            <input type="text" id="userState" placeholder="State">
-            <button class="btn btn-submit" onclick="startTest()">Start Mock Test</button>
+    <div id="login-section">
+        <div class="header-box">
+            <div class="login-form">
+                <input type="text" id="userName" placeholder="Full Name" required>
+                <input type="text" id="userDistrict" placeholder="District">
+                <input type="text" id="userState" placeholder="State">
+                <button class="btn btn-submit" onclick="startTest()">Start Mock Test</button>
+            </div>
+        </div>
+        
+        <div class="header-box" id="history-box" style="display:none;">
+            <h3>Your Last 10 Tests</h3>
+            <table class="history-table">
+                <thead><tr><th>Date</th><th>Score</th><th>%</th></tr></thead>
+                <tbody id="history-body"></tbody>
+            </table>
         </div>
     </div>
 
     <div id="test-section">
         <div class="timer-bar">
-            <span id="subject-info" style="font-weight:bold;">Physics</span>
+            <span id="subject-info" style="font-weight:bold;">Loading...</span>
             <span id="timer">60:00</span>
         </div>
         <div id="question-container"></div>
@@ -78,26 +83,23 @@
             <button class="btn btn-prev" onclick="changeQuestion(-1)">Previous</button>
             <button class="btn btn-next" onclick="changeQuestion(1)">Next</button>
         </div>
-        <button class="btn btn-submit" onclick="confirmSubmission()">Final Submit</button>
+        <button class="btn btn-submit" onclick="confirmSubmission()">Submit Test</button>
     </div>
 
     <div id="result-section">
         <div class="header-box">
             <h2>Test Result</h2>
-            <div id="final-score" class="score-display"></div>
+            <div id="final-score" style="font-size:24px; font-weight:bold; color:var(--primary);"></div>
             <div id="stat-box"></div>
-            <button class="btn" style="background:#25D366; color:white; margin-top:15px; width:100%;" onclick="shareOnWhatsApp()">Share Result</button>
+            <button class="btn" style="background:#25D366; color:white; margin-top:15px; width:100%;" onclick="shareOnWhatsApp()">Share Result with Link</button>
         </div>
-
-        <h3 style="margin-left: 10px;">Detailed Solutions & Review</h3>
+        <h3>Detailed Solutions</h3>
         <div id="solutions-list"></div>
-        
-        <button class="btn btn-next" style="width:100%; margin-top:20px;" onclick="location.reload()">Take Another Test</button>
+        <button class="btn btn-next" style="width:100%; margin-top:20px;" onclick="location.reload()">Back to Home</button>
     </div>
 </div>
 
 <script>
-    // Data Object (Includes your questions)
     const questionsData = {
         physics: [
             { q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy for any displacement x is proportional to:", options: ["x", "e^x", "x^2", "log_e x"], correct: 2, solution: "Retardation $a = -kx \\Rightarrow v \\frac{dv}{dx} = -kx$. Integrating both sides: $\\int v dv = -\\int kx dx \\Rightarrow \\frac{1}{2}mv^2 \\propto x^2$. Hence, loss of KE is proportional to $x^2$." },
@@ -114,7 +116,7 @@
             { q: "Thermodynamics: $\\Delta H_{neut}$ of strong acid/base is -57.1 kJ. If HCN/NaOH is -12.1 kJ, $\\Delta H_{diss}$ of HCN is:", options: ["-45.0", "45.0", "69.2", "32.0"], correct: 1, solution: "$\\Delta H_{neut} = \\Delta H_{strong} + \\Delta H_{diss} \\Rightarrow -12.1 = -57.1 + \\Delta H_{diss} \\Rightarrow \\Delta H_{diss} = 45.0$ kJ/mol." },
             { q: "Aldehydes: Which of the following does NOT undergo Cannizzaro reaction?", options: ["HCHO", "C6H5CHO", "CCl3CHO", "CH3CHO"], correct: 3, solution: "CH3CHO has alpha-hydrogens, so it undergoes Aldol Condensation instead of Cannizzaro." },
             { q: "The number of radial nodes in a 4p orbital is:", options: ["1" , "2" , "3" , "4" ], correct: 1, solution: "Radial nodes $= n - l - 1 = 4 - 1 - 1 = 2$." },
-            { q: "Number of oxygen atoms in one molecule of Pyrophosphoric acid (H4P2O7) is:", options:["7" , "8" , "10" , "6"], correct: 0, solution: "Formula is H4P2O7, which clearly contains 7 oxygen atoms." }
+            { q: "Number of oxygen atoms in one molecule of Pyrophosphoric acid ($H_4P_2O_7$) is:", options:["7" , "8" , "10" , "6"], correct: 0, solution: "Formula is $H_4P_2O_7$, which clearly contains 7 oxygen atoms." }
         ],
         maths: [
             { q: "Function: The domain of $f(x) = \\sqrt{\\log_{0.4} (\\frac{x-1}{x+5})}$ is:", options: ["(1, \\infty)", "[1, \\infty)", "(-\\infty, -5) \\cup [1, \\infty)", "(-\\infty, -5) \\cup (1, \\infty)"], correct: 2, solution: "Log base < 1, so $\\frac{x-1}{x+5} \\le 1$. Solving this with $\\frac{x-1}{x+5} > 0$ gives $(-\\infty, -5) \\cup [1, \\infty)$." },
@@ -129,14 +131,18 @@
     let allQuestions = [];
     let userAnswers = [];
     let currentIdx = 0;
-    let timeLeft = 1800;
+    let timeLeft = 3600;
     let timerInterval;
+
+    // Load History on Page Load
+    window.onload = function() {
+        showHistory();
+    };
 
     function startTest() {
         const name = document.getElementById('userName').value.trim();
         if(!name) return alert("Pehle Apna Naam Enter Karein!");
         
-        // Merge All Subjects
         allQuestions = [...questionsData.physics, ...questionsData.chemistry, ...questionsData.maths];
         userAnswers = new Array(allQuestions.length).fill(null);
         
@@ -161,9 +167,9 @@
         const q = allQuestions[currentIdx];
         document.getElementById('subject-info').innerText = `Question ${currentIdx + 1} of ${allQuestions.length}`;
         
-        let html = `
+        document.getElementById('question-container').innerHTML = `
             <div class="question-card">
-                <div style="font-size:18px; font-weight:500;">${q.q}</div>
+                <div style="font-size:18px;">${q.q}</div>
                 <div class="options-grid">
                     ${q.options.map((opt, i) => `
                         <button class="option-btn ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="selectAns(${i})">
@@ -173,7 +179,6 @@
                 </div>
             </div>
         `;
-        document.getElementById('question-container').innerHTML = html;
         if (window.MathJax) MathJax.typesetPromise();
     }
 
@@ -185,7 +190,7 @@
     }
 
     function confirmSubmission() {
-        if(confirm("Kya aap test submit karna chahte hain?")) finishTest();
+        if(confirm("Submit Kar Dein?")) finishTest();
     }
 
     function finishTest() {
@@ -197,7 +202,33 @@
             else if(userAnswers[i] !== null) { score -= 1; wrong++; }
         });
 
+        saveToLocalStorage(score);
         displayResults(score, correct, wrong);
+    }
+
+    function saveToLocalStorage(score) {
+        let history = JSON.parse(localStorage.getItem('jee_hub_records') || '[]');
+        let maxScore = allQuestions.length * 4;
+        let percent = ((score / maxScore) * 100).toFixed(1);
+        
+        history.unshift({
+            date: new Date().toLocaleDateString(),
+            score: score,
+            total: maxScore,
+            percent: percent
+        });
+        
+        localStorage.setItem('jee_hub_records', JSON.stringify(history.slice(0, 10)));
+    }
+
+    function showHistory() {
+        let history = JSON.parse(localStorage.getItem('jee_hub_records') || '[]');
+        if(history.length > 0) {
+            document.getElementById('history-box').style.display = 'block';
+            document.getElementById('history-body').innerHTML = history.map(h => `
+                <tr><td>${h.date}</td><td>${h.score}/${h.total}</td><td>${h.percent}%</td></tr>
+            `).join('');
+        }
     }
 
     function displayResults(score, correct, wrong) {
@@ -205,27 +236,19 @@
         document.getElementById('result-section').style.display = 'block';
         
         document.getElementById('final-score').innerText = `Your Score: ${score} / ${allQuestions.length * 4}`;
-        document.getElementById('stat-box').innerHTML = `
-            <p>✅ Correct: ${correct} | ❌ Wrong: ${wrong} | ⏩ Skipped: ${allQuestions.length - (correct + wrong)}</p>
-        `;
+        document.getElementById('stat-box').innerHTML = `<p>✅ Correct: ${correct} | ❌ Wrong: ${wrong} | ⏩ Skipped: ${allQuestions.length - (correct + wrong)}</p>`;
 
-        // Generate Detailed Solutions
-        let solHtml = '';
-        allQuestions.forEach((q, i) => {
+        let solHtml = allQuestions.map((q, i) => {
             const isCorrect = userAnswers[i] === q.correct;
             const statusClass = userAnswers[i] === null ? '' : (isCorrect ? 'sol-correct' : 'sol-wrong');
-            
-            solHtml += `
+            return `
                 <div class="sol-card ${statusClass}">
                     <p><strong>Q${i+1}.</strong> ${q.q}</p>
-                    <p class="ans-meta">Your Answer: <span style="color:${isCorrect ? 'green' : 'red'}">${userAnswers[i] !== null ? q.options[userAnswers[i]] : 'Not Attempted'}</span></p>
-                    <p class="ans-meta" style="color:green">Correct Answer: ${q.options[q.correct]}</p>
-                    <div class="solution-text">
-                        <strong>Detail Solution:</strong><br>${q.solution}
-                    </div>
-                </div>
-            `;
-        });
+                    <p>Your Answer: <span style="color:${isCorrect ? 'green' : 'red'}">${userAnswers[i] !== null ? q.options[userAnswers[i]] : 'Not Attempted'}</span></p>
+                    <p style="color:green; font-weight:bold;">Correct Answer: ${q.options[q.correct]}</p>
+                    <div class="solution-text"><strong>Solution:</strong> ${q.solution}</div>
+                </div>`;
+        }).join('');
         document.getElementById('solutions-list').innerHTML = solHtml;
         if (window.MathJax) MathJax.typesetPromise();
     }
@@ -233,7 +256,7 @@
     function shareOnWhatsApp() {
         const name = document.getElementById('userName').value;
         const score = document.getElementById('final-score').innerText;
-        const text = `🎯 JEE Master Hub Test Result\n👤 Name: ${name}\n📊 ${score}\n\nJoin our weekly test every Sunday!`;
+        const text = `🎯 JEE Master Hub Result\n👤 Name: ${name}\n📊 ${score}\n🌐 Practice here: https://jeemasterhub.in\n\nAb aapki baari! Check your rank now.`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
     }
 </script>
