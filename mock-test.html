@@ -190,11 +190,24 @@ let questions = [];
     }
 
     function shareOnWhatsApp() {
-        const score = document.getElementById('final-score-val').innerText;
-        const name = document.getElementById('stuName').value;
-        const state = document.getElementById('stuState').value;
-        const msg = `*🔥 JEE MAINS MOCK TEST RESULT 🔥*%0A%0A👤 *Name:* ${name}%0A📍 *State:* ${state}%0A📊 *Score:* ${score}/300%0A%0AMaine apna JEE test *jeemasterhub.in* par pura kiya! 🚀`;
-        window.open(`https://wa.me/?text=${msg}`, '_blank');
+    const score = document.getElementById('final-score-val').innerText;
+    const name = document.getElementById('stuName').value;
+    const state = document.getElementById('stuState').value;
+    
+    // Website link (ise apni website ke URL se badal dein)
+    const testLink = "https://jeemasterhub.in/mock-test"; 
+
+    const msg = `*🔥 JEE MAINS CHALLENGE 2026 🔥*%0A%0A` +
+                `👋 Namaste! Maine abhi NTA pattern par Mock Test diya hai.%0A%0A` +
+                `👤 *Candidate:* ${name}%0A` +
+                `📍 *State:* ${state}%0A` +
+                `📊 *My Score:* ${score}/300%0A%0A` +
+                `Kya aap mujhse zyada score kar sakte hain? 😎%0A` +
+                `Apni taiyari check karne ke liye niche di gayi link par click karein aur free test dein! 👇%0A%0A` +
+                `🚀 *Test Link:* ${testLink}%0A%0A` +
+                `#JEE2026 #IITJEE #MockTest #StudyHard`;
+
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
     }
 </script>
 </body>
