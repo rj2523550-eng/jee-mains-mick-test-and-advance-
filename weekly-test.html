@@ -4,290 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JEE Master Hub - Weekly Test</title>
+    <script src="equations.js"></script>
     <style>
-        :root { --primary: #1a237e; --accent: #3498db; --success: #27ae60; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: #333; }
-        .hidden { display: none !important; }
+        :root { --primary: #2c3e50; --accent: #3498db; --success: #27ae60; --danger: #e74c3c; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; }
+        .container { max-width: 800px; margin: auto; padding: 15px; }
         
-        /* Login Card */
-        #login-screen { position: fixed; inset: 0; background: #fff; z-index: 100; display: flex; justify-content: center; align-items: center; }
-        .login-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 360px; text-align: center; border: 1px solid #eee; }
-        .login-card h2 { color: var(--primary); margin-bottom: 5px; }
-        .login-card input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
+        /* Login & Header */
+        .header-box { text-align: center; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .sunday-notice { color: var(--danger); font-weight: bold; }
+        .login-form input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
         
-        /* Header */
-        .header { background: var(--primary); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .question-box { background: white; max-width: 850px; margin: 40px auto; padding: 35px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        /* Test UI */
+        #test-section { display: none; }
+        .timer-bar { position: sticky; top: 0; background: var(--primary); color: white; padding: 10px; display: flex; justify-content: space-between; z-index: 100; }
+        .question-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; background: #fff; text-align: left; cursor: pointer; border-radius: 5px; }
+        .option-btn.selected { background: var(--accent); color: white; border-color: var(--accent); }
         
-        /* Options */
-        .opt-btn { display: block; width: 100%; padding: 16px; margin: 12px 0; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; text-align: left; background: white; font-size: 16px; transition: 0.2s; }
-        .opt-btn:hover { background: #f8f9fa; border-color: var(--accent); }
-        .selected-opt { border: 2px solid var(--accent); background: #eef7ff; font-weight: bold; color: var(--primary); }
+        /* Controls */
+        .controls { display: flex; justify-content: space-between; margin-top: 20px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-submit { background: var(--success); color: white; width: 100%; margin-top: 20px; }
         
-        .nav-btn { padding: 14px 35px; background: var(--success); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; float: right; font-weight: bold; }
+        /* Results */
+        #result-section { display: none; background: white; padding: 20px; border-radius: 10px; }
+        .history-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .solution-box { background: #f9f9f9; padding: 10px; border-left: 4px solid var(--accent); margin-top: 10px; font-size: 0.9em; }
         
-        /* Result & Analysis Styling */
-        .review-item { padding: 25px; margin-bottom: 30px; background: white; border-radius: 12px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-left: 8px solid #ccc; }
-        .status-correct { border-left-color: var(--success); }
-        .status-wrong { border-left-color: #e74c3c; }
-
-        /* Professional Solution Box */
-        .solution-container {
-            background: #fff9f0; /* Soft warm background */
-            border: 1px solid #ffecb3;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 15px;
-            position: relative;
-        }
-        .solution-label {
-            display: inline-block;
-            background: #ff9800;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .solution-text {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #444;
-            font-weight: 500;
-        }
-        .ans-row { display: flex; gap: 20px; margin: 15px 0; font-size: 16px; }
-        .ans-tag { font-weight: bold; }
+        @media (max-width: 600px) { .btn { padding: 8px 15px; } }
     </style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<div id="login-screen">
-    <div class="login-card">
-        <h2>JEE Master Hub</h2>
-        <p style="color: #f39c12; font-size: 0.9em; margin-bottom: 20px;"><b>NOTICE:</b> Best view ke liye Desktop Mode use karein.Every Sunday</p>
-        <input type="text" id="stdName" placeholder="Student Name">
-        <input type="text" id="stdDistrict" placeholder="District">
-        <input type="text" id="stdState" placeholder="State">
-        <button onclick="startTest()" style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">ENTER EXAM HALL</button>
-    </div>
-</div>
-
-<div id="exam-area" class="hidden">
-    <div class="header">
-        <div><span id="display-name" style="font-weight:bold;"></span> | <span id="display-loc"></span></div>
-        <div id="timer" style="font-size: 1.4em; letter-spacing: 1px;">60:00</div>
+<div class="container">
+    <div class="header-box">
+        <h1>Jee Master Hub</h1>
+        <h3>Weekly Test Series</h3>
+        <p class="sunday-notice">Notice: Every Sunday Test will be Live!</p>
     </div>
 
-    <div class="question-box">
-        <div id="category-tag" style="color: var(--accent); font-weight: bold; text-transform: uppercase; font-size: 0.9em; margin-bottom: 10px;"></div>
-        <h3 id="q-text" style="line-height: 1.5;">Loading...</h3>
-        <div id="options-area"></div>
-        <div style="margin-top:25px; border-top: 1px solid #eee; padding-top: 20px;">
-            <button class="nav-btn" onclick="nextQuestion()">SAVE & NEXT</button>
+    <div id="login-section" class="header-box">
+        <div class="login-form">
+            <input type="text" id="userName" placeholder="Full Name" required>
+            <input type="text" id="userDistrict" placeholder="District" required>
+            <input type="text" id="userState" placeholder="State" required>
+            <button class="btn btn-submit" onclick="startTest()">Start Mock Test</button>
         </div>
     </div>
-</div>
 
-<div id="result-screen" class="hidden" style="text-align:center; padding:50px 10px;">
-    <div style="background:white; max-width:600px; margin:auto; padding:30px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
-        <h1 id="score-text" style="font-size:3em; color:var(--primary); margin:0;"></h1>
-        <p style="font-size: 1.2em; color: #555;">"Agla rank aapka hai! Mehnat jari rakhein."</p>
-        <button onclick="shareResult()" style="padding:15px 30px; background:#25D366; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold; font-size:16px;">Share Result on WhatsApp</button>
-  <div style="width:100%; height:250px; margin-top:20px; background:white; padding:10px; border-radius:10px;">
-    <canvas id="rankChart"></canvas>
-  </div>
+    <div id="test-section">
+        <div class="timer-bar">
+            <span id="subject-label">Physics</span>
+            <span id="timer">60:00</span>
+        </div>
+        <div id="question-container">
+            </div>
+        <div class="controls">
+            <button class="btn" style="background:#95a5a6" onclick="prevQuestion()">Previous</button>
+            <button class="btn" style="background:var(--accent); color:white" onclick="nextQuestion()">Next</button>
+        </div>
+        <button class="btn btn-submit" onclick="finishTest()">Submit Test</button>
     </div>
 
-    <h2 style="margin-top:50px; color:var(--primary);">Detailed Answer Key & Solutions</h2>
-    <div id="review-container" style="max-width:850px; margin:30px auto;"></div>
-<button onclick="location.reload()" style="background: #555; color: white;">Try Again</button>
+    <div id="result-section">
+        <h2>Test Results</h2>
+        <div id="score-summary"></div>
+        <button class="btn" style="background:#25D366; color:white; width:100%; margin:10px 0;" onclick="shareResult()">Share on WhatsApp</button>
+        
+        <h3>Detailed Solutions</h3>
+        <div id="solutions-container"></div>
+        
+        <hr>
+        <h3>Last 10 Tests History</h3>
+        <div id="history-container"></div>
+    </div>
 </div>
 
-   <script> src="equation.js"></script>
-
-    <script>
+<script>
     let currentQ = 0;
-    let score = 0;
-    let timeLeft = 1800; 
-    let userChoices = []; 
-    let allQuestions = [];
-    let selectedIdx = null;
+    let userAnswers = new Array(30).fill(null);
+    let timeLeft = 3600; // 60 mins
+    let timerInterval;
 
     function startTest() {
-        const name = document.getElementById('stdName').value;
+        const name = document.getElementById('userName').value;
         if(!name) return alert("Please enter your name");
         
-        if (typeof examQuestions === 'undefined') {
-            return alert("Error: equation.js file link nahi ho payi!");
-        }
-
-        allQuestions = [...examQuestions.physics, ...examQuestions.chemistry, ...examQuestions.maths];
-
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('exam-area').classList.remove('hidden');
-        document.getElementById('display-name').innerText = name;
-        document.getElementById('display-loc').innerText = document.getElementById('stdDistrict').value;
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('test-section').style.display = 'block';
         
-        startTimer();
         loadQuestion();
+        startTimer();
     }
 
     function startTimer() {
-        const timerElement = document.getElementById('timer');
-        const interval = setInterval(() => {
+        timerInterval = setInterval(() => {
+            timeLeft--;
             let mins = Math.floor(timeLeft / 60);
             let secs = timeLeft % 60;
-            timerElement.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            if(timeLeft <= 0) { clearInterval(interval); finishExam(); }
-            timeLeft--;
+            document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if(timeLeft <= 0) finishTest();
         }, 1000);
     }
 
     function loadQuestion() {
-        if(currentQ >= allQuestions.length) { finishExam(); return; }
+        const qData = questions[currentQ];
+        const container = document.getElementById('question-container');
         
-        selectedIdx = null;
-        const q = allQuestions[currentQ];
-        document.getElementById('category-tag').innerText = currentQ < 10 ? "Physics" : currentQ < 20 ? "Chemistry" : "Mathematics";
-        document.getElementById('q-text').innerText = `Q${currentQ+1}. ${q.q}`;
+        document.getElementById('subject-label').innerText = qData.subject + ` (${currentQ + 1}/30)`;
         
-        const optArea = document.getElementById('options-area');
-        optArea.innerHTML = '';
-        
-        q.options.forEach((opt, index) => {
-            optArea.innerHTML += `<button class="opt-btn" onclick="selectOption(${index})">${opt}</button>`;
-        });
+        container.innerHTML = `
+            <div class="question-card">
+                <p><strong>Q${currentQ + 1}:</strong> ${qData.q}</p>
+                ${qData.options.map((opt, i) => `
+                    <button class="option-btn ${userAnswers[currentQ] === i ? 'selected' : ''}" 
+                            onclick="selectOption(${i})">
+                        ${opt}
+                    </button>
+                `).join('')}
+            </div>
+        `;
     }
 
-    function selectOption(idx) {
-        selectedIdx = idx;
-        const btns = document.querySelectorAll('.opt-btn');
-        btns.forEach(b => b.classList.remove('selected-opt'));
-        btns[idx].classList.add('selected-opt');
-    }
-
-    function nextQuestion() {
-        if(selectedIdx !== null) {
-            if(selectedIdx === allQuestions[currentQ].correct) score += 4;
-            else score -= 1;
-        }
-        userChoices.push(selectedIdx);
-        currentQ++;
+    function selectOption(index) {
+        userAnswers[currentQ] = index;
         loadQuestion();
     }
 
-    function finishExam() {
-        document.getElementById('exam-area').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
-        document.getElementById('score-text').innerText = `${score} / 120`;
-        
-        saveToLocal();
-        showReview();
-       updateChart(); 
-        window.scrollTo(0,0);
+    function nextQuestion() {
+        if(currentQ < questions.length - 1) { currentQ++; loadQuestion(); }
     }
 
-    function showReview() {
-        const container = document.getElementById('review-container');
-        container.innerHTML = "";
+    function prevQuestion() {
+        if(currentQ > 0) { currentQ--; loadQuestion(); }
+    }
+
+    function finishTest() {
+        clearInterval(timerInterval);
+        let score = 0;
+        let correct = 0;
+        let wrong = 0;
+
+        questions.forEach((q, i) => {
+            if(userAnswers[i] === q.correct) {
+                score += 4;
+                correct++;
+            } else if(userAnswers[i] !== null) {
+                score -= 1;
+                wrong++;
+            }
+        });
+
+        saveToHistory(score);
+        showResults(score, correct, wrong);
+    }
+
+    function saveToHistory(score) {
+        let history = JSON.parse(localStorage.getItem('jee_history') || '[]');
+        history.unshift({ date: new Date().toLocaleDateString(), score: score });
+        history = history.slice(0, 10);
+        localStorage.setItem('jee_history', JSON.stringify(history));
+    }
+
+    function showResults(score, correct, wrong) {
+        document.getElementById('test-section').style.display = 'none';
+        const resSec = document.getElementById('result-section');
+        resSec.style.display = 'block';
         
-        allQuestions.forEach((q, i) => {
-            const isCorrect = userChoices[i] === q.correct;
-            // Cleaning up math symbols for display
-            let cleanSolution = q.solution.replace(/=>/g, " ➔ ").replace(/\*/g, " × ");
+        document.getElementById('score-summary').innerHTML = `
+            <p>Total Score: <strong>${score}/120</strong></p>
+            <p>Correct: ${correct} | Wrong: ${wrong} | Skipped: ${30 - (correct + wrong)}</p>
+        `;
 
-            container.innerHTML += `
-                <div class="review-item ${isCorrect ? 'status-correct' : 'status-wrong'}">
-                    <div style="font-size: 1.15em; margin-bottom: 15px; font-weight:600;">
-                        ${isCorrect ? '✅' : '❌'} Q${i+1}: ${q.q}
-                    </div>
-                    
-                    <div class="ans-row">
-                        <span>Sahi Answer: <b style="color:var(--success)">${q.options[q.correct]}</b></span>
-                        <span>Aapka Chayan: <b style="color:${isCorrect ? 'var(--success)' : '#e74c3c'}">${userChoices[i] !== null ? q.options[userChoices[i]] : 'Skipped'}</b></span>
-                    </div>
-
-                    <div class="solution-container">
-                        <span class="solution-label">Step-by-Step Solution</span>
-                        <div class="solution-text">${cleanSolution}</div>
-                    </div>
+        // Solutions
+        let solHTML = '';
+        questions.forEach((q, i) => {
+            solHTML += `
+                <div class="question-card" style="border-left: 5px solid ${userAnswers[i] === q.correct ? '#27ae60' : '#e74c3c'}">
+                    <p><strong>Q${i+1}:</strong> ${q.q}</p>
+                    <p>Your Answer: ${userAnswers[i] !== null ? q.options[userAnswers[i]] : 'Skipped'}</p>
+                    <p style="color:green">Correct Answer: ${q.options[q.correct]}</p>
+                    <div class="solution-box"><strong>Solution:</strong> ${q.solution}</div>
                 </div>`;
         });
+        document.getElementById('solutions-container').innerHTML = solHTML;
+
+        // History
+        const history = JSON.parse(localStorage.getItem('jee_history'));
+        document.getElementById('history-container').innerHTML = history.map(h => `
+            <div class="history-item">${h.date} - Score: <strong>${h.score}</strong></div>
+        `).join('');
     }
 
-    function saveToLocal() {
-    const MAX_LIMIT = 30; // Aapki requirement: 30 tests
-    const today = new Date().toLocaleDateString('en-GB'); 
-
-    // 1. Prediction data load karna
-    let predictionData = JSON.parse(localStorage.getItem('rankPrediction')) || [];
-
-    // 2. Naya test result add karna
-    predictionData.push({ 
-        date: today, 
-        score: score // Ye variable aapke code mein upar define hai
-    });
-
-    // 3. 31st test aane par sabse purana (index 0) hatana
-    if (predictionData.length > MAX_LIMIT) {
-        predictionData.shift(); 
-    }
-
-    // 4. Local storage mein save karna
-    localStorage.setItem('rankPrediction', JSON.stringify(predictionData));
-
-    // Graph show karne ke liye (Agar Chart.js use kar rahe hain)
-    if(typeof updateChart === "function") updateChart();
-    }
     function shareResult() {
-        const text = `Maine JEE Master Hub Mock Test mein ${score}/120 score kiya! 🎯\nCheck your rank here: https://jeemasterhub.in`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        const text = `I scored ${document.getElementById('score-summary').innerText} on Jee Master Hub Weekly Test!`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
     }
-
-function updateChart() {
-    const ctx = document.getElementById('rankChart');
-    if (!ctx) return; // Agar canvas nahi mila toh error na aaye
-
-    const data = JSON.parse(localStorage.getItem('rankPrediction')) || [];
-    
-    // Agar chart pehle se bana hai toh use destroy karein taaki naya data dikhe
-    if (window.myChartInstance) {
-        window.myChartInstance.destroy();
-    }
-
-    window.myChartInstance = new Chart(ctx.getContext('2d'), {
-        type: 'line',
-        data: {
-            labels: data.map(i => i.date),
-            datasets: [{
-                label: 'Score Trend',
-                data: data.map(i => i.score),
-                borderColor: '#2ecc71', // Share market green
-                backgroundColor: 'rgba(46, 204, 113, 0.1)',
-                fill: true,
-                tension: 0.4, // Smooth curve (market look)
-                borderWidth: 3,
-                pointRadius: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { 
-                    beginAtZero: true,
-                    grid: { color: 'rgba(0,0,0,0.05)' }
-                },
-                x: { 
-                    grid: { display: false }
-                }
-            }
-        }
-    });
-}  
 </script>
+
 </body>
 </html>
