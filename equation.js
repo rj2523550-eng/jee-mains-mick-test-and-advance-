@@ -1,7 +1,6 @@
-const questions = [
-  { subject: 'Physics', q: 'Question text?', options: ['A', 'B', 'C', 'D'], correct: 0, solution: 'Detail...' },
-  // Aise hi 30 questions (10 per subject)
-];
+const questions = 
+physics:[
+        // Section A: MCQs
         {
             q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy for any displacement x is proportional to:",
             options: ["x", "e^x", "x^2", "log_e x"],
