@@ -1,187 +1,265 @@
-<!DOCTYPE html>
-<html lang="hi">
+ !DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Hub - Full Mock Test</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <title>JEE Master Hub - Mock Test</title>
+    
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <style>
-        :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; --bg-light: #f4f7f9; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg-light); color: #333; }
-        #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
-        .announcement { color: var(--nta-red); font-weight: bold; background: #fff1f1; padding: 10px; border-radius: 5px; margin-bottom: 20px; border: 1px dashed var(--nta-red); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        #test-interface { display: none; grid-template-columns: 1fr 300px; height: 100vh; }
-        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid var(--nta-blue); padding: 10px 25px; display: flex; justify-content: space-between; align-items: center; }
-        .subject-tabs { grid-column: 1 / 3; background: #e9ecef; display: flex; }
-        .tab-btn { padding: 12px 25px; border: none; cursor: pointer; background: none; font-weight: bold; }
-        .tab-btn.active { background: white; color: var(--nta-blue); border-top: 3px solid var(--nta-blue); }
-        .question-container { padding: 30px; overflow-y: auto; background: white; }
-        .options-item { display: block; padding: 15px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 12px; cursor: pointer; }
-        .options-item:hover { background: #f0f7ff; }
-        .sidebar { background: #fff; border-left: 1px solid #ddd; padding: 20px; display: flex; flex-direction: column; }
-        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px 0; overflow-y: auto; }
-        .q-num { width: 35px; height: 35px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; font-size: 12px; }
-        .answered { background: var(--nta-green) !important; color: white; border: none; }
-        .current { border: 2px solid var(--nta-blue); font-weight: bold; }
-        #result-screen { display: none; padding: 40px 20px; background: white; min-height: 100vh; max-width: 900px; margin: auto; }
-        .solution-card { background: #f9f9f9; border-left: 5px solid var(--nta-blue); padding: 15px; margin-bottom: 15px; }
-        @media (max-width: 768px) { #test-interface { grid-template-columns: 1fr; } .sidebar { display: none; } }
+        :root { --primary: #2c3e50; --accent: #3498db; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; padding: 15px; }
+        
+        .header-box { text-align: center; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; border-top: 5px solid var(--accent); }
+        .sunday-notice { color: var(--danger); font-weight: bold; font-size: 0.9em; margin-top: 10px; }
+        .login-form input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        
+        #test-section, #result-section { display: none; }
+        .timer-bar { position: sticky; top: 0; background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .question-card { background: white; padding: 25px; border-radius: 12px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .options-grid { display: grid; gap: 10px; margin-top: 20px; }
+        .option-btn { padding: 15px; border: 1px solid #dfe6e9; background: #fff; text-align: left; cursor: pointer; border-radius: 8px; font-size: 16px; transition: 0.2s; }
+        .option-btn.selected { background: var(--accent); color: white; border-color: var(--accent); font-weight: bold; }
+        
+        .controls { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; flex: 1; text-align: center; text-decoration: none; }
+        .btn-next { background: var(--accent); color: white; }
+        .btn-prev { background: #95a5a6; color: white; }
+        .btn-submit { background: var(--success); color: white; width: 100%; margin-top: 20px; font-size: 18px; padding: 15px; border-radius: 10px; }
+
+        .sol-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 6px solid #ccc; text-align: left; }
+        .sol-correct { border-left-color: var(--success); }
+        .sol-wrong { border-left-color: var(--danger); }
+        .solution-text { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; border-top: 1px solid #eee; font-style: italic; color: #555; }
+        
+        .history-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 8px; overflow: hidden; }
+        .history-table th, .history-table td { padding: 12px; border: 1px solid #eee; text-align: center; font-size: 14px; }
+        .history-table th { background: #f8f9fa; }
     </style>
 </head>
 <body>
 
-    <div id="login-screen">
-        <div class="login-box">
-            <h2 style="color: var(--nta-blue);">JEE Master Hub</h2>
-            <p class="announcement">🗓️ Every Sunday: Weekly Test Series</p>
-            <input type="text" id="stuName" placeholder="Full Name" required>
-            <input type="text" id="stuDist" placeholder="District" required>
-            <input type="text" id="stuState" placeholder="State" required>
-            <button onclick="startTest()" style="width:100%; padding:15px; background: var(--nta-blue); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Start Test</button>
-            <div id="history-list" style="margin-top:20px; text-align: left; font-size: 14px;"></div>
-        </div>
+<div class="container">
+    <div class="header-box">
+        <h1 style="margin:0;">Jee Master Hub</h1>
+        <p style="margin:5px 0;">Weekly Test Series</p>
+        <div class="sunday-notice">📢 Every Sunday Test will be Live!</div>
     </div>
 
-    <div id="test-interface">
-        <div class="header">
-            <div id="display-user">Candidate: --</div>
-            <div id="timer" style="font-size: 1.2rem; font-weight: bold; color: var(--nta-red);">60:00</div>
-        </div>
-        <div class="subject-tabs">
-            <button class="tab-btn active" id="btn-physics" onclick="switchSubject('physics')">Physics</button>
-            <button class="tab-btn" id="btn-chemistry" onclick="switchSubject('chemistry')">Chemistry</button>
-            <button class="tab-btn" id="btn-maths" onclick="switchSubject('maths')">Mathematics</button>
-        </div>
-        <div class="question-container">
-            <div id="question-area"></div>
-            <div style="margin-top:30px;">
-                <button onclick="clearOption()" style="padding:10px 20px;">Clear</button>
-                <button onclick="nextQuestion()" style="padding:10px 30px; background:var(--nta-blue); color:white; border:none; float:right;">Save & Next</button>
+    <div id="login-section">
+        <div class="header-box">
+            <div class="login-form">
+                <input type="text" id="userName" placeholder="Full Name" required>
+                <input type="text" id="userDistrict" placeholder="District">
+                <input type="text" id="userState" placeholder="State">
+                <button class="btn btn-submit" onclick="startTest()">Start Mock Test</button>
             </div>
         </div>
-        <div class="sidebar">
-            <h3>Palette</h3>
-            <div class="question-grid" id="q-palette"></div>
-            <button onclick="confirmSubmit()" style="margin-top:auto; padding:15px; background:var(--nta-red); color:white; border:none; cursor:pointer;">Submit Test</button>
+        
+        <div class="header-box" id="history-box" style="display:none;">
+            <h3>Your Last 10 Tests</h3>
+            <table class="history-table">
+                <thead><tr><th>Date</th><th>Score</th><th>%</th></tr></thead>
+                <tbody id="history-body"></tbody>
+            </table>
         </div>
     </div>
 
-    <div id="result-screen">
-        <h1 style="text-align:center;">Result: <span id="final-score">0</span>/300</h1>
-        <div style="text-align:center; margin-bottom:20px;">
-            <button onclick="shareResult()" style="background:#25D366; color:white; padding:10px 20px; border:none; border-radius:5px;">Share on WhatsApp</button>
+    <div id="test-section">
+        <div class="timer-bar">
+            <span id="subject-info" style="font-weight:bold;">Loading...</span>
+            <span id="timer">60:00</span>
         </div>
-        <div id="solutions-area"></div>
+        <div id="question-container"></div>
+        <div class="controls">
+            <button class="btn btn-prev" onclick="changeQuestion(-1)">Previous</button>
+            <button class="btn btn-next" onclick="changeQuestion(1)">Next</button>
+        </div>
+        <button class="btn btn-submit" onclick="confirmSubmission()">Submit Test</button>
     </div>
 
-    <script>
-        const examData = {
-            physics: [
-                { q: "A particle moves in a straight line with retardation proportional to its displacement $x$. The loss of kinetic energy for any displacement $x$ is proportional to:", options: ["$x$", "$e^x$", "$x^2$", "$\\log_e x$"], correct: 2, solution: "Loss of KE = Work done = $\\int F dx$. Since $a \\propto x$, $F \\propto x$. So, $\\int x dx = x^2/2$. Thus, Loss of KE $\\propto x^2$." },
-                { q: "A block of mass $m$ is pushed against a vertical wall by a horizontal force $F$. If the coefficient of friction is $\\mu$, the minimum force $F$ required to hold the block is:", options: ["$mg/\\mu$", "$\\mu mg$", "$mg$", "$mg/(1+\\mu)$"], correct: 0, solution: "Friction $f = \\mu F$. To hold the block, $f \\ge mg \\Rightarrow \\mu F \\ge mg \\Rightarrow F \\ge mg/\\mu$." },
-                { q: "A variable force $F = 3x^2$ acts on a particle of mass 1 kg initially at rest. The work done by the force during the first 2 seconds is:", options: ["16 J", "32 J", "48 J", "24 J"], correct: 0, solution: "$a = F/m = 3x^2$. Using $v dv/dx$, we find $v = \\sqrt{2x^3}$. At $t=2s$, $W = \\Delta KE = 16 J$." },
-                { q: "A thin uniform rod of length $L$ and mass $M$ is swinging freely. Its maximum angular speed is $\\omega$. Its center of mass rises to a maximum height of:", options: ["$L^2\\omega^2/3g$", "$L^2\\omega^2/6g$", "$L^2\\omega^2/2g$", "$L^2\\omega^2/4g$"], correct: 1, solution: "By energy conservation: $\\frac{1}{2} I \\omega^2 = Mgh$. For rod $I = ML^2/3$. So, $h = L^2\\omega^2/6g$." },
-                { q: "If the distance between Earth and Sun becomes 1/4th, the duration of the year will become:", options: ["1/4 times", "1/2 times", "1/8 times", "8 times"], correct: 2, solution: "Kepler's Law: $T^2 \\propto R^3$. If $R \\to R/4$, then $T \\to (1/4)^{3/2} = 1/8$." },
-                { q: "In a capillary tube of radius $r$, water rises to height $h$ (mass $M$). If radius is doubled, the mass of water that will rise is:", options: ["$M$", "$2M$", "$M/2$", "$4M$"], correct: 1, solution: "Mass $M \\propto r$. Doubling $r$ doubles $M$." },
-                { q: "An ideal gas ($\\gamma = 1.5$) is expanded adiabatically such that its volume becomes 8 times. $P_{f}/P_{i}$ is:", options: ["1/32", "1/16", "1/64", "1/8"], correct: 0, solution: "$P_2/P_1 = (V_1/V_2)^{1.5} = (1/8)^{1.5} = 1/32$." },
-                { q: "Two vessels A and B contain same gas. $V_A=2V_B, P_A=0.5P_B, T_A=2T_B$. Ratio of molecules $N_A:N_B$ is:", options: ["1:2", "2:1", "1:4", "4:1"], correct: 0, solution: "$N = PV/RT$. Ratio = $(0.5 \\times 2)/2 = 0.5 = 1:2$." },
-                { q: "Simple pendulum $T = 2\\pi\\sqrt{L/g}$. $L=20$cm (1mm accuracy), $t=90$s for 100 osc (1s res). % error in $g$:", options: ["3%", "2.7%", "5%", "3.5%"], correct: 1, solution: "Error $\\approx 2.7\\%$." },
-                { q: "String fundamental frequency is 10 Hz. Tension increased by 21%, new frequency is:", options: ["11 Hz", "12.1 Hz", "14.4 Hz", "10.5 Hz"], correct: 0, solution: "$f \\propto \\sqrt{T} \\Rightarrow 10 \\times \\sqrt{1.21} = 11$." },
-                { q: "Three charges Q, q, Q at vertices of equilateral triangle. If net force on q is zero, Q is:", options: ["$q$", "$-q$", "$0$", "Not possible"], correct: 3, solution: "Vector sum cannot be zero for non-zero charges." },
-                { q: "Capacitance C with dielectric slab $d$ and plate separation $D$ is:", options: ["$\\epsilon_0 A / (D-d(1-1/K))$", "$\\epsilon_0 A / (D+d(1-1/K))$", "Standard formula", "None"], correct: 0, solution: "Standard derivation." },
-                { q: "Power delivered to variable resistance R from cell (E, r) is maximum when:", options: ["$R = r$", "$R = r/2$", "$R = 2r$", "$R \\to 0$"], correct: 0, solution: "Max Power Transfer Theorem." },
-                { q: "Charged particle moves with constant velocity in E and B fields. Then:", options: ["$E \\perp B$", "$E \\parallel B$", "$v \\parallel E$", "None"], correct: 0, solution: "Forces must cancel out." },
-                { q: "Circular loop radius $r$ rotating with $\\omega$ in B perpendicular to axis. Max induced emf is:", options: ["$B\\pi r^2 \\omega$", "$2B\\pi r^2 \\omega$", "Half", "Zero"], correct: 0, solution: "$NBA\\omega$." },
-                { q: "In LCR at resonance, phase difference between current and voltage is:", options: ["$\\pi/2$", "$\\pi/4$", "$0$", "$\\pi$"], correct: 2, solution: "Purely resistive behavior." },
-                { q: "Glass slab ($\\mu=1.5$) of 6cm thickness. Shift in letters is:", options: ["2 cm", "4 cm", "1 cm", "3 cm"], correct: 0, solution: "$6(1-1/1.5)=2$." },
-                { q: "In YDSE, intensity where path difference is $\\lambda/6$ is:", options: ["$I_0/4$", "$I_0/2$", "$3I_0/4$", "Full"], correct: 2, solution: "$I = I_0 \\cos^2(\\pi/6) = 3I_0/4$." },
-                { q: "Stopping potential $3V_0$ for $\\lambda$ and $V_0$ for $2\\lambda$. Threshold $\\lambda_0$ is:", options: ["$3\\lambda$", "$4\\lambda$", "$2\\lambda$", "None"], correct: 1, solution: "Einstein's Equation." },
-                { q: "CE amplifier, $R_c=2k\\Omega, V_{out}=2V, \\beta=100, R_b=1k\\Omega$. $V_{in}$ is:", options: ["10 mV", "20 mV", "30 mV", "1 mV"], correct: 0, solution: "$V_{in} = I_b R_b = 10mV$." },
-                { q: "Mass 2kg, $x = t^3/3$. Work done in first 2s (J):", options: ["8", "16", "32", "64"], correct: 1, solution: "16J" },
-                { q: "Satellites $T_1=1h, T_2=8h$. Ratio of radii $R_2/R_1$ is:", options: ["2", "4", "8", "16"], correct: 1, solution: "$(8/1)^{2/3} = 4$." },
-                { q: "Soap bubble $R=3$cm, $V=9V$. If $R=6$cm, new potential:", options: ["4.5V", "9V", "18V", "3V"], correct: 0, solution: "$V \\propto 1/R$." },
-                { q: "12 fringes for 600nm. Fringes for 400nm in same space:", options: ["18", "24", "8", "36"], correct: 0, solution: "18" },
-                { q: "Half-life 20 mins. Decay from 33% to 67% takes (approx):", options: ["10 min", "20 min", "40 min", "5 min"], correct: 1, solution: "20 min" }
-            ],
-            chemistry: [
-                { q: "Ratio of shortest Balmer $\\lambda$ ($He^+$) to shortest Lyman $\\lambda$ (H):", options: ["1:1", "4:1", "1:4", "2:1"], correct: 0, solution: "1:1" },
-                { q: "Max lone pairs on central atom in:", options: ["XeF4", "IF5", "ClO3-", "XeF2"], correct: 3, solution: "XeF2 has 3." },
-                { q: "Enthalpy of neutralization -57.1 kJ. HCN + NaOH is -12.1. Dissociation of HCN:", options: ["45.0", "-45.0", "32", "None"], correct: 0, solution: "45.0 kJ" },
-                { q: "Solubility of AgCl in 0.1M NaCl ($K_{sp}=1.8e-10$):", options: ["1.8e-9", "1.3e-5", "1.8e-11", "None"], correct: 0, solution: "1.8e-9" },
-                { q: "Total P vs $x_1$ for ideal solution is:", options: ["Linear", "Curved", "Log", "None"], correct: 0, solution: "Linear" },
-                { q: "Gibbs energy for $E^\\circ=0.24V, n=2$:", options: ["-46.3 kJ", "46.3 kJ", "-23 kJ", "None"], correct: 0, solution: "-46.3 kJ" },
-                { q: "First order: 2M to 0.15M in 200 min. $k$ is:", options: ["0.0129", "0.05", "0.23", "1.1"], correct: 0, solution: "0.0129" },
-                { q: "Incorrect for Borax:", options: ["All B are sp3", "sp2 and sp3 mixed", "Five bonds", "Alkaline"], correct: 0, solution: "Mixed hybridization." },
-                { q: "Spectrochemical series correct order:", options: ["Cl- < F- < CN-", "CN- < F-", "F- < Cl-", "None"], correct: 0, solution: "Cl < F < CN" },
-                { q: "Copper extraction step:", options: ["Self reduction", "Slag formation", "Oxidation", "All"], correct: 3, solution: "All steps." },
-                { q: "Stability: Benzyl (I), Allyl (II), Propyl (III):", options: ["I > II > III", "III > II > I", "II > I > III", "None"], correct: 0, solution: "I > II > III" },
-                { q: "Chiral centers in 2,3,4-trichloropentane:", options: ["2", "3", "1", "0"], correct: 0, solution: "2" },
-                { q: "Ozonolysis gives glyoxal from:", options: ["Benzene", "Ethene", "Butene", "None"], correct: 0, solution: "Benzene" },
-                { q: "tert-butyl bromide + NaOEt gives:", options: ["Isobutylene", "Ether", "Butene", "None"], correct: 0, solution: "Elimination" },
-                { q: "Phenol acidity is due to:", options: ["Resonance", "Inductive", "Weight", "None"], correct: 0, solution: "Resonance" },
-                { q: "Cannizzaro reaction NOT given by:", options: ["CH3CHO", "HCHO", "PhCHO", "None"], correct: 0, solution: "Acetaldehyde" },
-                { q: "Acid strength order:", options: ["ClCH2COOH > HCOOH > AcOH", "AcOH > HCOOH", "None", "None"], correct: 0, solution: "Chloro > Formic > Acetic" },
-                { q: "BDC reduced by H3PO2 to:", options: ["Benzene", "Phenol", "Aniline", "None"], correct: 0, solution: "Benzene" },
-                { q: "Protein bond:", options: ["Peptide", "Ionic", "H-bond", "None"], correct: 0, solution: "Peptide" },
-                { q: "Greenhouse gas:", options: ["CO2", "N2", "O2", "None"], correct: 0, solution: "CO2" },
-                { q: "Radial nodes in 4p:", options: ["2", "3", "1", "0"], correct: 0, solution: "2" },
-                { q: "0.01M acid, 10% ionised. $K_a$:", options: ["1e-4", "1e-2", "None", "None"], correct: 0, solution: "1e-4" },
-                { q: "Isomers of 2,3-dichlorobutane:", options: ["3", "2", "4", "None"], correct: 0, solution: "3 (inc. meso)" },
-                { q: "Oxygens in Pyrophosphoric acid:", options: ["7", "6", "5", "None"], correct: 0, solution: "7" },
-                { q: "H+ coefficient in balanced MnO4- + Oxalate:", options: ["16", "8", "10", "None"], correct: 0, solution: "16" }
-            ],
-            maths: [
-                { q: "Domain of $\\sqrt{\\log_{0.4} (\\frac{x-1}{x+5})}$:", options: ["(-\\infty, -5) \\cup [1, \\infty)", "(1, \\infty)", "None", "None"], correct: 0, solution: "Check arg > 0 and log >= 0." },
-                { q: "Value of $(1+\\omega-\\omega^2)^7$:", options: ["-128\\omega^2", "128\\omega^2", "None", "None"], correct: 0, solution: "-128w^2" },
-                { q: "Matrix det $5e^{-t}$ means:", options: ["Always invertible", "Never", "None", "None"], correct: 0, solution: "det != 0" },
-                { q: "Solutions of $x^2 - 3|x| + 2 = 0$:", options: ["4", "2", "3", "None"], correct: 0, solution: "+-1, +-2" },
-                { q: "Variance of green balls (15G, 10Y, n=10):", options: ["2.4", "2", "3", "None"], correct: 0, solution: "npq = 2.4" },
-                { q: "HP 10th=21, 21st=10, 210th=? :", options: ["1", "0", "2", "None"], correct: 0, solution: "1" },
-                { q: "Indep. term of $(2x^2 - 1/3x^2)^{10}$:", options: ["-C(10,5)32/243", "C(10,5)", "None", "None"], correct: 0, solution: "Middle term" },
-                { q: "Limit value at x=0:", options: ["1", "0", "2", "None"], correct: 0, solution: "1" },
-                { q: "f(0) for continuity if k is:", options: ["-1", "1", "0", "None"], correct: 0, solution: "-1" },
-                { q: "dy/dx for $x^y = e^{x-y}$:", options: ["log x / (1+log x)^2", "1/x", "None", "None"], correct: 0, solution: "Standard result" },
-                { q: "Angle of $y^2=x, x^2=y$:", options: ["arctan(3/4)", "pi/2", "None", "None"], correct: 0, solution: "arctan(3/4)" },
-                { q: "x/log x increases in:", options: ["(e, inf)", "(0, e)", "None", "None"], correct: 0, solution: "x > e" },
-                { q: "Integration sinx/sin(x-a):", options: ["Standard A", "B", "C", "None"], correct: 0, solution: "x cosa + sina log|sin(x-a)|" },
-                { q: "King property on 1/(1+tan^3x):", options: ["pi/4", "pi/2", "None", "None"], correct: 0, solution: "pi/4" },
-                { q: "DE solution for phi(y/x):", options: ["phi(y/x)=kx", "None", "None", "None"], correct: 0, solution: "phi=kx" },
-                { q: "STP(a+b, b+c, c+a) if coplanar:", options: ["0", "2", "None", "None"], correct: 0, solution: "0" },
-                { q: "Dist. between parallel planes:", options: ["5/3", "1", "None", "None"], correct: 0, solution: "5/3" },
-                { q: "Area of tangent triangle:", options: ["Formula A", "B", "None", "None"], correct: 0, solution: "Formula A" },
-                { q: "Latus rectum of parabola:", options: ["2/13", "4/13", "None", "None"], correct: 0, solution: "2/13" },
-                { q: "Mean of ax1, ax2...:", options: ["a times mean", "mean", "None", "None"], correct: 0, solution: "a*mean" },
-                { q: "f(f(1)) if f=x^2-1:", options: ["-1", "0", "None", "None"], correct: 0, solution: "-1" },
-                { q: "Prob. of sum 7:", options: ["1/6", "1/12", "None", "None"], correct: 0, solution: "6/36" },
-                { q: "Integral e^x from 0 to 1:", options: ["e-1", "e", "1", "None"], correct: 0, solution: "e-1" },
-                { q: "Slope of normal at (1,1) for y=x^2:", options: ["-1/2", "2", "None", "None"], correct: 0, solution: "-1/2" },
-                { q: "Subsets of set size 5:", options: ["32", "25", "10", "None"], correct: 0, solution: "2^5" }
-            ]
-        };
+    <div id="result-section">
+        <div class="header-box">
+            <h2>Test Result</h2>
+            <div id="final-score" style="font-size:24px; font-weight:bold; color:var(--primary);"></div>
+            <div id="stat-box"></div>
+            <button class="btn" style="background:#25D366; color:white; margin-top:15px; width:100%;" onclick="shareOnWhatsApp()">Share Result with Link</button>
+        </div>
+        <h3>Detailed Solutions</h3>
+        <div id="solutions-list"></div>
+        <button class="btn btn-next" style="width:100%; margin-top:20px;" onclick="location.reload()">Back to Home</button>
+    </div>
+</div>
 
-        let currentSub = 'physics'; let currentIdx = 0; let userAnswers = {}; let timeLeft = 3600; let timerId;
+<script>
+    const questionsData = {
+        physics: [
+            { q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy for any displacement x is proportional to:", options: ["x", "e^x", "x^2", "log_e x"], correct: 2, solution: "Retardation $a = -kx \\Rightarrow v \\frac{dv}{dx} = -kx$. Integrating both sides: $\\int v dv = -\\int kx dx \\Rightarrow \\frac{1}{2}mv^2 \\propto x^2$. Hence, loss of KE is proportional to $x^2$." },
+            { q: "NLM & Friction: A block of mass m is pushed against a vertical wall by a horizontal force F. If the coefficient of friction is $\\mu$, the minimum force F required to hold the block is:", options: ["mg/\\mu", "\\mu mg", "mg", "mg/(1+\\mu)"], correct: 0, solution: "Normal force $N = F$. Friction $f = \\mu N = \\mu F$. For the block to stay, $f = mg \\Rightarrow \\mu F = mg \\Rightarrow F = mg/\\mu$." },
+            { q: "Rotational Motion: A thin uniform rod of length L and mass M is swinging freely about its end. Max angular speed is $\\omega$. Its CM rises to a max height of:", options: ["L^2\\omega^2/3g", "L^2\\omega^2/6g", "L^2\\omega^2/2g", "L^2\\omega^2/4g"], correct: 1, solution: "Conservation of energy: $\\frac{1}{2}I\\omega^2 = Mgh$. For a rod at end, $I = ML^2/3$. Thus, $\\frac{1}{2}(\\frac{ML^2}{3})\\omega^2 = Mgh \\Rightarrow h = \\frac{L^2\\omega^2}{6g}$." },
+            { q: "Gravitation: If the distance between Earth and Sun becomes 1/4th of the present distance, the duration of the year will become:", options: ["1/4 times", "1/2 times", "1/8 times", "8 times"], correct: 2, solution: "Kepler's 3rd Law: $T^2 \\propto R^3$. If $R \\to R/4$, then $T \\to (1/4)^{3/2} = 1/8$ times." },
+            { q: "Current Electricity: In a circuit, emf is E and internal resistance is r. Connected to variable resistance R, power to R is max when:", options: ["R = r", "R = r/2", "R = 2r", "R \\to 0"], correct: 0, solution: "Maximum Power Transfer Theorem states that power is maximum when external resistance equals internal resistance ($R = r$)." },
+            { q: "A body of mass 2 kg moves such that $x = t^3/3$. Work done by force in first 2 seconds is:", options: ["16" , "17" , "15" , "20"], correct: 0, solution: "$v = dx/dt = t^2$. At $t=0, v=0$. At $t=2, v=4$. $W = \\Delta KE = \\frac{1}{2}(2)(4^2 - 0) = 16J$." },
+            { q: "Half-life is 20 mins. Time interval between 33% decay and 67% decay is:", options: ["67" , "17" , "10" , "20"], correct: 3, solution: "33% decay means 67% left. 67% decay means 33% left. Since 33 is approx half of 67, this interval is one half-life = 20 mins." }
+        ],
+        chemistry: [
+            { q: "Atomic Structure: Ratio of shortest wavelength of Balmer series (He+) to shortest Lyman series (H-atom) is:", options: ["1:1", "4:1", "1:4", "2:1"], correct: 0, solution: "$\\lambda \\propto n_1^2/Z^2$. Balmer He+: $2^2/2^2 = 1$. Lyman H: $1^2/1^2 = 1$. Ratio is 1:1." },
+            { q: "Chemical Bonding: Maximum number of lone pairs on central atom is in:", options: ["XeF4", "IF5", "ClO3-", "XeF2"], correct: 3, solution: "XeF2 has 3 lone pairs. XeF4 has 2. IF5 and ClO3- have 1 each." },
+            { q: "Thermodynamics: $\\Delta H_{neut}$ of strong acid/base is -57.1 kJ. If HCN/NaOH is -12.1 kJ, $\\Delta H_{diss}$ of HCN is:", options: ["-45.0", "45.0", "69.2", "32.0"], correct: 1, solution: "$\\Delta H_{neut} = \\Delta H_{strong} + \\Delta H_{diss} \\Rightarrow -12.1 = -57.1 + \\Delta H_{diss} \\Rightarrow \\Delta H_{diss} = 45.0$ kJ/mol." },
+            { q: "Aldehydes: Which of the following does NOT undergo Cannizzaro reaction?", options: ["HCHO", "C6H5CHO", "CCl3CHO", "CH3CHO"], correct: 3, solution: "CH3CHO has alpha-hydrogens, so it undergoes Aldol Condensation instead of Cannizzaro." },
+            { q: "The number of radial nodes in a 4p orbital is:", options: ["1" , "2" , "3" , "4" ], correct: 1, solution: "Radial nodes $= n - l - 1 = 4 - 1 - 1 = 2$." },
+            { q: "Number of oxygen atoms in one molecule of Pyrophosphoric acid ($H_4P_2O_7$) is:", options:["7" , "8" , "10" , "6"], correct: 0, solution: "Formula is $H_4P_2O_7$, which clearly contains 7 oxygen atoms." }
+        ],
+        maths: [
+            { q: "Function: The domain of $f(x) = \\sqrt{\\log_{0.4} (\\frac{x-1}{x+5})}$ is:", options: ["(1, \\infty)", "[1, \\infty)", "(-\\infty, -5) \\cup [1, \\infty)", "(-\\infty, -5) \\cup (1, \\infty)"], correct: 2, solution: "Log base < 1, so $\\frac{x-1}{x+5} \\le 1$. Solving this with $\\frac{x-1}{x+5} > 0$ gives $(-\\infty, -5) \\cup [1, \\infty)$." },
+            { q: "Complex Numbers: Value of $(1+\\omega-\\omega^2)^7$ is:", options: ["128\\omega", "-128\\omega^2", "128\\omega^2", "-128\\omega"], correct: 1, solution: "$1+\\omega = -\\omega^2$. Expression: $(-2\\omega^2)^7 = -128\\omega^{14} = -128\\omega^2$." },
+            { q: "Quadratic: Number of real solutions of $x^2 - 3|x| + 2 = 0$ is:", options: ["2", "1", "4", "3"], correct: 2, solution: "Factors: $(|x|-1)(|x|-2)=0 \\Rightarrow |x|=1, 2$. Solutions: $\\pm 1, \\pm 2$. Total = 4." },
+            { q: "Probability: Variance of green balls (n=10, p=15/25) is:", options: ["2.4", "2.0", "3.0", "1.5"], correct: 0, solution: "$Var = npq = 10 \\times (15/25) \\times (10/25) = 10 \\times 0.6 \\times 0.4 = 2.4$." },
+            { q: "If $\\int_{0}^{k} \\frac{dx}{2+8x^2} = \\pi/16$, then k is:", options: ["0.6" , "1" , "0.05" , "0.5"], correct: 3, solution: "Integral is $\\frac{1}{4}\\tan^{-1}(2x)$. $\\frac{1}{4}\\tan^{-1}(2k) = \\pi/16 \\Rightarrow \\tan^{-1}(2k) = \\pi/4 \\Rightarrow 2k=1 \\Rightarrow k=0.5$." },
+            { q: "Value of $\\cos 20^\\circ \\cos 40^\\circ \\cos 80^\\circ$ is $1/n$. n is:", options: ["60" , "73" , "80" , "8"], correct: 3, solution: "Standard identity: $\\cos A \\cos 2A \\cos 4A = \\frac{\\sin(2^3 A)}{2^3 \\sin A}$. For $A=20^\\circ$, it is $1/8$." }
+        ]
+    };
 
-        function startTest() {
-            if(!document.getElementById('stuName').value) return alert("Enter Name");
-            document.getElementById('display-user').innerText = `Candidate: ${document.getElementById('stuName').value}`;
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('test-interface').style.display = 'grid';
-            startTimer(); switchSubject('physics');
+    let allQuestions = [];
+    let userAnswers = [];
+    let currentIdx = 0;
+    let timeLeft = 3600;
+    let timerInterval;
+
+    // Load History on Page Load
+    window.onload = function() {
+        showHistory();
+    };
+
+    function startTest() {
+        const name = document.getElementById('userName').value.trim();
+        if(!name) return alert("Pehle Apna Naam Enter Karein!");
+        
+        allQuestions = [...questionsData.physics, ...questionsData.chemistry, ...questionsData.maths];
+        userAnswers = new Array(allQuestions.length).fill(null);
+        
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('test-section').style.display = 'block';
+        
+        renderQuestion();
+        startTimer();
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById('timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+            if(timeLeft <= 0) finishTest();
+        }, 1000);
+    }
+
+    function renderQuestion() {
+        const q = allQuestions[currentIdx];
+        document.getElementById('subject-info').innerText = `Question ${currentIdx + 1} of ${allQuestions.length}`;
+        
+        document.getElementById('question-container').innerHTML = `
+            <div class="question-card">
+                <div style="font-size:18px;">${q.q}</div>
+                <div class="options-grid">
+                    ${q.options.map((opt, i) => `
+                        <button class="option-btn ${userAnswers[currentIdx] === i ? 'selected' : ''}" onclick="selectAns(${i})">
+                            ${String.fromCharCode(65+i)}. ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function selectAns(i) { userAnswers[currentIdx] = i; renderQuestion(); }
+    
+    function changeQuestion(dir) {
+        let newIdx = currentIdx + dir;
+        if(newIdx >= 0 && newIdx < allQuestions.length) { currentIdx = newIdx; renderQuestion(); }
+    }
+
+    function confirmSubmission() {
+        if(confirm("Submit Kar Dein?")) finishTest();
+    }
+
+    function finishTest() {
+        clearInterval(timerInterval);
+        let score = 0, correct = 0, wrong = 0;
+
+        allQuestions.forEach((q, i) => {
+            if(userAnswers[i] === q.correct) { score += 4; correct++; }
+            else if(userAnswers[i] !== null) { score -= 1; wrong++; }
+        });
+
+        saveToLocalStorage(score);
+        displayResults(score, correct, wrong);
+    }
+
+    function saveToLocalStorage(score) {
+        let history = JSON.parse(localStorage.getItem('jee_hub_records') || '[]');
+        let maxScore = allQuestions.length * 4;
+        let percent = ((score / maxScore) * 100).toFixed(1);
+        
+        history.unshift({
+            date: new Date().toLocaleDateString(),
+            score: score,
+            total: maxScore,
+            percent: percent
+        });
+        
+        localStorage.setItem('jee_hub_records', JSON.stringify(history.slice(0, 10)));
+    }
+
+    function showHistory() {
+        let history = JSON.parse(localStorage.getItem('jee_hub_records') || '[]');
+        if(history.length > 0) {
+            document.getElementById('history-box').style.display = 'block';
+            document.getElementById('history-body').innerHTML = history.map(h => `
+                <tr><td>${h.date}</td><td>${h.score}/${h.total}</td><td>${h.percent}%</td></tr>
+            `).join('');
         }
+    }
 
-        function switchSubject(sub) {
-            currentSub = sub; currentIdx = 0;
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + sub).classList.add('active');
-            renderPalette(); renderQuestion();
-        }
+    function displayResults(score, correct, wrong) {
+        document.getElementById('test-section').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+        
+        document.getElementById('final-score').innerText = `Your Score: ${score} / ${allQuestions.length * 4}`;
+        document.getElementById('stat-box').innerHTML = `<p>✅ Correct: ${correct} | ❌ Wrong: ${wrong} | ⏩ Skipped: ${allQuestions.length - (correct + wrong)}</p>`;
 
-        function renderPalette() {
-            const palette = document.getElementById('q-palette'); palette.innerHTML = '';
-            examData[currentSub].forEach((_, i) => {
-                const div = document.createElement('div');
-                div.className = `q-num ${userAnswers[currentSub + i] !== undefined ? 'answered' : ''}`;
-                div.innerText = i + 1; div.onclick = () => { currentIdx = i; renderQuestion(); };
-                palette.ap
+        let solHtml = allQuestions.map((q, i) => {
+            const isCorrect = userAnswers[i] === q.correct;
+            const statusClass = userAnswers[i] === null ? '' : (isCorrect ? 'sol-correct' : 'sol-wrong');
+            return `
+                <div class="sol-card ${statusClass}">
+                    <p><strong>Q${i+1}.</strong> ${q.q}</p>
+                    <p>Your Answer: <span style="color:${isCorrect ? 'green' : 'red'}">${userAnswers[i] !== null ? q.options[userAnswers[i]] : 'Not Attempted'}</span></p>
+                    <p style="color:green; font-weight:bold;">Correct Answer: ${q.options[q.correct]}</p>
+                    <div class="solution-text"><strong>Solution:</strong> ${q.solution}</div>
+                </div>`;
+        }).join('');
+        document.getElementById('solutions-list').innerHTML = solHtml;
+        if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function shareOnWhatsApp() {
+        const name = document.getElementById('userName').value;
+        const score = document.getElementById('final-score').innerText;
+        const text = `🎯 JEE Master Hub Result\n👤 Name: ${name}\n📊 ${score}\n🌐 Practice here: https://jeemasterhub.in\n\nAb aapki baari! Check your rank now.`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+    }
+</script>
+
+</body>
+</html>
