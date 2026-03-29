@@ -87,23 +87,27 @@
     let timeLeft = 3 * 60 * 60; 
     let timerInterval;
 
+let questions = []; 
+
     function startTest() {
-        const name = document.getElementById('stuName').value;
-        const state = document.getElementById('stuState').value;
-        if(!name || !state) return alert("Details bharein!");
+    const name = document.getElementById('stuName').value;
+    const state = document.getElementById('stuState').value;
+    if(!name || !state) return alert("Details bharein!");
 
-        // 1. Local storage clean karein purana data hatane ke liye
-        localStorage.removeItem('jee_history');
+    // YE LINE SABSE IMPORTANT HAI: 
+    // Ye aapki questions.js se data nikaal kar 'questions' variable mein daal degi
+    questions = [...examQuestions.physics]; 
 
-        userAnswers = new Array(questions.length).fill(null);
-        document.getElementById('display-info').innerText = `Candidate: ${name} | State: ${state}`;
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('test-interface').style.display = 'grid';
+    localStorage.removeItem('jee_history');
+    userAnswers = new Array(questions.length).fill(null);
+    document.getElementById('display-info').innerText = `Candidate: ${name} | State: ${state}`;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('test-interface').style.display = 'grid';
 
-        initPalette();
-        renderQuestion();
-        startTimer();
-    }
+    initPalette();
+    renderQuestion();
+    startTimer();
+}
 
     function initPalette() {
         const palette = document.getElementById('q-palette');
