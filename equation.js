@@ -129,4 +129,4 @@ const examQuestions = {
     ]
 };
 
-export default examQuestions;
+
