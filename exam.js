@@ -35,13 +35,15 @@ const examQuestions = {
         {
             q: "A body of mass 2 kg moves such that $x = t^3/3$. Work done by force in first 2 seconds is:",
             type: "numerical",
+         option: ["16" , "17" , "15" , "20" ]
             correct: 16,
             solution: "$v = dx/dt = t^2$. At $t=0, v=0$. At $t=2, v=4$. $W = \\Delta KE = \\frac{1}{2}(2)(4^2 - 0) = 16J$."
         },
         {
             q: "Half-life is 20 mins. Time interval between 33% decay and 67% decay is:",
             type: "numerical",
-            correct: 20,
+           options: ["67" , "17" , "10" , "20"]
+                correct: 20,
             solution: "33% decay means 67% left. 67% decay means 33% left. Since 33 is approx half of 67, this interval is one half-life = 20 mins."
         }
     ],
@@ -76,13 +78,15 @@ const examQuestions = {
         {
             q: "The number of radial nodes in a 4p orbital is:",
             type: "numerical",
+           options: ["1" , "2" , "3" , "4" ]
             correct: 2,
             solution: "Radial nodes $= n - l - 1 = 4 - 1 - 1 = 2$."
         },
         {
             q: "Number of oxygen atoms in one molecule of Pyrophosphoric acid (H4P2O7) is:",
             type: "numerical",
-            correct: 7,
+           option:["7" , "8" , "10" , "6"] 
+                correct: 7,
             solution: "Formula is H4P2O7, which clearly contains 7 oxygen atoms."
         }
     ],
@@ -117,13 +121,15 @@ const examQuestions = {
         {
             q: "If $\\int_{0}^{k} \\frac{dx}{2+8x^2} = \\pi/16$, then k is:",
             type: "numerical",
+         options: ["0.6" , "1" , "0.05" , "0.5"]
             correct: 0.5,
             solution: "Integral is $\\frac{1}{4}\\tan^{-1}(2x)$. $\\frac{1}{4}\\tan^{-1}(2k) = \\pi/16 \\Rightarrow \\tan^{-1}(2k) = \\pi/4 \\Rightarrow 2k=1 \\Rightarrow k=0.5$."
         },
         {
             q: "Value of $\\cos 20^\\circ \\cos 40^\\circ \\cos 80^\\circ$ is $1/n$. n is:",
             type: "numerical",
-            correct: 8,
+           options: ["60" , "73" , "80" , "8"]
+                correct: 8,
             solution: "Standard identity: $\\cos A \\cos 2A \\cos 4A = \\frac{\\sin(2^3 A)}{2^3 \\sin A}$. For $A=20^\\circ$, it is $1/8$."
         }
     ]
