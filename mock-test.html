@@ -87,19 +87,26 @@
     let timeLeft = 3 * 60 * 60; 
     let timerInterval;
 
-let questions = []; 
-
-    function startTest() {
+function startTest() {
     const name = document.getElementById('stuName').value;
     const state = document.getElementById('stuState').value;
-    if(!name || !state) return alert("Details bharein!");
+    
+    if(!name || !state) return alert("Please enter Name and State!");
 
-    // YE LINE SABSE IMPORTANT HAI: 
-    // Ye aapki questions.js se data nikaal kar 'questions' variable mein daal degi
+    // 1. Important Fix: Check karein ki file load hui ya nahi
+    if (typeof examQuestions === 'undefined') {
+        alert("Error: questions.js file load nahi hui. Check karein ki dono files ek hi folder mein hain!");
+        return;
+    }
+
+    // 2. Variable set karein (examQuestions.physics aapki file ka structure hai)
     questions = [...examQuestions.physics]; 
 
+    // 3. Purana data clear karein
     localStorage.removeItem('jee_history');
     userAnswers = new Array(questions.length).fill(null);
+    
+    // UI Updates
     document.getElementById('display-info').innerText = `Candidate: ${name} | State: ${state}`;
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('test-interface').style.display = 'grid';
