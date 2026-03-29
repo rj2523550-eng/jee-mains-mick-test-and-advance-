@@ -1,6 +1,6 @@
-const questions = 
-physics:[
-        // Section A: MCQs
+// JEE Master Hub - Question Bank File
+const questions = {
+    physics: [
         {
             q: "Kinematics: A particle moves in a straight line with retardation proportional to its displacement x. The loss of kinetic energy for any displacement x is proportional to:",
             options: ["x", "e^x", "x^2", "log_e x"],
