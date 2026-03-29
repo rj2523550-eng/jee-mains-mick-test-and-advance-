@@ -3,250 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Mains Mock Test - jeemasterhub.in</title>
-    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <title>JEE Mains Mock Test - MasterHub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <style>
         :root { --nta-blue: #2196F3; --nta-green: #2e7d32; --nta-red: #c62828; --bg-light: #f8f9fa; }
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: var(--bg-light); }
         
-        /* Login Section */
+        /* Login Screen */
         #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; background: #e3f2fd; }
-        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 380px; }
-        .login-box h2 { color: #1565c0; text-align: center; margin-bottom: 20px; }
+        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
         
-        /* Main Interface */
+        /* Test Interface */
         #test-interface { display: none; grid-template-columns: 1fr 320px; height: 100vh; }
-        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid #2196F3; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        
-        /* Question Area */
+        .header { grid-column: 1 / 3; background: #fff; border-bottom: 2px solid var(--nta-blue); padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; }
         .question-container { padding: 30px; overflow-y: auto; background: white; border-right: 1px solid #eee; }
-        .question-text { font-size: 1.25rem; margin-bottom: 25px; line-height: 1.6; color: #333; min-height: 100px; }
-        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-        .option-item { padding: 15px; border: 1.5px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; }
-        .option-item:hover { background: #f1f8ff; border-color: var(--nta-blue); }
-        .option-item input { margin-right: 15px; transform: scale(1.2); }
-        
-        /* Navigation Buttons */
-        .action-buttons { display: flex; gap: 15px; padding-top: 20px; border-top: 1px solid #eee; }
-        button { padding: 12px 28px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1rem; }
-        .btn-next { background: var(--nta-blue); color: white; }
-        .btn-clear { background: #f5f5f5; color: #555; }
+        .options-item { padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
+        .options-item:hover { background: #f1f8ff; }
 
-        /* Sidebar */
+        /* Sidebar & Palette */
         .sidebar { background: #fff; padding: 20px; display: flex; flex-direction: column; }
-        .timer-box { font-size: 1.8rem; text-align: center; font-weight: bold; color: var(--nta-red); background: #fff1f1; padding: 15px; border-radius: 8px; border: 1px solid #ffcdd2; margin-bottom: 25px; }
-        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 400px; overflow-y: auto; }
-        .q-num { width: 45px; height: 45px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; border-radius: 4px; }
-        .answered { background: var(--nta-green) !important; color: white; }
-        .not-answered { background: var(--nta-red) !important; color: white; }
-        .current { border: 2.5px solid #2196F3; font-weight: bold; }
+        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
+        .q-num { width: 40px; height: 40px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; border-radius: 4px; }
+        .answered { background: var(--nta-green) !important; color: white; border: none; }
+        .current { border: 2.5px solid var(--nta-blue); font-weight: bold; }
 
         /* Result Screen */
-        #result-screen { display: none; padding: 60px 20px; text-align: center; background: white; min-height: 100vh; }
-        .score-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: inline-block; min-width: 320px; }
-        .history-table { margin: 40px auto; width: 100%; max-width: 600px; border-collapse: collapse; }
-        .history-table th, .history-table td { padding: 12px; border: 1px solid #ddd; text-align: center; }
-        .btn-whatsapp { background: #25D366; color: white; margin-top: 20px; padding: 15px 30px; font-size: 1.1rem; }
+        #result-screen { display: none; padding: 40px 20px; text-align: center; background: white; min-height: 100vh; }
+        .btn-whatsapp { background: #25D366; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            #test-interface { grid-template-columns: 1fr; }
+            .sidebar { display: none; } /* Mobile par palette hide kar sakte hain ya niche shift */
+        }
     </style>
 </head>
 <body>
 
-    <div id="login-screen">
-        <div class="login-box">
-            <h2>Candidate Login</h2>
-            <input type="text" id="stuName" placeholder="Full Name" required>
-            <input type="text" id="stuDist" placeholder="District" required>
-            <input type="text" id="stuState" placeholder="State" required>
-            <button onclick="startTest()" style="width: 100%; background: var(--nta-blue); color: white; margin-top: 15px;">Start Mock Test</button>
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="text-align:center; color: var(--nta-blue);">Candidate Login</h2>
+        <input type="text" id="stuName" placeholder="Full Name" required>
+        <input type="text" id="stuDist" placeholder="District" required>
+        <input type="text" id="stuState" placeholder="State" required>
+        <button onclick="startTest()" style="width:100%; padding:12px; background: var(--nta-blue); color:white; border:none; border-radius:6px; cursor:pointer;">Login & Start Test</button>
+    </div>
+</div>
+
+<div id="test-interface">
+    <div class="header">
+        <h3 id="display-info" style="margin:0; font-size: 1rem; color: #555;">Candidate: -</h3>
+        <div id="timer" style="font-weight:bold; color: var(--nta-red); font-size: 1.2rem;">03:00:00</div>
+    </div>
+    
+    <div class="question-container">
+        <div id="question-area"></div>
+        <div style="margin-top:20px; border-top: 1px solid #eee; padding-top:20px;">
+            <button onclick="clearOption()" style="padding:10px 20px; background:#f5f5f5; border:1px solid #ccc; cursor:pointer;">Clear Response</button>
+            <button onclick="nextQuestion()" style="padding:10px 20px; background:var(--nta-blue); color:white; border:none; cursor:pointer; float:right;">Save & Next</button>
         </div>
     </div>
 
-    <div id="test-interface">
-        <div class="header">
-            <h3 id="display-info" style="margin:0; font-size: 1rem; color: #555;">Candidate: -</h3>
-            <div style="font-weight: bold; color: #1565c0;">JEE MAINS FULL MOCK TEST</div>
-        </div>
-
-        <div class="question-container">
-            <div id="question-area">
-                </div>
-            <div class="action-buttons">
-                <button class="btn-clear" onclick="clearOption()">Clear Response</button>
-                <button class="btn-next" onclick="nextQuestion()">Save & Next</button>
-            </div>
-        </div>
-
-        <div class="sidebar">
-            <div class="timer-box" id="timer">03:00:00</div>
-            <div style="margin-bottom: 10px; font-weight: bold; color: #666;">Question Palette:</div>
-            <div class="question-grid" id="q-palette"></div>
-            <div style="flex-grow: 1;"></div>
-            <button onclick="confirmSubmit()" style="background: var(--nta-red); color:white; width: 100%; margin-top: 20px;">Submit Test</button>
-        </div>
+    <div class="sidebar">
+        <div style="font-weight:bold; margin-bottom:10px;">Question Palette:</div>
+        <div class="question-grid" id="q-palette"></div>
+        <button onclick="confirmSubmit()" style="margin-top: auto; padding:15px; background: var(--nta-red); color:white; border:none; cursor:pointer; font-weight:bold;">SUBMIT TEST</button>
     </div>
+</div>
 
-    <div id="result-screen">
-        <div class="score-card">
-            <h1 style="color: var(--nta-green)">Test Completed!</h1>
-            <h2 id="final-score-val" style="font-size: 3.5rem; margin: 10px 0;">0</h2>
-            <p style="color: #666;">Total Score out of 300</p>
-            <button class="btn-whatsapp" onclick="shareOnWhatsApp()">Share Result on WhatsApp 🚀</button>
-        </div>
+<div id="result-screen">
+    <h1>Test Completed!</h1>
+    <h2 id="final-score-val" style="font-size: 3rem; color: var(--nta-green);">0</h2>
+    <p>Total Score Out of 300</p>
+    <button class="btn-whatsapp" onclick="shareOnWhatsApp()">Share Result on WhatsApp 🚀</button>
+    <br><br>
+    <button onclick="location.reload()" style="background:#666; color:white; border:none; padding:10px 20px; cursor:pointer;">Try Again</button>
+</div>
+
+<script src="questions.js"></script>
+<script>
+    let currentIdx = 0;
+    let userAnswers = [];
+    let timeLeft = 3 * 60 * 60; 
+    let timerInterval;
+
+    function startTest() {
+        const name = document.getElementById('stuName').value;
+        const state = document.getElementById('stuState').value;
+        if(!name || !state) return alert("Details bharein!");
+
+        // 1. Local storage clean karein purana data hatane ke liye
+        localStorage.removeItem('jee_history');
+
+        userAnswers = new Array(questions.length).fill(null);
+        document.getElementById('display-info').innerText = `Candidate: ${name} | State: ${state}`;
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('test-interface').style.display = 'grid';
+
+        initPalette();
+        renderQuestion();
+        startTimer();
+    }
+
+    function initPalette() {
+        const palette = document.getElementById('q-palette');
+        palette.innerHTML = '';
+        questions.forEach((_, i) => {
+            const div = document.createElement('div');
+            div.className = 'q-num';
+            div.id = `pal-${i}`;
+            div.innerText = i + 1;
+            div.onclick = () => { currentIdx = i; renderQuestion(); };
+            palette.appendChild(div);
+        });
+    }
+
+    function renderQuestion() {
+        const area = document.getElementById('question-area');
+        const q = questions[currentIdx];
         
-        <div class="score-history">
-            <h3>Your Last 10 Scores</h3>
-            <table class="history-table">
-                <thead>
-                    <tr><th>Attempt Date</th><th>Score</th></tr>
-                </thead>
-                <tbody id="history-body"></tbody>
-            </table>
-            <button onclick="location.reload()" style="background: #555; color: white;">Try Again</button>
-        </div>
-    </div>
+        document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
+        document.getElementById(`pal-${currentIdx}`).classList.add('current');
 
-    <script src="questions.js"></script>
+        let html = `<div style="font-size:1.2rem; margin-bottom:20px;"><b>Question ${currentIdx + 1}:</b><br>${q.q}</div>`;
+        q.options.forEach((opt, i) => {
+            const checked = userAnswers[currentIdx] === i ? 'checked' : '';
+            html += `
+                <label class="options-item">
+                    <input type="radio" name="jee-opt" value="${i}" ${checked} onchange="saveAnswer(${i})"> ${opt}
+                </label><br>
+            `;
+        });
+        area.innerHTML = html;
+        if(window.MathJax) MathJax.Hub.Queue(["Typeset", MathJax.Hub, area]);
+    }
 
-    <script>
-        let currentIdx = 0;
-        let userAnswers = []; 
-        let timeLeft = 3 * 60 * 60; 
-        let timerInterval;
+    function saveAnswer(val) {
+        userAnswers[currentIdx] = val;
+        document.getElementById(`pal-${currentIdx}`).classList.add('answered');
+    }
 
-        function startTest() {
-            const name = document.getElementById('stuName').value;
-            if(!name) return alert("Please enter your name!");
-
-            userAnswers = new Array(questions.length).fill(null);
-            document.getElementById('display-info').innerText = `Candidate: ${name}`;
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('test-interface').style.display = 'grid';
-            
-            initPalette();
-            renderQuestion();
-            startTimer();
-        }
-
-        function initPalette() {
-            const palette = document.getElementById('q-palette');
-            palette.innerHTML = '';
-            for(let i=0; i<questions.length; i++) {
-                let div = document.createElement('div');
-                div.className = 'q-num';
-                div.id = `pal-${i}`;
-                div.innerText = i + 1;
-                div.onclick = () => { currentIdx = i; renderQuestion(); };
-                palette.appendChild(div);
-            }
-        }
-
-        function renderQuestion() {
-            const area = document.getElementById('question-area');
-            const q = questions[currentIdx];
-            
-            document.querySelectorAll('.q-num').forEach(el => el.classList.remove('current'));
-            document.getElementById(`pal-${currentIdx}`).classList.add('current');
-
-            let html = `<div class="question-text"><b>Question ${currentIdx + 1}:</b><br>${q.q}</div>`;
-            html += `<div class="options">`;
-            q.options.forEach((opt, i) => {
-                let checked = userAnswers[currentIdx] === i ? 'checked' : '';
-                html += `<label class="option-item"><input type="radio" name="jee-opt" value="${i}" ${checked}> ${opt}</label>`;
-            });
-            html += `</div>`;
-            
-            area.innerHTML = html;
-            if (window.MathJax) MathJax.typesetPromise();
-        }
-
-        function nextQuestion() {
-            const selected = document.querySelector('input[name="jee-opt"]:checked');
-            const palBtn = document.getElementById(`pal-${currentIdx}`);
-            
-            if(selected) {
-                userAnswers[currentIdx] = parseInt(selected.value);
-                palBtn.classList.add('answered');
-            } else {
-                palBtn.classList.add('not-answered');
-            }
-
-            if(currentIdx < questions.length - 1) {
-                currentIdx++;
-                renderQuestion();
-            }
-        }
-
-        function clearOption() {
-            userAnswers[currentIdx] = null;
-            document.getElementById(`pal-${currentIdx}`).classList.remove('answered');
+    function nextQuestion() {
+        if(currentIdx < questions.length - 1) {
+            currentIdx++;
             renderQuestion();
         }
+    }
 
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                let h = Math.floor(timeLeft / 3600);
-                let m = Math.floor((timeLeft % 3600) / 60);
-                let s = timeLeft % 60;
-                document.getElementById('timer').innerText = 
-                    `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                if(timeLeft <= 0) submitTest();
-                timeLeft--;
-            }, 1000);
-        }
+    function clearOption() {
+        userAnswers[currentIdx] = null;
+        document.getElementById(`pal-${currentIdx}`).classList.remove('answered');
+        renderQuestion();
+    }
 
-        function confirmSubmit() {
-            if(confirm("Are you sure you want to submit?")) submitTest();
-        }
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            let h = Math.floor(timeLeft / 3600);
+            let m = Math.floor((timeLeft % 3600) / 60);
+            let s = timeLeft % 60;
+            document.getElementById('timer').innerText = 
+                `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            if(timeLeft <= 0) submitTest();
+            timeLeft--;
+        }, 1000);
+    }
 
-        function submitTest() {
-            clearInterval(timerInterval);
-            let score = 0;
-            userAnswers.forEach((ans, i) => {
-                if(ans === questions[i].correct) score += 4;
-                else if(ans !== null) score -= 1;
-            });
+    function confirmSubmit() {
+        if(confirm("Kya aap test submit karna chahte hain?")) submitTest();
+    }
 
-            saveScore(score);
-            showResult(score);
-        }
+    function submitTest() {
+        clearInterval(timerInterval);
+        let score = 0;
+        userAnswers.forEach((ans, i) => {
+            if(ans === questions[i].correct) score += 4;
+            else if(ans !== null) score -= 1;
+        });
 
-        function saveScore(score) {
-            let history = JSON.parse(localStorage.getItem('jee_history')) || [];
-            history.unshift({ score: score, date: new Date().toLocaleDateString() });
-            if(history.length > 10) history.pop();
-            localStorage.setItem('jee_history', JSON.stringify(history));
-        }
+        document.getElementById('test-interface').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+        document.getElementById('final-score-val').innerText = score;
+    }
 
-        function showResult(score) {
-            document.getElementById('test-interface').style.display = 'none';
-            document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('final-score-val').innerText = score;
-            
-            const history = JSON.parse(localStorage.getItem('jee_history')) || [];
-            document.getElementById('history-body').innerHTML = history.map(h => 
-                `<tr><td>${h.date}</td><td><b>${h.score}</b></td></tr>`
-            ).join('');
-        }
-
-        function shareOnWhatsApp() {
-            const score = document.getElementById('final-score-val').innerText;
-            const name = document.getElementById('stuName').value || "Student";
-            const websiteLink = "https://jeemasterhub.in/mock-test"; // Aapka final link
-            
-            const message = `🔥 *JEE MAINS CHALLENGE* 🔥%0A%0A` +
-                            `👤 *Name:* ${name}%0A` +
-                            `📊 *Score:* ${score}/300%0A%0A` +
-                            `NTA ke bilkul naye pattern par ye mock test maine *jeemasterhub.in* par diya. %0A%0A` +
-                            `Dum hai toh mujhse zyada score karke dikhao! 💪%0A%0A` +
-                            `🚀 *Abhi test do yahan:*%0A${websiteLink}%0A%0A` +
-                            `#JEE2026 #IITJEE #MockTest`;
-
-            window.open(`https://wa.me/?text=${message}`);
-        }
-    </script>
+    function shareOnWhatsApp() {
+        const score = document.getElementById('final-score-val').innerText;
+        const name = document.getElementById('stuName').value;
+        const state = document.getElementById('stuState').value;
+        const msg = `*🔥 JEE MAINS MOCK TEST RESULT 🔥*%0A%0A👤 *Name:* ${name}%0A📍 *State:* ${state}%0A📊 *Score:* ${score}/300%0A%0AMaine apna JEE test *jeemasterhub.in* par pura kiya! 🚀`;
+        window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+</script>
 </body>
 </html>
