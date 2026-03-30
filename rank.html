@@ -3,135 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rank Prediction Tracker</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>JEE Main 2026 Rank Predictor (Session 1)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f9; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        .input-section { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; background: #eee; padding: 15px; border-radius: 8px; }
-        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background: #218838; }
-        .chart-container { position: relative; height: 400px; margin-bottom: 20px; }
+        :root { --brand: #ff5722; --dark: #1a1a1a; --gray: #f4f4f9; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--gray); margin: 0; padding: 20px; color: var(--dark); }
+        .wrapper { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); overflow: hidden; }
+        .top-bar { background: var(--brand); color: #fff; padding: 30px; text-align: center; }
+        .top-bar h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-body { padding: 40px; }
+        .input-box { margin-bottom: 25px; }
+        label { display: block; font-weight: 600; margin-bottom: 10px; font-size: 14px; color: #555; }
+        input, select { width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; transition: 0.4s; box-sizing: border-box; }
+        input:focus { border-color: var(--brand); outline: none; background: #fffdfb; }
+        .btn-predict { width: 100%; background: var(--brand); color: #fff; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3); }
+        .btn-predict:hover { transform: scale(1.02); background: #e64a19; }
+        
+        #result { display: none; margin-top: 30px; padding: 25px; background: #fff9f7; border: 2px dashed var(--brand); border-radius: 15px; text-align: center; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .rank-num { font-size: 42px; color: var(--brand); font-weight: 800; margin: 10px 0; }
+        .badge { display: inline-block; padding: 5px 15px; background: #ffe0d6; color: var(--brand); border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>📈 Test Rank Analytics (Market View)</h2>
-    
-    <div class="input-section">
-        <input type="date" id="testDate" required>
-        <input type="number" id="testRank" placeholder="Apni Rank Likho" required>
-        <button onclick="addData()">Test Add Karein</button>
+<div class="wrapper">
+    <div class="top-bar">
+        <h1>JEE 2026 Predictor</h1>
+        <p style="margin: 5px 0 0; font-size: 14px; opacity: 0.9;">Session 1: Jan 2026 Analysis</p>
     </div>
 
-    <div class="chart-container">
-        <canvas id="rankChart"></canvas>
-    </div>
+    <div class="form-body">
+        <div class="input-box">
+            <label>Apni Percentile Dalein</label>
+            <input type="number" id="perc" placeholder="E.g. 99.25" step="any">
+        </div>
 
-    <p style="font-size: 0.9em; color: #666; text-align: center;">
-        * Sirf last 30 tests ka data dikhega. Naya test aane par purana delete ho jayega.
-    </p>
+        <div class="input-box">
+            <label>Shift ki Difficulty Level</label>
+            <select id="difficulty">
+                <option value="1">Moderate (Balanced)</option>
+                <option value="1.05">Easy (High Competition)</option>
+                <option value="0.95">Hard (Bonus for Accuracy)</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label>Category</label>
+            <select id="cat">
+                <option value="GEN">General</option>
+                <option value="OBC">OBC-NCL</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="EWS">EWS</option>
+            </select>
+        </div>
+
+        <button class="btn-predict" onclick="getRank()">RANK CHECK KAREIN</button>
+
+        <div id="result">
+            <span class="badge" id="shiftInfo">MODERATE SHIFT</span>
+            <div>Aapki Expected AIR Rank:</div>
+            <div class="rank-num" id="rankOutput">--</div>
+            <p style="font-size: 12px; color: #888;">*Predicted based on 1.25 Million unique candidates for 2026.</p>
+        </div>
+    </div>
 </div>
 
 <script>
-    let myChart;
-    const MAX_DATA_POINTS = 30;
-
-    // 1. Local Storage se data uthana
-    function getStoredData() {
-        const data = localStorage.getItem('rankData');
-        return data ? JSON.parse(data) : [];
+function getRank() {
+    const p = parseFloat(document.getElementById('perc').value);
+    const diff = parseFloat(document.getElementById('difficulty').value);
+    const res = document.getElementById('result');
+    
+    if(!p || p < 0 || p > 100) {
+        alert("Sahi percentile enter karein!");
+        return;
     }
 
-    // 2. Data save karna aur 30 ki limit lagana
-    function addData() {
-        const dateInput = document.getElementById('testDate').value;
-        const rankInput = document.getElementById('testRank').value;
+    // 2026 Total Candidate Projection
+    const total = 1250000;
+    
+    // Core Formula with Difficulty Multiplier
+    let baseRank = ((100 - p) * total) / 100;
+    let finalRank = Math.floor(baseRank * diff) + 1;
 
-        if (!dateInput || !rankInput) {
-            alert("Please date aur rank dono bharein!");
-            return;
-        }
+    // Display Logic
+    res.style.display = 'block';
+    document.getElementById('rankOutput').innerText = "#" + finalRank.toLocaleString();
+    
+    const diffText = document.getElementById('difficulty').options[document.getElementById('difficulty').selectedIndex].text;
+    document.getElementById('shiftInfo').innerText = diffText.toUpperCase();
 
-        let history = getStoredData();
-
-        // Naya data object
-        const newEntry = {
-            date: dateInput,
-            rank: parseInt(rankInput)
-        };
-
-        history.push(newEntry);
-
-        // Agar 30 se zyada ho jaye, toh sabse purana (index 0) hata do
-        if (history.length > MAX_DATA_POINTS) {
-            history.shift(); 
-        }
-
-        localStorage.setItem('rankData', JSON.stringify(history));
-        updateChart();
-        
-        // Reset inputs
-        document.getElementById('testRank').value = '';
-    }
-
-    // 3. Chart Update Function (Share Market Style)
-    function updateChart() {
-        const history = getStoredData();
-        const labels = history.map(item => item.date);
-        const ranks = history.map(item => item.rank);
-
-        const ctx = document.getElementById('rankChart').getContext('2d');
-
-        if (myChart) {
-            myChart.destroy(); // Purane chart ko khatam karke naya banayein
-        }
-
-        myChart = new Chart(ctx, {
-            type: 'line', // 'line' chart market trend dikhane ke liye best hai
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Rank Position',
-                    data: ranks,
-                    borderColor: '#007bff',
-                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-                    borderWidth: 3,
-                    tension: 0.3, // Curve smoothness
-                    fill: true,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#007bff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        reverse: true, // Rank mein hamesha 1 upar hota hai, isliye reverse
-                        beginAtZero: false,
-                        title: { display: true, text: 'Rank' }
-                    },
-                    x: {
-                        title: { display: true, text: 'Test Date' }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false
-                    }
-                }
-            }
-        });
-    }
-
-    // Page load hone par chart dikhayein
-    window.onload = updateChart;
+    res.scrollIntoView({ behavior: 'smooth' });
+}
 </script>
 
 </body>
