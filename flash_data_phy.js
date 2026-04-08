@@ -2,6 +2,40 @@
 // Total 100 Most Important JEE Mains Physics Flashcards
 
 const physicsCards = [
+ // --- 14. FLUID MECHANICS ---
+{ q: "Pascal's Law?", a: "$$P = P_0 + \\rho gh$$" },
+{ q: "Equation of Continuity?", a: "$$A_1 v_1 = A_2 v_2$$" },
+{ q: "Viscous Force (Stokes' Law)?", a: "$$F = 6\\pi\\eta rv$$" },
+{ q: "Poiseuille's Equation (Flow rate)?", a: "$$Q = \\frac{\\pi P r^4}{8\\eta L}$$" },
+{ q: "Capillary Rise formula?", a: "$$h = \\frac{2T \\cos \\theta}{r \\rho g}$$" },
+
+// --- 15. PROPERTIES OF SOLIDS (ELASTICITY) ---
+{ q: "Bulk Modulus ($B$)?", a: "$$B = -V \\frac{\\Delta P}{\\Delta V}$$" },
+{ q: "Modulus of Rigidity ($\\eta$)?", a: "$$\\eta = \\frac{\\text{Shearing Stress}}{\\text{Shearing Strain}} = \\frac{F/A}{\\theta}$$" },
+{ q: "Poisson's Ratio ($\\sigma$)?", a: "$$\\sigma = \\frac{\\text{Lateral Strain}}{\\text{Longitudinal Strain}}$$" },
+{ q: "Elastic Energy Density?", a: "$$u = \\frac{1}{2} \\times \\text{Stress} \\times \\text{Strain}$$" },
+
+// --- 16. WAVE OPTICS ---
+{ q: "Path Difference in YDSE?", a: "$$\\Delta x = \\frac{dy}{D} = d \\sin \\theta$$" },
+{ q: "Condition for Constructive Interference?", a: "$$\\Delta x = n\\lambda$$" },
+{ q: "Condition for Destructive Interference?", a: "$$\\Delta x = (2n-1)\\frac{\\lambda}{2}$$" },
+{ q: "Fringe Width ($\\beta$)?", a: "$$\\beta = \\frac{\\lambda D}{d}$$" },
+{ q: "Malus' Law?", a: "$$I = I_0 \\cos^2 \\theta$$" },
+
+// --- 17. ELECTROMAGNETIC WAVES (EMW) ---
+{ q: "Speed of EM Wave in Vacuum?", a: "$$c = \\frac{1}{\\sqrt{\\mu_0 \\epsilon_0}}$$" },
+{ q: "Relation between E and B in EMW?", a: "$$c = \\frac{E_0}{B_0}$$" },
+{ q: "Energy Density of EM Wave?", a: "$$u = \\frac{1}{2}\\epsilon_0 E^2 + \\frac{B^2}{2\\mu_0}$$" },
+
+// --- 18. SEMICONDUCTORS ---
+{ q: "Conductivity of Semiconductor?", a: "$$\\sigma = e(n_e \\mu_e + n_h \\mu_h)$$" },
+{ q: "Mass Action Law?", a: "$$n_e n_h = n_i^2$$" },
+{ q: "Voltage Gain (Common Emitter)?", a: "$$A_v = -\\beta \\frac{R_L}{R_{in}}$$" },
+
+// --- 19. COMMUNICATION SYSTEMS ---
+{ q: "Modulation Index ($m$)?", a: "$$m = \\frac{A_m}{A_c}$$" },
+{ q: "Range of Antenna?", a: "$$d = \\sqrt{2Rh}$$" },
+    
     // --- 1. UNIT & DIMENSIONS / KINEMATICS ---
     { q: "Dimension of Universal Gravitational Constant ($G$)?", a: "$[M^{-1}L^3T^{-2}]$" },
     { q: "Equations of Motion (Constant $a$)?", a: "$v = u + at$ <br> $s = ut + \\frac{1}{2}at^2$ <br> $v^2 = u^2 + 2as$" },
