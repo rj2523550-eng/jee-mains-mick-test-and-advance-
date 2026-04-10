@@ -118,17 +118,56 @@
     <h2 style="margin-bottom: 20px;">Available Mock Tests</h2>
 
     <div class="test-card">
-        <div class="test-header">
-            <div>
-                <div class="test-title">Full Length Mock Test - 01</div>
-                <div class="test-meta">
-                    <span>⏱️ 180 Mins</span>
-                    <span>📝 100 Qs</span>
-                </div>
+       <div class="test-card" id="full-test-card">
+    <div class="test-header">
+        <div>
+            <div class="test-title">Full Length Mock Test - 01</div>
+            <div class="test-meta">
+                <span>⏱️ 180 Mins</span>
+                <span>📚 90 Qs (Sample)</span>
             </div>
         </div>
-        <p style="color: var(--text-dim); font-size: 0.9rem;">Based on latest exam pattern and syllabus.</p>
     </div>
+    <p style="color: var(--text-dim); font-size: 0.9rem; margin-top:10px;">Full syllabus practice test for JEE Mains.</p>
+    
+    <div id="full-quiz-area" style="display: none; margin-top: 20px; border-top: 1px dashed #444; padding-top: 15px;">
+        <p><strong>Q1. Physics:</strong> At what temperature do Celsius and Fahrenheit scales show the same reading?</p>
+        <input type="radio" name="ft1" value="wrong"> -20° &nbsp; <input type="radio" name="ft1" value="right"> -40°
+        
+        <p style="margin-top:15px;"><strong>Q2. Chemistry:</strong> Most abundant gas in Earth's atmosphere?</p>
+        <input type="radio" name="ft2" value="wrong"> Oxygen &nbsp; <input type="radio" name="ft2" value="right"> Nitrogen
+
+        <p style="margin-top:15px;"><strong>Q3. Maths:</strong> Derivative of log(x) is?</p>
+        <input type="radio" name="ft3" value="wrong"> x &nbsp; <input type="radio" name="ft3" value="right"> 1/x
+        
+        <button onclick="submitFullTest()" class="btn-start" style="margin-top: 20px; background: #ffcc00; color: #000;">Submit Full Test</button>
+    </div>
+
+    <button id="start-btn" onclick="startFullTest()" class="btn-start" style="margin-top: 15px;">Start Test Now</button>
+</div>
+
+<script>
+function startFullTest() {
+    document.getElementById('full-quiz-area').style.display = 'block';
+    document.getElementById('start-btn').style.display = 'none';
+}
+
+function submitFullTest() {
+    let score = 0;
+    let r1 = document.querySelector('input[name="ft1"]:checked');
+    let r2 = document.querySelector('input[name="ft2"]:checked');
+    let r3 = document.querySelector('input[name="ft3"]:checked');
+
+    if(!r1 || !r2 || !r3) { alert("Sare questions solve karein!"); return; }
+
+    if(r1.value === "right") score++;
+    if(r2.value === "right") score++;
+    if(r3.value === "right") score++;
+
+    alert("Aapka Score: " + score + "/3 \nFull tests exam se 20 din pehle isi tarah open honge!");
+    location.reload(); // Test reset karne ke liye
+}
+</script>
 
     <div class="test-card">
         <div class="test-header">
