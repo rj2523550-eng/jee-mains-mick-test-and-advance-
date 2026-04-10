@@ -139,31 +139,63 @@
                     <span>📝 30 Qs</span>
                 </div>
             </div>
-<div class="test-card">
+<div class="test-card" style="border: 1px solid #00ffcc; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
     <div class="test-header">
-        <div>
-            <div class="test-title">📝 Quick Practice: Daily Challenge</div>
-            <div class="test-meta">
-                <span>⏱️ 5 Mins</span>
-                <span>📚 2 Qs</span>
-            </div>
+        <div class="test-title" style="color: #00ffcc;">🚀 Daily Mini Challenge</div>
+        <div class="test-meta"><span>⏱️ 3 Mins</span> <span>📚 3 Qs</span></div>
+    </div>
+
+    <div id="quiz-box" style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
+        <p><strong>Q1. Physics:</strong> What is the unit of Power?</p>
+        <div style="margin: 5px 0 15px 10px;">
+            <input type="radio" name="p1" value="wrong"> Joule &nbsp;
+            <input type="radio" name="p1" value="right"> Watt
+        </div>
+
+        <p><strong>Q2. Chemistry:</strong> pH of pure water is?</p>
+        <div style="margin: 5px 0 15px 10px;">
+            <input type="radio" name="c1" value="wrong"> 5 &nbsp;
+            <input type="radio" name="c1" value="right"> 7
+        </div>
+
+        <p><strong>Q3. Maths:</strong> Value of sin(90°)?</p>
+        <div style="margin: 5px 0 15px 10px;">
+            <input type="radio" name="m1" value="wrong"> 0 &nbsp;
+            <input type="radio" name="m1" value="right"> 1
         </div>
     </div>
-    <div style="margin-top: 15px; color: var(--text-dim); font-size: 0.95rem;">
-        <p><strong>Q1. Physics:</strong> Dimensional formula of Gravitational Constant (G) is:</p>
-        <div style="margin: 10px 0 20px 10px;">
-            <input type="radio" name="q1" id="q1a"> <label for="q1a">[M-1 L3 T-2]</label><br>
-            <input type="radio" name="q1" id="q1b" style="margin-top: 8px;"> <label for="q1b">[M1 L2 T-2]</label>
-        </div>
-        
-        <p><strong>Q2. Chemistry:</strong> Which of the following is a neutral oxide?</p>
-        <div style="margin: 10px 0 10px 10px;">
-            <input type="radio" name="q2" id="q2a"> <label for="q2a">CO2</label><br>
-            <input type="radio" name="q2" id="q2b" style="margin-top: 8px;"> <label for="q2b">NO</label>
-        </div>
-    </div>
-    <a href="#" class="btn-start" onclick="alert('Good job! Full tests will be live soon.')" style="margin-top: 20px;">Submit Answers</a>
+
+    <div id="result-area" style="margin-top: 15px; font-weight: bold; color: #00ffcc; text-align: center;"></div>
+
+    <button onclick="checkAnswers()" class="btn-start" style="margin-top: 15px; width: 100%; cursor: pointer; background: #00ffcc; color: black; border: none; padding: 10px; border-radius: 8px; font-weight: bold;">Check Result</button>
 </div>
+
+<script>
+function checkAnswers() {
+    let score = 0;
+    let q1 = document.querySelector('input[name="p1"]:checked');
+    let q2 = document.querySelector('input[name="c1"]:checked');
+    let q3 = document.querySelector('input[name="m1"]:checked');
+
+    if(!q1 || !q2 || !q3) {
+        alert("Pehle saare sawalon ke jawab dein!");
+        return;
+    }
+
+    if(q1.value === "right") score++;
+    if(q2.value === "right") score++;
+    if(q3.value === "right") score++;
+
+    let resultBox = document.getElementById('result-area');
+    if(score === 3) {
+        resultBox.innerHTML = "Excellent! 3/3 Correct. 🔥";
+        resultBox.style.color = "#00ffcc";
+    } else {
+        resultBox.innerHTML = "You got " + score + "/3 correct. Try again!";
+        resultBox.style.color = "#ff4444";
+    }
+}
+</script>
 
 </body>
 </html>
