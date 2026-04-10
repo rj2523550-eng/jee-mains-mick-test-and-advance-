@@ -92,40 +92,40 @@
 <script>
     const questions = [
   {
-    q: "An electron of mass m with an initial velocity v = v0 i enters an electric field E = -E0 k. If the initial de Broglie wavelength is λ0, the value after time t is:",
-    options: ["λ0 \u221A(1 + (e²E₀²t²)/(m²v₀²))", "λ0", "λ0 / \u221A(1 + (e²E₀²t²)/(m²v₀²))", "λ0 / \u221A(1 - (e²E₀²t²)/(m²v₀²))"],
-    correct: "λ0 / \u221A(1 + (e²E₀²t²)/(m²v₀²))",
-    sol: "Net velocity after time t: v = \u221A(v₀² + (eE₀t/m)²). Since λ = h/mv, then λ = λ0 / \u221A(1 + (e²E₀²t²)/(m²v₀²))."
+    q: "Identify the equivalent logic gate for the given circuit where two NAND gates are connected in series (the output of the first is the input to both terminals of the second).",
+    options: ["AND", "OR", "NAND", "NOT"],
+    correct: "AND",
+    sol: "First NAND gives Y1 = !(A.B). The second NAND acts as a NOT gate because both inputs are tied to Y1. So, Y = !(Y1) = !(!(A.B)) = A.B, which is an AND gate."
   },
   {
-    q: "Two strings of the same material and same tension have radii R and R/2. If velocity in the first is v1, then v2/v1 is:",
-    options: ["\u221A2", "2", "4", "8"],
-    correct: "2",
-    sol: "Velocity v = \u221A(T/\u03BC). Since \u03BC \u221D R², then v \u221D 1/R. Therefore v2/v1 = R1/R2 = R/(R/2) = 2."
+    q: "A projectile is projected with a velocity v at an angle \u03B8 with the horizontal. The ratio of its maximum height to its horizontal range is:",
+    options: ["1/4 cot \u03B8", "1/4 tan \u03B8", "4 tan \u03B8", "4 cot \u03B8"],
+    correct: "1/4 tan \u03B8",
+    sol: "H = (v\u00B2 sin\u00B2\u03B8)/2g and R = (2v\u00B2 sin\u03B8 cos\u03B8)/g. Ratio H/R = (sin\u00B2\u03B8/2) / (2 sin\u03B8 cos\u03B8) = sin\u03B8 / (4 cos\u03B8) = 1/4 tan\u03B8."
   },
   {
-    q: "Match the complex with its shape and magnetic moment: (A) [Ni(CO)4] (B) [Ni(CN)4]2- (C) [NiCl4]2- (D) [MnBr4]2-",
-    options: ["A-I, B-II, C-III, D-IV", "A-III, B-IV, C-II, D-I", "A-III, B-II, C-I, D-IV", "A-IV, B-I, C-III, D-II"],
-    correct: "A-III, B-II, C-I, D-IV",
-    sol: "[Ni(CO)4] is Tetrahedral (0 BM), [Ni(CN)4]2- is Square Planar (0 BM), [NiCl4]2- is Tetrahedral (2.8 BM), and [MnBr4]2- is Tetrahedral (5.9 BM)."
+    q: "Which of the following is responsible for 'Photochemical Smog'?",
+    options: ["SO\u2082", "NO\u2082, PAN, and Oxidizing agents", "CO\u2082", "Smoke and Fog only"],
+    correct: "NO\u2082, PAN, and Oxidizing agents",
+    sol: "Photochemical smog is formed by sunlight acting on nitrogen oxides and hydrocarbons. Its primary components are Ozone, NO, and PAN (Peroxyacetyl Nitrate)."
   },
   {
-    q: "Sabse kam 1st ionization enthalpy kis atomic number waale element ki hogi?",
-    options: ["32", "35", "87", "19"],
-    correct: "87",
-    sol: "Atomic number 87 (Francium) group mein sabse neeche aata hai, iska size bada hone ke karan ionization enthalpy sabse kam hoti hai."
+    q: "The correct order of first ionization enthalpy for the elements B, Be, O, N is:",
+    options: ["B < Be < O < N", "B < Be < N < O", "Be < B < N < O", "O < N < Be < B"],
+    correct: "B < Be < O < N",
+    sol: "Be (2s\u00B2) is more stable than B (2p\u00B9), so Be > B. N (2p\u00B3 half-filled) is more stable than O (2p\u2074), so N > O. Combined: B < Be < O < N."
   },
   {
-    q: "Ellipse E: x²/a² + y²/b² = 1 (e=1/2, foci ±2, 0) ko enclose karne waale minimum circle C ke liye triangle PQR ka maximum area kya hai?",
-    options: ["6(3+\u221A2)", "8(3+\u221A2)", "6(2+\u221A3)", "8(2+\u221A3)"],
-    correct: "8(2+\u221A3)",
-    sol: "ae=2, e=1/2 => a=4. b²=a²(1-e²)=12 => b=2\u221A3. Radius r=a=4. Height h=4+2\u221A3. Area = 1/2 * 8 * (4+2\u221A3) = 8(2+\u221A3)."
+    q: "Evaluate \lim_{x \u2192 0} [cos(sin x) - 1] / x\u00B2:",
+    options: ["1", "-1", "-1/2", "1/2"],
+    correct: "-1/2",
+    sol: "Using expansion: cos(sin x) \u2248 1 - (sin\u00B2x)/2. The limit becomes [1 - (sin\u00B2x)/2 - 1] / x\u00B2 = -1/2 * (sin x / x)\u00B2. Since (sin x / x) \u2192 1, the limit is -1/2."
   },
   {
-    q: "Agar P(X=0)=P(X=1)=p aur E(X²)=2E(X) ho, toh 8p-1 ki value kya hogi?",
-    options: ["0", "1", "2", "3"],
-    correct: "2",
-    sol: "Using E(X²) = 2E(X) and sum of probabilities = 1, we get 3q = p and 8p = 3. Therefore, 8p - 1 = 3 - 1 = 2."
+    q: "If A is a 3 \u00D7 3 matrix and |A| = 4, then the value of |adj(A)| is:",
+    options: ["4", "16", "64", "2"],
+    correct: "16",
+    sol: "Using property |adj(A)| = |A|^(n-1). Here n=3 and |A|=4, so |adj(A)| = 4^(3-1) = 4\u00B2 = 16."
   }
 ];
 
