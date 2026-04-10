@@ -95,7 +95,6 @@ const physicsCards = [
     { q: "Coulomb's Law?", a: "$F = \\frac{1}{4\\pi\\epsilon_0} \\frac{q_1 q_2}{r^2}$" },
     { q: "Electric Field due to Point Charge?", a: "$E = \\frac{kq}{r^2}$" },
     { q: "Electric Potential ($V$)?", a: "$V = \\frac{kq}{r}$" },
-    { q: "Dipole Moment ($\vec{p}$)?", a: "$\\vec{p} = q \\cdot 2\\vec{l}$" },
     { q: "Capacitance (Parallel Plate)?", a: "$C = \\frac{\\epsilon_0 A}{d}$" },
     { q: "Energy stored in Capacitor?", a: "$U = \\frac{1}{2}CV^2 = \\frac{Q^2}{2C}$" },
 
