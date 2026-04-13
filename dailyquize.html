@@ -92,40 +92,40 @@
 <script>
     const questions = [
   {
-    q: "Identify the equivalent logic gate for the given circuit where two NAND gates are connected in series (the output of the first is the input to both terminals of the second).",
-    options: ["AND", "OR", "NAND", "NOT"],
-    correct: "AND",
-    sol: "First NAND gives Y1 = !(A.B). The second NAND acts as a NOT gate because both inputs are tied to Y1. So, Y = !(Y1) = !(!(A.B)) = A.B, which is an AND gate."
+    q: "In a circuit with a NAND gate followed by a NOT gate, if inputs are A=1 and B=0, the final output Y is:",
+    options: ["0", "1", "Not defined", "Both A and B"],
+    correct: "0",
+    sol: "NAND output for (1,0) is !(1 & 0) = 1. Passing this through a NOT gate gives !1 = 0."
   },
   {
-    q: "A projectile is projected with a velocity v at an angle \u03B8 with the horizontal. The ratio of its maximum height to its horizontal range is:",
-    options: ["1/4 cot \u03B8", "1/4 tan \u03B8", "4 tan \u03B8", "4 cot \u03B8"],
-    correct: "1/4 tan \u03B8",
-    sol: "H = (v\u00B2 sin\u00B2\u03B8)/2g and R = (2v\u00B2 sin\u03B8 cos\u03B8)/g. Ratio H/R = (sin\u00B2\u03B8/2) / (2 sin\u03B8 cos\u03B8) = sin\u03B8 / (4 cos\u03B8) = 1/4 tan\u03B8."
+    q: "The stopping potential is V1 for wavelength \u03BB, and V2 for wavelength 2\u03BB. The work function (\u03D5) equation is:",
+    options: ["(hc/\u03BB)(V1 - V2)", "e(2V2 - V1)", "hc/\u03BB", "None of these"],
+    correct: "e(2V2 - V1)",
+    sol: "Using eVs = hc/\u03BB - \u03D5. For \u03BB: eV1 = hc/\u03BB - \u03D5. For 2\u03BB: eV2 = hc/2\u03BB - \u03D5. Solving these gives \u03D5 = e(2V2 - V1)."
   },
   {
-    q: "Which of the following is responsible for 'Photochemical Smog'?",
-    options: ["SO\u2082", "NO\u2082, PAN, and Oxidizing agents", "CO\u2082", "Smoke and Fog only"],
-    correct: "NO\u2082, PAN, and Oxidizing agents",
-    sol: "Photochemical smog is formed by sunlight acting on nitrogen oxides and hydrocarbons. Its primary components are Ozone, NO, and PAN (Peroxyacetyl Nitrate)."
+    q: "Which of the following molecules has the maximum dipole moment?",
+    options: ["NF3", "NH3", "BF3", "CCl4"],
+    correct: "NH3",
+    sol: "In NH3, lone pair and bond dipoles are in the same direction, whereas in NF3 they oppose each other. BF3 and CCl4 are symmetrical with zero dipole moment."
   },
   {
-    q: "The correct order of first ionization enthalpy for the elements B, Be, O, N is:",
-    options: ["B < Be < O < N", "B < Be < N < O", "Be < B < N < O", "O < N < Be < B"],
-    correct: "B < Be < O < N",
-    sol: "Be (2s\u00B2) is more stable than B (2p\u00B9), so Be > B. N (2p\u00B3 half-filled) is more stable than O (2p\u2074), so N > O. Combined: B < Be < O < N."
+    q: "Arrange in increasing order of acidity: Ethanol, Phenol, p-Nitrophenol.",
+    options: ["Ethanol < p-Nitrophenol < Phenol", "Ethanol < Phenol < p-Nitrophenol", "Phenol < Ethanol < p-Nitrophenol", "p-Nitrophenol < Phenol < Ethanol"],
+    correct: "Ethanol < Phenol < p-Nitrophenol",
+    sol: "Ethanol is least acidic. Phenol is stabilized by resonance. p-Nitrophenol is most acidic due to the electron-withdrawing -NO2 group."
   },
   {
-    q: "Evaluate \lim_{x \u2192 0} [cos(sin x) - 1] / x\u00B2:",
-    options: ["1", "-1", "-1/2", "1/2"],
-    correct: "-1/2",
-    sol: "Using expansion: cos(sin x) \u2248 1 - (sin\u00B2x)/2. The limit becomes [1 - (sin\u00B2x)/2 - 1] / x\u00B2 = -1/2 * (sin x / x)\u00B2. Since (sin x / x) \u2192 1, the limit is -1/2."
+    q: "The equation of the common tangent to the parabolas y\u00B2 = 4x and x\u00B2 = 4y is:",
+    options: ["x + y + 1 = 0", "x + y - 1 = 0", "x - y + 1 = 0", "x - y - 1 = 0"],
+    correct: "x + y + 1 = 0",
+    sol: "Tangent to y\u00B2=4x is y=mx+1/m. Putting this in x\u00B2=4y and setting D=0 gives m=-1. Equation: y = -x - 1 \u21D2 x + y + 1 = 0."
   },
   {
-    q: "If A is a 3 \u00D7 3 matrix and |A| = 4, then the value of |adj(A)| is:",
-    options: ["4", "16", "64", "2"],
-    correct: "16",
-    sol: "Using property |adj(A)| = |A|^(n-1). Here n=3 and |A|=4, so |adj(A)| = 4^(3-1) = 4\u00B2 = 16."
+    q: "If a, b, c are unit vectors such that a + b + c = 0, then the value of (a.b + b.c + c.a) is:",
+    options: ["1", "3", "-3/2", "0"],
+    correct: "-3/2",
+    sol: "Square the identity: |a+b+c|\u00B2 = |a|\u00B2+|b|\u00B2+|c|\u00B2 + 2(a.b+b.c+c.a) = 0. Since unit vectors: 1+1+1 + 2S = 0 \u21D2 S = -3/2."
   }
 ];
 
