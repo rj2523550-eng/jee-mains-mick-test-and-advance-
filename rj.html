@@ -3,28 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Master Hub - Latest Blogs</title>
+    <title>JEE Master Hub - Blog Library</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; }
-        h1 { text-align: center; color: #333; }
-        .blog-card { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .blog-card h2 { margin: 0 0 10px; font-size: 1.2rem; }
-        .blog-card p { color: #666; font-size: 0.9rem; }
-        .read-more { display: inline-block; margin-top: 10px; color: #007bff; text-decoration: none; font-weight: bold; }
-        @media (max-width: 600px) { .container { padding: 10px; } }
+        :root { --primary: #007bff; --dark: #333; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: var(--dark); }
+        .header { background: #fff; padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        
+        /* New Function: Search Bar */
+        .search-container { margin-bottom: 30px; }
+        #searchInput { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; outline: none; }
+        #searchInput:focus { border-color: var(--primary); }
+
+        .blog-grid { display: grid; gap: 20px; }
+        .blog-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; text-decoration: none; color: inherit; display: block; border-left: 5px solid #ccc; }
+        .blog-card:hover { transform: translateY(-5px); border-left-color: var(--primary); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .blog-card h3 { margin: 0 0 10px; color: #222; font-size: 1.3rem; }
+        .blog-card p { margin: 0; color: #666; font-size: 0.95rem; }
+        .tag { display: inline-block; background: #e7f3ff; color: var(--primary); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
+
+        @media (max-width: 600px) { .header { padding: 20px 10px; } .blog-card h3 { font-size: 1.1rem; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Latest JEE Preparation Blogs</h1>
-        
-        <div class="blog-card">
-            <h2>JEE Mains 2026: Physics Revision Strategy</h2>
-            <p>Physics mein high score karne ke liye in important chapters par dhyan dein...</p>
-            <a href="physics-strategy.html" class="read-more">Read Full Blog →</a>
-        </div>
+
+<div class="header">
+    <h1>JEE Master Hub Blog</h1>
+    <p>Aapki Safalta ka Roadmap - Articles & Strategies</p>
+    <a href="index.html" style="text-decoration:none; color:var(--primary);">← Home Par Jayein</a>
+</div>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchBlog()" placeholder="Topic search karein (e.g. Physics, Chemistry)...">
+    </div>
+
+    <div class="blog-grid" id="blogList">
+        <a href="physics-strategy.html" class="blog-card">
+            <span class="tag">Physics</span>
+            <h3>JEE Mains 2026: Physics Revision Strategy</h3>
+            <p>Physics mein 80+ score karne ke liye in topics par focus karein...</p>
+        </a>
+
+        <a href="chemistry-tips.html" class="blog-card">
+            <span class="tag">Chemistry</span>
+            <h3>How to Master Organic Chemistry</h3>
+            <p>Reaction mechanism yaad karne ki sabse aasaan tricks yahan dekhein.</p>
+        </a>
+
+        <a href="maths-mastery.html" class="blog-card">
+            <span class="tag">Maths</span>
+            <h3>Maths Important Chapters for JEE</h3>
+            <p>Calculus aur Algebra ke high-weightage chapters ki list.</p>
+        </a>
+
+        <a href="jee-mains-2026-guide.html" class="blog-card">
+            <span class="tag">Guide</span>
+            <h3>Complete JEE Mains 2026 Roadmap</h3>
+            <p>A to Z jaankari registration se lekar exam day tak.</p>
+        </a>
+
+        <a href="best-books-jee.html" class="blog-card">
+            <span class="tag">Resources</span>
+            <h3>Best Books for JEE Preparation 2026</h3>
+            <p>IIT toppers dwara suggest ki gayi kitabon ki list.</p>
+        </a>
+
+        <a href="mock-test-importance.html" class="blog-card">
+            <span class="tag">Test Series</span>
+            <h3>Why Mock Tests are Compulsory?</h3>
+            <p>Mock test dene ke fayde aur sahi tarika.</p>
+        </a>
 
         </div>
+</div>
+
+<script>
+    function searchBlog() {
+        let input = document.getElementById('searchInput').value.toUpperCase();
+        let cards = document.getElementsByClassName('blog-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let title = cards[i].getElementsByTagName('h3')[0];
+            if (title.innerText.toUpperCase().indexOf(input) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
