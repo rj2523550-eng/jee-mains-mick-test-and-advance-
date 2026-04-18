@@ -9,83 +9,146 @@
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: var(--dark); }
         .header { background: #fff; padding: 40px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
         .container { max-width: 900px; margin: auto; padding: 20px; }
-        
-        /* New Function: Search Bar */
         .search-container { margin-bottom: 30px; }
-        #searchInput { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; outline: none; }
+        #searchInput { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 25px; font-size: 16px; outline: none; box-sizing: border-box; }
         #searchInput:focus { border-color: var(--primary); }
-
-        .blog-grid { display: grid; gap: 20px; }
-        .blog-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; text-decoration: none; color: inherit; display: block; border-left: 5px solid #ccc; }
-        .blog-card:hover { transform: translateY(-5px); border-left-color: var(--primary); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-        .blog-card h3 { margin: 0 0 10px; color: #222; font-size: 1.3rem; }
-        .blog-card p { margin: 0; color: #666; font-size: 0.95rem; }
-        .tag { display: inline-block; background: #e7f3ff; color: var(--primary); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; }
-
-        @media (max-width: 600px) { .header { padding: 20px 10px; } .blog-card h3 { font-size: 1.1rem; } }
+        .blog-grid { display: grid; gap: 15px; }
+        .blog-card { background: white; padding: 18px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; text-decoration: none; color: inherit; display: block; border-left: 5px solid #ccc; }
+        .blog-card:hover { transform: translateY(-3px); border-left-color: var(--primary); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .blog-card h3 { margin: 0 0 8px; color: #222; font-size: 1.2rem; }
+        .blog-card p { margin: 0; color: #666; font-size: 0.9rem; line-height: 1.4; }
+        .tag { display: inline-block; background: #e7f3ff; color: var(--primary); padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: bold; margin-bottom: 8px; }
+        @media (max-width: 600px) { .header { padding: 20px 10px; } }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1>JEE Master Hub Blog</h1>
-    <p>Aapki Safalta ka Roadmap - Articles & Strategies</p>
-    <a href="index.html" style="text-decoration:none; color:var(--primary);">← Home Par Jayein</a>
+    <p>Success Roadmap & Study Material</p>
+    <a href="index.html" style="text-decoration:none; color:var(--primary); font-weight:bold;">← Home Par Jayein</a>
 </div>
 
 <div class="container">
     <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchBlog()" placeholder="Topic search karein (e.g. Physics, Chemistry)...">
+        <input type="text" id="searchInput" onkeyup="searchBlog()" placeholder="Topic search karein (e.g. Maths, Books, Tips)...">
     </div>
 
     <div class="blog-grid" id="blogList">
         <a href="physics-strategy.html" class="blog-card">
             <span class="tag">Physics</span>
             <h3>JEE Mains 2026: Physics Revision Strategy</h3>
-            <p>Physics mein 80+ score karne ke liye in topics par focus karein...</p>
+            <p>Physics mein 80+ score karne ke liye high-weightage chapters aur revision plan.</p>
         </a>
-
         <a href="chemistry-tips.html" class="blog-card">
             <span class="tag">Chemistry</span>
             <h3>How to Master Organic Chemistry</h3>
-            <p>Reaction mechanism yaad karne ki sabse aasaan tricks yahan dekhein.</p>
+            <p>Reaction mechanisms aur named reactions yaad karne ki smart tricks.</p>
         </a>
-
         <a href="maths-mastery.html" class="blog-card">
             <span class="tag">Maths</span>
             <h3>Maths Important Chapters for JEE</h3>
-            <p>Calculus aur Algebra ke high-weightage chapters ki list.</p>
+            <p>Algebra, Calculus aur Coordinate Geometry ke most scoring topics.</p>
         </a>
-
         <a href="jee-mains-2026-guide.html" class="blog-card">
             <span class="tag">Guide</span>
             <h3>Complete JEE Mains 2026 Roadmap</h3>
-            <p>A to Z jaankari registration se lekar exam day tak.</p>
+            <p>Registration se lekar final exam day tak ki poori jaankari.</p>
         </a>
-
         <a href="best-books-jee.html" class="blog-card">
             <span class="tag">Resources</span>
             <h3>Best Books for JEE Preparation 2026</h3>
-            <p>IIT toppers dwara suggest ki gayi kitabon ki list.</p>
+            <p>IIT Toppers aur expert faculty dwara recommended kitabon ki list.</p>
         </a>
 
         <a href="mock-test-importance.html" class="blog-card">
             <span class="tag">Test Series</span>
             <h3>Why Mock Tests are Compulsory?</h3>
-            <p>Mock test dene ke fayde aur sahi tarika.</p>
+            <p>Exam temperament build karne aur time management seekhne ka sahi tarika.</p>
+        </a>
+        <a href="time-management.html" class="blog-card">
+            <span class="tag">Study Plan</span>
+            <h3>Perfect Time Table for JEE Aspirants</h3>
+            <p>School aur Coaching ke saath self-study manage karne ka daily routine.</p>
+        </a>
+        <a href="organic-chemistry-tricks.html" class="blog-card">
+            <span class="tag">Chemistry</span>
+            <h3>Organic Chemistry: Reagents and Reactions</h3>
+            <p>Sabhi important reagents aur unke functions ki complete guide.</p>
+        </a>
+        <a href="inorganic-memory-tips.html" class="blog-card">
+            <span class="tag">Chemistry</span>
+            <h3>Inorganic Chemistry Yaad Karne ke Tips</h3>
+            <p>Periodic table aur p-block jaise chapters ko asani se kaise yaad karein.</p>
+        </a>
+        <a href="physics-formula-sheet.html" class="blog-card">
+            <span class="tag">Physics</span>
+            <h3>Physics All Formulae Revision Sheet</h3>
+            <p>Exam se pehle quick revision ke liye sabhi chapters ke formulas.</p>
         </a>
 
-        </div>
+        <a href="maths-calculus-guide.html" class="blog-card">
+            <span class="tag">Maths</span>
+            <h3>Calculus Master Guide for JEE</h3>
+            <p>Integration aur Differentiation ke sawalon ko fast solve karne ki tips.</p>
+        </a>
+        <a href="last-month-revision.html" class="blog-card">
+            <span class="tag">Strategy</span>
+            <h3>Last Month Revision Plan for JEE</h3>
+            <p>Exam se 30 din pehle kya padhein aur kya chhodein.</p>
+        </a>
+        <a href="avoid-negative-marking.html" class="blog-card">
+            <span class="tag">Tips</span>
+            <h3>Negative Marking Kaise Kam Karein?</h3>
+            <p>Tukka marne se bachein aur accuracy badhane ke practical methods.</p>
+        </a>
+        <a href="jee-advanced-vs-mains.html" class="blog-card">
+            <span class="tag">Guide</span>
+            <h3>JEE Mains vs Advanced: Key Differences</h3>
+            <p>Dono exams ki preparation strategy mein kya antar hona chahiye.</p>
+        </a>
+        <a href="motivation-for-droppers.html" class="blog-card">
+            <span class="tag">Motivation</span>
+            <h3>Motivation Guide for JEE Droppers</h3>
+            <p>Drop year mein focus kaise banaye rakhein aur failure se kaise ladein.</p>
+        </a>
+
+        <a href="top-iits-cutoff.html" class="blog-card">
+            <span class="tag">Colleges</span>
+            <h3>Top 10 IITs and Their Cutoff Ranks</h3>
+            <p>Apne dream college ke liye target rank aur marks ki jaankari.</p>
+        </a>
+        <a href="nta-latest-updates.html" class="blog-card">
+            <span class="tag">News</span>
+            <h3>NTA Latest Updates & Notifications</h3>
+            <p>Exam dates, admit cards aur eligibility criteria par sabse tez update.</p>
+        </a>
+        <a href="error-analysis-tips.html" class="blog-card">
+            <span class="tag">Analysis</span>
+            <h3>How to Analyze Your Mock Tests</h3>
+            <p>Test dene ke baad apni galtiyon se kaise seekhein.</p>
+        </a>
+        <a href="daily-study-routine.html" class="blog-card">
+            <span class="tag">Routine</span>
+            <h3>12-Hour Study Routine for IIT JEE</h3>
+            <p>Maximum productivity ke liye ek balanced study schedule.</p>
+        </a>
+        <a href="exam-day-instructions.html" class="blog-card">
+            <span class="tag">News</span>
+            <h3>JEE Exam Day: Important Instructions</h3>
+            <p>Dress code, documents aur centre par dhyan rakhne wali baatein.</p>
+        </a>
+    </div>
 </div>
 
 <script>
     function searchBlog() {
         let input = document.getElementById('searchInput').value.toUpperCase();
         let cards = document.getElementsByClassName('blog-card');
-        
         for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].getElementsByTagName('h3')[0];
-            if (title.innerText.toUpperCase().indexOf(input) > -1) {
+            let title = cards[i].getElementsByTagName('h3')[0].innerText.toUpperCase();
+            let tag = cards[i].getElementsByTagName('span')[0].innerText.toUpperCase();
+            if (title.indexOf(input) > -1 || tag.indexOf(input) > -1) {
                 cards[i].style.display = "";
             } else {
                 cards[i].style.display = "none";
